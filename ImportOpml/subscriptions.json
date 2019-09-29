@@ -1,0 +1,923 @@
+{
+"a": {
+"outline": [
+{
+"t": "rss",
+"title": "Coding Horror",
+"text": "Coding Horror",
+"htmlurl": "http://feeds.feedburner.com/codinghorror",
+"xmlUrl": "http://feeds.feedburner.com/codinghorror"
+},
+{
+"t": "rss",
+"title": "You’ve Been Haacked",
+"text": "You’ve Been Haacked",
+"htmlurl": "http://feeds.haacked.com/haacked",
+"xmlUrl": "http://feeds.haacked.com/haacked"
+},
+{
+"t": "rss",
+"title": "Mads Kristensen",
+"text": "Mads Kristensen",
+"htmlurl": "http://feeds.feedburner.com/netSlave",
+"xmlUrl": "http://feeds.feedburner.com/netSlave"
+},
+{
+"t": "rss",
+"title": "DaedTech",
+"text": "DaedTech",
+"htmlurl": "http://feeds.feedblitz.com/daedtech/www",
+"xmlUrl": "http://feeds.feedblitz.com/daedtech/www"
+},
+{
+"t": "rss",
+"title": "Dan Wahlin",
+"text": "Dan Wahlin",
+"htmlurl": "http://feeds.feedburner.com/dwahlin",
+"xmlUrl": "http://feeds.feedburner.com/dwahlin"
+},
+{
+"t": "rss",
+"title": "Kitchen Soap",
+"text": "Kitchen Soap",
+"htmlurl": "https://www.kitchensoap.com/feed/",
+"xmlUrl": "https://www.kitchensoap.com/feed/"
+},
+{
+"t": "rss",
+"title": "Jeffrey Palermo (.com)",
+"text": "Jeffrey Palermo (.com)",
+"htmlurl": "http://feeds.jeffreypalermo.com/jeffreypalermo",
+"xmlUrl": "http://feeds.jeffreypalermo.com/jeffreypalermo"
+},
+{
+"t": "rss",
+"title": "Julia Evans",
+"text": "Julia Evans",
+"htmlurl": "https://jvns.ca/atom.xml",
+"xmlUrl": "https://jvns.ca/atom.xml"
+},
+{
+"t": "rss",
+"title": "KRYZYS WIEKU",
+"text": "KRYZYS WIEKU",
+"htmlurl": "http://kryzyswieku.blogspot.com/feeds/posts/default?alt=rss",
+"xmlUrl": "http://kryzyswieku.blogspot.com/feeds/posts/default?alt=rss"
+},
+{
+"t": "rss",
+"title": "www.howarddierking.com",
+"text": "www.howarddierking.com",
+"htmlurl": "https://www.howarddierking.com/rss.xml",
+"xmlUrl": "https://www.howarddierking.com/rss.xml"
+},
+{
+"t": "rss",
+"title": "ChangeMaker",
+"text": "ChangeMaker",
+"htmlurl": "http://blog.krolartur.com/feed/",
+"xmlUrl": "http://blog.krolartur.com/feed/"
+},
+{
+"t": "rss",
+"title": "wszędzie barany",
+"text": "wszędzie barany",
+"htmlurl": "https://wszedziebarany.wordpress.com/feed/",
+"xmlUrl": "https://wszedziebarany.wordpress.com/feed/"
+},
+{
+"t": "rss",
+"title": "devlab.pl",
+"text": "devlab.pl",
+"htmlurl": "http://devlab.pl/feed/",
+"xmlUrl": "http://devlab.pl/feed/"
+},
+{
+"t": "rss",
+"title": "Basia Fusińska o IT",
+"text": "Basia Fusińska o IT",
+"htmlurl": "http://itblogs.pl/coldfusion/feed/",
+"xmlUrl": "http://itblogs.pl/coldfusion/feed/"
+},
+{
+"t": "rss",
+"title": "Agile247.pl",
+"text": "Agile247.pl",
+"htmlurl": "http://www.agile247.pl/feed/",
+"xmlUrl": "http://www.agile247.pl/feed/"
+},
+{
+"t": "rss",
+"title": "Marcin Kwiecinski",
+"text": "Marcin Kwiecinski",
+"htmlurl": "https://marcinkwiecinski.pl/feed/",
+"xmlUrl": "https://marcinkwiecinski.pl/feed/"
+},
+{
+"t": "rss",
+"title": "AltexSoft",
+"text": "AltexSoft",
+"htmlurl": "https://www.altexsoft.com/feed/",
+"xmlUrl": "https://www.altexsoft.com/feed/"
+},
+{
+"t": "rss",
+"title": "Komentarze do: Strona główna",
+"text": "Komentarze do: Strona główna",
+"htmlurl": "https://marketerplus.pl/strona-glowna/feed/",
+"xmlUrl": "https://marketerplus.pl/strona-glowna/feed/"
+},
+{
+"t": "rss",
+"title": "@herbertograca",
+"text": "@herbertograca",
+"htmlurl": "https://herbertograca.com/feed/",
+"xmlUrl": "https://herbertograca.com/feed/"
+},
+{
+"t": "rss",
+"title": "FRIS",
+"text": "FRIS",
+"htmlurl": "https://fris.pl/feed",
+"xmlUrl": "https://fris.pl/feed"
+},
+{
+"t": "rss",
+"title": "Marcin Osman",
+"text": "Marcin Osman",
+"htmlurl": "https://www.marcinosman.pl/feed/",
+"xmlUrl": "https://www.marcinosman.pl/feed/"
+},
+{
+"t": "rss",
+"title": "programistologia",
+"text": "programistologia",
+"htmlurl": "https://programistologia.pl/feed/",
+"xmlUrl": "https://programistologia.pl/feed/"
+},
+{
+"t": "rss",
+"title": "Andrew Lock | .NET Escapades",
+"text": "Andrew Lock | .NET Escapades",
+"htmlurl": "https://andrewlock.net/rss.xml",
+"xmlUrl": "https://andrewlock.net/rss.xml"
+},
+{
+"t": "rss",
+"title": "Kamil Grzybek",
+"text": "Kamil Grzybek",
+"htmlurl": "http://www.kamilgrzybek.com/feed/",
+"xmlUrl": "http://www.kamilgrzybek.com/feed/"
+},
+{
+"t": "rss",
+"title": "Illustrated.dev",
+"text": "Illustrated.dev",
+"htmlurl": "https://illustrated.dev/rss.xml",
+"xmlUrl": "https://illustrated.dev/rss.xml"
+},
+{
+"t": "rss",
+"title": "CleanCode.blog | Mateusz Palichleb",
+"text": "CleanCode.blog | Mateusz Palichleb",
+"htmlurl": "http://cleancode.blog/feed/",
+"xmlUrl": "http://cleancode.blog/feed/"
+},
+{
+"t": "rss",
+"title": "Blog – Lean jest dla ludzi – Krzysztof Dobrowolski",
+"text": "Blog – Lean jest dla ludzi – Krzysztof Dobrowolski",
+"htmlurl": "https://leanjestdlaludzi.pl/category/blog/feed/",
+"xmlUrl": "https://leanjestdlaludzi.pl/category/blog/feed/"
+},
+{
+"t": "rss",
+"title": "Szymon Motyka",
+"text": "Szymon Motyka",
+"htmlurl": "https://szymonmotyka.pl/feed/",
+"xmlUrl": "https://szymonmotyka.pl/feed/"
+},
+{
+"t": "rss",
+"title": "Poznaj Gita",
+"text": "Poznaj Gita",
+"htmlurl": "https://poznajgita.pl/feed/",
+"xmlUrl": "https://poznajgita.pl/feed/"
+},
+{
+"t": "rss",
+"title": "Ola Qnysz",
+"text": "Ola Qnysz",
+"htmlurl": "https://olaqnysz.blogspot.com/feeds/posts/default?alt=rss",
+"xmlUrl": "https://olaqnysz.blogspot.com/feeds/posts/default?alt=rss"
+},
+{
+"t": "rss",
+"title": "Decoding the code",
+"text": "Decoding the code",
+"htmlurl": "https://mrmatrix.net/feed/",
+"xmlUrl": "https://mrmatrix.net/feed/"
+},
+{
+"t": "rss",
+"title": "Mergujmy, nikt nie woła!",
+"text": "Mergujmy, nikt nie woła!",
+"htmlurl": "http://mergujmyniktniewola.it/feed.xml",
+"xmlUrl": "http://mergujmyniktniewola.it/feed.xml"
+},
+{
+"t": "rss",
+"title": "Mateusz Mazurek",
+"text": "Mateusz Mazurek",
+"htmlurl": "https://mmazurek.dev/feed/",
+"xmlUrl": "https://mmazurek.dev/feed/"
+},
+{
+"t": "rss",
+"title": "Jak zostać Seniorem?",
+"text": "Jak zostać Seniorem?",
+"htmlurl": "https://jakzostacseniorem.pl/feed/",
+"xmlUrl": "https://jakzostacseniorem.pl/feed/"
+},
+{
+"t": "rss",
+"title": "Radek Maziarka",
+"text": "Radek Maziarka",
+"htmlurl": "https://radekmaziarka.pl/pl/feed/",
+"xmlUrl": "https://radekmaziarka.pl/pl/feed/"
+},
+{
+"t": "rss",
+"title": "Stevan Popovic",
+"text": "Stevan Popovic",
+"htmlurl": "https://www.stevanpopovic.com/rss.xml",
+"xmlUrl": "https://www.stevanpopovic.com/rss.xml"
+},
+{
+"t": "rss",
+"title": "Joel on Software",
+"text": "Joel on Software",
+"htmlurl": "http://www.joelonsoftware.com/rss.xml",
+"xmlUrl": "http://www.joelonsoftware.com/rss.xml"
+},
+{
+"t": "rss",
+"title": "DevSnippets » DevSnippets » Category » Article",
+"text": "DevSnippets » DevSnippets » Category » Article",
+"htmlurl": "http://feeds.feedburner.com/Devsnippets",
+"xmlUrl": "http://feeds.feedburner.com/Devsnippets"
+},
+{
+"t": "rss",
+"title": "Scott Hanselman's Blog",
+"text": "Scott Hanselman's Blog",
+"htmlurl": "http://feeds.hanselman.com/scotthanselman",
+"xmlUrl": "http://feeds.hanselman.com/scotthanselman"
+},
+{
+"t": "rss",
+"title": "CodeBetter.Com Posts",
+"text": "CodeBetter.Com Posts",
+"htmlurl": "http://feeds.feedburner.com/CodeBetter",
+"xmlUrl": "http://feeds.feedburner.com/CodeBetter"
+},
+{
+"t": "rss",
+"title": "Successful Software",
+"text": "Successful Software",
+"htmlurl": "https://successfulsoftware.net/feed/",
+"xmlUrl": "https://successfulsoftware.net/feed/"
+},
+{
+"t": "rss",
+"title": "Niebezpiecznik.pl",
+"text": "Niebezpiecznik.pl",
+"htmlurl": "http://feeds.feedburner.com/niebezpiecznik/",
+"xmlUrl": "http://feeds.feedburner.com/niebezpiecznik/"
+},
+{
+"t": "rss",
+"title": "Dhananjay Kumar",
+"text": "Dhananjay Kumar",
+"htmlurl": "https://debugmode.net/feed/",
+"xmlUrl": "https://debugmode.net/feed/"
+},
+{
+"t": "rss",
+"title": "Piotr Zieliński",
+"text": "Piotr Zieliński",
+"htmlurl": "http://feeds.feedburner.com/PiotrZielinski",
+"xmlUrl": "http://feeds.feedburner.com/PiotrZielinski"
+},
+{
+"t": "rss",
+"title": "Pawel Brodzinski on Software Project Management",
+"text": "Pawel Brodzinski on Software Project Management",
+"htmlurl": "http://feeds.feedburner.com/SoftwareProjectManagement",
+"xmlUrl": "http://feeds.feedburner.com/SoftwareProjectManagement"
+},
+{
+"t": "rss",
+"title": "ITbiznes.pl - najnowsze wiadomości",
+"text": "ITbiznes.pl - najnowsze wiadomości",
+"htmlurl": "http://itbiznes.pl/xml/rss.xml",
+"xmlUrl": "http://itbiznes.pl/xml/rss.xml"
+},
+{
+"t": "rss",
+"title": "dotnetomaniak.pl - Ostatnio opublikowane artykuły",
+"text": "dotnetomaniak.pl - Ostatnio opublikowane artykuły",
+"htmlurl": "http://feeds.feedburner.com/Dotnetomaniakpl-OstatnioOpublikowaneArtykuy",
+"xmlUrl": "http://feeds.feedburner.com/Dotnetomaniakpl-OstatnioOpublikowaneArtykuy"
+},
+{
+"t": "rss",
+"title": "devstyle.pl",
+"text": "devstyle.pl",
+"htmlurl": "http://feeds.feedburner.com/maciejaniserowicz",
+"xmlUrl": "http://feeds.feedburner.com/maciejaniserowicz"
+},
+{
+"t": "rss",
+"title": "[∞] Amazedsaint's Tech Journal",
+"text": "[∞] Amazedsaint's Tech Journal",
+"htmlurl": "http://feeds.feedburner.com/amazedsaint/articles",
+"xmlUrl": "http://feeds.feedburner.com/amazedsaint/articles"
+},
+{
+"t": "rss",
+"title": "Josh Smith on WPF",
+"text": "Josh Smith on WPF",
+"htmlurl": "https://joshsmithonwpf.wordpress.com/feed/",
+"xmlUrl": "https://joshsmithonwpf.wordpress.com/feed/"
+},
+{
+"t": "rss",
+"title": "Pete Brown's Blog (POKE 53280,0)",
+"text": "Pete Brown's Blog (POKE 53280,0)",
+"htmlurl": "http://feeds.feedburner.com/PeteBrown",
+"xmlUrl": "http://feeds.feedburner.com/PeteBrown"
+},
+{
+"t": "rss",
+"title": "Nick Berardi",
+"text": "Nick Berardi",
+"htmlurl": "http://feeds.feedburner.com/coderjournal",
+"xmlUrl": "http://feeds.feedburner.com/coderjournal"
+},
+{
+"t": "rss",
+"title": "ASP.NET Weblogs",
+"text": "ASP.NET Weblogs",
+"htmlurl": "http://weblogs.asp.net/MainFeed.aspx",
+"xmlUrl": "http://weblogs.asp.net/MainFeed.aspx"
+},
+{
+"t": "rss",
+"title": "OdeToCode by K. Scott Allen",
+"text": "OdeToCode by K. Scott Allen",
+"htmlurl": "http://feeds.feedburner.com/OdeToCode",
+"xmlUrl": "http://feeds.feedburner.com/OdeToCode"
+},
+{
+"t": "rss",
+"title": "DevOps Reactions",
+"text": "DevOps Reactions",
+"htmlurl": "https://devopsreactions.tumblr.com/rss#_=_",
+"xmlUrl": "https://devopsreactions.tumblr.com/rss#_=_"
+},
+{
+"t": "rss",
+"title": "ScottGu's Blog",
+"text": "ScottGu's Blog",
+"htmlurl": "https://weblogs.asp.net/scottgu/rss?containerid=13",
+"xmlUrl": "https://weblogs.asp.net/scottgu/rss?containerid=13"
+},
+{
+"t": "rss",
+"title": "PowerShell Team Blog",
+"text": "PowerShell Team Blog",
+"htmlurl": "https://blogs.msdn.microsoft.com/powershell/feed/",
+"xmlUrl": "https://blogs.msdn.microsoft.com/powershell/feed/"
+},
+{
+"t": "rss",
+"title": "Ciężkie dni czyli mały r. w wielkiej korporacji",
+"text": "Ciężkie dni czyli mały r. w wielkiej korporacji",
+"htmlurl": "http://ciezkiedni.blox.pl/rss2",
+"xmlUrl": "http://ciezkiedni.blox.pl/rss2"
+},
+{
+"t": "rss",
+"title": "Jon Skeet's coding blog",
+"text": "Jon Skeet's coding blog",
+"htmlurl": "http://feeds.feedburner.com/JonSkeetCodingBlog",
+"xmlUrl": "http://feeds.feedburner.com/JonSkeetCodingBlog"
+},
+{
+"t": "rss",
+"title": "Charles Petzold",
+"text": "Charles Petzold",
+"htmlurl": "http://www.charlespetzold.com/rss.xml",
+"xmlUrl": "http://www.charlespetzold.com/rss.xml"
+},
+{
+"t": "rss",
+"title": "Blogging Windows",
+"text": "Blogging Windows",
+"htmlurl": "https://blogs.windows.com/windows/b/bloggingwindows/rss.aspx?Redirected=true",
+"xmlUrl": "https://blogs.windows.com/windows/b/bloggingwindows/rss.aspx?Redirected=true"
+},
+{
+"t": "rss",
+"title": "Hacking.pl najnowsze wiadomości",
+"text": "Hacking.pl najnowsze wiadomości",
+"htmlurl": "http://feeds.feedburner.com/hacking-pl",
+"xmlUrl": "http://feeds.feedburner.com/hacking-pl"
+},
+{
+"t": "rss",
+"title": "Kopalnia Wiedzy",
+"text": "Kopalnia Wiedzy",
+"htmlurl": "https://kopalniawiedzy.pl/wiadomosci_technologie.rss",
+"xmlUrl": "https://kopalniawiedzy.pl/wiadomosci_technologie.rss"
+},
+{
+"t": "rss",
+"title": "Windows Phone Hacker",
+"text": "Windows Phone Hacker",
+"htmlurl": "http://windowsphonehacker.com/rss.php",
+"xmlUrl": "http://windowsphonehacker.com/rss.php"
+},
+{
+"t": "rss",
+"title": "Blog - Roy Osherove",
+"text": "Blog - Roy Osherove",
+"htmlurl": "http://feeds.feedburner.com/Iserializable",
+"xmlUrl": "http://feeds.feedburner.com/Iserializable"
+},
+{
+"t": "rss",
+"title": "ASP.NET Blog",
+"text": "ASP.NET Blog",
+"htmlurl": "https://devblogs.microsoft.com/aspnet/feed/",
+"xmlUrl": "https://devblogs.microsoft.com/aspnet/feed/"
+},
+{
+"t": "rss",
+"title": "Tomasz Nurkiewicz around Java and concurrency",
+"text": "Tomasz Nurkiewicz around Java and concurrency",
+"htmlurl": "https://www.nurkiewicz.com/feeds/posts/default",
+"xmlUrl": "https://www.nurkiewicz.com/feeds/posts/default"
+},
+{
+"t": "rss",
+"title": "Developing for Windows",
+"text": "Developing for Windows",
+"htmlurl": "https://blogs.windows.com/windows/archive/b/developers/rss.aspx?Redirected=true",
+"xmlUrl": "https://blogs.windows.com/windows/archive/b/developers/rss.aspx?Redirected=true"
+},
+{
+"t": "rss",
+"title": "Fear and Loathing",
+"text": "Fear and Loathing",
+"htmlurl": "http://feeds.feedburner.com/bsimser",
+"xmlUrl": "http://feeds.feedburner.com/bsimser"
+},
+{
+"t": "rss",
+"title": ".mischief.mayhem.soap.",
+"text": ".mischief.mayhem.soap.",
+"htmlurl": "http://feeds.feedburner.com/mischiefmayhemsoap",
+"xmlUrl": "http://feeds.feedburner.com/mischiefmayhemsoap"
+},
+{
+"t": "rss",
+"title": "develway.pl - wiadomości dla programistów, wiadomości IT, świeże linki ze świata IT",
+"text": "develway.pl - wiadomości dla programistów, wiadomości IT, świeże linki ze świata IT",
+"htmlurl": "http://feeds.feedburner.com/Develwaypl",
+"xmlUrl": "http://feeds.feedburner.com/Develwaypl"
+},
+{
+"t": "rss",
+"title": "Greg Young's Blog",
+"text": "Greg Young's Blog",
+"htmlurl": "https://goodenoughsoftware.net/feed/",
+"xmlUrl": "https://goodenoughsoftware.net/feed/"
+},
+{
+"t": "rss",
+"title": "Holistycznie o inżynierii oprogramowania",
+"text": "Holistycznie o inżynierii oprogramowania",
+"htmlurl": "http://art-of-software.blogspot.com/feeds/posts/default",
+"xmlUrl": "http://art-of-software.blogspot.com/feeds/posts/default"
+},
+{
+"t": "rss",
+"title": "Sacha's Blog",
+"text": "Sacha's Blog",
+"htmlurl": "https://sachabarbs.wordpress.com/feed/",
+"xmlUrl": "https://sachabarbs.wordpress.com/feed/"
+},
+{
+"t": "rss",
+"title": "dnrTV",
+"text": "dnrTV",
+"htmlurl": "http://feeds.feedburner.com/DnrtvWmv",
+"xmlUrl": "http://feeds.feedburner.com/DnrtvWmv"
+},
+{
+"t": "rss",
+"title": " Premium Hands",
+"text": " Premium Hands",
+"htmlurl": "http://premium-hands.blogspot.com/feeds/posts/default",
+"xmlUrl": "http://premium-hands.blogspot.com/feeds/posts/default"
+},
+{
+"t": "rss",
+"title": "Andy's Blog",
+"text": "Andy's Blog",
+"htmlurl": "http://andybeaulieu.com/Home/tabid/67/rssid/2/Default.aspx",
+"xmlUrl": "http://andybeaulieu.com/Home/tabid/67/rssid/2/Default.aspx"
+},
+{
+"t": "rss",
+"title": "Daniel Vaughan",
+"text": "Daniel Vaughan",
+"htmlurl": "http://danielvaughan.orpius.com/syndication.axd",
+"xmlUrl": "http://danielvaughan.orpius.com/syndication.axd"
+},
+{
+"t": "rss",
+"title": "The Morning Brew",
+"text": "The Morning Brew",
+"htmlurl": "http://feeds.feedburner.com/ReflectivePerspective?format=xml",
+"xmlUrl": "http://feeds.feedburner.com/ReflectivePerspective?format=xml"
+},
+{
+"t": "rss",
+"title": "James Michael Hare",
+"text": "James Michael Hare",
+"htmlurl": "http://feeds.feedburner.com/BlackRabbitCoder?format=xml",
+"xmlUrl": "http://feeds.feedburner.com/BlackRabbitCoder?format=xml"
+},
+{
+"t": "rss",
+"title": "Dave Bost",
+"text": "Dave Bost",
+"htmlurl": "http://feeds.feedburner.com/davebost",
+"xmlUrl": "http://feeds.feedburner.com/davebost"
+},
+{
+"t": "rss",
+"title": "eat code sleep",
+"text": "eat code sleep",
+"htmlurl": "http://stephangerbling.blogspot.com/feeds/posts/default",
+"xmlUrl": "http://stephangerbling.blogspot.com/feeds/posts/default"
+},
+{
+"t": "rss",
+"title": "U2U all posts",
+"text": "U2U all posts",
+"htmlurl": "https://blogs.u2u.be/all/rss",
+"xmlUrl": "https://blogs.u2u.be/all/rss"
+},
+{
+"t": "rss",
+"title": "Anonimowy programista",
+"text": "Anonimowy programista",
+"htmlurl": "http://feeds.feedburner.com/AnonimowyProgramista",
+"xmlUrl": "http://feeds.feedburner.com/AnonimowyProgramista"
+},
+{
+"t": "rss",
+"title": "Dotnet by Example",
+"text": "Dotnet by Example",
+"htmlurl": "http://feeds.feedburner.com/blogspot/dotnetbyexample",
+"xmlUrl": "http://feeds.feedburner.com/blogspot/dotnetbyexample"
+},
+{
+"t": "rss",
+"title": "CodeGuru: Aktualności",
+"text": "CodeGuru: Aktualności",
+"htmlurl": "http://codeguru.geekclub.pl/rss-aktualnosci/3",
+"xmlUrl": "http://codeguru.geekclub.pl/rss-aktualnosci/3"
+},
+{
+"t": "rss",
+"title": "Jakub Gutkowski",
+"text": "Jakub Gutkowski",
+"htmlurl": "http://feeds.feedburner.com/jakubg",
+"xmlUrl": "http://feeds.feedburner.com/jakubg"
+},
+{
+"t": "rss",
+"title": "ElegantCode",
+"text": "ElegantCode",
+"htmlurl": "http://feeds.feedburner.com/ElegantCode?format=xml",
+"xmlUrl": "http://feeds.feedburner.com/ElegantCode?format=xml"
+},
+{
+"t": "rss",
+"title": "Chronicle's of a Geek…",
+"text": "Chronicle's of a Geek…",
+"htmlurl": "https://amitchandnz.wordpress.com/feed/",
+"xmlUrl": "https://amitchandnz.wordpress.com/feed/"
+},
+{
+"t": "rss",
+"title": "istartedsomething",
+"text": "istartedsomething",
+"htmlurl": "https://www.istartedsomething.com/feed/",
+"xmlUrl": "https://www.istartedsomething.com/feed/"
+},
+{
+"t": "rss",
+"title": "Mobile Development",
+"text": "Mobile Development",
+"htmlurl": "http://feeds.feedburner.com/blogspot/sviluppomobile",
+"xmlUrl": "http://feeds.feedburner.com/blogspot/sviluppomobile"
+},
+{
+"t": "rss",
+"title": "Maciej Grabek",
+"text": "Maciej Grabek",
+"htmlurl": "http://maciejgrabek.com/feed/",
+"xmlUrl": "http://maciejgrabek.com/feed/"
+},
+{
+"t": "rss",
+"title": "Mike Francis' Blog",
+"text": "Mike Francis' Blog",
+"htmlurl": "http://feeds.feedburner.com/MikeFrancisMyBlog",
+"xmlUrl": "http://feeds.feedburner.com/MikeFrancisMyBlog"
+},
+{
+"t": "rss",
+"title": "Timdams's Blog",
+"text": "Timdams's Blog",
+"htmlurl": "https://timdams.com/feed/",
+"xmlUrl": "https://timdams.com/feed/"
+},
+{
+"t": "rss",
+"title": "Jerry Nixon on Windows",
+"text": "Jerry Nixon on Windows",
+"htmlurl": "http://feeds.feedburner.com/JerryNixonwork?format=xml",
+"xmlUrl": "http://feeds.feedburner.com/JerryNixonwork?format=xml"
+},
+{
+"t": "rss",
+"title": "Joy of software development",
+"text": "Joy of software development",
+"htmlurl": "http://blog.technicalleadership.pl/feeds/posts/default",
+"xmlUrl": "http://blog.technicalleadership.pl/feeds/posts/default"
+},
+{
+"t": "rss",
+"title": "Nicolas BESSON's weblog",
+"text": "Nicolas BESSON's weblog",
+"htmlurl": "http://feeds.feedburner.com/NicolasBessonsWeblog",
+"xmlUrl": "http://feeds.feedburner.com/NicolasBessonsWeblog"
+},
+{
+"t": "rss",
+"title": "Diary of a Code Trotter - Laurent Bugnion",
+"text": "Diary of a Code Trotter - Laurent Bugnion",
+"htmlurl": "http://feeds.feedburner.com/galasoft?format=xml",
+"xmlUrl": "http://feeds.feedburner.com/galasoft?format=xml"
+},
+{
+"t": "rss",
+"title": "Diary of a .Net Fan …",
+"text": "Diary of a .Net Fan …",
+"htmlurl": "https://rabeb.wordpress.com/feed/",
+"xmlUrl": "https://rabeb.wordpress.com/feed/"
+},
+{
+"t": "rss",
+"title": "Hadi Hariri",
+"text": "Hadi Hariri",
+"htmlurl": "http://feeds.feedburner.com/HadiHariri?format=xml",
+"xmlUrl": "http://feeds.feedburner.com/HadiHariri?format=xml"
+},
+{
+"t": "rss",
+"title": "Me z .NET tete-a-tete",
+"text": "Me z .NET tete-a-tete",
+"htmlurl": "http://paskol.robi.to/?feed=rss2",
+"xmlUrl": "http://paskol.robi.to/?feed=rss2"
+},
+{
+"t": "rss",
+"title": "Joe Mayo",
+"text": "Joe Mayo",
+"htmlurl": "http://geekswithblogs.net/WinAZ/Rss.aspx",
+"xmlUrl": "http://geekswithblogs.net/WinAZ/Rss.aspx"
+},
+{
+"t": "rss",
+"title": "Nick's .NET Travels",
+"text": "Nick's .NET Travels",
+"htmlurl": "http://feeds.feedburner.com/NicksNetTravels?format=xml",
+"xmlUrl": "http://feeds.feedburner.com/NicksNetTravels?format=xml"
+},
+{
+"t": "rss",
+"title": "Michael Crump",
+"text": "Michael Crump",
+"htmlurl": "http://feeds.feedburner.com/MichaelCrump?format=xml",
+"xmlUrl": "http://feeds.feedburner.com/MichaelCrump?format=xml"
+},
+{
+"t": "rss",
+"title": "Getting Things Programmed",
+"text": "Getting Things Programmed",
+"htmlurl": "http://blog.gettingthingsprogrammed.pl/feeds/posts/default?m=1",
+"xmlUrl": "http://blog.gettingthingsprogrammed.pl/feeds/posts/default?m=1"
+},
+{
+"t": "rss",
+"title": "WindowsPhoneGeek",
+"text": "WindowsPhoneGeek",
+"htmlurl": "http://feeds.feedburner.com/Windowsphonegeek?format=xml",
+"xmlUrl": "http://feeds.feedburner.com/Windowsphonegeek?format=xml"
+},
+{
+"t": "rss",
+"title": ".NET Videos",
+"text": ".NET Videos",
+"htmlurl": "http://www.dotnet-tv.com/feed/",
+"xmlUrl": "http://www.dotnet-tv.com/feed/"
+},
+{
+"t": "rss",
+"title": "http://dimecasts.net/",
+"text": "http://dimecasts.net/",
+"htmlurl": "http://feeds.feedburner.com/Dimecastsnet--InformAndEducateIn10MinutesOrLess?format=xml",
+"xmlUrl": "http://feeds.feedburner.com/Dimecastsnet--InformAndEducateIn10MinutesOrLess?format=xml"
+},
+{
+"t": "rss",
+"title": "MychaPycha",
+"text": "MychaPycha",
+"htmlurl": "http://mycha-pycha.blogspot.com/feeds/posts/default",
+"xmlUrl": "http://mycha-pycha.blogspot.com/feeds/posts/default"
+},
+{
+"t": "rss",
+"title": "dziewczyna-programisty blog",
+"text": "dziewczyna-programisty blog",
+"htmlurl": "http://dziewczyna-programisty.blog.pl/feed/",
+"xmlUrl": "http://dziewczyna-programisty.blog.pl/feed/"
+},
+{
+"t": "rss",
+"title": "Alt Control Delete - Blog IT",
+"text": "Alt Control Delete - Blog IT",
+"htmlurl": "http://feeds.feedburner.com/altcontroldelete?format=xml",
+"xmlUrl": "http://feeds.feedburner.com/altcontroldelete?format=xml"
+},
+{
+"t": "rss",
+"title": "Future Processing » Strona nie została znaleziona",
+"text": "Future Processing » Strona nie została znaleziona",
+"htmlurl": "http://www.future-processing.pl/slider/blog-techniczny-fp/feed/feed/",
+"xmlUrl": "http://www.future-processing.pl/slider/blog-techniczny-fp/feed/feed/"
+},
+{
+"t": "rss",
+"title": "C#er : IMage",
+"text": "C#er : IMage",
+"htmlurl": "http://feeds.feedburner.com/CSharperImage?format=xml",
+"xmlUrl": "http://feeds.feedburner.com/CSharperImage?format=xml"
+},
+{
+"t": "rss",
+"title": "www.WEBlogIT.pl – WEB – BLOG – IT",
+"text": "www.WEBlogIT.pl – WEB – BLOG – IT",
+"htmlurl": "http://feeds.feedburner.com/Wwwweblogitpl-Web-Blog-It",
+"xmlUrl": "http://feeds.feedburner.com/Wwwweblogitpl-Web-Blog-It"
+},
+{
+"t": "rss",
+"title": "Komentarze do:",
+"text": "Komentarze do:",
+"htmlurl": "http://codingtv.pl/konferencje/feed/",
+"xmlUrl": "http://codingtv.pl/konferencje/feed/"
+},
+{
+"t": "rss",
+"title": "DotNetSurfers",
+"text": "DotNetSurfers",
+"htmlurl": "http://www.dotnetsurfers.com/atom.xml",
+"xmlUrl": "http://www.dotnetsurfers.com/atom.xml"
+},
+{
+"t": "rss",
+"title": "Latest .NET developer content from Developer Fusion",
+"text": "Latest .NET developer content from Developer Fusion",
+"htmlurl": "https://www.developerfusion.com/t/.net/format/rss",
+"xmlUrl": "https://www.developerfusion.com/t/.net/format/rss"
+},
+{
+"t": "rss",
+"title": "Technology Women",
+"text": "Technology Women",
+"htmlurl": "http://technologywomen.pl/feed/",
+"xmlUrl": "http://technologywomen.pl/feed/"
+},
+{
+"t": "rss",
+"title": "Simple Programmer",
+"text": "Simple Programmer",
+"htmlurl": "http://feeds.feedburner.com/MakingTheComplexSimple?format=xml",
+"xmlUrl": "http://feeds.feedburner.com/MakingTheComplexSimple?format=xml"
+},
+{
+"t": "rss",
+"title": "DougRathbone.com",
+"text": "DougRathbone.com",
+"htmlurl": "http://feeds.feedburner.com/DiaryOfANinja?format=xml",
+"xmlUrl": "http://feeds.feedburner.com/DiaryOfANinja?format=xml"
+},
+{
+"t": "rss",
+"title": "Pszeczkole",
+"text": "Pszeczkole",
+"htmlurl": "http://pszeczkole.blogspot.com/feeds/posts/default",
+"xmlUrl": "http://pszeczkole.blogspot.com/feeds/posts/default"
+},
+{
+"t": "rss",
+"title": "fones",
+"text": "fones",
+"htmlurl": "http://feeds.feedburner.com/fones",
+"xmlUrl": "http://feeds.feedburner.com/fones"
+},
+{
+"t": "rss",
+"title": "Michał Jankowski",
+"text": "Michał Jankowski",
+"htmlurl": "https://www.jankowskimichal.pl/feed/",
+"xmlUrl": "https://www.jankowskimichal.pl/feed/"
+},
+{
+"t": "rss",
+"title": "Gunnar Peipman – Programming Blog",
+"text": "Gunnar Peipman – Programming Blog",
+"htmlurl": "http://feeds.feedburner.com/gunnarpeipman?format=xml",
+"xmlUrl": "http://feeds.feedburner.com/gunnarpeipman?format=xml"
+},
+{
+"t": "rss",
+"title": "rysunki.me",
+"text": "rysunki.me",
+"htmlurl": "http://rysunki.me/feed/",
+"xmlUrl": "http://rysunki.me/feed/"
+},
+{
+"t": "rss",
+"title": "boli blog",
+"text": "boli blog",
+"htmlurl": "http://boli.blog.pl/feed/",
+"xmlUrl": "http://boli.blog.pl/feed/"
+},
+{
+"t": "rss",
+"title": "Geek&#38;Poke",
+"text": "Geek&#38;Poke",
+"htmlurl": "http://feeds.feedburner.com/GeekAndPoke",
+"xmlUrl": "http://feeds.feedburner.com/GeekAndPoke"
+},
+{
+"t": "rss",
+"title": "Untitled",
+"text": "Untitled",
+"htmlurl": "http://the-prophet.tumblr.com/rss",
+"xmlUrl": "http://the-prophet.tumblr.com/rss"
+},
+{
+"t": "rss",
+"title": "Barwy Biedy",
+"text": "Barwy Biedy",
+"htmlurl": "http://barwybiedy.blogspot.com/feeds/posts/default",
+"xmlUrl": "http://barwybiedy.blogspot.com/feeds/posts/default"
+},
+{
+"t": "rss",
+"title": "Fotografie i inne kwiatki",
+"text": "Fotografie i inne kwiatki",
+"htmlurl": "http://chryzokola.blogspot.com/feeds/posts/default",
+"xmlUrl": "http://chryzokola.blogspot.com/feeds/posts/default"
+},
+{
+"t": "rss",
+"title": "Nad brzegiem biurka usiadłam i płakałam",
+"text": "Nad brzegiem biurka usiadłam i płakałam",
+"htmlurl": "http://feeds.feedburner.com/NadBrzegiemBiurkaUsiadamIPakaam?format=xml",
+"xmlUrl": "http://feeds.feedburner.com/NadBrzegiemBiurkaUsiadamIPakaam?format=xml"
+}
+]
+}
+}
