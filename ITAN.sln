@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Itan.Database", "Itan.Datab
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImportOpml", "ImportOpml\ImportOpml.csproj", "{E85DD612-C39C-4E12-99CC-FD51AB187EC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Itan.Functions", "Itan.Functions\Itan.Functions.csproj", "{70B4833B-0BF1-47D2-A3BA-707704448828}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Itan.Functions", "Itan.Functions\Itan.Functions.csproj", "{70B4833B-0BF1-47D2-A3BA-707704448828}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
