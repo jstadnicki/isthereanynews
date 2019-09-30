@@ -40,13 +40,14 @@ namespace Itan.Functions
             var blob = container.GetBlockBlobReference(channelDownloadPath);
             await blob.UploadTextAsync(channelString);
 
-            var query = "INSERT INTO ChannelDownloads (Id, ChannelId, Path, CreatedOn) VALUES (@id, @channelId, @path, @createdOn)";
+            var query = "INSERT INTO ChannelDownloads (Id, ChannelId, Path, CreatedOn, HashCode) VALUES (@id, @channelId, @path, @createdOn, @hashCode)";
             var data = new
             {
                 id = Guid.NewGuid(), 
                 channelId = channelToDownload.Id, 
                 path = channelDownloadPath,
-                createdOn = DateTime.UtcNow
+                createdOn = DateTime.UtcNow,
+                hashCode = channelString.GetHashCode()
             };
 
             var sqlConnectionString = config.GetConnectionString("sql-itan-writer");

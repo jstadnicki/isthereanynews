@@ -11,5 +11,6 @@ namespace Itan.Database
         public string Path { get; set; }
         public DateTime CreatedOn { get; set; }
         public Channel Channel { get; set; }
+        public int HashCode { get; set; }
     }
 }
