@@ -1,12 +1,14 @@
 using System;
-using System.IO;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Dapper;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace Itan.Functions
 {
@@ -22,21 +24,37 @@ namespace Itan.Functions
             var client = HttpClientFactory.Create();
             var channelString = await client.GetStringAsync(channelToDownload.Url);
 
-            var config = new ConfigurationBuilder()
+            var config = new ConfigurationBuilder() 
                 .SetBasePath(context.FunctionAppDirectory)
                 .AddJsonFile("local.settings.json", optional: true, reloadOnChange: true)
                 .AddEnvironmentVariables()
                 .Build();
 
-            var connectionString = config.GetConnectionString("emulator");
+            var emulatorConnectionString = config.GetConnectionString("emulator");
 
-            var account = CloudStorageAccount.Parse(connectionString);
+            var account = CloudStorageAccount.Parse(emulatorConnectionString);
             var serviceClient = account.CreateCloudBlobClient();
             var container = serviceClient.GetContainerReference("rss");
             await container.CreateIfNotExistsAsync();
-            var blob = container.GetBlockBlobReference($"{channelToDownload.Id}/{DateTime.UtcNow.ToString("yyyyMMddhhmmss_mmm")}");
+            var channelDownloadPath = $"raw/{channelToDownload.Id}/{DateTime.UtcNow.ToString("yyyyMMddhhmmss_mmm")}.xml";
+            var blob = container.GetBlockBlobReference(channelDownloadPath);
             await blob.UploadTextAsync(channelString);
 
+            var query = "INSERT INTO ChannelDownloads (Id, ChannelId, Path, CreatedOn) VALUES (@id, @channelId, @path, @createdOn)";
+            var data = new
+            {
+                id = Guid.NewGuid(), 
+                channelId = channelToDownload.Id, 
+                path = channelDownloadPath,
+                createdOn = DateTime.UtcNow
+            };
+
+            var sqlConnectionString = config.GetConnectionString("sql-itan-writer");
+
+            using (var sqlConnection = new SqlConnection(sqlConnectionString))
+            {
+                await sqlConnection.ExecuteAsync(query, data);
+            }
         }
     }
 }

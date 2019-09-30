@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Itan.Database
 {
@@ -8,5 +9,7 @@ namespace Itan.Database
         public string Url { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime ModifiedOn { get; set; }
+
+        public List<ChannelDownload> Downloads { get; set; }
     }
 }

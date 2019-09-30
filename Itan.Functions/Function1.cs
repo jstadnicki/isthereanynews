@@ -14,7 +14,7 @@ namespace Itan.Functions
     {
         [FunctionName("Function1")]
         public static async Task Run(
-            [TimerTrigger("0 */1 * * * *")]TimerInfo myTimer,
+            [TimerTrigger("0 * */1 * * *")]TimerInfo myTimer,
             ExecutionContext context,
             ILogger log,
             [Queue("ChannelToDownload",Connection = "emulator")]IAsyncCollector<ChannelToDownload> messagesCollector
@@ -30,7 +30,7 @@ namespace Itan.Functions
                 .AddEnvironmentVariables()
                 .Build();
 
-            var connectionString = config.GetConnectionString("sql-itan");
+            var connectionString = config.GetConnectionString("sql-itan-reader");
             List<ChannelToDownload> listOfChannelsToDownload;
             
             using (var sqlConnection = new SqlConnection(connectionString))
