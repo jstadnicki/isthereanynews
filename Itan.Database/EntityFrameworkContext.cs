@@ -1,7 +1,4 @@
-﻿using System.IO;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Itan.Database
 {
@@ -12,20 +9,15 @@ namespace Itan.Database
             
         }
         public DbSet<Channel> Channels { get; set; }
-    }
+        public DbSet<ChannelDownload> ChannelDownloads { get; set; }
 
-    internal class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<EntityFrameworkContext>
-    {
-        public EntityFrameworkContext CreateDbContext(string[] args)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            IConfigurationRoot configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
-                .Build();
-            var builder = new DbContextOptionsBuilder<EntityFrameworkContext>();
-            var connectionString = configuration.GetConnectionString("itansql");
-            builder.UseSqlServer(connectionString);
-            return new EntityFrameworkContext(builder.Options);
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<ChannelDownload>()
+                .HasIndex(x => new {x.ChannelId, x.HashCode})
+                .IsUnique(true);
         }
     }
 }

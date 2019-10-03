@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImportOpml", "ImportOpml\Im
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Itan.Functions", "Itan.Functions\Itan.Functions.csproj", "{70B4833B-0BF1-47D2-A3BA-707704448828}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Itan.Functions.Workers", "Itan.Functions.Workers\Itan.Functions.Workers.csproj", "{889E8017-6BEE-4973-A1FF-183D97C008CC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Itan.Functions.Models", "Itan.Functions.Models\Itan.Functions.Models.csproj", "{AC80FE03-8412-488A-A3E8-40A359274091}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{70B4833B-0BF1-47D2-A3BA-707704448828}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70B4833B-0BF1-47D2-A3BA-707704448828}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70B4833B-0BF1-47D2-A3BA-707704448828}.Release|Any CPU.Build.0 = Release|Any CPU
+		{889E8017-6BEE-4973-A1FF-183D97C008CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{889E8017-6BEE-4973-A1FF-183D97C008CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{889E8017-6BEE-4973-A1FF-183D97C008CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{889E8017-6BEE-4973-A1FF-183D97C008CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC80FE03-8412-488A-A3E8-40A359274091}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC80FE03-8412-488A-A3E8-40A359274091}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC80FE03-8412-488A-A3E8-40A359274091}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC80FE03-8412-488A-A3E8-40A359274091}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

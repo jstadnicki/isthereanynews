@@ -1,9 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data;
 
 namespace Itan.Database
 {
-    [Table("ChannelDownloads")]
+    [Table("ChannelDownloads")] 
     internal class ChannelDownload
     {
         public Guid Id { get; set; }
