@@ -27,7 +27,16 @@ namespace Itan.Functions.Workers
         {
             var channelToDownload = Newtonsoft.Json.JsonConvert.DeserializeObject<ChannelToDownload>(myQueueItem);
             var client = HttpClientFactory.Create();
-            var channelString = await client.GetStringAsync(channelToDownload.Url);
+            var channelString = string.Empty;
+            try
+            {
+                channelString = await client.GetStringAsync(channelToDownload.Url);
+            }
+            catch (Exception e)
+            {
+                this.log.LogWarning(e.ToString());
+                this.log.LogWarning($"Ending {nameof(Function2Worker)} in exception handler for `await client.GetStringAsync(channelToDownload.Url);`");
+            }
 
             var config = new ConfigurationBuilder()
                 .SetBasePath(this.functionAppDirectory)
@@ -74,9 +83,17 @@ namespace Itan.Functions.Workers
 
             var sqlConnectionString = config.GetConnectionString("sql-itan-writer");
 
-            using (var sqlConnection = new SqlConnection(sqlConnectionString))
+            try
             {
-                await sqlConnection.ExecuteAsync(query, data);
+                using (var sqlConnection = new SqlConnection(sqlConnectionString))
+                {
+                    await sqlConnection.ExecuteAsync(query, data);
+                }
+            }
+            catch (Exception e)
+            {
+                this.log.LogCritical(e.ToString());
+                throw;
             }
         }
     }
