@@ -13,6 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Itan.Functions.Workers", "I
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Itan.Functions.Models", "Itan.Functions.Models\Itan.Functions.Models.csproj", "{AC80FE03-8412-488A-A3E8-40A359274091}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Itan.Api", "Itan.Api\Itan.Api.csproj", "{46159449-4191-455A-8F03-7F9D8950945D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Itan.Application", "Itan.Application\Itan.Application.csproj", "{A93DBD8D-34D7-483B-9789-CB6068F6D8DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{AC80FE03-8412-488A-A3E8-40A359274091}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC80FE03-8412-488A-A3E8-40A359274091}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC80FE03-8412-488A-A3E8-40A359274091}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46159449-4191-455A-8F03-7F9D8950945D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46159449-4191-455A-8F03-7F9D8950945D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46159449-4191-455A-8F03-7F9D8950945D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46159449-4191-455A-8F03-7F9D8950945D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A93DBD8D-34D7-483B-9789-CB6068F6D8DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A93DBD8D-34D7-483B-9789-CB6068F6D8DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A93DBD8D-34D7-483B-9789-CB6068F6D8DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A93DBD8D-34D7-483B-9789-CB6068F6D8DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
