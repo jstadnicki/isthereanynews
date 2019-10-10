@@ -36,6 +36,7 @@ namespace Itan.Functions.Workers
             {
                 this.log.LogWarning(e.ToString());
                 this.log.LogWarning($"Ending {nameof(Function2Worker)} in exception handler for `await client.GetStringAsync(channelToDownload.Url);`");
+                return;
             }
 
             var config = new ConfigurationBuilder()

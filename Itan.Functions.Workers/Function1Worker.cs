@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,7 +17,7 @@ namespace Itan.Functions.Workers
 
         public Function1Worker(
             ILogger logger,
-            string functionAppDirectory, 
+            string functionAppDirectory,
             IAsyncCollector<ChannelToDownload> messagesCollector)
         {
             this.logger = logger;
@@ -28,10 +27,6 @@ namespace Itan.Functions.Workers
 
         public async Task Run()
         {
-            this.logger.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
-
-            var query = "SELECT c.Id, c.Url FROM Channels c";
-
             var config = new ConfigurationBuilder()
                 .SetBasePath(this.functionAppDirectory)
                 .AddJsonFile("local.settings.json", optional: true, reloadOnChange: true)
@@ -43,6 +38,7 @@ namespace Itan.Functions.Workers
 
             using (var sqlConnection = new SqlConnection(connectionString))
             {
+                var query = "SELECT c.Id, c.Url FROM Channels c";
                 var queryResult = await sqlConnection.QueryAsync<ChannelToDownload>(query);
                 listOfChannelsToDownload = queryResult.ToList();
             }

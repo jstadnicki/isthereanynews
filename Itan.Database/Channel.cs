@@ -11,5 +11,6 @@ namespace Itan.Database
         public DateTime ModifiedOn { get; set; }
 
         public List<ChannelDownload> Downloads { get; set; }
+        public List<News> News { get; set; }
     }
 }

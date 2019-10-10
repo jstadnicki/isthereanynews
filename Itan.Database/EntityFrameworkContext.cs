@@ -4,11 +4,11 @@ namespace Itan.Database
 {
     internal class EntityFrameworkContext : DbContext
     {
-        public EntityFrameworkContext(DbContextOptions options):base(options)
-        {
-            
+        public EntityFrameworkContext(DbContextOptions options) : base(options)
+        { 
         }
         public DbSet<Channel> Channels { get; set; }
+        public DbSet<News> News { get; set; }
         public DbSet<ChannelDownload> ChannelDownloads { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -16,7 +16,11 @@ namespace Itan.Database
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<ChannelDownload>()
-                .HasIndex(x => new {x.ChannelId, x.HashCode})
+                .HasIndex(x => new { x.ChannelId, x.HashCode })
+                .IsUnique(true);
+
+            modelBuilder.Entity<News>()
+                .HasIndex(x => new { x.ChannelId, x.HashCode })
                 .IsUnique(true);
         }
     }
