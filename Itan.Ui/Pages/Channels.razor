@@ -1,0 +1,30 @@
+﻿@page "/channels"
+@using Itan.Application
+@using Itan.Ui.Data
+
+<h1>Channels</h1>
+
+<p>Current count: @channels.Count </p>
+
+<button class="btn btn-primary" @onclick="Load">Load channels</button>
+
+@foreach (var c in this.channels)
+{
+    <div>
+        <span>@c.Title</span>
+        <span>(@c.Id)</span>
+    </div>
+    <div>
+        <span>@c.Url (@c.NewsCount)</span>
+    </div>
+}
+
+@code {
+
+    async Task Load()
+    {
+        this.channels = await ChannelsViewModelsDownloader.GetAllChannels();
+    }
+
+    List<ChannelViewModel> channels = new List<ChannelViewModel>();
+}

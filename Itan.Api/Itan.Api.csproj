@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Itan.Application\Itan.Application.csproj" />
+    <ProjectReference Include="..\Itan.Core\Itan.Core.csproj" />
   </ItemGroup>
 
 </Project>
