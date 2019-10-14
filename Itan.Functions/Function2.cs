@@ -1,5 +1,6 @@
  using System.Threading.Tasks;
-using Itan.Functions.Workers;
+ using Itan.Functions.Models;
+ using Itan.Functions.Workers;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 
@@ -9,7 +10,7 @@ namespace Itan.Functions
     {
         [FunctionName("Function2")]
         public static async Task Run(
-            [QueueTrigger("ChannelToDownload", Connection = "emulator")]string myQueueItem,
+            [QueueTrigger(QueuesName.ChannelToDownload, Connection = "emulator")]string myQueueItem,
             ExecutionContext context,
             ILogger log)
         {

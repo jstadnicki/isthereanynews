@@ -3,28 +3,35 @@
 @using Itan.Ui.Data
 
 <h1>Channels</h1>
+<div class="spinner-border @SpinnerClass" role="status">
+    <span class="sr-only">Loading...</span>
+</div>
 
-<p>Current count: @channels.Count </p>
+<div class="@ChannelsListClass">
+    <p>Current count: @channels.Count </p>
+    <ul class="list-group">
 
-<button class="btn btn-primary" @onclick="Load">Load channels</button>
+        @foreach (var c in this.channels)
+        {
+            <li class="list-group-item">
+                <span>@c.Title</span>
+                <span class="badge badge-primary badge-pill">@c.NewsCount</span>
+            </li>
+        }
+    </ul>
 
-@foreach (var c in this.channels)
-{
-    <div>
-        <span>@c.Title</span>
-        <span>(@c.Id)</span>
-    </div>
-    <div>
-        <span>@c.Url (@c.NewsCount)</span>
-    </div>
-}
-
+</div>
 @code {
 
-    async Task Load()
+    protected override async Task OnInitializedAsync()
     {
         this.channels = await ChannelsViewModelsDownloader.GetAllChannels();
+        this.channelsLoaded = true;
     }
 
     List<ChannelViewModel> channels = new List<ChannelViewModel>();
+    bool channelsLoaded = false;
+
+    public string SpinnerClass => channelsLoaded ? "invisible" : string.Empty;
+    public string ChannelsListClass => !channelsLoaded ? "invisible" : string.Empty;
 }

@@ -12,7 +12,7 @@ namespace Itan.Functions
         public static async Task Run(
             [TimerTrigger("0 * */1 * * *")]TimerInfo myTimer,
             ExecutionContext context,
-            [Queue("ChannelToDownload", Connection = "emulator")]IAsyncCollector<ChannelToDownload> messagesCollector,
+            [Queue(QueuesName.ChannelToDownload, Connection = "emulator")]IAsyncCollector<ChannelToDownload> messagesCollector,
             ILogger log
             )
         {

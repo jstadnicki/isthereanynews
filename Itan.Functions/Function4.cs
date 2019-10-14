@@ -1,6 +1,8 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using Itan.Functions.Models;
+using Itan.Functions.Workers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
@@ -13,21 +15,14 @@ namespace Itan.Functions
     public static class Function4
     {
         [FunctionName("Function4")]
-        public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
+        public static async Task Run(
+            [QueueTrigger(QueuesName.ChannelUpdate, Connection = "emulator")]string myQueueItem,
+            ExecutionContext context,
             ILogger log)
         {
-            log.LogInformation("C# HTTP trigger function processed a request.");
-
-            string name = req.Query["name"];
-
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            dynamic data = JsonConvert.DeserializeObject(requestBody);
-            name = name ?? data?.name;
-
-            return name != null
-                ? (ActionResult)new OkObjectResult($"Hello, {name}")
-                : new BadRequestObjectResult("Please pass a name on the query string or in the request body");
+            var message = JsonConvert.DeserializeObject<ChannelUpdate>(myQueueItem);
+            var worker = new Function4Worker(log, context.FunctionAppDirectory);
+            await worker.RunAsync(message);
         }
     }
 }

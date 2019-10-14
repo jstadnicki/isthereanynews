@@ -14,7 +14,7 @@ namespace ImportOpml
             var subs = Newtonsoft.Json.JsonConvert.DeserializeObject<RootObject>(substrictions);
             Console.WriteLine(subs);
 
-            using (var sqlconnection = new SqlConnection("Server=.;Database=itan;user=sa;password=1234qwer!@#$QWER;"))
+            using (var sqlconnection = new SqlConnection("Server=.\\sql2017;Database=itan;user=ITAN;password=1234qwer!@#$QWER;"))
             {
                 foreach (var outline in subs.a.outline)
                 {
