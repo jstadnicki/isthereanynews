@@ -51,12 +51,12 @@ namespace Itan.Functions.Workers
             var hashCode = channelString.GetHashCode();
             var sqlConnectionStringReader = config.GetConnectionString("sql-itan-reader");
 
-            var checkForExistanceQuery = "SELECT * FROM ChannelDownloads WHERE ChannelId = @channelId AND HashCode = @hashCode";
-            var checkForExistanceQueryData = new { channelId = channelToDownload.Id, hashCode = hashCode };
+            var checkForExistenceQuery = "SELECT * FROM ChannelDownloads WHERE ChannelId = @channelId AND HashCode = @hashCode";
+            var checkForExistenceQueryData = new { channelId = channelToDownload.Id, hashCode = hashCode };
 
             using (var sqlConnection = new SqlConnection(sqlConnectionStringReader))
             {
-                var result = await sqlConnection.QuerySingleOrDefaultAsync(checkForExistanceQuery, checkForExistanceQueryData);
+                var result = await sqlConnection.QuerySingleOrDefaultAsync(checkForExistenceQuery, checkForExistenceQueryData);
                 if (result != null)
                 {
                     return;
