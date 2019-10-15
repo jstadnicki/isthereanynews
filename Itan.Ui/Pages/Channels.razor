@@ -9,19 +9,22 @@
 
 <div class="@ChannelsListClass">
     <p>Current count: @channels.Count </p>
-    <ul class="list-group">
+    <div class="list-group">
 
         @foreach (var c in this.channels)
         {
-            <li class="list-group-item">
+            <button  type="button" class="list-group-item list-group-item-action @ItemClass(c)">
                 <span>@c.Title</span>
                 <span class="badge badge-primary badge-pill">@c.NewsCount</span>
-            </li>
+            </button>
         }
-    </ul>
+    </div>
 
 </div>
 @code {
+
+    public string ItemClass(ChannelViewModel channelViewModel) 
+        => channelViewModel.NewsCount > 0 ? string.Empty : "disabled";
 
     protected override async Task OnInitializedAsync()
     {

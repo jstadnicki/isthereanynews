@@ -23,7 +23,7 @@ namespace Itan.Functions.Workers
         {
             var config = new ConfigurationBuilder()
                 .SetBasePath(this.functionAppDirectory)
-                .AddJsonFile("local.settings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile("local.settings.json", true, true)
                 .AddEnvironmentVariables()
                 .Build();
 
