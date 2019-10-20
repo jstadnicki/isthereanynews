@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Itan.Application;
+using Itan.Core;
 
 namespace Itan.Ui.Data
 {

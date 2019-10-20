@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Itan.Application;
+using Itan.Core;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Itan.Api.Controllers

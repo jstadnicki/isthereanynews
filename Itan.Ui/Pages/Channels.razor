@@ -1,40 +1,48 @@
 ﻿@page "/channels"
-@using Itan.Application
-@using Itan.Ui.Data
+@using Itan.Core
 
-<h1>Channels</h1>
-<div class="spinner-border @SpinnerClass" role="status">
-    <span class="sr-only">Loading...</span>
-</div>
-
-<div class="@ChannelsListClass">
-    <p>Current count: @channels.Count </p>
-    <div class="list-group">
-
-        @foreach (var c in this.channels)
+<div class="row">
+    <div class="col-4">
+        <div class="list-group">
+            @foreach (var channel in channels)
+            {
+                <button type="button" class="list-group-item list-group-item-action">
+                    <div class="media" style="width:100%">
+                        <img src="http://lorempixel.com/32/32/" class="mr-3" style="width: 10%" />
+                        <div class="media-body" style="width: 90%" >
+                            <h5 class="mt-0 channel-title" alt="@channel.Title">@channel.Title</h5>
+                        </div>
+                    </div>
+                </button>
+            }
+        </div>
+    </div>
+    <div class="col-8">
+        <h1>TITLE</h1>
+        @for (int i = 0; i < 256; i++)
         {
-            <button  type="button" class="list-group-item list-group-item-action @ItemClass(c)">
-                <span>@c.Title</span>
-                <span class="badge badge-primary badge-pill">@c.NewsCount</span>
-            </button>
+            <div class="media">
+                <img src="http://lorempixel.com/64/64/" class="mr-3" alt="...">
+                <div class="media-body">
+                    <h5 class="mt-0">Media heading</h5>
+                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                </div>
+            </div>
         }
     </div>
-
 </div>
-@code {
 
-    public string ItemClass(ChannelViewModel channelViewModel) 
-        => channelViewModel.NewsCount > 0 ? string.Empty : "disabled";
+@code
+{
+
 
     protected override async Task OnInitializedAsync()
     {
-        this.channels = await ChannelsViewModelsDownloader.GetAllChannels();
-        this.channelsLoaded = true;
+        this.client = new HttpClient();
+        var stringChannels = await client.GetStringAsync("http://localhost:51193/api/channels");
+        this.channels = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ChannelViewModel>>(stringChannels);
     }
 
-    List<ChannelViewModel> channels = new List<ChannelViewModel>();
-    bool channelsLoaded = false;
-
-    public string SpinnerClass => channelsLoaded ? "invisible" : string.Empty;
-    public string ChannelsListClass => !channelsLoaded ? "invisible" : string.Empty;
+    private List<ChannelViewModel> channels = new List<ChannelViewModel>();
+    private HttpClient client;
 }
