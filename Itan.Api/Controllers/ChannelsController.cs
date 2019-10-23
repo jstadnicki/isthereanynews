@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Itan.Core;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +15,4 @@ namespace Itan.Api.Controllers
             return x.GetAll();
         }
     }
-
-
 }

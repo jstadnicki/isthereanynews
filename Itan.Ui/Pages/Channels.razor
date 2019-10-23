@@ -1,15 +1,20 @@
 ﻿@page "/channels"
+@using System.Diagnostics
+@using System.ServiceModel.Syndication
 @using Itan.Core
+@using Newtonsoft.Json
 
 <div class="row">
     <div class="col-4">
         <div class="list-group">
             @foreach (var channel in channels)
             {
-                <button type="button" class="list-group-item list-group-item-action">
+                <button type="button"
+                        class="list-group-item list-group-item-action"
+                        @onclick="@(async () => await OnChannelClickedAsync(channel.Id) )">
                     <div class="media" style="width:100%">
                         <img src="http://lorempixel.com/32/32/" class="mr-3" style="width: 10%" />
-                        <div class="media-body" style="width: 90%" >
+                        <div class="media-body" style="width: 90%">
                             <h5 class="mt-0 channel-title" alt="@channel.Title">@channel.Title</h5>
                         </div>
                     </div>
@@ -19,13 +24,18 @@
     </div>
     <div class="col-8">
         <h1>TITLE</h1>
-        @for (int i = 0; i < 256; i++)
+        @foreach (var n in news)
         {
             <div class="media">
-                <img src="http://lorempixel.com/64/64/" class="mr-3" alt="...">
-                <div class="media-body">
-                    <h5 class="mt-0">Media heading</h5>
-                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                <img src="http://lorempixel.com/64/64/" class="mr-3">
+                <div class="media-body"
+                     @onclick="@(async ()=>await n.onClickAsync())">
+                    <h5 class="mt-0">@n.Title</h5>
+                    <div class="@n.CssVisibilityClass">
+                        <div>
+                            @n.Content
+                        </div>
+                    </div>
                 </div>
             </div>
         }
@@ -34,8 +44,6 @@
 
 @code
 {
-
-
     protected override async Task OnInitializedAsync()
     {
         this.client = new HttpClient();
@@ -43,6 +51,60 @@
         this.channels = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ChannelViewModel>>(stringChannels);
     }
 
+    protected async Task OnChannelClickedAsync(Guid channelId)
+    {
+        var stringChannelNews = client.GetStringAsync($"http://localhost:51193/api/news/{channelId}").GetAwaiter().GetResult();
+        var newsViewModels = Newtonsoft.Json.JsonConvert.DeserializeObject<List<NewsViewModel>>(stringChannelNews);
+        this.news = newsViewModels.Select(x => new NewsContentViewModel
+        {
+            Id = x.Id,
+            Title = x.Title,
+            Url = x.ContentUrl,
+            Downloaded = false,
+            Content = string.Empty
+        }).ToList();
+    }
+
     private List<ChannelViewModel> channels = new List<ChannelViewModel>();
     private HttpClient client;
+    private List<NewsContentViewModel> news = new List<NewsContentViewModel>();
+
+    private class NewsContentViewModel
+    {
+        public bool Downloaded { get; set; }
+        public string Url { get; set; }
+        public string Content { get; set; }
+        public Guid Id { get; set; }
+        public string Title { get; set; }
+        public bool Visible { get; set; }
+
+        public string CssVisibilityClass => Downloaded && Visible ? string.Empty : "invisible";
+
+        public async Task onClickAsync()
+        {
+            if (!Downloaded)
+            {
+                try
+                {
+                    var client = new HttpClient();
+                    var j = await client.GetStringAsync(Url);
+                    var si = Newtonsoft.Json.JsonConvert.DeserializeObject<SyndicationItem>(j,new JsonSerializerSettings
+                    {
+                        TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto,
+                        NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+                    } );
+                    Content = si.Content.ToString();
+                    Downloaded = true;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
+                
+            }
+
+            Visible = !Visible;
+        }
+    }
 }

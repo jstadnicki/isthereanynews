@@ -14,11 +14,13 @@ namespace Itan.Api
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            CreateWebHostBuilder(args)
+                .Build().Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration(x => { x.AddJsonFile("appsettings.json"); })
                 .UseStartup<Startup>();
     }
 }
