@@ -1,8 +1,11 @@
 ﻿@page "/channels"
 @using System.Diagnostics
+@using System.Reflection
 @using System.ServiceModel.Syndication
+@using CodeHollow.FeedReader
 @using Itan.Core
 @using Newtonsoft.Json
+@using Newtonsoft.Json.Serialization
 
 <div class="row">
     <div class="col-4">
@@ -78,7 +81,7 @@
         public string Title { get; set; }
         public bool Visible { get; set; }
 
-        public string CssVisibilityClass => Downloaded && Visible ? string.Empty : "invisible";
+        public string CssVisibilityClass => Downloaded && Visible ? string.Empty : "d-none";
 
         public async Task onClickAsync()
         {
@@ -88,12 +91,15 @@
                 {
                     var client = new HttpClient();
                     var j = await client.GetStringAsync(Url);
-                    var si = Newtonsoft.Json.JsonConvert.DeserializeObject<SyndicationItem>(j,new JsonSerializerSettings
+                    var jsonResolver = new IgnorableSerializerContractResolver();
+                    jsonResolver.Ignore(typeof(FeedItem), "SpecificItem");
+                    var jsonSettings = new JsonSerializerSettings() { ReferenceLoopHandling = ReferenceLoopHandling.Ignore, ContractResolver = jsonResolver };
+                    var si = Newtonsoft.Json.JsonConvert.DeserializeObject<FeedItem>(j, new JsonSerializerSettings
                     {
-                        TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto,
-                        NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
-                    } );
-                    Content = si.Content.ToString();
+                        MissingMemberHandling = MissingMemberHandling.Ignore,
+                        ContractResolver = jsonResolver
+                    });
+                    Content = si.Description.ToString();
                     Downloaded = true;
                 }
                 catch (Exception e)
@@ -101,10 +107,71 @@
                     Console.WriteLine(e);
                     throw;
                 }
-                
+
             }
 
             Visible = !Visible;
+        }
+    }
+
+    public class IgnorableSerializerContractResolver : DefaultContractResolver
+    {
+        protected readonly Dictionary<Type, HashSet<string>> Ignores;
+
+        public IgnorableSerializerContractResolver()
+        {
+            this.Ignores = new Dictionary<Type, HashSet<string>>();
+        }
+
+        /// <summary>
+        /// Explicitly ignore the given property(s) for the given type
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="propertyName">one or more properties to ignore.  Leave empty to ignore the type entirely.</param>
+        public void Ignore(Type type, params string[] propertyName)
+        {
+            // start bucket if DNE
+            if (!this.Ignores.ContainsKey(type)) this.Ignores[type] = new HashSet<string>();
+
+            foreach (var prop in propertyName)
+            {
+                this.Ignores[type].Add(prop);
+            }
+        }
+
+        /// <summary>
+        /// Is the given property for the given type ignored?
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="propertyName"></param>
+        /// <returns></returns>
+        public bool IsIgnored(Type type, string propertyName)
+        {
+            if (!this.Ignores.ContainsKey(type)) return false;
+
+            // if no properties provided, ignore the type entirely
+            if (this.Ignores[type].Count == 0) return true;
+
+            return this.Ignores[type].Contains(propertyName);
+        }
+
+        /// <summary>
+        /// The decision logic goes here
+        /// </summary>
+        /// <param name="member"></param>
+        /// <param name="memberSerialization"></param>
+        /// <returns></returns>
+        protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
+        {
+            JsonProperty property = base.CreateProperty(member, memberSerialization);
+
+            if (this.IsIgnored(property.DeclaringType, property.PropertyName))
+            {
+                property.ShouldSerialize = instance => { return false; };
+                property.ShouldDeserialize= instance => { return false; };
+            }
+
+            return property;
         }
     }
 }

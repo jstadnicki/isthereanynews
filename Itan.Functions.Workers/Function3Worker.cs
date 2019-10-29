@@ -3,10 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
-using System.Reflection;
-using System.ServiceModel.Syndication;
 using System.Threading.Tasks;
-using System.Xml;
+using CodeHollow.FeedReader;
 using Dapper;
 using Itan.Functions.Models;
 using Microsoft.Extensions.Configuration;
@@ -38,28 +36,28 @@ namespace Itan.Functions
             var account = CloudStorageAccount.Parse(emulatorConnectionString);
 
             this.logger.LogInformation($"Got channel with id: {channelId} with name: {blobName} witn stream length: {myBlob.Length}");
-            var sf = new SyndicationFeed();
-            IEnumerable<SyndicationItem> feedItems;
+            IEnumerable<FeedItem> feedItems;
+
+
 
             try
             {
-                using (var xmlr = XmlReader.Create(myBlob))
+                TextReader tr = new StreamReader(myBlob);
+                var feedString = tr.ReadToEnd();
+                var feed = FeedReader.ReadFromString(feedString);
+                feedItems = feed.Items;
+                var channelUpdate = new ChannelUpdate
                 {
-                    var feed = SyndicationFeed.Load(xmlr);
-                    feedItems = feed.Items;
-                    var channelUpdate = new ChannelUpdate
-                    {
-                        Title = feed.Title.Text,
-                        Description = feed.Description.Text,
-                        Id = channelId
-                    };
+                    Title = feed.Title,
+                    Description = feed.Description,
+                    Id = channelId
+                };
 
-                    var queueClient = account.CreateCloudQueueClient();
-                    var cloudQueue = queueClient.GetQueueReference(QueuesName.ChannelUpdate);
-                    await cloudQueue.CreateIfNotExistsAsync();
-                    var jsonMessage = JsonConvert.SerializeObject(channelUpdate);
-                    await cloudQueue.AddMessageAsync(new CloudQueueMessage(jsonMessage));
-                }
+                var queueClient = account.CreateCloudQueueClient();
+                var cloudQueue = queueClient.GetQueueReference(QueuesName.ChannelUpdate);
+                await cloudQueue.CreateIfNotExistsAsync();
+                var jsonMessage = JsonConvert.SerializeObject(channelUpdate);
+                await cloudQueue.AddMessageAsync(new CloudQueueMessage(jsonMessage));
             }
             catch (Exception e)
             {
@@ -87,7 +85,7 @@ namespace Itan.Functions
 
                 var ho = new
                 {
-                    title = item.Title.Text.Trim(),
+                    title = item.Title.Trim(),
                     channelId
                 }.GetHashCode();
 
@@ -95,7 +93,7 @@ namespace Itan.Functions
                 {
                     id = itemJsonGuid,
                     channelId = channelId,
-                    title = item.Title.Text.Trim(),
+                    title = item.Title.Trim(),
                     createdOn = DateTime.UtcNow,
                     hashCode = ho
                 };
