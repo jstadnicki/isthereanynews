@@ -4,3 +4,21 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.container-flex-height {
+    height: calc(100%-56px);
+    height: -moz-calc(100%-56px);
+    height: -webkit-calc(100% - 56px);
+}
+
+.flex-height {
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.full-height {
+    height: 100%;
+} 
+.no-scroll {
+    overflow: auto;
+}

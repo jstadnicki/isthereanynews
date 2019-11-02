@@ -1,13 +1,11 @@
 ﻿@page "/channels"
-@using System.Diagnostics
 @using System.Reflection
-@using System.ServiceModel.Syndication
 @using CodeHollow.FeedReader
 @using Itan.Core
 @using Newtonsoft.Json
 @using Newtonsoft.Json.Serialization
 
-<div class="row">
+<div class="row full-height no-scroll">
     <div class="col-4">
         <div class="list-group">
             @foreach (var channel in channels)
@@ -18,14 +16,17 @@
                     <div class="media" style="width:100%">
                         <img src="http://lorempixel.com/32/32/" class="mr-3" style="width: 10%" />
                         <div class="media-body" style="width: 90%">
-                            <h5 class="mt-0 channel-title" alt="@channel.Title">@channel.Title</h5>
-                        </div>
+                            <h5 class="mt-0 channel-title" alt="@channel.Title">
+                                @channel.Title
+                            <span class="badge badge-secondary float-right">@channel.NewsCount</span>
+                        </h5>
                     </div>
-                </button>
-            }
+                </div>
+            </button>
+        }
         </div>
     </div>
-    <div class="col-8">
+    <div class="col-8 flex-height">
         <h1>TITLE</h1>
         @foreach (var n in news)
         {
@@ -93,8 +94,7 @@
                     var j = await client.GetStringAsync(Url);
                     var jsonResolver = new IgnorableSerializerContractResolver();
                     jsonResolver.Ignore(typeof(FeedItem), "SpecificItem");
-                    var jsonSettings = new JsonSerializerSettings() { ReferenceLoopHandling = ReferenceLoopHandling.Ignore, ContractResolver = jsonResolver };
-                    var si = Newtonsoft.Json.JsonConvert.DeserializeObject<FeedItem>(j, new JsonSerializerSettings
+                    var si = JsonConvert.DeserializeObject<FeedItem>(j, new JsonSerializerSettings
                     {
                         MissingMemberHandling = MissingMemberHandling.Ignore,
                         ContractResolver = jsonResolver
@@ -123,11 +123,6 @@
             this.Ignores = new Dictionary<Type, HashSet<string>>();
         }
 
-        /// <summary>
-        /// Explicitly ignore the given property(s) for the given type
-        /// </summary>
-        /// <param name="type"></param>
-        /// <param name="propertyName">one or more properties to ignore.  Leave empty to ignore the type entirely.</param>
         public void Ignore(Type type, params string[] propertyName)
         {
             // start bucket if DNE
@@ -139,12 +134,7 @@
             }
         }
 
-        /// <summary>
-        /// Is the given property for the given type ignored?
-        /// </summary>
-        /// <param name="type"></param>
-        /// <param name="propertyName"></param>
-        /// <returns></returns>
+
         public bool IsIgnored(Type type, string propertyName)
         {
             if (!this.Ignores.ContainsKey(type)) return false;
@@ -155,12 +145,6 @@
             return this.Ignores[type].Contains(propertyName);
         }
 
-        /// <summary>
-        /// The decision logic goes here
-        /// </summary>
-        /// <param name="member"></param>
-        /// <param name="memberSerialization"></param>
-        /// <returns></returns>
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
         {
             JsonProperty property = base.CreateProperty(member, memberSerialization);
@@ -168,7 +152,7 @@
             if (this.IsIgnored(property.DeclaringType, property.PropertyName))
             {
                 property.ShouldSerialize = instance => { return false; };
-                property.ShouldDeserialize= instance => { return false; };
+                property.ShouldDeserialize = instance => { return false; };
             }
 
             return property;
