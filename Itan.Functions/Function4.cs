@@ -1,12 +1,7 @@
-using System;
-using System.IO;
 using System.Threading.Tasks;
 using Itan.Functions.Models;
 using Itan.Functions.Workers;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
