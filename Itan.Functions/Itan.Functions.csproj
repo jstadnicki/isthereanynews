@@ -13,6 +13,9 @@
     <ProjectReference Include="..\Itan.Functions.Workers\Itan.Functions.Workers.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="local.settings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="host.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
