@@ -6,7 +6,8 @@
 
   <ItemGroup>
     <PackageReference Include="CodeHollow.FeedReader" Version="1.2.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.AzureADB2C.UI" Version="3.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="System.ServiceModel.Syndication" Version="4.6.0" />
   </ItemGroup>
 
