@@ -1,161 +1,66 @@
 ﻿@page "/channels"
-@using System.Reflection
-@using CodeHollow.FeedReader
-@using Itan.Core
-@using Newtonsoft.Json
-@using Newtonsoft.Json.Serialization
+@using Itan.Ui.Services
 
 <div class="row full-height no-scroll">
     <div class="col-4">
-        <div class="list-group">
-            @foreach (var channel in channels)
-            {
-                <button type="button"
-                        class="list-group-item list-group-item-action"
-                        @onclick="@(async () => await OnChannelClickedAsync(channel.Id) )">
-                    <div class="media" style="width:100%">
-                        <img src="http://lorempixel.com/32/32/" class="mr-3" style="width: 10%" />
-                        <div class="media-body" style="width: 90%">
-                            <h5 class="mt-0 channel-title" alt="@channel.Title">
-                                @channel.Title
-                            <span class="badge badge-secondary float-right">@channel.NewsCount</span>
-                        </h5>
-                    </div>
-                </div>
-            </button>
-        }
-        </div>
-    </div>
-    <div class="col-8 flex-height">
-        <h1>TITLE</h1>
-        @foreach (var n in news)
+        @if (channelsViewModel.Channels.Any())
         {
-            <div class="media">
-                <img src="http://lorempixel.com/64/64/" class="mr-3">
-                <div class="media-body"
-                     @onclick="@(async ()=>await n.onClickAsync())">
-                    <h5 class="mt-0">@n.Title</h5>
-                    <div class="@n.CssVisibilityClass">
-                        <div>
-                            @n.Content
+            <div class="list-group">
+                @foreach (var channel in channelsViewModel.Channels)
+                {
+                    <button type="button"
+                            class="list-group-item list-group-item-action"
+                            @onclick="@(async () => await channelsViewModel.OnChannelClickedAsync(channel.Id) )">
+                        <div class="media" style="width:100%">
+                            <img src="http://lorempixel.com/32/32/" class="mr-3" style="width: 10%" />
+                            <div class="media-body" style="width: 90%">
+                                <h5 class="mt-0 channel-title" alt="@channel.Title">
+                                    @channel.Title
+                                    <span class="badge badge-secondary float-right">@channel.NewsCount</span>
+                                </h5>
+                            </div>
+                        </div>
+                    </button>
+                }
+            </div>
+        }
+        else
+        {
+            <h1>
+                No channels to display
+            </h1>
+        }
+    </div>
+    @if (channelsViewModel.News.Any())
+    {
+        <div class="col-8 flex-height">
+            <h1>TITLE</h1>
+            @foreach (var news in channelsViewModel.News)
+            {
+                <div class="media">
+                    <img src="http://lorempixel.com/64/64/" class="mr-3">
+                    <div class="media-body"
+                         @onclick="@(async () => await news.OnClickAsync())">
+                        <h5 class="mt-0">@news.Title</h5>
+                        <div class="@news.CssVisibilityClass">
+                            <div>
+                                @news.Content
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        }
-    </div>
+            }
+        </div>
+    }
 </div>
 
 @code
 {
     protected override async Task OnInitializedAsync()
     {
-        this.client = new HttpClient();
-        var stringChannels = await client.GetStringAsync("http://localhost:51193/api/channels");
-        this.channels = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ChannelViewModel>>(stringChannels);
+        this.channelsViewModel = new ChannelsViewModel();
+        await this.channelsViewModel.OnInitializedAsync();
     }
 
-    protected async Task OnChannelClickedAsync(Guid channelId)
-    {
-        var stringChannelNews = client.GetStringAsync($"http://localhost:51193/api/news/{channelId}").GetAwaiter().GetResult();
-        var newsViewModels = Newtonsoft.Json.JsonConvert.DeserializeObject<List<NewsViewModel>>(stringChannelNews);
-        this.news = newsViewModels.Select(x => new NewsContentViewModel
-        {
-            Id = x.Id,
-            Title = x.Title,
-            Url = x.ContentUrl,
-            Downloaded = false,
-            Content = string.Empty
-        }).ToList();
-    }
-
-    private List<ChannelViewModel> channels = new List<ChannelViewModel>();
-    private HttpClient client;
-    private List<NewsContentViewModel> news = new List<NewsContentViewModel>();
-
-    private class NewsContentViewModel
-    {
-        public bool Downloaded { get; set; }
-        public string Url { get; set; }
-        public string Content { get; set; }
-        public Guid Id { get; set; }
-        public string Title { get; set; }
-        public bool Visible { get; set; }
-
-        public string CssVisibilityClass => Downloaded && Visible ? string.Empty : "d-none";
-
-        public async Task onClickAsync()
-        {
-            if (!Downloaded)
-            {
-                try
-                {
-                    var client = new HttpClient();
-                    var j = await client.GetStringAsync(Url);
-                    var jsonResolver = new IgnorableSerializerContractResolver();
-                    jsonResolver.Ignore(typeof(FeedItem), "SpecificItem");
-                    var si = JsonConvert.DeserializeObject<FeedItem>(j, new JsonSerializerSettings
-                    {
-                        MissingMemberHandling = MissingMemberHandling.Ignore,
-                        ContractResolver = jsonResolver
-                    });
-                    Content = si.Description.ToString();
-                    Downloaded = true;
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    throw;
-                }
-
-            }
-
-            Visible = !Visible;
-        }
-    }
-
-    public class IgnorableSerializerContractResolver : DefaultContractResolver
-    {
-        protected readonly Dictionary<Type, HashSet<string>> Ignores;
-
-        public IgnorableSerializerContractResolver()
-        {
-            this.Ignores = new Dictionary<Type, HashSet<string>>();
-        }
-
-        public void Ignore(Type type, params string[] propertyName)
-        {
-            // start bucket if DNE
-            if (!this.Ignores.ContainsKey(type)) this.Ignores[type] = new HashSet<string>();
-
-            foreach (var prop in propertyName)
-            {
-                this.Ignores[type].Add(prop);
-            }
-        }
-
-
-        public bool IsIgnored(Type type, string propertyName)
-        {
-            if (!this.Ignores.ContainsKey(type)) return false;
-
-            // if no properties provided, ignore the type entirely
-            if (this.Ignores[type].Count == 0) return true;
-
-            return this.Ignores[type].Contains(propertyName);
-        }
-
-        protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
-        {
-            JsonProperty property = base.CreateProperty(member, memberSerialization);
-
-            if (this.IsIgnored(property.DeclaringType, property.PropertyName))
-            {
-                property.ShouldSerialize = instance => { return false; };
-                property.ShouldDeserialize = instance => { return false; };
-            }
-
-            return property;
-        }
-    }
+    private ChannelsViewModel channelsViewModel;
 }

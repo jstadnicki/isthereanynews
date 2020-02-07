@@ -1,8 +1,9 @@
-using System.Threading.Tasks;
 using Itan.Functions.Models;
 using Itan.Functions.Workers;
+
 using Microsoft.Azure.WebJobs;
-using Microsoft.Extensions.Logging;
+
+using System.Threading.Tasks;
 
 namespace Itan.Functions
 {
@@ -12,11 +13,10 @@ namespace Itan.Functions
         public static async Task Run(
             [TimerTrigger("0 * */1 * * *")]TimerInfo myTimer,
             ExecutionContext context,
-            [Queue(QueuesName.ChannelToDownload, Connection = "emulator")]IAsyncCollector<ChannelToDownload> messagesCollector,
-            ILogger log
+            [Queue(QueuesName.ChannelToDownload, Connection = "emulator")]IAsyncCollector<ChannelToDownload> messagesCollector
             )
         {
-            var f1 = new Function1Worker(log, context.FunctionAppDirectory, messagesCollector);
+            var f1 = new Function1Worker(null, context.FunctionAppDirectory, messagesCollector);
             await f1.Run();
         }
     }

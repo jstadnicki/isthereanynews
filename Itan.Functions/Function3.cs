@@ -1,8 +1,8 @@
+using Microsoft.Azure.WebJobs;
+
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Extensions.Logging;
 
 namespace Itan.Functions
 {
@@ -14,10 +14,9 @@ namespace Itan.Functions
             Stream myBlob,
             Guid folder,
             string name,
-            ILogger log,
             ExecutionContext context)
         {
-            var worker = new Function3Worker(log, context.FunctionAppDirectory);
+            var worker = new Function3Worker(null, context.FunctionAppDirectory);
             await worker.RunAsync(folder, name, myBlob);
         }
     }
