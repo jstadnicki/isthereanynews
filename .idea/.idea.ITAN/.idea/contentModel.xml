@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\source\ITAN" t="IncludeFlat">
+      <e p="ImportOpml" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="ImportOpml.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="ImportOpml.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Program.cs" t="Include" />
+        <e p="subscriptions.json" t="Include" />
+      </e>
+      <e p="Itan.Api" t="IncludeRecursive">
+        <e p="appsettings.Development.json" t="Include" />
+        <e p="appsettings.json" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Controllers" t="Include">
+          <e p="ChannelsController.cs" t="Include" />
+          <e p="NewsController.cs" t="Include" />
+        </e>
+        <e p="Itan.Api.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.0" t="Include">
+              <e p="Itan.Api.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="launchSettings.json" t="Include" />
+        </e>
+        <e p="Startup.cs" t="Include" />
+      </e>
+      <e p="Itan.Core" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="ChannelsProvider.cs" t="Include" />
+        <e p="ChannelViewModel.cs" t="Include" />
+        <e p="Itan.Core.csproj" t="IncludeRecursive" />
+        <e p="NewsProvider.cs" t="Include" />
+        <e p="NewsViewModel.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.0" t="Include">
+              <e p="Itan.Core.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="Itan.Database" t="IncludeRecursive">
+        <e p="appsettings.json" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Channel.cs" t="Include" />
+        <e p="ChannelDownload.cs" t="Include" />
+        <e p="DesignTimeDbContextFactory.cs" t="Include" />
+        <e p="EntityFrameworkContext.cs" t="Include" />
+        <e p="Itan.Database.csproj" t="IncludeRecursive" />
+        <e p="Migrations" t="Include">
+          <e p="20190914223358_Channels.cs" t="Include" />
+          <e p="20190914223358_Channels.Designer.cs" t="Include" />
+          <e p="20190930135620_AddChannelDownloads.cs" t="Include" />
+          <e p="20190930135620_AddChannelDownloads.Designer.cs" t="Include" />
+          <e p="20190930202416_AlterChannelDownloadsAddHashColumnt.cs" t="Include" />
+          <e p="20190930202416_AlterChannelDownloadsAddHashColumnt.Designer.cs" t="Include" />
+          <e p="20190930213052_AlterTableChannelDownloadSetUniqueForChannelIdHashCode.cs" t="Include" />
+          <e p="20190930213052_AlterTableChannelDownloadSetUniqueForChannelIdHashCode.Designer.cs" t="Include" />
+          <e p="20191009213734_CreateNewsTable.cs" t="Include" />
+          <e p="20191009213734_CreateNewsTable.Designer.cs" t="Include" />
+          <e p="20191014205758_AlterChannelsAddTitle.cs" t="Include" />
+          <e p="20191014205758_AlterChannelsAddTitle.Designer.cs" t="Include" />
+          <e p="20191014211404_AlterChannelsAddDescription.cs" t="Include" />
+          <e p="20191014211404_AlterChannelsAddDescription.Designer.cs" t="Include" />
+          <e p="EntityFrameworkContextModelSnapshot.cs" t="Include" />
+        </e>
+        <e p="News.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.0" t="Include">
+              <e p="Itan.Database.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="Itan.Functions" t="IncludeRecursive">
+        <e p=".gitignore" t="Include" />
+        <e p="bin\Debug\netcoreapp3.0\bin" t="ExcludeRecursive" />
+        <e p="Function1.cs" t="Include" />
+        <e p="Function2.cs" t="Include" />
+        <e p="Function3.cs" t="Include" />
+        <e p="Function4.cs" t="Include" />
+        <e p="host.json" t="Include" />
+        <e p="Itan.Functions.csproj" t="IncludeRecursive" />
+        <e p="local.settings.json" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.0" t="Include">
+              <e p="Itan.Functions.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="Itan.Functions.Models" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="ChannelToDownload.cs" t="Include" />
+        <e p="Itan.Functions.Models.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.0" t="Include">
+              <e p="Itan.Functions.Models.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="Itan.Functions.Workers" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Function1Worker.cs" t="Include" />
+        <e p="Function2Worker.cs" t="Include" />
+        <e p="Function3Worker.cs" t="Include" />
+        <e p="Function4Worker.cs" t="Include" />
+        <e p="Itan.Functions.Workers.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.0" t="Include">
+              <e p="Itan.Functions.Workers.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="ITAN.sln" t="IncludeFlat" />
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="WebApplicationTest" t="IncludeRecursive">
+        <e p="appsettings.Development.json" t="Include" />
+        <e p="appsettings.json" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Controllers" t="Include">
+          <e p="WeatherForecastController.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="WebApplicationTest.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="launchSettings.json" t="Include" />
+        </e>
+        <e p="Startup.cs" t="Include" />
+        <e p="WeatherForecast.cs" t="Include" />
+        <e p="WebApplicationTest.csproj" t="IncludeRecursive" />
+      </e>
+    </e>
+    <e p="C:\Users\jarek\.Rider2019.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\jarek\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_ITAN.2022137012.00" t="ExcludeRecursive" />
+  </component>
+</project>
