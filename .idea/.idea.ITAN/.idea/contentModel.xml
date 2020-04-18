@@ -103,6 +103,7 @@
             </e>
           </e>
         </e>
+        <e p="Startup.cs" t="Include" />
       </e>
       <e p="Itan.Functions.Models" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
@@ -124,6 +125,7 @@
         <e p="ChannelProvider.cs" t="Include" />
         <e p="ChannelsDownloadsReader.cs" t="Include" />
         <e p="ChannelsDownloadsWriter.cs" t="Include" />
+        <e p="ConnectionOptions.cs" t="Include" />
         <e p="Function1Worker.cs" t="Include" />
         <e p="Function2Worker.cs" t="Include" />
         <e p="Function3Worker.cs" t="Include" />
@@ -134,12 +136,15 @@
         <e p="IChannelsDownloadsReader.cs" t="Include" />
         <e p="IChannelsDownloadsWriter.cs" t="Include" />
         <e p="IChannelsProvider.cs" t="Include" />
+        <e p="IConnectionOptions.cs" t="Include" />
+        <e p="IFunction1Worker.cs" t="Include" />
+        <e p="IFunctionWorker.cs" t="Include" />
         <e p="IHttpDownloader.cs" t="Include" />
         <e p="ILoger.cs" t="Include" />
         <e p="IQueue.cs" t="Include" />
         <e p="ISerializer.cs" t="Include" />
         <e p="Itan.Functions.Workers.csproj" t="IncludeRecursive" />
-        <e p="JsonSerializer.cs" t="Include" />
+        <e p="JsonWrapperSerializer.cs" t="Include" />
         <e p="Loger.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">

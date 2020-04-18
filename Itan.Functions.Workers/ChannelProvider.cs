@@ -4,24 +4,28 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using Itan.Functions.Models;
+using Microsoft.Extensions.Options;
 
-public class ChannelProvider : IChannelsProvider
+namespace Itan.Functions.Workers
 {
-    private string connectionString;
-
-    public ChannelProvider(string connectionString)
+    public class ChannelProvider : IChannelsProvider
     {
-        this.connectionString = connectionString;
-    }
+        private readonly IConnectionOptions connectionOptions;
 
-    public async Task<List<ChannelToDownload>> GetAllChannelsAsync()
-    {
-        using (var sqlConnection = new SqlConnection(this.connectionString))
+        public ChannelProvider(IOptions<ConnectionOptions> connectionOptions)
         {
-            var query = "SELECT c.Id, c.Url FROM Channels c";
-            var queryResult = await sqlConnection.QueryAsync<ChannelToDownload>(query);
-            var list = queryResult.ToList();
-            return list;
-        }        
+            this.connectionOptions = connectionOptions.Value;
+        }
+
+        public async Task<List<ChannelToDownload>> GetAllChannelsAsync()
+        {
+            using (var sqlConnection = new SqlConnection(this.connectionOptions.SqlReader))
+            {
+                var query = "SELECT c.Id, c.Url FROM Channels c";
+                var queryResult = await sqlConnection.QueryAsync<ChannelToDownload>(query);
+                var list = queryResult.ToList();
+                return list;
+            }        
+        }
     }
 }

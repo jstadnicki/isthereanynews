@@ -2,7 +2,10 @@
 using System.Threading.Tasks;
 using Itan.Functions.Models;
 
-public interface IChannelsProvider
+namespace Itan.Functions.Workers
 {
-    Task<List<ChannelToDownload>> GetAllChannelsAsync();
+    public interface IChannelsProvider
+    {
+        Task<List<ChannelToDownload>> GetAllChannelsAsync();
+    }
 }

@@ -3,7 +3,7 @@ using Itan.Functions.Models;
 
 namespace Itan.Functions.Workers
 {
-    public class Function1Worker
+    public class Function1Worker : IFunction1Worker
     {
         private readonly IQueue<ChannelToDownload> messagesCollector;
         private readonly IChannelsProvider channelsProvider;
