@@ -1,52 +1,28 @@
-﻿using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
-using Dapper;
+﻿using System.Threading.Tasks;
 using Itan.Functions.Models;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+
 namespace Itan.Functions.Workers
 {
     public class Function1Worker
     {
-        private readonly ILogger logger;
-        private readonly string functionAppDirectory;
-        private readonly IAsyncCollector<ChannelToDownload> messagesCollector;
+        private readonly IQueue<ChannelToDownload> messagesCollector;
+        private readonly IChannelsProvider channelsProvider;
+        private readonly ILoger loger;
 
         public Function1Worker(
-            ILogger logger,
-            string functionAppDirectory,
-            IAsyncCollector<ChannelToDownload> messagesCollector)
+            ILoger loger,
+            IQueue<ChannelToDownload> messagesCollector,
+            IChannelsProvider channelsProvider)
         {
-            this.logger = logger;
-            this.functionAppDirectory = functionAppDirectory;
+            this.loger = loger;
             this.messagesCollector = messagesCollector;
+            this.channelsProvider = channelsProvider;
         }
 
         public async Task Run()
         {
-            var config = new ConfigurationBuilder()
-                .SetBasePath(this.functionAppDirectory)
-                .AddJsonFile("local.settings.json", optional: true, reloadOnChange: true)
-                .AddEnvironmentVariables()
-                .Build();
-
-            var connectionString = config.GetConnectionString("sql-itan-reader");
-            List<ChannelToDownload> listOfChannelsToDownload;
-
-            using (var sqlConnection = new SqlConnection(connectionString))
-            {
-                var query = "SELECT c.Id, c.Url FROM Channels c";
-                var queryResult = await sqlConnection.QueryAsync<ChannelToDownload>(query);
-                listOfChannelsToDownload = queryResult.ToList();
-            }
-
-            foreach (var channelToDownload in listOfChannelsToDownload)
-            {
-                await this.messagesCollector.AddAsync(channelToDownload);
-            }
+            var listOfChannelsToDownload = await this.channelsProvider.GetAllChannelsAsync();
+            await messagesCollector.AddRangeAsync(listOfChannelsToDownload);
         }
     }
 }
