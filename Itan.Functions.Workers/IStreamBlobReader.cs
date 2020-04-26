@@ -8,7 +8,7 @@ namespace Itan.Functions.Workers
         Task<string> ReadAllAsTextAsync(Stream myBlob);
     }
 
-    class StreamReaderWrapper : IStreamBlobReader
+    public class StreamReaderWrapper : IStreamBlobReader
     {
         public async Task<string> ReadAllAsTextAsync(Stream myBlob)
         {

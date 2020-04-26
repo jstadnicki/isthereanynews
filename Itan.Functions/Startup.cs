@@ -13,6 +13,9 @@ namespace Itan.Functions
             builder.Services.AddScoped(typeof(ILoger<>), typeof(Loger<>));
             builder.Services.AddScoped<IChannelsProvider, ChannelProvider>();
             builder.Services.AddScoped<ISerializer, JsonWrapperSerializer>();
+            builder.Services.AddScoped<IStreamBlobReader, StreamReaderWrapper>();
+            builder.Services.AddScoped<IFeedReader, FeedReaderWrapper>();
+            builder.Services.AddScoped<INewsWriter, NewsWriter>();
 
             builder.Services.AddScoped<IChannelsDownloadsReader, ChannelsDownloadsReader>();
             builder.Services.AddScoped<IChannelsDownloadsWriter, ChannelsDownloadsWriter>();

@@ -11,7 +11,7 @@ namespace Itan.Functions.Workers
         Task InsertNewsLinkAsync(Guid channelId, string title, Guid id);
     }
 
-    class NewsWriter : INewsWriter
+    public class NewsWriter : INewsWriter
     {
         private string sqlConnectionString;
 
@@ -41,7 +41,25 @@ namespace Itan.Functions.Workers
             };
 
             using var sqlConnection = new SqlConnection(this.sqlConnectionString);
-            await sqlConnection.ExecuteAsync(query, data);
+            try
+            {
+                await sqlConnection.ExecuteAsync(query, data);
+            }
+            catch (Exception e)
+            {
+                
+                throw new NewsWriterInsertNewsLinkException(e);
+            }
         }
+    }
+
+    public class NewsWriterInsertNewsLinkException : ItanException
+    {
+        public NewsWriterInsertNewsLinkException(Exception exception):
+            base(nameof(NewsWriterInsertNewsLinkException), exception)
+        {
+        }
+
+        public override string Message => "There was problem while inserting news link into mssql database";
     }
 }

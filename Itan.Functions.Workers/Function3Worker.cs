@@ -14,7 +14,7 @@ namespace Itan.Functions.Workers
 
     public class Function3Worker : IFunction3Worker
     {
-        private readonly ILogger logger;
+        private readonly ILogger<Function3Worker> logger;
         private readonly IStreamBlobReader reader;
         private readonly IFeedReader feedReader;
         private readonly IQueue<ChannelUpdate> queue;
@@ -24,7 +24,7 @@ namespace Itan.Functions.Workers
         private readonly INewsWriter newsWriter;
 
         public Function3Worker(
-            ILogger logger,
+            ILogger<Function3Worker> logger,
             IStreamBlobReader reader,
             IFeedReader feedReader,
             IQueue<ChannelUpdate> queue,
@@ -55,14 +55,13 @@ namespace Itan.Functions.Workers
         public async Task RunAsync(Guid channelId, string blobName, Stream myBlob)
         {
             this.logger.LogInformation(
-                $"Got channel with id: {channelId} with name: {blobName} witn stream length: {myBlob.Length}");
-            IEnumerable<ItanFeedItem> feedItems;
+                $"Got channel with id: {channelId.ToString()} with name: {blobName} with stream length: {myBlob.Length.ToString()}");
 
             try
             {
                 var feedString = await this.reader.ReadAllAsTextAsync(myBlob);
                 var feed = this.feedReader.GetFeed(feedString);
-                feedItems = feed.Items;
+                var feedItems = feed.Items;
                 var channelUpdate = new ChannelUpdate
                 {
                     Title = feed.Title,
@@ -71,30 +70,30 @@ namespace Itan.Functions.Workers
                 };
 
                 await this.queue.AddAsync(channelUpdate, QueuesName.ChannelUpdate);
+
+                foreach (var item in feedItems)
+                {
+                    var itemJson = this.serializer.Serialize(item);
+                    var itemUploadPath = this.pathGenerator.GetPathUpload(channelId, item.Id);
+                    await this.blobContainer.UploadTextAsync("rss", itemUploadPath, itemJson);
+
+
+                    try
+                    {
+                        await this.newsWriter.InsertNewsLinkAsync(channelId, item.Title, item.Id);
+                    }
+                    catch (NewsWriterInsertNewsLinkException e)
+                    {
+                        this.logger.LogCritical(e.ToString());
+                        await this.blobContainer.DeleteAsync("rss", itemUploadPath);
+                    }
+                }
             }
-            catch (Exception e)
+            catch (FeedReaderWrapperParseStringException e)
             {
-                this.logger.LogCritical($"Xml rss/raw/{channelId}/{blobName} is broken.Finishing and returning");
+                this.logger.LogCritical(
+                    $"Xml rss/raw/{channelId.ToString()}/{blobName} is broken.Finishing and returning");
                 this.logger.LogCritical(e.ToString());
-                return;
-            }
-
-            foreach (var item in feedItems)
-            {
-                var itemJson = this.serializer.Serialize(item);
-                var itemUploadPath = this.pathGenerator.GetPathUpload(channelId, item.Id);
-                await this.blobContainer.UploadTextAsync("rss", itemUploadPath, itemJson);
-
-
-                try
-                {
-                    await this.newsWriter.InsertNewsLinkAsync(channelId, item.Title, item.Id);
-                }
-                catch (Exception e)
-                {
-                    this.logger.LogCritical(e.ToString());
-                    await this.blobContainer.DeleteAsync("rss", itemUploadPath);
-                }
             }
         }
     }
