@@ -2,34 +2,40 @@
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Dapper;
-using Itan.Functions.Workers;
+using Microsoft.Extensions.Options;
 
-public class ChannelsDownloadsWriter : IChannelsDownloadsWriter
+namespace Itan.Functions.Workers
 {
-    private string sqlConnectionStringWriter;
-    private ILoger log;
-
-    public ChannelsDownloadsWriter(string sqlConnectionStringWriter, ILoger log)
+    public class ChannelsDownloadsWriter : IChannelsDownloadsWriter
     {
-        this.sqlConnectionStringWriter = sqlConnectionStringWriter;
-        this.log = log;
-    }
+        private string sqlConnectionStringWriter;
+        private ILoger<ChannelsDownloadsWriter> log;
 
-    public async Task InsertAsync(object data)
-    {
-        var query = "INSERT INTO ChannelDownloads (Id, ChannelId, Path, CreatedOn, HashCode) VALUES (@id, @channelId, @path, @createdOn, @hashCode)";
-
-        try
+        public ChannelsDownloadsWriter(IOptions<ConnectionOptions> options, ILoger<ChannelsDownloadsWriter> log)
         {
-            using (var sqlConnection = new SqlConnection(query))
-            {
-                await sqlConnection.ExecuteAsync(this.sqlConnectionStringWriter, data);
-            }
+            Ensure.NotNull(options, nameof(options));
+            Ensure.NotNull(log, nameof(log));
+        
+            this.sqlConnectionStringWriter = options.Value.SqlWriter;
+            this.log = log;
         }
-        catch (Exception e)
+
+        public async Task InsertAsync(DownloadDto data)
         {
-            this.log.LogCritical(e.ToString());
-            throw;
+            var query = "INSERT INTO ChannelDownloads (Id, ChannelId, Path, CreatedOn, HashCode) VALUES (@id, @channelId, @path, @createdOn, @hashCode)";
+
+            try
+            {
+                using (var sqlConnection = new SqlConnection(query))
+                {
+                    await sqlConnection.ExecuteAsync(this.sqlConnectionStringWriter, data);
+                }
+            }
+            catch (Exception e)
+            {
+                this.log.LogCritical(e.ToString());
+                throw;
+            }
         }
     }
 }

@@ -1,12 +1,12 @@
-using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Itan.Functions.Models;
 
 namespace Itan.Functions.Workers
 {
-    public class Function2Worker
+    public class Function2Worker : IFunction2Worker
     {
-        private readonly ILoger log;
+        private readonly ILoger<Function2Worker> log;
         private readonly IChannelsDownloadsReader downloadsReader;
         private readonly IBlobContainer blobContainer;
         private readonly IBlobPathGenerator blobPathGenerator;
@@ -15,14 +15,22 @@ namespace Itan.Functions.Workers
         private readonly ISerializer serializer;
 
         public Function2Worker(
-            ILoger log,
-            IChannelsDownloadsReader downloadsReader, 
-            IBlobPathGenerator blobPathGenerator, 
+            ILoger<Function2Worker> log,
+            IChannelsDownloadsReader downloadsReader,
+            IBlobPathGenerator blobPathGenerator,
             IHttpDownloader httpDownloader,
-            IBlobContainer blobContainer, 
-            IChannelsDownloadsWriter downloadsWriter, 
+            IBlobContainer blobContainer,
+            IChannelsDownloadsWriter downloadsWriter,
             ISerializer serializer)
         {
+            Ensure.NotNull(log, nameof(log));
+            Ensure.NotNull(downloadsReader, nameof(downloadsReader));
+            Ensure.NotNull(blobPathGenerator, nameof(blobPathGenerator));
+            Ensure.NotNull(httpDownloader, nameof(httpDownloader));
+            Ensure.NotNull(blobContainer, nameof(blobContainer));
+            Ensure.NotNull(downloadsWriter, nameof(downloadsWriter));
+            Ensure.NotNull(serializer, nameof(serializer));
+
             this.log = log;
             this.downloadsReader = downloadsReader;
             this.blobPathGenerator = blobPathGenerator;
@@ -32,9 +40,9 @@ namespace Itan.Functions.Workers
             this.serializer = serializer;
         }
 
-        public async Task Run(string myQueueItem)
+        public async Task Run(string queueItem)
         {
-            var channelToDownload = this.serializer.Deserialize<ChannelToDownload>(myQueueItem);
+            var channelToDownload = this.serializer.Deserialize<ChannelToDownload>(queueItem);
 
             var channelString = await this.httpDownloader.GetStringAsync(channelToDownload.Url);
             var hashCode = channelString.GetHashCode();
@@ -45,17 +53,15 @@ namespace Itan.Functions.Workers
             }
 
             var channelDownloadPath = this.blobPathGenerator.GetChannelDownloadPath(channelToDownload.Id);
-            await this.blobContainer.UploadTextAsync(channelDownloadPath, channelString);
+            await this.blobContainer.UploadTextAsync("rss",channelDownloadPath, channelString);
 
-            var data = new
+            var data = new DownloadDto
             {
-                id = Guid.NewGuid(),
-                channelId = channelToDownload.Id,
-                path = channelDownloadPath,
-                createdOn = DateTime.UtcNow,
-                hashCode = hashCode
+                ChannelId = channelToDownload.Id,
+                Path = channelDownloadPath,
+                HashCode = hashCode
             };
-            
+
             await this.downloadsWriter.InsertAsync(data);
         }
     }

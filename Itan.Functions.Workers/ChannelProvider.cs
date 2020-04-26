@@ -14,6 +14,8 @@ namespace Itan.Functions.Workers
 
         public ChannelProvider(IOptions<ConnectionOptions> connectionOptions)
         {
+            Ensure.NotNull(connectionOptions, nameof(connectionOptions));
+
             this.connectionOptions = connectionOptions.Value;
         }
 

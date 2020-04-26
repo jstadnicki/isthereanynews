@@ -1,7 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Itan.Functions.Models;
 
-public interface IQueue<T>
+namespace Itan.Functions.Workers
 {
-    Task AddRangeAsync(IEnumerable<T> elementsToAdd);
+    public interface IQueue<T>
+    {
+        Task AddRangeAsync(IEnumerable<T> elementsToAdd);
+        Task AddAsync(ChannelUpdate channelUpdate, string s);
+    }
 }

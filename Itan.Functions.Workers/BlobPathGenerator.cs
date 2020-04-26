@@ -4,10 +4,8 @@ namespace Itan.Functions.Workers
 {
     public class BlobPathGenerator : IBlobPathGenerator
     {
-        public string GetChannelDownloadPath(Guid id)
-        {
-            var channelDownloadPath =  $"raw/{id}/{DateTime.UtcNow.ToString("yyyyMMddhhmmss_mmm")}.xml";
-            return channelDownloadPath;
-        }
+        public string GetChannelDownloadPath(Guid id) => $"raw/{id}/{DateTime.UtcNow.ToString("yyyyMMddhhmmss_mmm")}.xml";
+
+        public string GetPathUpload(Guid channelId, Guid itemId) => $"items/{channelId}/{itemId.ToString()}.json";
     }
 }

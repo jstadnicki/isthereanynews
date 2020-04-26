@@ -16,6 +16,4 @@ namespace Itan.Functions
             await worker.Run();
         }
     }
-
-
 }

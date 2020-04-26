@@ -6,10 +6,11 @@ namespace Itan.Functions.Workers
 {
     public class HttpDownloader : IHttpDownloader
     {
-        private readonly ILoger log;
+        private readonly ILoger<HttpDownloader> log;
 
-        public HttpDownloader(ILoger log)
+        public HttpDownloader(ILoger<HttpDownloader> log)
         {
+            Ensure.NotNull(log, nameof(log));
             this.log = log;
         }
 

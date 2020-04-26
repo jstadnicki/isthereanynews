@@ -7,13 +7,17 @@ namespace Itan.Functions.Workers
     {
         private readonly IQueue<ChannelToDownload> messagesCollector;
         private readonly IChannelsProvider channelsProvider;
-        private readonly ILoger loger;
+        private readonly ILoger<Function1Worker> loger;
 
         public Function1Worker(
-            ILoger loger,
+            ILoger<Function1Worker> loger,
             IQueue<ChannelToDownload> messagesCollector,
             IChannelsProvider channelsProvider)
         {
+            Ensure.NotNull(loger, nameof(loger));
+            Ensure.NotNull(messagesCollector, nameof(messagesCollector));
+            Ensure.NotNull(channelsProvider, nameof(channelsProvider));
+
             this.loger = loger;
             this.messagesCollector = messagesCollector;
             this.channelsProvider = channelsProvider;
@@ -22,7 +26,7 @@ namespace Itan.Functions.Workers
         public async Task Run()
         {
             var listOfChannelsToDownload = await this.channelsProvider.GetAllChannelsAsync();
-            await messagesCollector.AddRangeAsync(listOfChannelsToDownload);
+            await this.messagesCollector.AddRangeAsync(listOfChannelsToDownload);
         }
     }
 }

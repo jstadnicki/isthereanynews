@@ -24,10 +24,11 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker2
                 .Verify(v => v.GetChannelDownloadPath(It.IsAny<Guid>()), Times.Never);
 
             workerFixture.BlobContainer
-                .Verify(v => v.UploadTextAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
+                .Verify(v => v.UploadTextAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()),
+                    Times.Never);
 
             workerFixture.DownloadsWriter
-                .Verify(v => v.InsertAsync(It.IsAny<object>()), Times.Never);
+                .Verify(v => v.InsertAsync(It.IsAny<DownloadDto>()), Times.Never);
         }
 
         [Theory, AutoData]
@@ -38,13 +39,15 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker2
             string url,
             string downloadContent)
         {
-            await workerFixture
+            var worker = workerFixture
                 .SerializerReturnsValidObject(channelGuid, url)
                 .DownloaderReturns(downloadContent)
                 .DownloadDoesNotExits()
                 .GenerateValidBlobUploadPath(uploadPath)
-                .GetWorker()
-                .Run(string.Empty);
+                .GetWorker();
+
+
+            await worker.Run(string.Empty);
 
             workerFixture
                 .DownloadsReader
@@ -61,11 +64,36 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker2
                 .BlobContainer
                 .Verify(
                     v => v.UploadTextAsync(It.Is<string>(p => p == uploadPath),
+                        It.Is<string>(p => p == "rss"),
                         It.Is<string>(p => p == downloadContent)), Times.Once);
 
             workerFixture
                 .DownloadsWriter
-                .Verify(v => v.InsertAsync(It.IsAny<object>()), Times.Once);
+                .Verify(
+                    v => v.InsertAsync(It.Is<DownloadDto>(p =>
+                        p.Path == uploadPath && p.ChannelId == channelGuid &&
+                        p.HashCode == downloadContent.GetHashCode())), Times.Once);
+        }
+
+        [Fact]
+        public void PassingNullToConstructorThrowsException()
+        {
+            Assert.Throws<ArgumentNullException>(() => new Function2Worker(null, null, null, null, null, null, null));
+            Assert.Throws<ArgumentNullException>(() =>
+                new Function2Worker(Mock.Of<ILoger<Function2Worker>>(), null, null, null, null, null, null));
+            Assert.Throws<ArgumentNullException>(() => new Function2Worker(Mock.Of<ILoger<Function2Worker>>(),
+                Mock.Of<IChannelsDownloadsReader>(), null, null, null, null, null));
+            Assert.Throws<ArgumentNullException>(() => new Function2Worker(Mock.Of<ILoger<Function2Worker>>(),
+                Mock.Of<IChannelsDownloadsReader>(), Mock.Of<IBlobPathGenerator>(), null, null, null, null));
+            Assert.Throws<ArgumentNullException>(() => new Function2Worker(Mock.Of<ILoger<Function2Worker>>(),
+                Mock.Of<IChannelsDownloadsReader>(), Mock.Of<IBlobPathGenerator>(), Mock.Of<IHttpDownloader>(), null,
+                null, null));
+            Assert.Throws<ArgumentNullException>(() => new Function2Worker(Mock.Of<ILoger<Function2Worker>>(),
+                Mock.Of<IChannelsDownloadsReader>(), Mock.Of<IBlobPathGenerator>(), Mock.Of<IHttpDownloader>(),
+                Mock.Of<IBlobContainer>(), null, null));
+            Assert.Throws<ArgumentNullException>(() => new Function2Worker(Mock.Of<ILoger<Function2Worker>>(),
+                Mock.Of<IChannelsDownloadsReader>(), Mock.Of<IBlobPathGenerator>(), Mock.Of<IHttpDownloader>(),
+                Mock.Of<IBlobContainer>(), Mock.Of<IChannelsDownloadsWriter>(), null));
         }
     }
 }

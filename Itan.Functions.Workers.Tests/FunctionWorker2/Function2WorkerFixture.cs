@@ -7,17 +7,17 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker1
 {
     public class Function2WorkerFixture : Fixture
     {
-        private readonly Mock<ILoger> mockLoger;
         private readonly Mock<IChannelsDownloadsReader> mockChannelsDownloadsReader;
         private readonly Mock<IBlobPathGenerator> mockBlogPathGenerator;
         private readonly Mock<IHttpDownloader> mockHttpDownloader;
         private readonly Mock<IBlobContainer> mockBlobContainer;
         private readonly Mock<IChannelsDownloadsWriter> mockChannelsDownloadWriter;
         private readonly Mock<ISerializer> mockSerializer;
+        private readonly Mock<ILoger<Function2Worker>> mockLoger;
 
         public Function2WorkerFixture()
         {
-            this.mockLoger = new Mock<ILoger>();
+            this.mockLoger = new Mock<ILoger<Function2Worker>>();
             this.mockChannelsDownloadsReader = new Mock<IChannelsDownloadsReader>();
             this.mockBlogPathGenerator = new Mock<IBlobPathGenerator>();
             this.mockHttpDownloader = new Mock<IHttpDownloader>();

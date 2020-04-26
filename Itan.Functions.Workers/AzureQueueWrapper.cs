@@ -16,6 +16,9 @@ namespace Itan.Functions.Workers
 
         public AzureQueueWrapper(IOptions<ConnectionOptions> connectionOptions, ISerializer serializer)
         {
+            Ensure.NotNull(connectionOptions, nameof(connectionOptions));
+            Ensure.NotNull(serializer, nameof(serializer));
+            
             this.serializer = serializer;
             this.storageAccount = CloudStorageAccount.Parse(connectionOptions.Value.Emulator);
             this.queueClient = storageAccount.CreateCloudQueueClient();
@@ -30,6 +33,11 @@ namespace Itan.Functions.Workers
                 var serializedElement = this.serializer.Serialize(element);
                 await this.queue.AddMessageAsync(new CloudQueueMessage(serializedElement));
             }
+        }
+
+        public Task AddAsync(ChannelUpdate channelUpdate, string s)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

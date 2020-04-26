@@ -1,6 +1,9 @@
 ﻿using System.Threading.Tasks;
 
-public interface IChannelsDownloadsWriter
+namespace Itan.Functions.Workers
 {
-    public Task InsertAsync(object data);
+    public interface IChannelsDownloadsWriter
+    {
+        public Task InsertAsync(DownloadDto data);
+    }
 }

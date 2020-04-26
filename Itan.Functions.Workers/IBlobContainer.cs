@@ -5,6 +5,7 @@ namespace Itan.Functions.Workers
 {
     public interface IBlobContainer
     {
-        Task UploadTextAsync(string id, string channelString);
+        Task UploadTextAsync(string containerName, string id, string channelString);
+        Task DeleteAsync(string containerName, string itemUploadPath);
     }
 }

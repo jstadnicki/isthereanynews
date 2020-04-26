@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-public interface IChannelsDownloadsReader
+namespace Itan.Functions.Workers
 {
-    Task<bool> Exists(Guid id, int hashCode);
+    public interface IChannelsDownloadsReader
+    {
+        Task<bool> Exists(Guid id, int hashCode);
+    }
 }

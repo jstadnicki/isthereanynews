@@ -2,12 +2,13 @@
 
 namespace Itan.Functions.Workers
 {
-    public class Loger : ILoger
+    public class Loger<T> : ILoger<T>
     {
-        private readonly ILogger log;
+        private readonly ILogger<T> log;
 
-        public Loger(ILogger log)
+        public Loger(ILogger<T> log)
         {
+            Ensure.NotNull(log, nameof(log));
             this.log = log;
         }
 

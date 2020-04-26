@@ -2,23 +2,28 @@
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Dapper;
+using Microsoft.Extensions.Options;
 
-public class ChannelsDownloadsReader : IChannelsDownloadsReader
+namespace Itan.Functions.Workers
 {
-    private string sqlConnectionStringReader;
-
-    public ChannelsDownloadsReader(string sqlConnectionStringReader)
+    public class ChannelsDownloadsReader : IChannelsDownloadsReader
     {
-        this.sqlConnectionStringReader = sqlConnectionStringReader;
-    }
+        private string sqlConnectionStringReader;
 
-    public async Task<bool> Exists(Guid id, int hashCode)
-    {
-        var checkForExistenceQuery = "SELECT * FROM ChannelDownloads WHERE ChannelId = @channelId AND HashCode = @hashCode";
-        var checkForExistenceQueryData = new {channelId = id, hashCode = hashCode};
+        public ChannelsDownloadsReader(IOptions<ConnectionOptions> options)
+        {
+            Ensure.NotNull(options, nameof(options));
+            this.sqlConnectionStringReader = options.Value.SqlReader;
+        }
 
-        using var sqlConnection = new SqlConnection(this.sqlConnectionStringReader);
-        var result = await sqlConnection.QuerySingleOrDefaultAsync(checkForExistenceQuery, checkForExistenceQueryData);
-        return result != null;
+        public async Task<bool> Exists(Guid id, int hashCode)
+        {
+            var checkForExistenceQuery = "SELECT * FROM ChannelDownloads WHERE ChannelId = @channelId AND HashCode = @hashCode";
+            var checkForExistenceQueryData = new {channelId = id, hashCode = hashCode};
+
+            using var sqlConnection = new SqlConnection(this.sqlConnectionStringReader);
+            var result = await sqlConnection.QuerySingleOrDefaultAsync(checkForExistenceQuery, checkForExistenceQueryData);
+            return result != null;
+        }
     }
 }
