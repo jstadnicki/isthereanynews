@@ -2,6 +2,8 @@
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Dapper;
+using Itan.Functions.Workers.Model;
+using Itan.Functions.Workers.Wrappers;
 using Microsoft.Extensions.Options;
 
 namespace Itan.Functions.Workers

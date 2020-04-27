@@ -118,40 +118,61 @@
         </e>
       </e>
       <e p="Itan.Functions.Workers" t="IncludeRecursive">
-        <e p="AzureQueueWrapper.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
-        <e p="BlobContainer.cs" t="Include" />
         <e p="BlobPathGenerator.cs" t="Include" />
         <e p="ChannelProvider.cs" t="Include" />
         <e p="ChannelsDownloadsReader.cs" t="Include" />
         <e p="ChannelsDownloadsWriter.cs" t="Include" />
         <e p="ConnectionOptions.cs" t="Include" />
+        <e p="Ensure.cs" t="Include" />
+        <e p="Exceptions" t="Include">
+          <e p="FeedReaderWrapperParseStringException.cs" t="Include" />
+          <e p="ItanException.cs" t="Include" />
+          <e p="NewsWriterInsertNewsLinkException.cs" t="Include" />
+        </e>
         <e p="Function1Worker.cs" t="Include" />
         <e p="Function2Worker.cs" t="Include" />
         <e p="Function3Worker.cs" t="Include" />
         <e p="Function4Worker.cs" t="Include" />
-        <e p="HttpDownloader.cs" t="Include" />
-        <e p="IBlobContainer.cs" t="Include" />
         <e p="IBlobPathGenerator.cs" t="Include" />
         <e p="IChannelsDownloadsReader.cs" t="Include" />
         <e p="IChannelsDownloadsWriter.cs" t="Include" />
         <e p="IChannelsProvider.cs" t="Include" />
         <e p="IConnectionOptions.cs" t="Include" />
         <e p="IFunction1Worker.cs" t="Include" />
+        <e p="IFunction2Worker.cs" t="Include" />
+        <e p="IFunction3Worker.cs" t="Include" />
         <e p="IFunctionWorker.cs" t="Include" />
-        <e p="IHttpDownloader.cs" t="Include" />
-        <e p="ILoger.cs" t="Include" />
-        <e p="IQueue.cs" t="Include" />
-        <e p="ISerializer.cs" t="Include" />
+        <e p="INewsWriter.cs" t="Include" />
         <e p="Itan.Functions.Workers.csproj" t="IncludeRecursive" />
-        <e p="JsonWrapperSerializer.cs" t="Include" />
-        <e p="Loger.cs" t="Include" />
+        <e p="Model" t="Include">
+          <e p="DownloadDto.cs" t="Include" />
+          <e p="ItanFeed.cs" t="Include" />
+          <e p="ItanFeedItem.cs" t="Include" />
+        </e>
+        <e p="NewsWriter.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.0" t="Include">
               <e p="Itan.Functions.Workers.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
+        </e>
+        <e p="Wrappers" t="Include">
+          <e p="AzureQueueWrapper.cs" t="Include" />
+          <e p="BlobContainer.cs" t="Include" />
+          <e p="FeedReaderWrapper.cs" t="Include" />
+          <e p="HttpDownloader.cs" t="Include" />
+          <e p="IBlobContainer.cs" t="Include" />
+          <e p="IFeedReader.cs" t="Include" />
+          <e p="IHttpDownloader.cs" t="Include" />
+          <e p="ILoger.cs" t="Include" />
+          <e p="IQueue.cs" t="Include" />
+          <e p="ISerializer.cs" t="Include" />
+          <e p="IStreamBlobReader.cs" t="Include" />
+          <e p="JsonWrapperSerializer.cs" t="Include" />
+          <e p="Loger.cs" t="Include" />
+          <e p="StreamReaderWrapper.cs" t="Include" />
         </e>
       </e>
       <e p="Itan.Functions.Workers.Tests" t="IncludeRecursive">
@@ -163,6 +184,10 @@
         <e p="FunctionWorker2" t="Include">
           <e p="Function2WorkerFixture.cs" t="Include" />
           <e p="Function2WorkerTests.cs" t="Include" />
+        </e>
+        <e p="FunctionWorker3" t="Include">
+          <e p="Function3WorkerFixture.cs" t="Include" />
+          <e p="Function3WorkerTests.cs" t="Include" />
         </e>
         <e p="Itan.Functions.Workers.Tests.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
@@ -179,11 +204,11 @@
       <e p="ITAN.sln" t="IncludeFlat" />
       <e p="packages" t="ExcludeRecursive" />
     </e>
-    <e p="C:\Users\jarek\.nuget\packages\microsoft.net.test.sdk\16.5.0\build\netcoreapp2.1" t="Include">
+    <e p="C:\Users\jarek\.nuget\packages\microsoft.net.test.sdk\16.6.0\build\netcoreapp2.1" t="Include">
       <e p="Microsoft.NET.Test.Sdk.Program.cs" t="Include" />
     </e>
-    <e p="C:\Users\jarek\.nuget\packages\microsoft.testplatform.testhost\16.5.0\build\netcoreapp2.1\x64\testhost.dll" t="Include" />
-    <e p="C:\Users\jarek\.nuget\packages\microsoft.testplatform.testhost\16.5.0\build\netcoreapp2.1\x64\testhost.exe" t="Include" />
+    <e p="C:\Users\jarek\.nuget\packages\microsoft.testplatform.testhost\16.6.0\build\netcoreapp2.1\x64\testhost.dll" t="Include" />
+    <e p="C:\Users\jarek\.nuget\packages\microsoft.testplatform.testhost\16.6.0\build\netcoreapp2.1\x64\testhost.exe" t="Include" />
     <e p="C:\Users\jarek\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.reporters.netcoreapp10.dll" t="Include" />
     <e p="C:\Users\jarek\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.utility.netcoreapp10.dll" t="Include" />
     <e p="C:\Users\jarek\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll" t="Include" />

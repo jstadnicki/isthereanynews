@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AutoFixture.Xunit2;
+using Itan.Functions.Workers.Model;
 using Itan.Functions.Workers.Tests.FunctionWorker1;
+using Itan.Functions.Workers.Wrappers;
 using Moq;
 using Xunit;
 

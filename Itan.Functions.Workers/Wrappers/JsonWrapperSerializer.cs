@@ -1,4 +1,4 @@
-﻿namespace Itan.Functions.Workers
+﻿namespace Itan.Functions.Workers.Wrappers
 {
    public class JsonWrapperSerializer : ISerializer
     {

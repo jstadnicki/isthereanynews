@@ -3,18 +3,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Itan.Functions.Models;
+using Itan.Functions.Workers.Exceptions;
+using Itan.Functions.Workers.Wrappers;
 using Microsoft.Extensions.Logging;
 
 namespace Itan.Functions.Workers
 {
-    public interface IFunction3Worker
-    {
-        Task RunAsync(Guid channelId, string blobName, Stream myBlob);
-    }
-
     public class Function3Worker : IFunction3Worker
     {
-        private readonly ILogger<Function3Worker> logger;
+        private readonly ILoger<Function3Worker> logger;
         private readonly IStreamBlobReader reader;
         private readonly IFeedReader feedReader;
         private readonly IQueue<ChannelUpdate> queue;
@@ -24,7 +21,7 @@ namespace Itan.Functions.Workers
         private readonly INewsWriter newsWriter;
 
         public Function3Worker(
-            ILogger<Function3Worker> logger,
+            ILoger<Function3Worker> logger,
             IStreamBlobReader reader,
             IFeedReader feedReader,
             IQueue<ChannelUpdate> queue,
@@ -54,8 +51,8 @@ namespace Itan.Functions.Workers
 
         public async Task RunAsync(Guid channelId, string blobName, Stream myBlob)
         {
-            this.logger.LogInformation(
-                $"Got channel with id: {channelId.ToString()} with name: {blobName} with stream length: {myBlob.Length.ToString()}");
+            // this.logger.LogInformation(
+            //     $"Got channel with id: {channelId.ToString()} with name: {blobName} with stream length: {myBlob.Length.ToString()}");
 
             try
             {
@@ -91,8 +88,7 @@ namespace Itan.Functions.Workers
             }
             catch (FeedReaderWrapperParseStringException e)
             {
-                this.logger.LogCritical(
-                    $"Xml rss/raw/{channelId.ToString()}/{blobName} is broken.Finishing and returning");
+                this.logger.LogCritical($"Xml rss/raw/{channelId.ToString()}/{blobName} is broken.Finishing and returning");
                 this.logger.LogCritical(e.ToString());
             }
         }

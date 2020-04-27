@@ -1,6 +1,8 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Itan.Functions.Models;
+using Itan.Functions.Workers.Model;
+using Itan.Functions.Workers.Wrappers;
 
 namespace Itan.Functions.Workers
 {

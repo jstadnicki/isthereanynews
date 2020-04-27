@@ -2,15 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using CodeHollow.FeedReader;
-using Dapper;
+using Itan.Functions.Workers.Exceptions;
+using Itan.Functions.Workers.Model;
 
-namespace Itan.Functions.Workers
+namespace Itan.Functions.Workers.Wrappers
 {
-    public interface IFeedReader
-    {
-        ItanFeed GetFeed(string feedString);
-    }
-
     public class FeedReaderWrapper : IFeedReader
     {
         public ItanFeed GetFeed(string feedString)
@@ -55,25 +51,5 @@ namespace Itan.Functions.Workers
                 PublishingDateString = item.PublishingDateString,
                 Categories = item.Categories,
             };
-    }
-
-    internal class FeedReaderWrapperParseStringException : ItanException
-    {
-        public FeedReaderWrapperParseStringException(Exception exception)
-            : base(nameof(FeedReaderWrapperParseStringException), exception)
-        {
-        }
-
-        public override string Message => "There was a problem parsing string into CodeHollow Feed item";
-    }
-
-    public class ItanException : Exception
-    {
-        protected ItanException(string name, Exception exception) : base(name, exception)
-        {
-        }
-
-        public Guid Id { get; set; } = Guid.NewGuid();
-        public DateTime Created { get; set; } = DateTime.UtcNow;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Itan.Functions.Workers.Model;
 
 namespace Itan.Functions.Workers
 {

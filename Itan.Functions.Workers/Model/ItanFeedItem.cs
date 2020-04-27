@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Itan.Functions.Workers
+namespace Itan.Functions.Workers.Model
 {
     public class ItanFeedItem
 
