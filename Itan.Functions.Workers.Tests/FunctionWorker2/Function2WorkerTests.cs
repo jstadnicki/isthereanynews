@@ -65,8 +65,9 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker2
             workerFixture
                 .BlobContainer
                 .Verify(
-                    v => v.UploadTextAsync(It.Is<string>(p => p == uploadPath),
+                    v => v.UploadTextAsync(
                         It.Is<string>(p => p == "rss"),
+                        It.Is<string>(p => p == uploadPath),
                         It.Is<string>(p => p == downloadContent)), Times.Once);
 
             workerFixture
