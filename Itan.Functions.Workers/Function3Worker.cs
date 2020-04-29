@@ -74,7 +74,6 @@ namespace Itan.Functions.Workers
                     var itemUploadPath = this.pathGenerator.GetPathUpload(channelId, item.Id);
                     await this.blobContainer.UploadTextAsync("rss", itemUploadPath, itemJson);
 
-
                     try
                     {
                         await this.newsWriter.InsertNewsLinkAsync(channelId, item.Title, item.Id);

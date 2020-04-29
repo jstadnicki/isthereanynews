@@ -2,7 +2,7 @@
 
 namespace Itan.Functions.Workers.Exceptions
 {
-    internal class FeedReaderWrapperParseStringException : ItanException
+    public class FeedReaderWrapperParseStringException : ItanException
     {
         public FeedReaderWrapperParseStringException(Exception exception)
             : base(nameof(FeedReaderWrapperParseStringException), exception)
