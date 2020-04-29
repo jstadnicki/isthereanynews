@@ -50,6 +50,8 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker3
         public Mock<IQueue<ChannelUpdate>> MockQueue => this.mockQueue;
         public Mock<IBlobContainer> MockBlobContainer => this.mockBlobContainer;
         public Mock<INewsWriter> MockNewsWriter => this.mockNewsWriter;
+        public Mock<ISerializer> MockSerializer => this.mockSerializer;
+        public Mock<IBlobPathGenerator> MockPathGenerator => this.mockBlobPathGenerator;
 
         public Function3WorkerFixture MakeReaderReturnEmptyString()
         {
@@ -62,12 +64,11 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker3
 
         public Function3WorkerFixture MakeFeedReturnValidFeedWithoutItems(string title, string description)
         {
-            var feed = new ItanFeed
-            {
-                Description = description,
-                Items = new List<ItanFeedItem>(),
-                Title = title
-            };
+            var feed = this.Build<ItanFeed>()
+                .With(x => x.Description, description)
+                .With(x => x.Title, title)
+                .With(x => x.Items, new List<ItanFeedItem>())
+                .Create();
 
             this.mockFeedReader
                 .Setup(s => s.GetFeed(It.IsAny<string>()))
@@ -80,6 +81,48 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker3
         {
             this.mockFeedReader.Setup(s => s.GetFeed(It.IsAny<string>()))
                 .Throws(new FeedReaderWrapperParseStringException(new Exception("test one")));
+
+            return this;
+        }
+
+        public Function3WorkerFixture MakeFeedReturnValidFeedWithItems(string title, string description, int itemsCount)
+        {
+            var feed = this.Build<ItanFeed>()
+                .With(x => x.Description, description)
+                .With(x => x.Title, title)
+                .With(x => x.Items, this.CreateMany<ItanFeedItem>(itemsCount))
+                .Create();
+
+            this.mockFeedReader
+                .Setup(s => s.GetFeed(It.IsAny<string>()))
+                .Returns(feed);
+
+            return this;
+        }
+
+        public Function3WorkerFixture MakeSerializerReturn(string serialized)
+        {
+            this.mockSerializer
+                .Setup(s => s.Serialize(It.IsAny<object>()))
+                .Returns(serialized);
+
+            return this;
+        }
+
+        public Function3WorkerFixture MakePathGeneratorGenerate(string uploadPath)
+        {
+            this.mockBlobPathGenerator
+                .Setup(s => s.GetPathUpload(It.IsAny<Guid>(), It.IsAny<Guid>()))
+                .Returns(uploadPath);
+
+            return this;
+        }
+
+        public Function3WorkerFixture MakeNewsWriterThrowsOnWrite()
+        {
+            this.MockNewsWriter
+                .Setup(s => s.InsertNewsLinkAsync(It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<Guid>()))
+                .Throws(new NewsWriterInsertNewsLinkException(new Exception()));
 
             return this;
         }

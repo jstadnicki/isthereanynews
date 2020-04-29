@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using AutoFixture.Xunit2;
 using Itan.Functions.Models;
+using Itan.Functions.Workers.Model;
 using Itan.Functions.Workers.Wrappers;
 using Moq;
 using Xunit;
@@ -80,7 +81,8 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker3
         }
 
         [Theory, AutoData]
-        public async Task FeedReturnsNewFeedWithoutItemsUpdateUpdateQueueIsTriggeredNoBlobsAreCreated(Function3WorkerFixture fixture, Guid channelId, string blobName, string title,
+        public async Task FeedReturnsNewFeedWithoutItemsUpdateUpdateQueueIsTriggeredNoBlobsAreCreated(
+            Function3WorkerFixture fixture, Guid channelId, string blobName, string title,
             string description)
         {
             var worker = fixture
@@ -99,6 +101,93 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker3
             fixture.MockBlobContainer.Verify(v => v.DeleteAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
             fixture.MockNewsWriter.Verify(
                 v => v.InsertNewsLinkAsync(It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<Guid>()), Times.Never);
+        }
+
+        [Theory, AutoData]
+        public async Task FeedWithItemsUploadEveryElementToCloudAndSimpleVersionToNewsWriter(
+            Function3WorkerFixture fixture,
+            Guid channelId,
+            string blobName,
+            string title,
+            string description,
+            int itemsCount,
+            string uploadPath,
+            string serialized)
+        {
+            var worker = fixture
+                .MakeFeedReturnValidFeedWithItems(title, description, itemsCount)
+                .MakeSerializerReturn(serialized)
+                .MakePathGeneratorGenerate(uploadPath)
+                .GetWorker();
+
+            await worker.RunAsync(channelId, blobName, null);
+
+            fixture.MockQueue.Verify(
+                v => v.AddAsync(
+                    It.Is<ChannelUpdate>(p => p.Description == description && p.Title == title && p.Id == channelId),
+                    It.Is<string>(p => p == QueuesName.ChannelUpdate)), Times.Once);
+
+            fixture.MockSerializer.Verify(v => v.Serialize(It.IsAny<ItanFeedItem>()), Times.Exactly(itemsCount));
+
+            fixture.MockPathGenerator
+                .Verify(v => v.GetPathUpload(It.Is<Guid>(p => p == channelId), It.IsAny<Guid>()),
+                    Times.Exactly(itemsCount));
+
+            fixture.MockBlobContainer
+                .Verify(
+                    v => v.UploadTextAsync(It.Is<string>(p => p == "rss"), It.Is<string>(p => p == uploadPath),
+                        It.Is<string>(p => p == serialized)), Times.Exactly(itemsCount));
+
+            fixture.MockNewsWriter
+                .Verify(
+                    v => v.InsertNewsLinkAsync(It.Is<Guid>(p => p == channelId), It.IsAny<string>(), It.IsAny<Guid>()),
+                    Times.Exactly(itemsCount));
+        }
+        
+        [Theory, AutoData]
+        public async Task WritingToNewsStorageThrowsThenNewsIsAlsoDeletedFromCloud(
+            Function3WorkerFixture fixture,
+            Guid channelId,
+            string blobName,
+            string title,
+            string description,
+            int itemsCount,
+            string uploadPath,
+            string serialized)
+        {
+            var worker = fixture
+                .MakeFeedReturnValidFeedWithItems(title, description, itemsCount)
+                .MakeSerializerReturn(serialized)
+                .MakePathGeneratorGenerate(uploadPath)
+                .MakeNewsWriterThrowsOnWrite()
+                .GetWorker();
+
+            await worker.RunAsync(channelId, blobName, null);
+
+            fixture.MockQueue.Verify(
+                v => v.AddAsync(
+                    It.Is<ChannelUpdate>(p => p.Description == description && p.Title == title && p.Id == channelId),
+                    It.Is<string>(p => p == QueuesName.ChannelUpdate)), Times.Once);
+
+            fixture.MockSerializer.Verify(v => v.Serialize(It.IsAny<ItanFeedItem>()), Times.Exactly(itemsCount));
+
+            fixture.MockPathGenerator
+                .Verify(v => v.GetPathUpload(It.Is<Guid>(p => p == channelId), It.IsAny<Guid>()),
+                    Times.Exactly(itemsCount));
+
+            fixture.MockBlobContainer
+                .Verify(
+                    v => v.UploadTextAsync(It.Is<string>(p => p == "rss"), It.Is<string>(p => p == uploadPath),
+                        It.Is<string>(p => p == serialized)), Times.Exactly(itemsCount));
+
+            fixture.MockNewsWriter
+                .Verify(
+                    v => v.InsertNewsLinkAsync(It.Is<Guid>(p => p == channelId), It.IsAny<string>(), It.IsAny<Guid>()),
+                    Times.Exactly(itemsCount));
+            
+            fixture.MockLoger.Verify(v=>v.LogCritical(It.IsAny<string>()), Times.Exactly(itemsCount));
+            
+            fixture.MockBlobContainer.Verify(v=>v.DeleteAsync(It.IsAny<string>(), It.IsAny<string>()),Times.Exactly(itemsCount));
         }
     }
 }
