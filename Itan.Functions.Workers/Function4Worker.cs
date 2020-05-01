@@ -1,52 +1,29 @@
-﻿using System;
-using System.Data.SqlClient;
-using System.Threading.Tasks;
-using Dapper;
+﻿using System.Threading.Tasks;
 using Itan.Functions.Models;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+using Itan.Functions.Workers.Wrappers;
 
 namespace Itan.Functions.Workers
 {
-    public class Function4Worker
+    public class Function4Worker : IFunction4Worker
     {
-        private ILogger logger;
-        private readonly string functionAppDirectory;
+        private ILoger<Function4Worker> loger;
+        private ISerializer serializer;
+        private IChannelUpdater channelUpdater;
 
-        public Function4Worker(ILogger logger, string functionAppDirectory)
+        public Function4Worker(
+            ILoger<Function4Worker> logger, 
+            ISerializer serializer, 
+            IChannelUpdater channelUpdater)
         {
-            this.logger = logger;
-            this.functionAppDirectory = functionAppDirectory;
+            this.loger = logger;
+            this.serializer = serializer;
+            this.channelUpdater = channelUpdater;
         }
 
-        public async Task RunAsync(ChannelUpdate message)
-        {
-            var config = new ConfigurationBuilder()
-                .SetBasePath(this.functionAppDirectory)
-                .AddJsonFile("local.settings.json", true, true)
-                .AddEnvironmentVariables()
-                .Build();
-
-            var sqlConnectionString = config.GetConnectionString("sql-itan-writer");
-            var query = "UPDATE Channels SET Title = @title, Description = @description, ModifiedOn = @modified WHERE Id = @id";
-            var queryData = new
-            {
-                message.Title,
-                message.Description,
-                modified = DateTime.UtcNow,
-                message.Id
-            };
-            try
-            {
-                using (var sqlConnection = new SqlConnection(sqlConnectionString))
-                {
-                    await sqlConnection.ExecuteAsync(query, queryData);
-                }
-            }
-            catch (Exception e)
-            {
-                this.logger.LogCritical(e.ToString());
-            }
+         public async Task RunAsync(string myQueueItem)
+         {
+            var message = this.serializer.Deserialize<ChannelUpdate>(myQueueItem);
+            await this.channelUpdater.Update(message);
         }
     }
 }

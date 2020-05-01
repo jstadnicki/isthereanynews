@@ -2,7 +2,6 @@ using Itan.Functions.Models;
 using Itan.Functions.Workers;
 
 using Microsoft.Azure.WebJobs;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 using System.Threading.Tasks;
@@ -10,17 +9,18 @@ using System.Threading.Tasks;
 
 namespace Itan.Functions
 {
-    public static class Function4
+    public class Function4
     {
-        [FunctionName("Function4")]
-        public static async Task Run(
-            ILogger log,
-            [QueueTrigger(QueuesName.ChannelUpdate, Connection = "emulator")]string myQueueItem,
-            ExecutionContext context)
+        private readonly IFunction4Worker worker;
+
+        public Function4(IFunction4Worker worker)
         {
-            var message = JsonConvert.DeserializeObject<ChannelUpdate>(myQueueItem);
-            var worker = new Function4Worker(log, context.FunctionAppDirectory);
-            await worker.RunAsync(message);
+            this.worker = worker;
+        }
+        [FunctionName("Function4")]
+        public async Task Run([QueueTrigger(QueuesName.ChannelUpdate, Connection = "emulator")]string myQueueItem)
+        {
+            await this.worker.RunAsync(myQueueItem);
         }
     }
 }
