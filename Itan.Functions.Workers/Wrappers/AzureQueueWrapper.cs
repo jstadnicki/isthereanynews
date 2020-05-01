@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Itan.Functions.Models;
 using Microsoft.Extensions.Options;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Queue;
@@ -22,12 +21,14 @@ namespace Itan.Functions.Workers.Wrappers
             this.serializer = serializer;
             this.storageAccount = CloudStorageAccount.Parse(connectionOptions.Value.Emulator);
             this.queueClient = this.storageAccount.CreateCloudQueueClient();
-            this.queue = this.queueClient.GetQueueReference(QueuesName.ChannelToDownload);
-            this.queue.CreateIfNotExistsAsync().GetAwaiter().GetResult();
+            
         }
 
-        public async Task AddRangeAsync(IEnumerable<T> elementsToAdd)
+        public async Task AddRangeAsync(IEnumerable<T> elementsToAdd, string queueName)
         {
+            this.queue = this.queueClient.GetQueueReference(queueName);
+            await this.queue.CreateIfNotExistsAsync();
+
             foreach (var element in elementsToAdd)
             {
                 var serializedElement = this.serializer.Serialize(element);
@@ -35,9 +36,13 @@ namespace Itan.Functions.Workers.Wrappers
             }
         }
 
-        public Task AddAsync(ChannelUpdate channelUpdate, string s)
+        public async Task AddAsync(T element, string queueName)
         {
-            throw new System.NotImplementedException();
+            this.queue = this.queueClient.GetQueueReference(queueName);
+            await this.queue.CreateIfNotExistsAsync();
+
+            var serializedElement = this.serializer.Serialize(element);
+            await this.queue.AddMessageAsync(new CloudQueueMessage(serializedElement));
         }
     }
 }

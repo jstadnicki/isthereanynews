@@ -17,6 +17,7 @@ namespace Itan.Functions
             builder.Services.AddScoped<IStreamBlobReader, StreamReaderWrapper>();
             builder.Services.AddScoped<IFeedReader, FeedReaderWrapper>();
             builder.Services.AddScoped<INewsWriter, NewsWriter>();
+            builder.Services.AddScoped<IChannelUpdater, ChannelUpdater>();
 
             builder.Services.AddScoped<IChannelsDownloadsReader, ChannelsDownloadsReader>();
             builder.Services.AddScoped<IChannelsDownloadsWriter, ChannelsDownloadsWriter>();
@@ -34,6 +35,8 @@ namespace Itan.Functions
 
             builder.Services.AddScoped<IFunction1Worker, Function1Worker>();
             builder.Services.AddScoped<IFunction2Worker, Function2Worker>();
+            builder.Services.AddScoped<IFunction3Worker, Function3Worker>();
+            builder.Services.AddScoped<IFunction4Worker, Function4Worker>();
         }
     }
 }

@@ -27,7 +27,7 @@ namespace Itan.Functions.Workers
         public async Task Run()
         {
             var listOfChannelsToDownload = await this.channelsProvider.GetAllChannelsAsync();
-            await this.messagesCollector.AddRangeAsync(listOfChannelsToDownload);
+            await this.messagesCollector.AddRangeAsync(listOfChannelsToDownload, QueuesName.ChannelToDownload);
         }
     }
 }

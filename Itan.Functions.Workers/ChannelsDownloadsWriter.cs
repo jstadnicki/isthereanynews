@@ -28,9 +28,9 @@ namespace Itan.Functions.Workers
 
             try
             {
-                using (var sqlConnection = new SqlConnection(query))
+                using (var sqlConnection = new SqlConnection(this.sqlConnectionStringWriter))
                 {
-                    await sqlConnection.ExecuteAsync(this.sqlConnectionStringWriter, data);
+                    await sqlConnection.ExecuteAsync(query, data);
                 }
             }
             catch (Exception e)

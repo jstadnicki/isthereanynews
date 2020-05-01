@@ -2,8 +2,6 @@ using Itan.Functions.Models;
 using Itan.Functions.Workers;
 
 using Microsoft.Azure.WebJobs;
-using Newtonsoft.Json;
-
 using System.Threading.Tasks;
 
 

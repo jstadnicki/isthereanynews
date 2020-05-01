@@ -8,7 +8,7 @@ using Microsoft.Extensions.Options;
 
 namespace Itan.Functions.Workers
 {
-    class ChannelUpdater : IChannelUpdater
+    public class ChannelUpdater : IChannelUpdater
     {
         private readonly string sqlConnectionString;
         private readonly ILoger<ChannelUpdater> loger;
