@@ -51,9 +51,6 @@ namespace Itan.Functions.Workers
 
         public async Task RunAsync(Guid channelId, string blobName, Stream myBlob)
         {
-            // this.logger.LogInformation(
-            //     $"Got channel with id: {channelId.ToString()} with name: {blobName} with stream length: {myBlob.Length.ToString()}");
-
             try
             {
                 var feedString = await this.reader.ReadAllAsTextAsync(myBlob);

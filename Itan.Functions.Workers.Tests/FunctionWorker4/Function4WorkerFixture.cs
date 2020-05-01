@@ -7,14 +7,14 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker4
 {
     public class Function4WorkerFixture : Fixture
     {
-        private readonly Mock<Loger<Function4Worker>> mockLoger;
+        private readonly Mock<ILoger<Function4Worker>> mockLoger;
         private readonly Mock<ISerializer> mockSerializer;
         private readonly Mock<IChannelUpdater> mockUpdater;
 
         public Function4WorkerFixture()
         {
             this.mockUpdater = new Mock<IChannelUpdater>();
-            this.mockLoger = new Mock<Loger<Function4Worker>>();
+            this.mockLoger = new Mock<ILoger<Function4Worker>>();
             this.mockSerializer = new Mock<ISerializer>();
         }
 

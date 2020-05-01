@@ -123,6 +123,7 @@
         <e p="ChannelProvider.cs" t="Include" />
         <e p="ChannelsDownloadsReader.cs" t="Include" />
         <e p="ChannelsDownloadsWriter.cs" t="Include" />
+        <e p="ChannelUpdater.cs" t="Include" />
         <e p="ConnectionOptions.cs" t="Include" />
         <e p="Ensure.cs" t="Include" />
         <e p="Exceptions" t="Include">
@@ -138,10 +139,12 @@
         <e p="IChannelsDownloadsReader.cs" t="Include" />
         <e p="IChannelsDownloadsWriter.cs" t="Include" />
         <e p="IChannelsProvider.cs" t="Include" />
+        <e p="IChannelUpdater.cs" t="Include" />
         <e p="IConnectionOptions.cs" t="Include" />
         <e p="IFunction1Worker.cs" t="Include" />
         <e p="IFunction2Worker.cs" t="Include" />
         <e p="IFunction3Worker.cs" t="Include" />
+        <e p="IFunction4Worker.cs" t="Include" />
         <e p="IFunctionWorker.cs" t="Include" />
         <e p="INewsWriter.cs" t="Include" />
         <e p="Itan.Functions.Workers.csproj" t="IncludeRecursive" />
@@ -188,6 +191,10 @@
         <e p="FunctionWorker3" t="Include">
           <e p="Function3WorkerFixture.cs" t="Include" />
           <e p="Function3WorkerTests.cs" t="Include" />
+        </e>
+        <e p="FunctionWorker4" t="Include">
+          <e p="Function4WorkerFixture.cs" t="Include" />
+          <e p="Function4WorkerTests.cs" t="Include" />
         </e>
         <e p="Itan.Functions.Workers.Tests.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
