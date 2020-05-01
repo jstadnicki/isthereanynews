@@ -17,6 +17,7 @@ export class ChannelsPageComponent implements OnInit {
     ) {}
 
     channels: Channel[];
+    news:News[];
 
     ngOnInit(): void {
         this.broadcastService.subscribe(
@@ -46,6 +47,32 @@ export class ChannelsPageComponent implements OnInit {
             console.log("ChannelsPageComponent:msal:loginSuccess");
             console.log(payload);
         });
+
+      this.loadChannels();
+    }
+
+    async onChannelClick(id:string){
+      var a = this.authService.getAccount();
+
+      const accessTokenRequest = {
+        scopes: [
+          "https://isthereanynewscodeblast.onmicrosoft.com/05cd7635-e6f4-47c9-a5ce-8ec04368b297/application_reader",
+          "https://isthereanynewscodeblast.onmicrosoft.com/05cd7635-e6f4-47c9-a5ce-8ec04368b297/application_writer",
+        ],
+        clientId: "f1ab593c-f0b4-44da-85dc-d89a457745a9",
+        authority:
+          "https://isthereanynewscodeblast.b2clogin.com/isthereanynewscodeblast.onmicrosoft.com/B2C_1_itansignup",
+        redirectUri: "http://localhost:4200",
+        account: a,
+        sid:this.nonce
+      };
+      // this.authService.loginPopup(accessTokenRequest);
+      var x = await this.authService.acquireTokenSilent(accessTokenRequest);
+
+      var o = this.getOptions(x.accessToken);
+      this.http
+        .get<News[]>(`https://localhost:5001/api/news/${id}`, o)
+        .subscribe((r) => (this.news = r));
     }
 
     async loadChannels() {
@@ -84,4 +111,9 @@ class Channel {
     title: string;
     id: string;
     newsCount: number;
+}
+
+class News{
+  title:string;
+  id:string;
 }
