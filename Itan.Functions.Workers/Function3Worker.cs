@@ -59,7 +59,7 @@ namespace Itan.Functions.Workers
                 var channelUpdate = new ChannelUpdate
                 {
                     Title = feed.Title,
-                    Description = feed.Description,
+                    Description = feed.Description??string.Empty,
                     Id = channelId
                 };
 
