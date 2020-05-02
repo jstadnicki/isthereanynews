@@ -19,6 +19,7 @@ export class ChannelsPageComponent implements OnInit {
   }
 
   channels: Channel[];
+  selectedChannel:Channel;
   news: News[];
   areChannelsLoaded: boolean;
   areNewsLoading: boolean;
@@ -58,7 +59,8 @@ export class ChannelsPageComponent implements OnInit {
     this.loadChannels();
   }
 
-  async onChannelClick(id: string) {
+  async onChannelClick(channel: Channel) {
+    this.selectedChannel = channel;
     this.areNewsLoading = true;
     this.news = null;
     var a = this.authService.getAccount();
@@ -79,7 +81,7 @@ export class ChannelsPageComponent implements OnInit {
 
     var o = this.getOptions(x.accessToken);
     this.http
-      .get<News[]>(`https://localhost:5001/api/news/${id}`, o)
+      .get<News[]>(`https://localhost:5001/api/news/${channel.id}`, o)
       .subscribe((r) => {
         this.news = r;
         this.areNewsLoading = false;
