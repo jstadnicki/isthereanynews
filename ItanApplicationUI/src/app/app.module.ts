@@ -43,6 +43,8 @@ const isIE =
           authority:
             "https://isthereanynewscodeblast.b2clogin.com/isthereanynewscodeblast.onmicrosoft.com/B2C_1_itansignup",
           validateAuthority: false,
+          redirectUri:"http://localhost:4200/",
+          postLogoutRedirectUri:"http://localhost:4200/"
         },
         cache: {
           cacheLocation: "localStorage",
