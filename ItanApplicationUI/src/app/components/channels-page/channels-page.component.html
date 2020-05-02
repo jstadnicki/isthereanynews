@@ -5,7 +5,7 @@
       <progress class="progress is-large is-info is-hidden" [ngClass]="{'is-hidden':areChannelsLoaded}" max="100">60%</progress>
       <button class='button is-small'
               (click)="onChannelClick(channel.id)"
-              *ngFor="let channel of channels">{{channel.url}}</button>
+              *ngFor="let channel of channels">{{channel.title}} ({{channel.newsCount}})</button>
     </div>
     <div class="column">
       <progress class="progress is-large is-info is-hidden" [ngClass]="{'is-hidden':!areNewsLoading}" max="100">60%</progress>
