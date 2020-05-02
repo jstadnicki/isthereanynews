@@ -19,7 +19,7 @@ export class ChannelsPageComponent implements OnInit {
   }
 
   channels: Channel[];
-  selectedChannel:Channel;
+  selectedChannel: Channel;
   news: News[];
   areChannelsLoaded: boolean;
   areNewsLoading: boolean;
@@ -88,6 +88,23 @@ export class ChannelsPageComponent implements OnInit {
       });
   }
 
+  async onNewsClick(newsItem: News) {
+    if (newsItem.content != null) {
+      newsItem.contentVisible = !newsItem.contentVisible;
+      return;
+    }
+    var url = newsItem.contentUrl;
+    let headers = new HttpHeaders();
+    headers.append("Origin", "http://localhost:4200");
+    let options = {headers: headers}
+    this.http
+      .get<NewsContent>(url, options)
+      .subscribe(response => {
+        newsItem.content = response;
+        newsItem.contentVisible = !newsItem.contentVisible;
+      });
+  }
+
   async loadChannels() {
     var a = this.authService.getAccount();
 
@@ -132,4 +149,13 @@ class Channel {
 class News {
   title: string;
   id: string;
+  contentUrl: string;
+  content: NewsContent;
+  contentVisible: boolean = false;
+}
+
+class NewsContent {
+  content: string;
+  author: string;
+  link: string;
 }

@@ -10,7 +10,7 @@
     </div>
     <div class="column">
       <progress class="progress is-large is-info is-hidden" [ngClass]="{'is-hidden':!areNewsLoading}" max="100">60%</progress>
-      <article class="media" *ngFor="let newsItem of news" >
+      <article class="media" *ngFor="let newsItem of news">
         <figure class="media-left">
           <p class="image is-64x64">
             <img src="https://bulma.io/images/placeholders/128x128.png"/>
@@ -19,21 +19,31 @@
         <div class="media-content">
           <div class="content">
             <p>
-              <strong>John Smith</strong> <small>@johnsmith</small> <small>31m</small>
+              <strong>{{newsItem.title}}</strong><i class="fa"
+                                                    [ngClass]="{'fa-chevron-down':!newsItem.contentVisible,'fa-chevron-up':newsItem.contentVisible}"
+                                                    (click)="onNewsClick(newsItem)" ></i>
               <br>
-              {{newsItem.title}}
+              <span *ngIf="newsItem.content" [ngClass]="{'is-hidden':!newsItem.contentVisible}">
+              {{newsItem.content?.Content}}
+                </span>
             </p>
           </div>
           <nav class="level is-mobile">
             <div class="level-left">
               <a class="level-item">
-                <span class="icon is-small"><i class="fa fa-reply"></i></span>
+                <span class="icon is-small"><i class="fa fa-comment-o"></i></span>
               </a>
               <a class="level-item">
-                <span class="icon is-small"><i class="fa fa-retweet"></i></span>
+                <span class="icon is-small"><i class="fa fa-share-alt"></i></span>
               </a>
               <a class="level-item">
-                <span class="icon is-small"><i class="fa fa-heart"></i></span>
+                <span class="icon is-small"><i class="fa fa-thumbs-o-up"></i></span>
+              </a>
+              <a class="level-item">
+                <span class="icon is-small"><i class="fa fa-thumbs-o-down"></i></span>
+              </a>
+              <a class="level-item">
+                <span class="icon is-small"><i class="fa fa-bookmark-o"></i></span>
               </a>
             </div>
           </nav>
