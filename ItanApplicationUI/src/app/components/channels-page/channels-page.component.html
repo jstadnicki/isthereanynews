@@ -1,5 +1,5 @@
 <app-header></app-header>
-<div class="container" style="height: 100%;">
+<div class="container">
   <div class="columns">
     <div class="column is-2">
       <progress class="progress is-large is-info is-hidden" [ngClass]="{'is-hidden':areChannelsLoaded}" max="100">60%
@@ -7,7 +7,8 @@
       <button class='button is-small'
               (click)="onChannelClick(channel)"
               [ngClass]="{'is-active':this.selectedChannel!=null && channel.id == this.selectedChannel.id}"
-              *ngFor="let channel of channels">{{channel.title}} ({{channel.newsCount}})
+              *ngFor="let channel of channels">
+        <div class="text-ellipsis">{{channel.title}} ({{channel.newsCount}})</div>
       </button>
     </div>
     <div class="column">
