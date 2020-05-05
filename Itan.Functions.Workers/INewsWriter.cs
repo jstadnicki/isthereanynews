@@ -5,6 +5,6 @@ namespace Itan.Functions.Workers
 {
     public interface INewsWriter
     {
-        Task InsertNewsLinkAsync(Guid channelId, string title, Guid id);
+        Task InsertNewsLinkAsync(Guid channelId, string title, Guid id, DateTime publishingDate);
     }
 }

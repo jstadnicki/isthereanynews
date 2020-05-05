@@ -23,7 +23,7 @@ namespace Itan.Core
             var newsHeaderList = new List<NewsHeader>();
             using (var connection = new SqlConnection(connectionString))
             {
-                var query = "select n.id,n.Title from News n where n.ChannelId = @channelId";
+                var query = "select n.id,n.Title, n.Published from News n where n.ChannelId = @channelId";
                 var queryData = new
                 {
                     channelId = channelId
@@ -55,6 +55,7 @@ namespace Itan.Core
                 {
                     Id = x.Id,
                     Title = x.Title,
+                    Published = x.Published,
                     ContentUrl = blob.Uri + sas
                 };
                 return newsViewModel;
@@ -67,6 +68,7 @@ namespace Itan.Core
         {
             public Guid Id { get; set; }
             public string Title { get; set; }
+            public DateTime Published { get; set; }
 
         }
     }

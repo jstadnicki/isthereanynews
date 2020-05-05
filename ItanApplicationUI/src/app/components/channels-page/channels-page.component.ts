@@ -155,6 +155,7 @@ class News {
   content: NewsContent;
   loading: boolean = false;
   contentVisible: boolean = false;
+  published:Date
 }
 
 class NewsContent {

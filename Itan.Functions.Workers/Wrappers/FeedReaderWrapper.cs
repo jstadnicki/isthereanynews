@@ -47,7 +47,7 @@ namespace Itan.Functions.Workers.Wrappers
                 Description = item.Description,
                 ItemId = item.Id,
                 Link = item.Link,
-                PublishingDate = item.PublishingDate,
+                PublishingDate = item.PublishingDate ?? DateTime.UtcNow,
                 PublishingDateString = item.PublishingDateString,
                 Categories = item.Categories,
             };

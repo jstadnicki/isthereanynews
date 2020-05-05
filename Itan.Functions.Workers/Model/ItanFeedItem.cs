@@ -12,7 +12,7 @@ namespace Itan.Functions.Workers.Model
         public string Description { get; set; }
         public string ItemId { get; set; }
         public string Link { get; set; }
-        public DateTime? PublishingDate { get; set; }
+        public DateTime PublishingDate { get; set; }
         public string PublishingDateString { get; set; }
         public ICollection<string> Categories { get; set; }
         public Guid Id { get; set; }

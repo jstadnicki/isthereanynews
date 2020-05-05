@@ -7,5 +7,6 @@ namespace Itan.Core
         public Guid Id { get; set; }
         public string Title { get; set; }
         public string ContentUrl { get; set; }
+        public DateTime Published { get; set; }
     }
 }

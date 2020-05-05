@@ -100,7 +100,7 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker3
                 v => v.UploadTextAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Never);
             fixture.MockBlobContainer.Verify(v => v.DeleteAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
             fixture.MockNewsWriter.Verify(
-                v => v.InsertNewsLinkAsync(It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<Guid>()), Times.Never);
+                v => v.InsertNewsLinkAsync(It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<Guid>(), It.IsAny<DateTime>()), Times.Never);
         }
 
         [Theory, AutoData]
@@ -140,7 +140,7 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker3
 
             fixture.MockNewsWriter
                 .Verify(
-                    v => v.InsertNewsLinkAsync(It.Is<Guid>(p => p == channelId), It.IsAny<string>(), It.IsAny<Guid>()),
+                    v => v.InsertNewsLinkAsync(It.Is<Guid>(p => p == channelId), It.IsAny<string>(), It.IsAny<Guid>(), It.IsAny<DateTime>()),
                     Times.Exactly(itemsCount));
         }
         
@@ -182,7 +182,7 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker3
 
             fixture.MockNewsWriter
                 .Verify(
-                    v => v.InsertNewsLinkAsync(It.Is<Guid>(p => p == channelId), It.IsAny<string>(), It.IsAny<Guid>()),
+                    v => v.InsertNewsLinkAsync(It.Is<Guid>(p => p == channelId), It.IsAny<string>(), It.IsAny<Guid>(),It.IsAny<DateTime>()),
                     Times.Exactly(itemsCount));
             
             fixture.MockLoger.Verify(v=>v.LogCritical(It.IsAny<string>()), Times.Exactly(itemsCount));
