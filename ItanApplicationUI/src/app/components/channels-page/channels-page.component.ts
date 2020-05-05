@@ -63,7 +63,7 @@ export class ChannelsPageComponent implements OnInit {
     this.selectedChannel = channel;
     this.areNewsLoading = true;
     this.news = null;
-    var a = this.authService.getAccount();
+    const a = this.authService.getAccount();
 
     const accessTokenRequest = {
       scopes: [
@@ -77,9 +77,9 @@ export class ChannelsPageComponent implements OnInit {
       account: a,
       sid: this.nonce
     };
-    var x = await this.authService.acquireTokenSilent(accessTokenRequest);
+    const x = await this.authService.acquireTokenSilent(accessTokenRequest);
 
-    var o = this.getOptions(x.accessToken);
+    const o = this.getOptions(x.accessToken);
     this.http
       .get<News[]>(`https://localhost:5001/api/news/${channel.id}`, o)
       .subscribe((r) => {
@@ -93,20 +93,22 @@ export class ChannelsPageComponent implements OnInit {
       newsItem.contentVisible = !newsItem.contentVisible;
       return;
     }
-    var url = newsItem.contentUrl;
+    newsItem.loading = true;
+    const url = newsItem.contentUrl;
     let headers = new HttpHeaders();
     headers.append("Origin", "http://localhost:4200");
     let options = {headers: headers}
     this.http
       .get<NewsContent>(url, options)
       .subscribe(response => {
+        newsItem.loading = false;
         newsItem.content = response;
         newsItem.contentVisible = !newsItem.contentVisible;
       });
   }
 
   async loadChannels() {
-    var a = this.authService.getAccount();
+    const a = this.authService.getAccount();
 
     const accessTokenRequest = {
       scopes: [
@@ -121,9 +123,9 @@ export class ChannelsPageComponent implements OnInit {
       sid: this.nonce
     };
     // this.authService.loginPopup(accessTokenRequest);
-    var x = await this.authService.acquireTokenSilent(accessTokenRequest);
+    const x = await this.authService.acquireTokenSilent(accessTokenRequest);
 
-    var o = this.getOptions(x.accessToken);
+    const o = this.getOptions(x.accessToken);
     this.http
       .get<Channel[]>("https://localhost:5001/api/channels", o)
       .subscribe((r) => {
@@ -151,11 +153,12 @@ class News {
   id: string;
   contentUrl: string;
   content: NewsContent;
+  loading: boolean = false;
   contentVisible: boolean = false;
 }
 
 class NewsContent {
-  content: string;
-  author: string;
-  link: string;
+  Content: string;
+  Author: string;
+  Link: string;
 }

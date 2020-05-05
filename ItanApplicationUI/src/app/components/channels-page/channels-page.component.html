@@ -2,14 +2,17 @@
 <div class="container" style="height: 100%;">
   <div class="columns">
     <div class="column is-2">
-      <progress class="progress is-large is-info is-hidden" [ngClass]="{'is-hidden':areChannelsLoaded}" max="100">60%</progress>
+      <progress class="progress is-large is-info is-hidden" [ngClass]="{'is-hidden':areChannelsLoaded}" max="100">60%
+      </progress>
       <button class='button is-small'
               (click)="onChannelClick(channel)"
               [ngClass]="{'is-active':this.selectedChannel!=null && channel.id == this.selectedChannel.id}"
-              *ngFor="let channel of channels">{{channel.title}} ({{channel.newsCount}})</button>
+              *ngFor="let channel of channels">{{channel.title}} ({{channel.newsCount}})
+      </button>
     </div>
     <div class="column">
-      <progress class="progress is-large is-info is-hidden" [ngClass]="{'is-hidden':!areNewsLoading}" max="100">60%</progress>
+      <progress class="progress is-large is-info is-hidden" [ngClass]="{'is-hidden':!areNewsLoading}" max="100">60%
+      </progress>
       <article class="media" *ngFor="let newsItem of news">
         <figure class="media-left">
           <p class="image is-64x64">
@@ -21,12 +24,15 @@
             <p>
               <strong>{{newsItem.title}}</strong><i class="fa"
                                                     [ngClass]="{'fa-chevron-down':!newsItem.contentVisible,'fa-chevron-up':newsItem.contentVisible}"
-                                                    (click)="onNewsClick(newsItem)" ></i>
-              <br>
-              <span *ngIf="newsItem.content" [ngClass]="{'is-hidden':!newsItem.contentVisible}">
-              {{newsItem.content?.Content}}
-                </span>
+                                                    (click)="onNewsClick(newsItem)"></i>
             </p>
+            <div *ngIf="newsItem.content" [ngClass]="{'is-hidden':!newsItem.contentVisible}">
+              <progress class="progress is-info"
+                        [ngClass]="{'is-hidden':!newsItem.loading}"
+                        max="100">60%
+              </progress>
+              {{newsItem.content?.Content}}
+            </div>
           </div>
           <nav class="level is-mobile">
             <div class="level-left">
@@ -48,9 +54,9 @@
             </div>
           </nav>
         </div>
-<!--        <div class="media-right">-->
-<!--          <button class="delete"></button>-->
-<!--        </div>-->
+        <!--        <div class="media-right">-->
+        <!--          <button class="delete"></button>-->
+        <!--        </div>-->
       </article>
     </div>
   </div>
