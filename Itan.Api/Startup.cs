@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.IO.Compression;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.AzureAD.UI;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Logging;
@@ -28,6 +30,16 @@ namespace Itan.Api
         {
             IdentityModelEventSource.ShowPII = true;
             services.AddSingleton<IConfiguration>(this.Configuration);
+
+            services.AddResponseCompression(o =>
+            {
+                // o.Providers.Add<BrotliCompressionProvider>();
+                o.Providers.Add<GzipCompressionProvider>();
+                o.EnableForHttps = true;
+            });
+
+            services.Configure<GzipCompressionProviderOptions>(o => o.Level = CompressionLevel.Optimal);
+            // services.Configure<BrotliCompressionProviderOptions>(o => o.Level = CompressionLevel.Optimal);
             
             services.AddAuthentication(AzureADDefaults.BearerAuthenticationScheme)
             .AddAzureADBearer(options => 
@@ -85,6 +97,8 @@ namespace Itan.Api
             {
                 app.UseHsts();
             }
+
+            app.UseResponseCompression();
 
             app.UseCors(b =>
                 b.AllowAnyOrigin()
