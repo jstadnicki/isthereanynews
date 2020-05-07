@@ -17,6 +17,7 @@ import {
   HTTP_INTERCEPTORS,
   HttpClientModule,
 } from "@angular/common/http";
+import {StripHtmlPipe} from "./components/channels-page/strip-html.pipe";
 const isIE =
   window.navigator.userAgent.indexOf("MSIE ") > -1 ||
   window.navigator.userAgent.indexOf("Trident/") > -1;
@@ -32,7 +33,9 @@ const isIE =
     OwnerPageComponent,
     AdminPageComponent,
     ChannelsPageComponent,
+    StripHtmlPipe
   ],
+
   imports: [
     HttpClientModule,
     BrowserModule,
