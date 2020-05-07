@@ -61,6 +61,9 @@ export class ChannelsPageComponent implements OnInit {
   }
 
   async onChannelClick(channel: Channel) {
+    if(channel == this.selectedChannel){
+      return;
+    }
     this.selectedChannel = channel;
     this.areNewsLoading = true;
     this.news = null;
@@ -80,7 +83,7 @@ export class ChannelsPageComponent implements OnInit {
     };
     const x = await this.authService.acquireTokenSilent(accessTokenRequest);
 
-    const o = this.getOptions2(x.accessToken);
+    const o = this.getOptions(x.accessToken);
     this.http
       .get<News[]>(`https://localhost:5001/api/news/${channel.id}`, o)
       .subscribe((r) => {
@@ -138,16 +141,6 @@ export class ChannelsPageComponent implements OnInit {
   private getOptions(token: string) {
     return {
       headers: new HttpHeaders({Authorization: `Bearer ${token}`}),
-    };
-  }
-
-  private getOptions2(token: string) {
-    let headers = new HttpHeaders();
-    headers = headers.append('Authorization', `Bearer ${token}`);
-    headers = headers.append('Accept-Encoding', `br`);
-    headers = headers.append('Content-Type', `application/json`);
-    return {
-      headers: headers,
     };
   }
 }
