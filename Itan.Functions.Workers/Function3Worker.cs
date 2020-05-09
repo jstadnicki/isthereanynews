@@ -69,7 +69,7 @@ namespace Itan.Functions.Workers
                 {
                     var itemJson = this.serializer.Serialize(item);
                     var itemUploadPath = this.pathGenerator.GetPathUpload(channelId, item.Id);
-                    await this.blobContainer.UploadTextAsync("rss", itemUploadPath, itemJson);
+                    await this.blobContainer.UploadStringAsync("rss", itemUploadPath, itemJson);
 
                     try
                     {

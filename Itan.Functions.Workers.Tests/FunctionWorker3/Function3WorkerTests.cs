@@ -97,7 +97,7 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker3
                     It.Is<string>(p => p == QueuesName.ChannelUpdate)), Times.Once);
 
             fixture.MockBlobContainer.Verify(
-                v => v.UploadTextAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Never);
+                v => v.UploadStringAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Never);
             fixture.MockBlobContainer.Verify(v => v.DeleteAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
             fixture.MockNewsWriter.Verify(
                 v => v.InsertNewsLinkAsync(It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<Guid>(), It.IsAny<DateTime>()), Times.Never);
@@ -135,7 +135,7 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker3
 
             fixture.MockBlobContainer
                 .Verify(
-                    v => v.UploadTextAsync(It.Is<string>(p => p == "rss"), It.Is<string>(p => p == uploadPath),
+                    v => v.UploadStringAsync(It.Is<string>(p => p == "rss"), It.Is<string>(p => p == uploadPath),
                         It.Is<string>(p => p == serialized)), Times.Exactly(itemsCount));
 
             fixture.MockNewsWriter
@@ -177,7 +177,7 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker3
 
             fixture.MockBlobContainer
                 .Verify(
-                    v => v.UploadTextAsync(It.Is<string>(p => p == "rss"), It.Is<string>(p => p == uploadPath),
+                    v => v.UploadStringAsync(It.Is<string>(p => p == "rss"), It.Is<string>(p => p == uploadPath),
                         It.Is<string>(p => p == serialized)), Times.Exactly(itemsCount));
 
             fixture.MockNewsWriter

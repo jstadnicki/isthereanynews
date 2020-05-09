@@ -55,7 +55,7 @@ namespace Itan.Functions.Workers
             }
 
             var channelDownloadPath = this.blobPathGenerator.GetChannelDownloadPath(channelToDownload.Id);
-            await this.blobContainer.UploadTextAsync("rss",channelDownloadPath, channelString);
+            await this.blobContainer.UploadStringAsync("rss",channelDownloadPath, channelString);
 
             var data = new DownloadDto
             {

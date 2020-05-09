@@ -6,7 +6,7 @@ namespace Itan.Functions.Workers.Wrappers
 {
     public class BlobContainer : IBlobContainer
     {
-        private string emulatorConnectionString;
+        private readonly string emulatorConnectionString;
 
         public BlobContainer(IOptions<ConnectionOptions> connectionOptions)
         {
@@ -15,7 +15,7 @@ namespace Itan.Functions.Workers.Wrappers
             this.emulatorConnectionString = connectionOptions.Value.Emulator;
         }
 
-        public async Task UploadTextAsync(string containerName, string path, string channelString)
+        public async Task UploadStringAsync(string containerName, string path, string channelString)
         {
             var account = CloudStorageAccount.Parse(this.emulatorConnectionString);
             var serviceClient = account.CreateCloudBlobClient();
