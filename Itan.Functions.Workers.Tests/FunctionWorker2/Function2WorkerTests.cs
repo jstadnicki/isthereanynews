@@ -26,7 +26,7 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker2
                 .Verify(v => v.GetChannelDownloadPath(It.IsAny<Guid>()), Times.Never);
 
             workerFixture.BlobContainer
-                .Verify(v => v.UploadStringAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()),
+                .Verify(v => v.UploadStringAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IBlobContainer.UploadStringCompression>()),
                     Times.Never);
 
             workerFixture.DownloadsWriter
@@ -68,7 +68,8 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker2
                     v => v.UploadStringAsync(
                         It.Is<string>(p => p == "rss"),
                         It.Is<string>(p => p == uploadPath),
-                        It.Is<string>(p => p == downloadContent)), Times.Once);
+                        It.Is<string>(p => p == downloadContent),
+                        It.IsAny<IBlobContainer.UploadStringCompression>()), Times.Once);
 
             workerFixture
                 .DownloadsWriter

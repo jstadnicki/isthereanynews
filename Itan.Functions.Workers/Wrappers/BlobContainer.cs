@@ -15,7 +15,11 @@ namespace Itan.Functions.Workers.Wrappers
             this.emulatorConnectionString = connectionOptions.Value.Emulator;
         }
 
-        public async Task UploadStringAsync(string containerName, string path, string channelString)
+        public async Task UploadStringAsync(
+            string containerName, 
+            string path,
+            string channelString,
+            IBlobContainer.UploadStringCompression compression = IBlobContainer.UploadStringCompression.None)
         {
             var account = CloudStorageAccount.Parse(this.emulatorConnectionString);
             var serviceClient = account.CreateCloudBlobClient();
@@ -33,5 +37,7 @@ namespace Itan.Functions.Workers.Wrappers
             var blob = container.GetBlockBlobReference(path);
             return blob.DeleteIfExistsAsync();
         }
+
+
     }
 }
