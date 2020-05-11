@@ -47,6 +47,11 @@ namespace Itan.Functions.Workers
             var channelToDownload = this.serializer.Deserialize<ChannelToDownload>(queueItem);
 
             var channelString = await this.httpDownloader.GetStringAsync(channelToDownload.Url);
+            if(string.IsNullOrWhiteSpace(channelString))
+            {
+                return;
+            }
+
             var hashCode = channelString.GetHashCode();
 
             if (await this.downloadsReader.Exists(channelToDownload.Id, hashCode))
@@ -54,8 +59,8 @@ namespace Itan.Functions.Workers
                 return;
             }
 
-            var channelDownloadPath = this.blobPathGenerator.GetChannelDownloadPath(channelToDownload.Id);
-            await this.blobContainer.UploadStringAsync("rss",channelDownloadPath, channelString);
+            var channelDownloadPath = this.blobPathGenerator.CreateChannelDownloadPath(channelToDownload.Id);
+            await this.blobContainer.UploadStringAsync("rss",channelDownloadPath, channelString, IBlobContainer.UploadStringCompression.GZip);
 
             var data = new DownloadDto
             {

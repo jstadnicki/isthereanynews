@@ -7,10 +7,12 @@ namespace Itan.Functions.Workers.Wrappers
         Task UploadStringAsync(
             string containerName,
             string id,
-            string channelString,
+            string stringToUpload,
             UploadStringCompression compression = UploadStringCompression.None);
 
         Task DeleteAsync(string containerName, string itemUploadPath);
+
+        Task<string> ReadBlobAsStringAsync(string containerName, string path, UploadStringCompression compression);
 
         public enum UploadStringCompression
         {

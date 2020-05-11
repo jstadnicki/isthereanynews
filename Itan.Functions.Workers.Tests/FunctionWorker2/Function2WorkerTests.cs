@@ -23,7 +23,7 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker2
                 .Run(string.Empty);
 
             workerFixture.PathGenerator
-                .Verify(v => v.GetChannelDownloadPath(It.IsAny<Guid>()), Times.Never);
+                .Verify(v => v.CreateChannelDownloadPath(It.IsAny<Guid>()), Times.Never);
 
             workerFixture.BlobContainer
                 .Verify(v => v.UploadStringAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<IBlobContainer.UploadStringCompression>()),
@@ -60,7 +60,7 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker2
 
             workerFixture
                 .PathGenerator
-                .Verify(v => v.GetChannelDownloadPath(It.Is<Guid>(p => p == channelGuid)), Times.Once);
+                .Verify(v => v.CreateChannelDownloadPath(It.Is<Guid>(p => p == channelGuid)), Times.Once);
 
             workerFixture
                 .BlobContainer

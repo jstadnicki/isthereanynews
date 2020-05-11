@@ -53,7 +53,9 @@ namespace Itan.Functions.Workers
         {
             try
             {
-                var feedString = await this.reader.ReadAllAsTextAsync(myBlob);
+                var feedPath = this.pathGenerator.GetChannelDownloadPath(channelId, blobName);
+                var feedString = await this.blobContainer.ReadBlobAsStringAsync("rss", feedPath, IBlobContainer.UploadStringCompression.GZip);
+                //var feedString = await this.reader.ReadAllAsTextAsync(myBlob);
                 var feed = this.feedReader.GetFeed(feedString);
                 var feedItems = feed.Items;
                 var channelUpdate = new ChannelUpdate
@@ -69,7 +71,7 @@ namespace Itan.Functions.Workers
                 {
                     var itemJson = this.serializer.Serialize(item);
                     var itemUploadPath = this.pathGenerator.GetPathUpload(channelId, item.Id);
-                    await this.blobContainer.UploadStringAsync("rss", itemUploadPath, itemJson);
+                    await this.blobContainer.UploadStringAsync("rss", itemUploadPath, itemJson, IBlobContainer.UploadStringCompression.GZip);
 
                     try
                     {

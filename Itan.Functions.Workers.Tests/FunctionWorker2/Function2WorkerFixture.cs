@@ -98,7 +98,7 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker1
         public Function2WorkerFixture GenerateValidBlobUploadPath(string uploadPath)
         {
             this.mockBlogPathGenerator
-                .Setup(s => s.GetChannelDownloadPath(It.IsAny<Guid>()))
+                .Setup(s => s.CreateChannelDownloadPath(It.IsAny<Guid>()))
                 .Returns(uploadPath);
 
             return this;

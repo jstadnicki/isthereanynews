@@ -4,7 +4,8 @@ namespace Itan.Functions.Workers
 {
     public interface IBlobPathGenerator
     {
-        string GetChannelDownloadPath(Guid id);
+        string CreateChannelDownloadPath(Guid id);
+        string GetChannelDownloadPath(Guid id, string blobName);
         string GetPathUpload(Guid channelId, Guid itemId);
     }
 }
