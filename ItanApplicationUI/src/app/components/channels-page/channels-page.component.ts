@@ -119,6 +119,10 @@ export class ChannelsPageComponent implements OnInit {
       });
   }
 
+  display(news: NewsContent):string{
+    return news.Description??news.Content;
+  }
+
   async loadChannels() {
     const a = this.authService.getAccount();
 
@@ -171,6 +175,7 @@ class News {
 
 class NewsContent {
   Content: string;
+  Description: string;
   Author: string;
   Link: string;
 }
