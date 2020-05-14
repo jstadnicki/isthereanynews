@@ -33,13 +33,11 @@ namespace Itan.Api
 
             services.AddResponseCompression(o =>
             {
-                // o.Providers.Add<BrotliCompressionProvider>();
                 o.Providers.Add<GzipCompressionProvider>();
                 o.EnableForHttps = true;
             });
 
             services.Configure<GzipCompressionProviderOptions>(o => o.Level = CompressionLevel.Optimal);
-            // services.Configure<BrotliCompressionProviderOptions>(o => o.Level = CompressionLevel.Optimal);
             
             services.AddAuthentication(AzureADDefaults.BearerAuthenticationScheme)
             .AddAzureADBearer(options => 
