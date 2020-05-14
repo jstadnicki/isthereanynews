@@ -75,6 +75,8 @@
           <e p="20191014205758_AlterChannelsAddTitle.Designer.cs" t="Include" />
           <e p="20191014211404_AlterChannelsAddDescription.cs" t="Include" />
           <e p="20191014211404_AlterChannelsAddDescription.Designer.cs" t="Include" />
+          <e p="20200505051808_NewsPublicationDate.cs" t="Include" />
+          <e p="20200505051808_NewsPublicationDate.Designer.cs" t="Include" />
           <e p="EntityFrameworkContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="News.cs" t="Include" />
@@ -209,6 +211,131 @@
         </e>
       </e>
       <e p="ITAN.sln" t="IncludeFlat" />
+      <e p="ItanApplicationUI\node_modules\@angular\animations" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\@angular\cli" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\@angular\common" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\@angular\compiler" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\@angular\compiler-cli" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\@angular\core" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\@angular\forms" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\@angular\platform-browser" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\@angular\platform-browser-dynamic" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\@angular\router" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\@angular-devkit\architect" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\@angular-devkit\build-angular" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\@angular-devkit\build-optimizer" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\@angular-devkit\build-webpack" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\@angular-devkit\core" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\@angular-devkit\schematics" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\@azure\msal-angular" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\@microsoft\microsoft-graph-client" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\@ngtools\webpack" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\@types" t="IncludeRecursive">
+        <e p="events" t="IncludeRecursive" />
+        <e p="jasmine" t="IncludeRecursive" />
+        <e p="jasminewd2" t="IncludeRecursive" />
+        <e p="minimatch" t="IncludeRecursive" />
+        <e p="node" t="IncludeRecursive" />
+        <e p="source-list-map" t="IncludeRecursive" />
+      </e>
+      <e p="ItanApplicationUI\node_modules\acorn" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\adal-angular" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\ajv" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\arg" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\blocking-proxy" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\bulma" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\canonical-path" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\chalk" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\chokidar" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\codelyzer" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\commander" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\coverage-istanbul-loader" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\dependency-graph" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\fast-deep-equal" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\font-awesome" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\hash.js" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\jasmine-core" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\jasmine-spec-reporter" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\jest-worker" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\karma" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\karma-chrome-launcher" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\karma-coverage-istanbul-reporter" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\karma-jasmine" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\karma-jasmine-html-reporter" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\license-webpack-plugin" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\magic-string" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\msal" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\portfinder" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\postcss" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\protractor" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\reflect-metadata" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\rollup" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\rxjs" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\source-map" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\sourcemap-codec" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\symbol-observable" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\terser" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\tree-kill" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\ts-node" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\tslib" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\tslint" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.dom.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.dom.iterable.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es2015.collection.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es2015.core.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es2015.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es2015.generator.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es2015.iterable.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es2015.promise.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es2015.proxy.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es2015.reflect.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es2015.symbol.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es2015.symbol.wellknown.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es2016.array.include.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es2016.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es2016.full.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es2017.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es2017.full.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es2017.intl.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es2017.object.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es2017.sharedmemory.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es2017.string.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es2017.typedarrays.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es2018.asyncgenerator.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es2018.asynciterable.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es2018.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es2018.full.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es2018.intl.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es2018.promise.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es2018.regexp.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es2019.array.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es2019.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es2019.full.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es2019.object.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es2019.string.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es2019.symbol.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es2020.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es2020.full.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es2020.string.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es2020.symbol.wellknown.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es5.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.es6.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.esnext.array.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.esnext.asynciterable.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.esnext.bigint.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.esnext.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.esnext.full.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.esnext.intl.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.esnext.symbol.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.scripthost.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.webworker.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\typescript\lib\lib.webworker.importscripts.d.ts" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\upath" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\uri-js" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\webdriver-js-extender" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\worker-farm" t="IncludeRecursive" />
+      <e p="ItanApplicationUI\node_modules\zone.js" t="IncludeRecursive" />
       <e p="packages" t="ExcludeRecursive" />
     </e>
     <e p="C:\Users\jarek\.nuget\packages\microsoft.net.test.sdk\16.6.0\build\netcoreapp2.1" t="Include">
@@ -219,7 +346,7 @@
     <e p="C:\Users\jarek\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.reporters.netcoreapp10.dll" t="Include" />
     <e p="C:\Users\jarek\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.utility.netcoreapp10.dll" t="Include" />
     <e p="C:\Users\jarek\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll" t="Include" />
-    <e p="C:\Users\jarek\.Rider2019.3\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\jarek\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_ITAN.2022137012.00" t="ExcludeRecursive" />
+    <e p="C:\Users\jarek\AppData\local\JetBrains\Rider2020.1\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\jarek\AppData\local\JetBrains\Rider2020.1\resharper-host\local\Transient\ReSharperHost\v201\SolutionCaches\_ITAN.2022137012.00" t="ExcludeRecursive" />
   </component>
 </project>
