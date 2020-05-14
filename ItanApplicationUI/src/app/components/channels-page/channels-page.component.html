@@ -53,6 +53,7 @@
                                                                                  [ngClass]="{'fa-chevron-down':!newsItem.contentVisible,'fa-chevron-up':newsItem.contentVisible}"
                                                                                  (click)="onNewsClick(newsItem)"></i>
               </p>
+
               <div *ngIf="newsItem.content" [ngClass]="{'is-hidden':!newsItem.contentVisible}">
                 <progress class="progress is-info"
                           [ngClass]="{'is-hidden':!newsItem.loading}"
@@ -77,6 +78,9 @@
                 </a>
                 <a class="level-item">
                   <span class="icon is-small"><i class="fa fa-bookmark-o"></i></span>
+                </a>
+                <a class="level-item">
+                  <span class="icon is-small"><i class="fa fa-external-link"></i></span>
                 </a>
               </div>
             </nav>

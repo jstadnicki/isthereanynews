@@ -10,7 +10,7 @@ import {StripHtmlPipe} from "./strip-html.pipe"
 })
 export class ChannelsPageComponent implements OnInit {
   token: string;
- nonce:string;
+  sessionId: string;
 
   constructor(
     private broadcastService: BroadcastService,
@@ -32,17 +32,14 @@ export class ChannelsPageComponent implements OnInit {
     this.broadcastService.subscribe(
       "msal:acquireTokenSuccess",
       (payload) => {
-        // console.log("ChannelsPageComponent:msal:acquireTokenSuccess");
         this.token = payload.accessToken;
-        this.nonce = this.createUUID();
-        // console.log(payload);
+        this.sessionId = this.createUUID();
       }
     );
 
     this.broadcastService.subscribe(
       "msal:acquireTokenFailure",
       (payload) => {
-        // console.log("ChannelsPageComponent:msal:acquireTokenFailure");
         console.log(payload);
       }
     );
@@ -53,8 +50,6 @@ export class ChannelsPageComponent implements OnInit {
     });
 
     this.broadcastService.subscribe("msal:loginSuccess", (payload) => {
-      console.log("ChannelsPageComponent:msal:loginSuccess");
-      console.log(payload);
     });
 
     this.loadChannels();
@@ -79,7 +74,7 @@ export class ChannelsPageComponent implements OnInit {
         "https://isthereanynewscodeblast.b2clogin.com/isthereanynewscodeblast.onmicrosoft.com/B2C_1_itansignup",
       redirectUri: "http://localhost:4200",
       account: a,
-      sid: this.nonce
+      sid: this.sessionId
     };
 
     const x = await this.authService.acquireTokenSilent(accessTokenRequest);
@@ -119,8 +114,8 @@ export class ChannelsPageComponent implements OnInit {
       });
   }
 
-  display(news: NewsContent):string{
-    return news.Description??news.Content;
+  display(news: NewsContent): string {
+    return news.Description ?? news.Content;
   }
 
   async loadChannels() {
@@ -136,7 +131,7 @@ export class ChannelsPageComponent implements OnInit {
         "https://isthereanynewscodeblast.b2clogin.com/isthereanynewscodeblast.onmicrosoft.com/B2C_1_itansignup",
       redirectUri: "http://localhost:4200",
       account: a,
-      sid: this.nonce
+      sid: this.sessionId
     };
     const x = await this.authService.acquireTokenSilent(accessTokenRequest);
 
