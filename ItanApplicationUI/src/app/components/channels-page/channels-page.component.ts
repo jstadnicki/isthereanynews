@@ -10,7 +10,7 @@ import {StripHtmlPipe} from "./strip-html.pipe"
 })
 export class ChannelsPageComponent implements OnInit {
   token: string;
-  nonce: string;
+ nonce:string;
 
   constructor(
     private broadcastService: BroadcastService,
@@ -32,17 +32,17 @@ export class ChannelsPageComponent implements OnInit {
     this.broadcastService.subscribe(
       "msal:acquireTokenSuccess",
       (payload) => {
-        console.log("ChannelsPageComponent:msal:acquireTokenSuccess");
+        // console.log("ChannelsPageComponent:msal:acquireTokenSuccess");
         this.token = payload.accessToken;
-        this.nonce = payload.idToken.nonce;
-        console.log(payload);
+        this.nonce = this.createUUID();
+        // console.log(payload);
       }
     );
 
     this.broadcastService.subscribe(
       "msal:acquireTokenFailure",
       (payload) => {
-        console.log("ChannelsPageComponent:msal:acquireTokenFailure");
+        // console.log("ChannelsPageComponent:msal:acquireTokenFailure");
         console.log(payload);
       }
     );
@@ -61,7 +61,7 @@ export class ChannelsPageComponent implements OnInit {
   }
 
   async onChannelClick(channel: Channel) {
-    if(channel == this.selectedChannel){
+    if (channel == this.selectedChannel) {
       return;
     }
     this.selectedChannel = channel;
@@ -71,16 +71,17 @@ export class ChannelsPageComponent implements OnInit {
 
     const accessTokenRequest = {
       scopes: [
-        "https://isthereanynewscodeblast.onmicrosoft.com/05cd7635-e6f4-47c9-a5ce-8ec04368b297/application_reader",
-        "https://isthereanynewscodeblast.onmicrosoft.com/05cd7635-e6f4-47c9-a5ce-8ec04368b297/application_writer",
+        "https://isthereanynewscodeblast.onmicrosoft.com/api/application_reader",
+        "https://isthereanynewscodeblast.onmicrosoft.com/api/application_writer",
       ],
-      clientId: "f1ab593c-f0b4-44da-85dc-d89a457745a9",
+      clientId: "01805485-e711-4975-bbed-d10eb448d097",
       authority:
         "https://isthereanynewscodeblast.b2clogin.com/isthereanynewscodeblast.onmicrosoft.com/B2C_1_itansignup",
       redirectUri: "http://localhost:4200",
       account: a,
       sid: this.nonce
     };
+
     const x = await this.authService.acquireTokenSilent(accessTokenRequest);
 
     const o = this.getOptions(x.accessToken);
@@ -90,6 +91,13 @@ export class ChannelsPageComponent implements OnInit {
         this.news = r;
         this.areNewsLoading = false;
       });
+  }
+
+  private createUUID(): string {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
   }
 
   async onNewsClick(newsItem: News) {
@@ -116,17 +124,16 @@ export class ChannelsPageComponent implements OnInit {
 
     const accessTokenRequest = {
       scopes: [
-        "https://isthereanynewscodeblast.onmicrosoft.com/05cd7635-e6f4-47c9-a5ce-8ec04368b297/application_reader",
-        "https://isthereanynewscodeblast.onmicrosoft.com/05cd7635-e6f4-47c9-a5ce-8ec04368b297/application_writer",
+        "https://isthereanynewscodeblast.onmicrosoft.com/api/application_reader",
+        "https://isthereanynewscodeblast.onmicrosoft.com/api/application_writer",
       ],
-      clientId: "f1ab593c-f0b4-44da-85dc-d89a457745a9",
+      clientId: "01805485-e711-4975-bbed-d10eb448d097",
       authority:
         "https://isthereanynewscodeblast.b2clogin.com/isthereanynewscodeblast.onmicrosoft.com/B2C_1_itansignup",
       redirectUri: "http://localhost:4200",
       account: a,
       sid: this.nonce
     };
-    // this.authService.loginPopup(accessTokenRequest);
     const x = await this.authService.acquireTokenSilent(accessTokenRequest);
 
     const o = this.getOptions(x.accessToken);
@@ -159,7 +166,7 @@ class News {
   content: NewsContent;
   loading: boolean = false;
   contentVisible: boolean = false;
-  published:Date
+  published: Date
 }
 
 class NewsContent {

@@ -42,7 +42,7 @@ const isIE =
     MsalModule.forRoot(
       {
         auth: {
-          clientId: "f1ab593c-f0b4-44da-85dc-d89a457745a9",
+          clientId: "01805485-e711-4975-bbed-d10eb448d097",
           authority:
             "https://isthereanynewscodeblast.b2clogin.com/isthereanynewscodeblast.onmicrosoft.com/B2C_1_itansignup",
           validateAuthority: false,
@@ -57,8 +57,8 @@ const isIE =
       {
         consentScopes: [
           "User.Read",
-          "https://isthereanynewscodeblast.onmicrosoft.com/05cd7635-e6f4-47c9-a5ce-8ec04368b297/application_reader",
-          "https://isthereanynewscodeblast.onmicrosoft.com/05cd7635-e6f4-47c9-a5ce-8ec04368b297/application_writer",
+          "https://isthereanynewscodeblast.onmicrosoft.com/api/application_reader",
+          "https://isthereanynewscodeblast.onmicrosoft.com/api/application_writer",
         ],
         unprotectedResources: [],
         protectedResourceMap: [

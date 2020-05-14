@@ -1,10 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <UserSecretsId>4c625fe0-872d-4742-abcf-06bf7df34f94</UserSecretsId>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.AzureAD.UI" Version="3.0.3" />
@@ -15,9 +15,7 @@
     <PackageReference Include="Microsoft.Owin.Security.Jwt" Version="4.1.0" />
     <PackageReference Include="Microsoft.Owin.Security.OAuth" Version="4.1.0" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Itan.Core\Itan.Core.csproj" />
   </ItemGroup>
-
 </Project>
