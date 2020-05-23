@@ -2,6 +2,7 @@
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Dapper;
+using Itan.Common;
 using Itan.Functions.Models;
 using Itan.Functions.Workers.Wrappers;
 using Microsoft.Extensions.Options;
@@ -10,7 +11,7 @@ namespace Itan.Functions.Workers
 {
     public class ChannelUpdater : IChannelUpdater
     {
-        private readonly string sqlConnectionString;
+        private readonly string connectionString;
         private readonly ILoger<ChannelUpdater> loger;
 
         public ChannelUpdater(IOptions<ConnectionOptions> options, ILoger<ChannelUpdater> loger)
@@ -19,7 +20,7 @@ namespace Itan.Functions.Workers
             Ensure.NotNull(loger, nameof(loger));
 
             this.loger = loger;
-            this.sqlConnectionString = options.Value.SqlWriter;
+            this.connectionString = options.Value.SqlWriter;
         }
 
         public async Task Update(ChannelUpdate message)
@@ -37,7 +38,7 @@ namespace Itan.Functions.Workers
 
             try
             {
-                await using var sqlConnection = new SqlConnection(this.sqlConnectionString);
+                await using var sqlConnection = new SqlConnection(this.connectionString);
                 await sqlConnection.ExecuteAsync(query, queryData);
             }
             catch (Exception e)

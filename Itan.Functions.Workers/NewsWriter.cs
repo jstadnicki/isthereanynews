@@ -2,6 +2,7 @@
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Dapper;
+using Itan.Common;
 using Itan.Functions.Workers.Exceptions;
 using Microsoft.Extensions.Options;
 

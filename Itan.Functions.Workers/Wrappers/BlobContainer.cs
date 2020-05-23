@@ -1,8 +1,8 @@
 ﻿using System.IO;
 using System.IO.Compression;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Itan.Common;
 using Microsoft.Extensions.Options;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
@@ -16,7 +16,6 @@ namespace Itan.Functions.Workers.Wrappers
         public BlobContainer(IOptions<ConnectionOptions> connectionOptions)
         {
             Ensure.NotNull(connectionOptions, nameof(connectionOptions));
-
             this.emulatorConnectionString = connectionOptions.Value.Emulator;
         }
 

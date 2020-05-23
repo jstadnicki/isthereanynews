@@ -3,6 +3,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
+using Itan.Common;
 using Itan.Functions.Models;
 using Microsoft.Extensions.Options;
 
@@ -10,18 +11,18 @@ namespace Itan.Functions.Workers
 {
     public class ChannelProvider : IChannelsProvider
     {
-        private readonly IConnectionOptions connectionOptions;
+        private readonly string connectionString;
 
         public ChannelProvider(IOptions<ConnectionOptions> connectionOptions)
         {
             Ensure.NotNull(connectionOptions, nameof(connectionOptions));
 
-            this.connectionOptions = connectionOptions.Value;
+            this.connectionString = connectionOptions.Value.SqlReader;
         }
 
         public async Task<List<ChannelToDownload>> GetAllChannelsAsync()
         {
-            using (var sqlConnection = new SqlConnection(this.connectionOptions.SqlReader))
+            using (var sqlConnection = new SqlConnection(this.connectionString))
             {
                 var query = "SELECT c.Id, c.Url FROM Channels c";
                 var queryResult = await sqlConnection.QueryAsync<ChannelToDownload>(query);

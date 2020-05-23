@@ -2,6 +2,7 @@
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Dapper;
+using Itan.Common;
 using Itan.Functions.Workers.Model;
 using Itan.Functions.Workers.Wrappers;
 using Microsoft.Extensions.Options;
@@ -10,7 +11,7 @@ namespace Itan.Functions.Workers
 {
     public class ChannelsDownloadsWriter : IChannelsDownloadsWriter
     {
-        private string sqlConnectionStringWriter;
+        private readonly string connectionString;
         private ILoger<ChannelsDownloadsWriter> log;
 
         public ChannelsDownloadsWriter(IOptions<ConnectionOptions> options, ILoger<ChannelsDownloadsWriter> log)
@@ -18,7 +19,7 @@ namespace Itan.Functions.Workers
             Ensure.NotNull(options, nameof(options));
             Ensure.NotNull(log, nameof(log));
         
-            this.sqlConnectionStringWriter = options.Value.SqlWriter;
+            this.connectionString = options.Value.SqlWriter;
             this.log = log;
         }
 
@@ -28,7 +29,7 @@ namespace Itan.Functions.Workers
 
             try
             {
-                using (var sqlConnection = new SqlConnection(this.sqlConnectionStringWriter))
+                using (var sqlConnection = new SqlConnection(this.connectionString))
                 {
                     await sqlConnection.ExecuteAsync(query, data);
                 }

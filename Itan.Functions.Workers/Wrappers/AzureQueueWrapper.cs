@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Itan.Common;
 using Microsoft.Extensions.Options;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Queue;
@@ -17,7 +18,7 @@ namespace Itan.Functions.Workers.Wrappers
         {
             Ensure.NotNull(connectionOptions, nameof(connectionOptions));
             Ensure.NotNull(serializer, nameof(serializer));
-            
+
             this.serializer = serializer;
             this.storageAccount = CloudStorageAccount.Parse(connectionOptions.Value.Emulator);
             this.queueClient = this.storageAccount.CreateCloudQueueClient();
