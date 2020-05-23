@@ -55,6 +55,9 @@ export class ChannelsPageComponent implements OnInit {
     this.loadChannels();
   }
 
+  async subscribe(channel:Channel){}
+  async unsubscribe(channel:Channel){}
+
   async onChannelClick(channel: Channel) {
     if (channel == this.selectedChannel) {
       return;
@@ -64,24 +67,24 @@ export class ChannelsPageComponent implements OnInit {
     this.news = null;
     const a = this.authService.getAccount();
 
-    const accessTokenRequest = {
-      scopes: [
-        "https://isthereanynewscodeblast.onmicrosoft.com/api/application_reader",
-        "https://isthereanynewscodeblast.onmicrosoft.com/api/application_writer",
-      ],
-      clientId: "01805485-e711-4975-bbed-d10eb448d097",
-      authority:
-        "https://isthereanynewscodeblast.b2clogin.com/isthereanynewscodeblast.onmicrosoft.com/B2C_1_itansignup",
-      redirectUri: "http://localhost:4200",
-      account: a,
-      sid: this.sessionId
-    };
-
-    const x = await this.authService.acquireTokenSilent(accessTokenRequest);
-
-    const o = this.getOptions(x.accessToken);
+    // const accessTokenRequest = {
+    //   scopes: [
+    //     "https://isthereanynewscodeblast.onmicrosoft.com/api/application_reader",
+    //     "https://isthereanynewscodeblast.onmicrosoft.com/api/application_writer",
+    //   ],
+    //   clientId: "01805485-e711-4975-bbed-d10eb448d097",
+    //   authority:
+    //     "https://isthereanynewscodeblast.b2clogin.com/isthereanynewscodeblast.onmicrosoft.com/B2C_1_itansignup",
+    //   redirectUri: "http://localhost:4200",
+    //   account: a,
+    //   sid: this.sessionId
+    // };
+    //
+    // const x = await this.authService.acquireTokenSilent(accessTokenRequest);
+    //
+    // const o = this.getOptions(x.accessToken);
     this.http
-      .get<News[]>(`https://localhost:5001/api/news/${channel.id}`, o)
+      .get<News[]>(`https://localhost:5001/api/news/${channel.id}`)
       .subscribe((r) => {
         this.news = r;
         this.areNewsLoading = false;
@@ -121,23 +124,23 @@ export class ChannelsPageComponent implements OnInit {
   async loadChannels() {
     const a = this.authService.getAccount();
 
-    const accessTokenRequest = {
-      scopes: [
-        "https://isthereanynewscodeblast.onmicrosoft.com/api/application_reader",
-        "https://isthereanynewscodeblast.onmicrosoft.com/api/application_writer",
-      ],
-      clientId: "01805485-e711-4975-bbed-d10eb448d097",
-      authority:
-        "https://isthereanynewscodeblast.b2clogin.com/isthereanynewscodeblast.onmicrosoft.com/B2C_1_itansignup",
-      redirectUri: "http://localhost:4200",
-      account: a,
-      sid: this.sessionId
-    };
-    const x = await this.authService.acquireTokenSilent(accessTokenRequest);
-
-    const o = this.getOptions(x.accessToken);
+    // const accessTokenRequest = {
+    //   scopes: [
+    //     "https://isthereanynewscodeblast.onmicrosoft.com/api/application_reader",
+    //     "https://isthereanynewscodeblast.onmicrosoft.com/api/application_writer",
+    //   ],
+    //   clientId: "01805485-e711-4975-bbed-d10eb448d097",
+    //   authority:
+    //     "https://isthereanynewscodeblast.b2clogin.com/isthereanynewscodeblast.onmicrosoft.com/B2C_1_itansignup",
+    //   redirectUri: "http://localhost:4200",
+    //   account: a,
+    //   sid: this.sessionId
+    // };
+    // const x = await this.authService.acquireTokenSilent(accessTokenRequest);
+    //
+    // const o = this.getOptions(x.accessToken);
     this.http
-      .get<Channel[]>("https://localhost:5001/api/channels", o)
+      .get<Channel[]>("https://localhost:5001/api/channels")
       .subscribe((r) => {
         this.channels = r;
         this.areChannelsLoaded = true;

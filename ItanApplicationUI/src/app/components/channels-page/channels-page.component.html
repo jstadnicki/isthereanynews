@@ -22,14 +22,18 @@
           <div class="media-content">
             <div class="content">
               <p>
-                <strong>{{selectedChannel.title}}}</strong> <small>{{selectedChannel.url}}</small>
+                <strong>{{selectedChannel.title}}</strong><br>
+                <small>{{selectedChannel.url}}</small>
                 <br>
               </p>
             </div>
             <nav class="level is-mobile">
               <div class="level-left">
                 <a class="level-item">
-                  <span class="icon is-small"><i class="fa fa-plus-square-o" alt="asd" ></i></span>
+                  <span class="icon is-small">
+                    <i class="fa fa-plus-square-o" alt="subscribe" (click)="subscribe(selectedChannel)"></i>
+                    <i class="fa fa-minus-square-o" alt="subscribe" (click)="unsubscribe(selectedChannel)"></i>
+                  </span>
                 </a>
               </div>
             </nav>
@@ -62,32 +66,29 @@
                 <span [innerHTML]="display(newsItem.content) | striphtml"></span>
               </div>
             </div>
-            <nav class="level is-mobile">
+            <nav class="level">
               <div class="level-left">
-                <a class="level-item">
-                  <span class="icon is-small"><i class="fa fa-comment-o"></i></span>
-                </a>
-                <a class="level-item">
-                  <span class="icon is-small"><i class="fa fa-share-alt"></i></span>
-                </a>
-                <a class="level-item">
-                  <span class="icon is-small"><i class="fa fa-thumbs-o-up"></i></span>
-                </a>
-                <a class="level-item">
-                  <span class="icon is-small"><i class="fa fa-thumbs-o-down"></i></span>
-                </a>
-                <a class="level-item">
-                  <span class="icon is-small"><i class="fa fa-bookmark-o"></i></span>
-                </a>
+<!--                <a class="level-item">-->
+<!--                  <span class="icon is-small"><i class="fa fa-comment-o"></i></span>-->
+<!--                </a>-->
+<!--                <a class="level-item">-->
+<!--                  <span class="icon is-small"><i class="fa fa-share-alt"></i></span>-->
+<!--                </a>-->
+<!--                <a class="level-item">-->
+<!--                  <span class="icon is-small"><i class="fa fa-thumbs-o-up"></i></span>-->
+<!--                </a>-->
+<!--                <a class="level-item">-->
+<!--                  <span class="icon is-small"><i class="fa fa-thumbs-o-down"></i></span>-->
+<!--                </a>-->
+<!--                <a class="level-item">-->
+<!--                  <span class="icon is-small"><i class="fa fa-bookmark-o"></i></span>-->
+<!--                </a>-->
                 <a class="level-item">
                   <span class="icon is-small"><i class="fa fa-external-link"></i></span>
                 </a>
               </div>
             </nav>
           </div>
-          <!--        <div class="media-right">-->
-          <!--          <button class="delete"></button>-->
-          <!--        </div>-->
         </article>
       </div>
     </div>
