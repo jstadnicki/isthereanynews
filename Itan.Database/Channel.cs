@@ -19,5 +19,6 @@ namespace Itan.Database
 
         public List<ChannelDownload> Downloads { get; set; }
         public List<News> News { get; set; }
+        public virtual List<ChannelsPersons> PersonSubscribers { get; set; }
     }
 }

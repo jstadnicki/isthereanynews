@@ -73,6 +73,30 @@ namespace Itan.Database.Migrations
                     b.ToTable("ChannelDownloads");
                 });
 
+            modelBuilder.Entity("Itan.Database.ChannelsPersons", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ChannelId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("PersonId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChannelId");
+
+                    b.HasIndex("PersonId");
+
+                    b.ToTable("ChannelsPersons");
+                });
+
             modelBuilder.Entity("Itan.Database.News", b =>
                 {
                     b.Property<Guid>("Id")
@@ -103,6 +127,20 @@ namespace Itan.Database.Migrations
                     b.ToTable("News");
                 });
 
+            modelBuilder.Entity("Itan.Database.Person", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Persons");
+                });
+
             modelBuilder.Entity("Itan.Database.ChannelDownload", b =>
                 {
                     b.HasOne("Itan.Database.Channel", "Channel")
@@ -112,12 +150,27 @@ namespace Itan.Database.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Itan.Database.ChannelsPersons", b =>
+                {
+                    b.HasOne("Itan.Database.Channel", "Channel")
+                        .WithMany("PersonSubscribers")
+                        .HasForeignKey("ChannelId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Itan.Database.Person", "Reader")
+                        .WithMany("SubscribedChannels")
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Itan.Database.News", b =>
                 {
                     b.HasOne("Itan.Database.Channel", "Channel")
                         .WithMany("News")
                         .HasForeignKey("ChannelId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

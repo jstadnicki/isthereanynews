@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Itan.Database
 {
+    [Table("News")]
     internal class News
     {
         public Guid Id { get; set; }

@@ -1,19 +1,21 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data;
 
 namespace Itan.Database
 {
-    [Table("ChannelDownloads")] 
-    internal class ChannelDownload
+    [Table("ChannelsPersons")]
+    internal class ChannelsPersons
     {
         public Guid Id { get; set; }
         public Guid ChannelId { get; set; }
-        public string Path { get; set; }
-        public DateTime CreatedOn { get; set; }
+        public Guid PersonId { get; set; }
+    
+        [ForeignKey(nameof(PersonId))]
+        public Person Reader { get; set; }
         
         [ForeignKey(nameof(ChannelId))]
         public Channel Channel { get; set; }
-        public int HashCode { get; set; }
+    
+        public DateTime CreatedOn { get; set; }
     }
 }
