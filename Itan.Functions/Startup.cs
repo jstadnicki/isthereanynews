@@ -1,4 +1,5 @@
-﻿using Itan.Functions.Workers;
+﻿using Itan.Common;
+using Itan.Functions.Workers;
 using Itan.Functions.Workers.Wrappers;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
