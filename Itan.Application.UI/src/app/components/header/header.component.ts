@@ -34,6 +34,8 @@ export class HeaderComponent implements OnInit {
         return;
       }
     });
+
+    this.checkAccount();
   }
 
   logout() {
