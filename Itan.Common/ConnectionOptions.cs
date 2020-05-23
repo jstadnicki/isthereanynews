@@ -1,6 +1,6 @@
-﻿namespace Itan.Functions.Workers
+﻿namespace Itan.Common
 {
-    public class ConnectionOptions : IConnectionOptions
+    public class ConnectionOptions
     {
         public string SqlReader { get; set; }
         public string SqlWriter { get; set; }
