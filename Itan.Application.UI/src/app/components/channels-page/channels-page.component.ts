@@ -55,7 +55,32 @@ export class ChannelsPageComponent implements OnInit {
     this.loadChannels();
   }
 
-  async subscribe(channel:Channel){}
+  async subscribe(channel:Channel){
+    let account = this.authService.getAccount();
+    console.log(account);
+
+    // const accessTokenRequest = {
+    //   scopes: [
+    //     "https://isthereanynewscodeblast.onmicrosoft.com/api/application_writer",
+    //   ],
+    //   clientId: "01805485-e711-4975-bbed-d10eb448d097",
+    //   authority:
+    //     "https://isthereanynewscodeblast.b2clogin.com/isthereanynewscodeblast.onmicrosoft.com/B2C_1_itansignup",
+    //   account: account,
+    //   sid: this.sessionId
+    // };
+    //
+    // const x = await this.authService.acquireTokenSilent(accessTokenRequest);
+    //
+    // const o = this.getOptions(x.accessToken);
+    // this.http
+    //   .post(`https://localhost:5001/api/news/${channel.id}`)
+    //   .subscribe((r) => {
+    //     this.news = r;
+    //     this.areNewsLoading = false;
+    //   });
+
+  }
   async unsubscribe(channel:Channel){}
 
   async onChannelClick(channel: Channel) {
