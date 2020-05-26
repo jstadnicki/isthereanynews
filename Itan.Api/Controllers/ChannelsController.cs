@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Itan.Core;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,11 +12,19 @@ namespace Itan.Api.Controllers
     [AllowAnonymous]
     public class ChannelsController : ControllerBase
     {
-        [HttpGet]
-        public ActionResult<List<ChannelViewModel>> Get()
+        private readonly IMediator mediator;
+
+        public ChannelsController(IMediator mediator)
         {
-            var x = new ChannelsProvider();
-            return x.GetAll();
+            this.mediator = mediator;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<ChannelViewModel>>> Get()
+        {
+            var command = new GetAllChannelsViewModelsRequest();
+            var list = await this.mediator.Send(command);
+            return list;
         }
     }
 }

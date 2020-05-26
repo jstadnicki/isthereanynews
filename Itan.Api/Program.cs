@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore;
+﻿using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 
@@ -14,6 +15,7 @@ namespace Itan.Api
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .ConfigureServices(x => x.AddAutofac())
                 .ConfigureAppConfiguration(x => { x.AddJsonFile("appsettings.json"); })
                 .UseStartup<Startup>();
     }

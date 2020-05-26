@@ -4,7 +4,12 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="5.2.0" />
     <PackageReference Include="Dapper" Version="2.0.35" />
     <PackageReference Include="MediatR" Version="8.0.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.3" />
@@ -25,5 +30,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Itan.Common\Itan.Common.csproj" />
   </ItemGroup>
+
+<!--  <Target Name="PostBuild" AfterTargets="PostBuildEvent">-->
+<!--    <Exec Command="xcopy $(TargetDir)$(ProjectName).* $(SolutionDir)itan.api\$(OutDir) /y" />-->
+<!--  </Target>-->
 
 </Project>
