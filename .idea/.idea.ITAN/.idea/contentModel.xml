@@ -23,9 +23,10 @@
           <e p="ChannelsController.cs" t="Include" />
           <e p="ChannelSubscriptionsController.cs" t="Include" />
           <e p="NewsController.cs" t="Include" />
-          <e p="UserController.cs" t="Include" />
+          <e p="UsersController.cs" t="Include" />
         </e>
         <e p="Itan.Api.csproj" t="IncludeRecursive" />
+        <e p="ItanApiModule.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.0" t="Include">
@@ -178,7 +179,6 @@
       </e>
       <e p="Itan.Core" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
-        <e p="ChannelsProvider.cs" t="Include" />
         <e p="ChannelViewModel.cs" t="Include" />
         <e p="CreateNewUser" t="Include">
           <e p="BadArgumentInRequestException.cs" t="Include" />
@@ -186,11 +186,13 @@
           <e p="CreateUserHandler.cs" t="Include" />
           <e p="ICreateUserRepository.cs" t="Include" />
         </e>
+        <e p="GetAllChannelsViewModelsRequest.cs" t="Include" />
         <e p="Handlers" t="Include">
           <e p="UserSubscribeToChannelHandler.cs" t="Include" />
           <e p="UserUnsubscribeFromChannelHandler.cs" t="Include" />
         </e>
         <e p="Itan.Core.csproj" t="IncludeRecursive" />
+        <e p="ItanCoreModule.cs" t="Include" />
         <e p="NewsProvider.cs" t="Include" />
         <e p="NewsViewModel.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
