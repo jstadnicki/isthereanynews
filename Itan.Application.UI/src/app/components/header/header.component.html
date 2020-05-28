@@ -60,7 +60,7 @@
           <a class="button is-light" *ngIf="!loggedIn" (click)="login()">Log in</a>
           <a class="button is-light" *ngIf="loggedIn" (click)="logout()">Log out</a>
           <span *ngIf="loggedIn">
-            <span class="fa fa-user">{{this.account?.name}}</span>
+            <span class="fa fa-user">{{this.getUserName()}}</span>
           </span>
         </div>
       </div>

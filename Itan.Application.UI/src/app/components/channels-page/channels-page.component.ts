@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {BroadcastService, MsalService} from "@azure/msal-angular";
 import {StripHtmlPipe} from "./strip-html.pipe"
+import {MsalWrapperService} from "../../service/msal-wrapper.service";
 
 @Component({
   selector: "app-channels-page",
@@ -9,13 +10,12 @@ import {StripHtmlPipe} from "./strip-html.pipe"
   styleUrls: ["./channels-page.component.less"],
 })
 export class ChannelsPageComponent implements OnInit {
-  token: string;
-  sessionId: string;
+  // token: string;
+  // sessionId: string;
 
   constructor(
-    private broadcastService: BroadcastService,
     private http: HttpClient,
-    private authService: MsalService
+    private msalWrapperService: MsalWrapperService
   ) {
   }
 
@@ -25,63 +25,30 @@ export class ChannelsPageComponent implements OnInit {
   areChannelsLoaded: boolean;
   areNewsLoading: boolean;
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.areChannelsLoaded = false;
     this.areNewsLoading = false;
-
-    this.broadcastService.subscribe(
-      "msal:acquireTokenSuccess",
-      (payload) => {
-        this.token = payload.accessToken;
-        this.sessionId = this.createUUID();
-      }
-    );
-
-    this.broadcastService.subscribe(
-      "msal:acquireTokenFailure",
-      (payload) => {
-        console.log(payload);
-      }
-    );
-
-    this.broadcastService.subscribe("msal:loginFailure", (payload) => {
-      console.log("ChannelsPageComponent:msal:loginFailure");
-      console.log(payload);
-    });
-
-    this.broadcastService.subscribe("msal:loginSuccess", (payload) => {
-    });
-
-    this.loadChannels();
+    await this.loadChannels();
   }
 
-  async subscribe(channel:Channel){
-    let account = this.authService.getAccount();
-    console.log(account);
+  async subscribe(channel: Channel) {
+    const options = await this.msalWrapperService.getOptionsWriteHeaders();
 
-    // const accessTokenRequest = {
-    //   scopes: [
-    //     "https://isthereanynewscodeblast.onmicrosoft.com/api/application_writer",
-    //   ],
-    //   clientId: "01805485-e711-4975-bbed-d10eb448d097",
-    //   authority:
-    //     "https://isthereanynewscodeblast.b2clogin.com/isthereanynewscodeblast.onmicrosoft.com/B2C_1_itansignup",
-    //   account: account,
-    //   sid: this.sessionId
-    // };
-    //
-    // const x = await this.authService.acquireTokenSilent(accessTokenRequest);
-    //
-    // const o = this.getOptions(x.accessToken);
-    // this.http
-    //   .post(`https://localhost:5001/api/news/${channel.id}`)
-    //   .subscribe((r) => {
-    //     this.news = r;
-    //     this.areNewsLoading = false;
-    //   });
+    const userId = this.msalWrapperService.getAccountId();
+    const body = {
+      channelId: channel.id
+    };
+
+    this.http
+      .post(`https://localhost:5001/api/users/${userId}/channels`, body, options)
+      .subscribe((r) => {
+        console.log(r);
+      });
 
   }
-  async unsubscribe(channel:Channel){}
+
+  async unsubscribe(channel: Channel) {
+  }
 
   async onChannelClick(channel: Channel) {
     if (channel == this.selectedChannel) {
@@ -90,37 +57,13 @@ export class ChannelsPageComponent implements OnInit {
     this.selectedChannel = channel;
     this.areNewsLoading = true;
     this.news = null;
-    const a = this.authService.getAccount();
 
-    // const accessTokenRequest = {
-    //   scopes: [
-    //     "https://isthereanynewscodeblast.onmicrosoft.com/api/application_reader",
-    //     "https://isthereanynewscodeblast.onmicrosoft.com/api/application_writer",
-    //   ],
-    //   clientId: "01805485-e711-4975-bbed-d10eb448d097",
-    //   authority:
-    //     "https://isthereanynewscodeblast.b2clogin.com/isthereanynewscodeblast.onmicrosoft.com/B2C_1_itansignup",
-    //   redirectUri: "http://localhost:4200",
-    //   account: a,
-    //   sid: this.sessionId
-    // };
-    //
-    // const x = await this.authService.acquireTokenSilent(accessTokenRequest);
-    //
-    // const o = this.getOptions(x.accessToken);
     this.http
       .get<News[]>(`https://localhost:5001/api/news/${channel.id}`)
       .subscribe((r) => {
         this.news = r;
         this.areNewsLoading = false;
       });
-  }
-
-  private createUUID(): string {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-      return v.toString(16);
-    });
   }
 
   async onNewsClick(newsItem: News) {
@@ -147,35 +90,12 @@ export class ChannelsPageComponent implements OnInit {
   }
 
   async loadChannels() {
-    const a = this.authService.getAccount();
-
-    // const accessTokenRequest = {
-    //   scopes: [
-    //     "https://isthereanynewscodeblast.onmicrosoft.com/api/application_reader",
-    //     "https://isthereanynewscodeblast.onmicrosoft.com/api/application_writer",
-    //   ],
-    //   clientId: "01805485-e711-4975-bbed-d10eb448d097",
-    //   authority:
-    //     "https://isthereanynewscodeblast.b2clogin.com/isthereanynewscodeblast.onmicrosoft.com/B2C_1_itansignup",
-    //   redirectUri: "http://localhost:4200",
-    //   account: a,
-    //   sid: this.sessionId
-    // };
-    // const x = await this.authService.acquireTokenSilent(accessTokenRequest);
-    //
-    // const o = this.getOptions(x.accessToken);
     this.http
       .get<Channel[]>("https://localhost:5001/api/channels")
       .subscribe((r) => {
         this.channels = r;
         this.areChannelsLoaded = true;
       });
-  }
-
-  private getOptions(token: string) {
-    return {
-      headers: new HttpHeaders({Authorization: `Bearer ${token}`}),
-    };
   }
 }
 
