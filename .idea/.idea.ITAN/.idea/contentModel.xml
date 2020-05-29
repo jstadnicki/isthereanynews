@@ -188,6 +188,7 @@
         </e>
         <e p="GetAllChannelsViewModelsRequest.cs" t="Include" />
         <e p="Handlers" t="Include">
+          <e p="IUserToChannelSubscriptionsRepository.cs" t="Include" />
           <e p="UserSubscribeToChannelHandler.cs" t="Include" />
           <e p="UserUnsubscribeFromChannelHandler.cs" t="Include" />
         </e>

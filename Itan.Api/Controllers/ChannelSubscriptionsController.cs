@@ -18,7 +18,7 @@ namespace Itan.Api.Controllers
 
         [HttpPost]
         [Route("{userId}/channels")]
-        public async Task<ActionResult> Post([FromQuery] string userId, UserChannelsSubscriptionsControllerPost model)
+        public async Task<ActionResult> Post(string userId, UserChannelsSubscriptionsControllerPost model)
         {
             var command = new UserSubscribeToChannelRequest(userId, model.ChannelId);
             await this.mediator.Send(command);
