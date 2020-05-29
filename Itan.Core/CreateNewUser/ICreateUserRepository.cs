@@ -1,18 +1,34 @@
 ﻿using System;
+using System.Data.SqlClient;
+using System.Globalization;
 using System.Threading.Tasks;
+using Dapper;
+using Itan.Common;
 
 namespace Itan.Core.CreateNewUser
 {
     public interface ICreateUserRepository
     {
-        Task CreateNewPersonAsync(Guid requestUserId);
+        Task CreatePersonIfNotExists(Guid requestUserId);
     }
 
     class CreateUserRepository : ICreateUserRepository
     {
-        public Task CreateNewPersonAsync(Guid requestUserId)
+        private readonly string connectionString;
+
+        public CreateUserRepository(ConnectionOptions options)
         {
-            return Task.CompletedTask;
+            this.connectionString = options.SqlWriter;
+        }
+
+        public Task CreatePersonIfNotExists(Guid requestUserId)
+        {
+            var sql = $"if not exists (select * from Persons where id='{requestUserId.ToString()}')\n" +
+                      "BEGIN\n" +
+                      $"INSERT INTO Persons (Id, CreatedOn) VALUES ('{requestUserId.ToString()}','{DateTime.UtcNow.ToString(CultureInfo.InvariantCulture)}')\n" +
+                      "END";
+            using var connection = new SqlConnection(this.connectionString);
+            return connection.ExecuteAsync(sql);
         }
     }
 }

@@ -14,9 +14,6 @@ namespace Itan.Core.CreateNewUser
         {
             this.repository = repository;
         }
-        
-        
-        
         private void Validate(CreateNewUserRequest request)
         {
             if (Guid.Empty == request.UserId)
@@ -28,7 +25,7 @@ namespace Itan.Core.CreateNewUser
         public async Task<Unit> Handle(CreateNewUserRequest request, CancellationToken cancellationToken)
         {
             this.Validate(request);
-            await this.repository.CreateNewPersonAsync(request.UserId);
+            await this.repository.CreatePersonIfNotExists(request.UserId);
             return await Task.FromResult(new Unit());
         }
     }
