@@ -10,9 +10,6 @@ import {MsalWrapperService} from "../../service/msal-wrapper.service";
   styleUrls: ["./channels-page.component.less"],
 })
 export class ChannelsPageComponent implements OnInit {
-  // token: string;
-  // sessionId: string;
-
   constructor(
     private http: HttpClient,
     private msalWrapperService: MsalWrapperService
