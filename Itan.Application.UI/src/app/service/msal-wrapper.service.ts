@@ -82,20 +82,16 @@ export class MsalWrapperService {
     this.createPersonAccount();
   }
 
-  // private clientId: string = "01805485-e711-4975-bbed-d10eb448d097";
   private authority: string = "https://isthereanynewscodeblast.b2clogin.com/isthereanynewscodeblast.onmicrosoft.com/B2C_1_itansignup";
   private redirectUri: string = "http://localhost:4200";
-  // private postLogoutRedirectUri: string = "http://localhost:4200/";
 
   private createLoginRequest(): AuthenticationParameters {
     return {
       scopes: [
         'https://graph.microsoft.com/User.Read',
       ],
-      // clientId: this.clientId,
       authority: this.authority,
       redirectUri: this.redirectUri,
-      // postLogoutRedirectUri: this.postLogoutRedirectUri
     };
   }
 
@@ -104,10 +100,20 @@ export class MsalWrapperService {
       scopes: [
         "https://isthereanynewscodeblast.onmicrosoft.com/api/application_writer",
       ],
-      // clientId: this.clientId,
       authority: this.authority,
       redirectUri: this.redirectUri,
-      // postLogoutRedirectUri: this.postLogoutRedirectUri,
+      account: this.account,
+      sid: this.sessionId
+    };
+  }
+
+  private createReadAccessRequest(): AuthenticationParameters {
+    return {
+      scopes: [
+        "https://isthereanynewscodeblast.onmicrosoft.com/api/application_writer",
+      ],
+      authority: this.authority,
+      redirectUri: this.redirectUri,
       account: this.account,
       sid: this.sessionId
     };
@@ -115,5 +121,11 @@ export class MsalWrapperService {
 
   getAccountId() {
     return this.account.accountIdentifier;
+  }
+
+  public async getOptionsReadHeaders() {
+    let accessTokenRequest = this.createReadAccessRequest();
+    const token = await this.authService.acquireTokenSilent(accessTokenRequest);
+    return this.getOptions(token.accessToken);
   }
 }
