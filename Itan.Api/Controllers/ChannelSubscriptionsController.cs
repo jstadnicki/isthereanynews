@@ -26,7 +26,7 @@ namespace Itan.Api.Controllers
         }
 
         [HttpDelete]
-        [Route("{userId}/channels")]
+        [Route("{userId}/channels/{channelId}")]
         public async Task<ActionResult> Delete(string userId, string channelId)
         {
             var command = new UserUnsubscribeFromChannelRequest(userId, channelId);

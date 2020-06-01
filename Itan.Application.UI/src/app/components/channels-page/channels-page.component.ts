@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {BroadcastService, MsalService} from "@azure/msal-angular";
 import {StripHtmlPipe} from "./strip-html.pipe"
 import {MsalWrapperService} from "../../service/msal-wrapper.service";
+import {ChannelsSubscriptionsServiceService} from "../../service/channels-subscriptions-service.service";
 
 @Component({
   selector: "app-channels-page",
@@ -12,7 +13,8 @@ import {MsalWrapperService} from "../../service/msal-wrapper.service";
 export class ChannelsPageComponent implements OnInit {
   constructor(
     private http: HttpClient,
-    private msalWrapperService: MsalWrapperService
+    private msalWrapperService: MsalWrapperService,
+    private channelsSubscriptionsServiceService: ChannelsSubscriptionsServiceService
   ) {
   }
 
@@ -29,22 +31,11 @@ export class ChannelsPageComponent implements OnInit {
   }
 
   async subscribe(channel: Channel) {
-    const options = await this.msalWrapperService.getOptionsWriteHeaders();
-
-    const userId = this.msalWrapperService.getAccountId();
-    const body = {
-      channelId: channel.id
-    };
-
-    this.http
-      .post(`https://localhost:5001/api/users/${userId}/channels`, body, options)
-      .subscribe((r) => {
-        console.log(r);
-      });
-
+    await this.channelsSubscriptionsServiceService.subscribeToChannel(channel.id);
   }
 
   async unsubscribe(channel: Channel) {
+    await this.channelsSubscriptionsServiceService.unsubscribeFromChannel(channel.id);
   }
 
   async onChannelClick(channel: Channel) {
