@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\source\ITAN" t="IncludeFlat">
+    <e p="C:\Users\jarek\.nuget\packages\microsoft.net.test.sdk\16.6.0\build\netcoreapp2.1" t="Include">
+      <e p="Microsoft.NET.Test.Sdk.Program.cs" t="Include" />
+    </e>
+    <e p="C:\Users\jarek\.nuget\packages\microsoft.testplatform.testhost\16.6.0\build\netcoreapp2.1\x64\testhost.dll" t="Include" />
+    <e p="C:\Users\jarek\.nuget\packages\microsoft.testplatform.testhost\16.6.0\build\netcoreapp2.1\x64\testhost.exe" t="Include" />
+    <e p="C:\Users\jarek\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.reporters.netcoreapp10.dll" t="Include" />
+    <e p="C:\Users\jarek\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.utility.netcoreapp10.dll" t="Include" />
+    <e p="C:\Users\jarek\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll" t="Include" />
+    <e p="C:\Users\jarek\AppData\local\JetBrains\Rider2020.1\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\jarek\AppData\local\JetBrains\Rider2020.1\resharper-host\local\Transient\ReSharperHost\v201\SolutionCaches\_ITAN.1359292259.00" t="ExcludeRecursive" />
+    <e p="C:\Users\jarek\Dropbox\source\ITAN" t="IncludeFlat">
       <e p="ImportOpml" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="ImportOpml.csproj" t="IncludeRecursive" />
@@ -58,17 +68,16 @@
       <e p="Itan.Application.UI\node_modules\@angular-devkit\core" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\@angular-devkit\schematics" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\@azure\msal-angular" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\@jsdevtools\coverage-istanbul-loader" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\@microsoft\microsoft-graph-client" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\@ngtools\webpack" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\@types" t="IncludeRecursive">
-        <e p="events" t="IncludeRecursive" />
         <e p="jasmine" t="IncludeRecursive" />
         <e p="jasminewd2" t="IncludeRecursive" />
         <e p="minimatch" t="IncludeRecursive" />
         <e p="node" t="IncludeRecursive" />
         <e p="source-list-map" t="IncludeRecursive" />
       </e>
-      <e p="Itan.Application.UI\node_modules\acorn" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\adal-angular" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\ajv" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\arg" t="IncludeRecursive" />
@@ -79,7 +88,6 @@
       <e p="Itan.Application.UI\node_modules\chokidar" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\codelyzer" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\commander" t="IncludeRecursive" />
-      <e p="Itan.Application.UI\node_modules\coverage-istanbul-loader" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\dependency-graph" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\fast-deep-equal" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\font-awesome" t="IncludeRecursive" />
@@ -101,6 +109,7 @@
       <e p="Itan.Application.UI\node_modules\reflect-metadata" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\rollup" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\rxjs" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\schema-utils" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\source-map" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\sourcemap-codec" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\symbol-observable" t="IncludeRecursive" />
@@ -193,7 +202,6 @@
           <e p="IUserToChannelSubscriptionsRepository.cs" t="Include" />
           <e p="UserSubscribeToChannelHandler.cs" t="Include" />
           <e p="UserToChannelSubscriptionsRepository.cs" t="Include" />
-          <e p="UserUnsubscribeFromChannelHandler.cs" t="Include" />
         </e>
         <e p="Itan.Core.csproj" t="IncludeRecursive" />
         <e p="ItanCoreModule.cs" t="Include" />
@@ -207,6 +215,7 @@
           </e>
         </e>
         <e p="Requests" t="Include">
+          <e p="IUnsubscribeFromChannelRepository.cs" t="Include" />
           <e p="UserSubscribeToChannelRequest.cs" t="Include" />
           <e p="UserUnsubscribeFromChannelRequest.cs" t="Include" />
         </e>
@@ -378,15 +387,5 @@
       <e p="ITAN.sln" t="IncludeFlat" />
       <e p="packages" t="ExcludeRecursive" />
     </e>
-    <e p="C:\Users\jarek\.nuget\packages\microsoft.net.test.sdk\16.6.0\build\netcoreapp2.1" t="Include">
-      <e p="Microsoft.NET.Test.Sdk.Program.cs" t="Include" />
-    </e>
-    <e p="C:\Users\jarek\.nuget\packages\microsoft.testplatform.testhost\16.6.0\build\netcoreapp2.1\x64\testhost.dll" t="Include" />
-    <e p="C:\Users\jarek\.nuget\packages\microsoft.testplatform.testhost\16.6.0\build\netcoreapp2.1\x64\testhost.exe" t="Include" />
-    <e p="C:\Users\jarek\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.reporters.netcoreapp10.dll" t="Include" />
-    <e p="C:\Users\jarek\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.utility.netcoreapp10.dll" t="Include" />
-    <e p="C:\Users\jarek\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll" t="Include" />
-    <e p="C:\Users\jarek\AppData\local\JetBrains\Rider2020.1\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\jarek\AppData\local\JetBrains\Rider2020.1\resharper-host\local\Transient\ReSharperHost\v201\SolutionCaches\_ITAN.2022137012.00" t="ExcludeRecursive" />
   </component>
 </project>
