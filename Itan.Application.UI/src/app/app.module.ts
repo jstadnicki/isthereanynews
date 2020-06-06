@@ -59,8 +59,6 @@ const isIE =
       {
         consentScopes: [
           "User.Read",
-          "https://isthereanynewscodeblast.onmicrosoft.com/api/application_reader",
-          "https://isthereanynewscodeblast.onmicrosoft.com/api/application_writer",
         ],
         unprotectedResources: [],
         protectedResourceMap: [
