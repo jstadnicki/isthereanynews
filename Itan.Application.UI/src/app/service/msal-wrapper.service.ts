@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {BroadcastService, MsalService} from "@azure/msal-angular";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {BehaviorSubject, Subject} from "rxjs";
 import {AuthenticationParameters} from "msal";
+import {BroadcastService, MsalService} from "@azure/msal-angular";
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,7 @@ export class MsalWrapperService {
   private sessionId: string;
   isLoggedIn: Subject<boolean> = new BehaviorSubject<boolean>(false);
   private account;
+  private sessionIdKeyName: string = "MsalWrapperService-uuid";
 
   constructor(
     private broadcastService: BroadcastService,
@@ -18,7 +19,7 @@ export class MsalWrapperService {
     private http: HttpClient) {
 
     this.broadcastService.subscribe("msal:loginSuccess", (e) => this.onMsalLoginSuccess(e));
-    this.checkAccount();
+    this.loginSilent();
 
   }
 
@@ -31,12 +32,23 @@ export class MsalWrapperService {
 
   logout() {
     this.authService.logout();
+    localStorage.removeItem(this.sessionIdKeyName);
   }
 
   login() {
     const accessTokenRequest = this.createLoginRequest();
     this.authService
       .loginPopup(accessTokenRequest);
+  }
+
+  loginSilent() {
+    let sessionId = localStorage.getItem(this.sessionIdKeyName);
+    if (sessionId != null) {
+      const accessTokenRequest = this.createLoginRequest();
+      accessTokenRequest.sid = sessionId;
+      this.authService.ssoSilent(accessTokenRequest)
+        .then(() => this.checkAccount());
+    }
   }
 
   private async createPersonAccount() {
@@ -70,6 +82,7 @@ export class MsalWrapperService {
   checkAccount(): void {
     this.account = this.authService.getAccount();
     this.sessionId = this.createUUID();
+    localStorage.setItem(this.sessionIdKeyName, this.sessionId);
     this.isLoggedIn.next(!!this.account);
   }
 
