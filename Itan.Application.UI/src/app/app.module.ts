@@ -13,12 +13,15 @@ import {OwnerPageComponent} from "./components/owner-page/owner-page.component";
 import {AdminPageComponent} from "./components/admin-page/admin-page.component";
 import {ChannelsPageComponent} from "./components/channels-page/channels-page.component";
 import {SubscriptionsPageComponent} from './components/subscriptions-page/subscriptions-page.component';
+import {StripHtmlPipe} from "./components/channels-page/strip-html.pipe";
+import {AddNewChannelComponent} from './components/add-new-channel/add-new-channel.component';
+import { FormsModule }   from '@angular/forms';
 
 import {
   HTTP_INTERCEPTORS,
   HttpClientModule,
 } from "@angular/common/http";
-import {StripHtmlPipe} from "./components/channels-page/strip-html.pipe";
+
 
 const isIE =
   window.navigator.userAgent.indexOf("MSIE ") > -1 ||
@@ -36,12 +39,14 @@ const isIE =
     AdminPageComponent,
     ChannelsPageComponent,
     StripHtmlPipe,
-    SubscriptionsPageComponent
+    SubscriptionsPageComponent,
+    AddNewChannelComponent
   ],
 
   imports: [
     HttpClientModule,
     BrowserModule,
+    FormsModule,
     MsalModule.forRoot(
       {
         auth: {

@@ -23,6 +23,7 @@ export class ChannelsPageComponent implements OnInit {
   news: News[];
   areChannelsLoaded: boolean;
   areNewsLoading: boolean;
+  displayAddNewChannel: boolean = false;
 
   async ngOnInit(): Promise<void> {
     this.areChannelsLoaded = false;
@@ -38,7 +39,14 @@ export class ChannelsPageComponent implements OnInit {
     await this.channelsSubscriptionsServiceService.unsubscribeFromChannel(channel.id);
   }
 
+  showAddNewChannel() {
+    this.selectedChannel = null;
+    this.news = null;
+    this.displayAddNewChannel = true;
+  }
+
   async onChannelClick(channel: Channel) {
+    this.displayAddNewChannel = false;
     if (channel == this.selectedChannel) {
       return;
     }

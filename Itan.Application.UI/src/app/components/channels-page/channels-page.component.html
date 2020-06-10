@@ -4,6 +4,12 @@
       <progress class="progress is-large is-info is-hidden" [ngClass]="{'is-hidden':areChannelsLoaded}" max="100">60%
       </progress>
       <button class='button is-small'
+              (click)="showAddNewChannel()">
+        <i class="fa fa-plus-circle"></i>
+        <span>add new</span>
+      </button>
+      <hr/>
+      <button class='button is-small'
               (click)="onChannelClick(channel)"
               [ngClass]="{'is-active':this.selectedChannel!=null && channel.id == this.selectedChannel.id}"
               *ngFor="let channel of channels">
@@ -44,6 +50,7 @@
         <hr/>
       </div>
       <div class="container">
+        <app-add-new-channel *ngIf="displayAddNewChannel"></app-add-new-channel>
         <article class="media" *ngFor="let newsItem of news">
           <figure class="media-left">
             <p class="image is-64x64">

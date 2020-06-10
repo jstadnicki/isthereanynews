@@ -1,0 +1,35 @@
+<style>
+  input.ng-dirty.ng-invalid {
+    border: 2px solid #ff0000
+  }
+
+  input.ng-dirty.ng-valid {
+    border: 2px solid #6bc502
+  }
+</style>
+
+<form #form="ngForm" novalidate
+      (ngSubmit)="onSubmit(form)">
+  <div class="field">
+    <label class="label is-large">Url</label>
+    <div class="control">
+      <input class="input is-large" type="text"
+             #name="ngModel" name="url"
+             [(ngModel)]="url"
+             required
+             pattern="(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})"
+             placeholder="url of rss to download, ie: https://jaroslawstadnicki.pl/rss">
+    </div>
+    <ul class="text-danger list-unstyled" *ngIf="name.dirty && name.invalid">
+      <li *ngIf="name.errors.required">
+        You must provide an url
+      </li>
+      <li *ngIf="name.errors.pattern">
+        Url must be a valid url address
+      </li>
+    </ul>
+  </div>
+  <div class="control">
+    <button class="button is-link is-large" [disabled]="form.invalid" >Submit</button>
+  </div>
+</form>
