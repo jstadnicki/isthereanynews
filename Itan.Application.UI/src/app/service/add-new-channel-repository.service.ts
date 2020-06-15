@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {MsalWrapperService} from "./msal-wrapper.service";
 import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class AddNewChannelRepositoryService {
   ) {
   }
 
-  async Save(url: string) {
+  async Save(url: string): Promise<Observable<Object>> {
     const options = await this.msalWrapperService.getOptionsWriteHeaders();
 
     const body = {
@@ -21,9 +22,6 @@ export class AddNewChannelRepositoryService {
     };
 
     return this.http
-      .post(`https://localhost:5001/api/channels`, body, options)
-      .subscribe(r=>{
-        console.log(r);
-      })
+      .post(`https://localhost:5001/api/channels`, body, options);
   }
 }

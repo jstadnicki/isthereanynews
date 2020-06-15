@@ -17,15 +17,31 @@ export class AddNewChannelComponent implements OnInit {
   }
 
   url: string;
+  displaySuccess: boolean = false;
+  displayError: boolean = false;
 
   ngOnInit(): void {
   }
 
   async onSubmit(form: NgForm) {
     this.showSpinner = true;
-    await this.addNewChannelRepositoryService
-      .Save(this.url);
+    (await this.addNewChannelRepositoryService.Save(this.url))
+    .subscribe(s=>this.showSuccess(),e=>this.showError());
     this.showSpinner = false;
   }
+
+  async showSuccess() {
+    this.displaySuccess = true;
+    setTimeout(() => {
+      this.displaySuccess = false;
+    }, 3000);
+  };
+
+  async showError() {
+    this.displayError = true;
+    setTimeout(() => {
+      this.displayError = false;
+    }, 3000);
+  };
 
 }
