@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
-import { FormsModule }   from '@angular/forms';
+import {AddNewChannelRepositoryService} from "../../service/add-new-channel-repository.service";
 
 @Component({
   selector: 'app-add-new-channel',
@@ -9,16 +9,23 @@ import { FormsModule }   from '@angular/forms';
 })
 export class AddNewChannelComponent implements OnInit {
 
-  constructor() {
+  showSpinner: boolean = false;
+
+  constructor(
+    private addNewChannelRepositoryService: AddNewChannelRepositoryService
+  ) {
   }
 
-  url:string;
+  url: string;
 
   ngOnInit(): void {
   }
 
-  onSubmit(form: NgForm) {
-
+  async onSubmit(form: NgForm) {
+    this.showSpinner = true;
+    await this.addNewChannelRepositoryService
+      .Save(this.url);
+    this.showSpinner = false;
   }
 
 }

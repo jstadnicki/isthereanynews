@@ -39,10 +39,23 @@ namespace Itan.Database
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<ChannelsPersons>()
-                .HasOne<Person>(x=>x.Reader)
-                .WithMany(x=>x.SubscribedChannels)
+                .HasOne<Person>(x => x.Reader)
+                .WithMany(x => x.SubscribedChannels)
                 .OnDelete(DeleteBehavior.Restrict);
-        }
 
+            modelBuilder.Entity<Channel>()
+                .HasOne<ChannelSubmitter>(x => x.Submitter)
+                .WithOne(x => x.Channel)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Person>()
+                .HasMany<ChannelSubmitter>(x => x.SubmittedChannels)
+                .WithOne(x => x.Submitter)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ChannelSubmitter>()
+                .HasIndex(x => x.ChannelId)
+                .IsUnique();
+        }
     }
 }

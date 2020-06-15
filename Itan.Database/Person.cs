@@ -10,5 +10,6 @@ namespace Itan.Database
         public Guid Id { get; set; }
         public DateTime CreatedOn { get; set; }
         public virtual List<ChannelsPersons> SubscribedChannels { get; set; }
+        public virtual List<ChannelSubmitter> SubmittedChannels { get; set; }
     }
 }

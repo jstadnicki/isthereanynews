@@ -199,6 +199,9 @@
         <e p="GetAllChannelsViewModelsRequest.cs" t="Include" />
         <e p="GetAllSubscribedChannelsViewModelsRequest.cs" t="Include" />
         <e p="Handlers" t="Include">
+          <e p="ChannelsCreateNewChannelRequestHandler.cs" t="Include" />
+          <e p="CreateNewChannelRepository.cs" t="Include" />
+          <e p="ICreateNewChannelRepository.cs" t="Include" />
           <e p="IUserToChannelSubscriptionsRepository.cs" t="Include" />
           <e p="UserSubscribeToChannelHandler.cs" t="Include" />
           <e p="UserToChannelSubscriptionsRepository.cs" t="Include" />
@@ -215,6 +218,8 @@
           </e>
         </e>
         <e p="Requests" t="Include">
+          <e p="ChannelCreateRequestResult.cs" t="Include" />
+          <e p="ChannelsCreateNewChannelRequest.cs" t="Include" />
           <e p="IUnsubscribeFromChannelRepository.cs" t="Include" />
           <e p="UserSubscribeToChannelRequest.cs" t="Include" />
           <e p="UserUnsubscribeFromChannelRequest.cs" t="Include" />
@@ -226,6 +231,7 @@
         <e p="Channel.cs" t="Include" />
         <e p="ChannelDownload.cs" t="Include" />
         <e p="ChannelsPersons.cs" t="Include" />
+        <e p="ChannelSubmitter.cs" t="Include" />
         <e p="DesignTimeDbContextFactory.cs" t="Include" />
         <e p="EntityFrameworkContext.cs" t="Include" />
         <e p="Itan.Database.csproj" t="IncludeRecursive" />
@@ -252,6 +258,8 @@
           <e p="20200523090921_AddChannelsPersons.Designer.cs" t="Include" />
           <e p="20200523095133_AddRestrictions.cs" t="Include" />
           <e p="20200523095133_AddRestrictions.Designer.cs" t="Include" />
+          <e p="20200615112134_AddChannelsSubmitters.cs" t="Include" />
+          <e p="20200615112134_AddChannelsSubmitters.Designer.cs" t="Include" />
           <e p="EntityFrameworkContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="News.cs" t="Include" />

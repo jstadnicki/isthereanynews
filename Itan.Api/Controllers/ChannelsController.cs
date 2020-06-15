@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Itan.Core;
+using Itan.Core.Requests;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +28,23 @@ namespace Itan.Api.Controllers
             var command = new GetAllChannelsViewModelsRequest();
             var list = await this.mediator.Send(command);
             return list;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] ChannelsPostDto model)
+        {
+            var userId = this.User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
+            var command = new ChannelsCreateNewChannelRequest
+            {
+                Url = model.Url, PersonId = Guid.Parse(userId)
+            };
+            var result = await this.mediator.Send(command);
+            return this.Accepted();
+        }
+
+        public class ChannelsPostDto
+        {
+            public string Url { get; set; }
         }
     }
 }
