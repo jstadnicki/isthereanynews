@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Autofac;
+using Itan.Api.Controllers;
 using Itan.Common;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.AzureAD.UI;
@@ -114,6 +115,8 @@ namespace Itan.Api
                 .GetSection("ConnectionStrings")
                 .Get<ConnectionOptions>())
                 .SingleInstance();
+
+            builder.RegisterModule<ItanApiModule>();
             
             // builder.RegisterType<IOptions<ConnectionOptions>>()
             // {
@@ -134,6 +137,7 @@ namespace Itan.Api
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -142,14 +146,13 @@ namespace Itan.Api
             {
                 app.UseHsts();
             }
-
+            app.UseMiddleware<ItanExceptionMiddleware>();
             app.UseResponseCompression();
 
             app.UseCors(b =>
                 b.AllowAnyOrigin()
                     .AllowAnyHeader()
                     .AllowAnyMethod());
-
             app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc();

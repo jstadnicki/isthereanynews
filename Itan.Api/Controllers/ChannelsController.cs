@@ -42,9 +42,6 @@ namespace Itan.Api.Controllers
             return this.Accepted();
         }
 
-        public class ChannelsPostDto
-        {
-            public string Url { get; set; }
-        }
+        
     }
 }

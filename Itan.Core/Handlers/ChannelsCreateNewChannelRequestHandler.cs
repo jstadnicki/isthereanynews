@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using CodeHollow.FeedReader;
 using Itan.Core.Requests;
 using MediatR;
@@ -30,9 +29,15 @@ namespace Itan.Core.Handlers
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                throw new ItanValidationException(e);
             }
+        }
+    }
+
+    public class ItanValidationException : Exception
+    {
+        public ItanValidationException(Exception exception) : base("ItanValidationException", exception)
+        {
         }
     }
 }
