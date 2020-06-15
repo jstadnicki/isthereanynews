@@ -73,6 +73,31 @@ namespace Itan.Database.Migrations
                     b.ToTable("ChannelDownloads");
                 });
 
+            modelBuilder.Entity("Itan.Database.ChannelSubmitter", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ChannelId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("PersonId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChannelId")
+                        .IsUnique();
+
+                    b.HasIndex("PersonId");
+
+                    b.ToTable("ChannelsSubmitters");
+                });
+
             modelBuilder.Entity("Itan.Database.ChannelsPersons", b =>
                 {
                     b.Property<Guid>("Id")
@@ -147,6 +172,21 @@ namespace Itan.Database.Migrations
                         .WithMany("Downloads")
                         .HasForeignKey("ChannelId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Itan.Database.ChannelSubmitter", b =>
+                {
+                    b.HasOne("Itan.Database.Channel", "Channel")
+                        .WithOne("Submitter")
+                        .HasForeignKey("Itan.Database.ChannelSubmitter", "ChannelId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Itan.Database.Person", "Submitter")
+                        .WithMany("SubmittedChannels")
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 

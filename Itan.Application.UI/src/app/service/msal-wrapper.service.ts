@@ -47,7 +47,8 @@ export class MsalWrapperService {
       const accessTokenRequest = this.createLoginRequest();
       accessTokenRequest.sid = sessionId;
       this.authService.ssoSilent(accessTokenRequest)
-        .then(() => this.checkAccount());
+        .then(() => this.checkAccount())
+        .catch(()=> localStorage.removeItem(this.sessionIdKeyName));
     }
   }
 
