@@ -31,7 +31,9 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="Controllers" t="Include">
           <e p="ChannelsController.cs" t="Include" />
+          <e p="ChannelsPostDto.cs" t="Include" />
           <e p="ChannelSubscriptionsController.cs" t="Include" />
+          <e p="ItanExceptionMiddleware.cs" t="Include" />
           <e p="NewsController.cs" t="Include" />
           <e p="SubscriptionsController.cs" t="Include" />
           <e p="UsersController.cs" t="Include" />
