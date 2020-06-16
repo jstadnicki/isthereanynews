@@ -1,7 +1,5 @@
 import {Component, OnInit} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {BroadcastService, MsalService} from "@azure/msal-angular";
-import {StripHtmlPipe} from "./strip-html.pipe"
 import {MsalWrapperService} from "../../service/msal-wrapper.service";
 import {ChannelsSubscriptionsServiceService} from "../../service/channels-subscriptions-service.service";
 
@@ -24,11 +22,14 @@ export class ChannelsPageComponent implements OnInit {
   areChannelsLoaded: boolean;
   areNewsLoading: boolean;
   displayAddNewChannel: boolean = false;
+  isLoggedIn: boolean = false;
 
   async ngOnInit(): Promise<void> {
     this.areChannelsLoaded = false;
     this.areNewsLoading = false;
     await this.loadChannels();
+
+    this.msalWrapperService.isLoggedIn.subscribe(v => this.isLoggedIn = v);
   }
 
   async subscribe(channel: Channel) {
@@ -40,6 +41,8 @@ export class ChannelsPageComponent implements OnInit {
   }
 
   showAddNewChannel() {
+    if(!this.isLoggedIn)
+      return false;
     this.selectedChannel = null;
     this.news = null;
     this.displayAddNewChannel = true;
@@ -114,7 +117,7 @@ class News {
   loading: boolean = false;
   contentVisible: boolean = false;
   published: Date
-  link:string;
+  link: string;
 }
 
 class NewsContent {

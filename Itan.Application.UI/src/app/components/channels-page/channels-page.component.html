@@ -4,8 +4,10 @@
       <progress class="progress is-large is-info is-hidden" [ngClass]="{'is-hidden':areChannelsLoaded}" max="100">60%
       </progress>
       <button class='button is-small'
+              [ngClass]="{'is-active':this.isLoggedIn}"
               (click)="showAddNewChannel()">
-        <i class="fa fa-plus-circle"></i>
+        <i class="fa " [ngClass]="{' fa-plus-circle':this.isLoggedIn,' fa-lock':!this.isLoggedIn}">
+        </i>
         <span>add new</span>
       </button>
       <hr/>
@@ -75,21 +77,6 @@
             </div>
             <nav class="level">
               <div class="level-left">
-<!--                <a class="level-item">-->
-<!--                  <span class="icon is-small"><i class="fa fa-comment-o"></i></span>-->
-<!--                </a>-->
-<!--                <a class="level-item">-->
-<!--                  <span class="icon is-small"><i class="fa fa-share-alt"></i></span>-->
-<!--                </a>-->
-<!--                <a class="level-item">-->
-<!--                  <span class="icon is-small"><i class="fa fa-thumbs-o-up"></i></span>-->
-<!--                </a>-->
-<!--                <a class="level-item">-->
-<!--                  <span class="icon is-small"><i class="fa fa-thumbs-o-down"></i></span>-->
-<!--                </a>-->
-<!--                <a class="level-item">-->
-<!--                  <span class="icon is-small"><i class="fa fa-bookmark-o"></i></span>-->
-<!--                </a>-->
                 <a class="level-item">
                   <span class="icon is-small"><i
                     (click)="onExternalLinkClick(newsItem)"
