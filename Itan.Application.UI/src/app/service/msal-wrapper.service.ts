@@ -53,19 +53,21 @@ export class MsalWrapperService {
   }
 
   private async createPersonAccount() {
-    let accessTokenRequest = this.createWriteAccessRequest();
-    const token = await this.authService.acquireTokenSilent(accessTokenRequest);
-    const options = this.getOptions(token.accessToken);
+    if (this.account.idToken.newUser === true) {
+      let accessTokenRequest = this.createWriteAccessRequest();
+      const token = await this.authService.acquireTokenSilent(accessTokenRequest);
+      const options = this.getOptions(token.accessToken);
 
-    let body = {
-      userId: this.account.accountIdentifier
+      let body = {
+        userId: this.account.accountIdentifier
+      }
+
+      this.http
+        .post("https://localhost:5001/api/users", body)
+        .subscribe(e => {
+          console.log(e);
+        });
     }
-
-    this.http
-      .post("https://localhost:5001/api/users", body, options)
-      .subscribe(e => {
-        console.log(e);
-      });
   }
 
   private getOptions(token: string) {
