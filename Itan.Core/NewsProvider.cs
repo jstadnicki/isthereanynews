@@ -23,7 +23,7 @@ namespace Itan.Core
             var newsHeaderList = new List<NewsHeader>();
             using (var connection = new SqlConnection(connectionString))
             {
-                var query = "select n.id,n.Title, n.Published, n.Link from News n where n.ChannelId = @channelId";
+                var query = "select n.id,n.Title, n.Published, n.Link from News n where n.ChannelId = @channelId order by n.Published desc";
                 var queryData = new
                 {
                     channelId = channelId
