@@ -26,7 +26,7 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker1
                 .QueueMock
                 .Verify(
                     v => v.AddRangeAsync(It.Is<IEnumerable<ChannelToDownload>>(p => p.Count() == numberOfChannels),
-                        It.Is<string>(p => p == QueuesName.ChannelToDownload)), Times.Exactly(numberOfChannels));
+                        It.Is<string>(p => p == QueuesName.ChannelToDownload)), Times.Once);
         }
     }
 }
