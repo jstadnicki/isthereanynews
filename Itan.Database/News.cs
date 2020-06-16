@@ -18,5 +18,8 @@ namespace Itan.Database
         public DateTime CreatedOn { get; set; }
 
         public DateTime Published { get; set; }
+
+        [Required]
+        public string Link { get; set; }
     }
 }

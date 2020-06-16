@@ -17,10 +17,10 @@ namespace Itan.Functions.Workers
             this.sqlConnectionString = options.Value.SqlWriter;
         }
 
-        public async Task InsertNewsLinkAsync(Guid channelId, string title, Guid id, DateTime publishingDate)
+        public async Task InsertNewsLinkAsync(Guid channelId, string title, Guid id, DateTime publishingDate, string link)
         {
             var query =
-                "INSERT INTO News (Id, ChannelId, Title, CreatedOn, HashCode, Published) VALUES (@id, @channelId, @title, @createdOn, @hashCode, @published)";
+                "INSERT INTO News (Id, ChannelId, Title, CreatedOn, HashCode, Published, Link) VALUES (@id, @channelId, @title, @createdOn, @hashCode, @published, @link)";
 
             var hashCode = new
             {
@@ -35,7 +35,8 @@ namespace Itan.Functions.Workers
                 title = title.Trim(),
                 createdOn = DateTime.UtcNow,
                 hashCode = hashCode,
-                published = publishingDate
+                published = publishingDate,
+                link = link
             };
 
             using var sqlConnection = new SqlConnection(this.sqlConnectionString);

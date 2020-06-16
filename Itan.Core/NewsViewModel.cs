@@ -8,5 +8,6 @@ namespace Itan.Core
         public string Title { get; set; }
         public string ContentUrl { get; set; }
         public DateTime Published { get; set; }
+        public string Link { get; set; }
     }
 }

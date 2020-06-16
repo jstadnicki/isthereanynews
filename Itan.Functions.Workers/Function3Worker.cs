@@ -75,7 +75,7 @@ namespace Itan.Functions.Workers
 
                     try
                     {
-                        await this.newsWriter.InsertNewsLinkAsync(channelId, item.Title, item.Id, item.PublishingDate);
+                        await this.newsWriter.InsertNewsLinkAsync(channelId, item.Title, item.Id, item.PublishingDate, item.Link);
                     }
                     catch (NewsWriterInsertNewsLinkException e)
                     {

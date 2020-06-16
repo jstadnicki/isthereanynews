@@ -262,6 +262,10 @@
           <e p="20200523095133_AddRestrictions.Designer.cs" t="Include" />
           <e p="20200615112134_AddChannelsSubmitters.cs" t="Include" />
           <e p="20200615112134_AddChannelsSubmitters.Designer.cs" t="Include" />
+          <e p="20200616125952_AddRequiredLinkPropertyToNewsNonRequired.cs" t="Include" />
+          <e p="20200616125952_AddRequiredLinkPropertyToNewsNonRequired.Designer.cs" t="Include" />
+          <e p="20200616130708_NewsLinkRequired.cs" t="Include" />
+          <e p="20200616130708_NewsLinkRequired.Designer.cs" t="Include" />
           <e p="EntityFrameworkContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="News.cs" t="Include" />

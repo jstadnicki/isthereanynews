@@ -81,6 +81,10 @@ export class ChannelsPageComponent implements OnInit {
       });
   }
 
+  onExternalLinkClick(newsItan: News) {
+    window.open(newsItan.link);
+  }
+
   display(news: NewsContent): string {
     return news.Description ?? news.Content;
   }
@@ -110,6 +114,7 @@ class News {
   loading: boolean = false;
   contentVisible: boolean = false;
   published: Date
+  link:string;
 }
 
 class NewsContent {
