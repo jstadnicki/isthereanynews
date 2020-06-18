@@ -48,7 +48,7 @@ export class MsalWrapperService {
       accessTokenRequest.sid = sessionId;
       this.authService.ssoSilent(accessTokenRequest)
         .then(() => this.checkAccount())
-        .catch(()=> localStorage.removeItem(this.sessionIdKeyName));
+        .catch(() => localStorage.removeItem(this.sessionIdKeyName));
     }
   }
 
@@ -63,7 +63,7 @@ export class MsalWrapperService {
       }
 
       this.http
-        .post("https://localhost:5001/api/users", body)
+        .post("https://localhost:5001/api/users", body, options)
         .subscribe(e => {
           console.log(e);
         });
