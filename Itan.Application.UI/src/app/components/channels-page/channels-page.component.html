@@ -54,17 +54,15 @@
       <div class="container">
         <app-add-new-channel *ngIf="displayAddNewChannel"></app-add-new-channel>
         <article class="media" *ngFor="let newsItem of news">
-          <figure class="media-left">
-            <p class="image is-64x64">
-              <img src="https://bulma.io/images/placeholders/128x128.png"/>
-            </p>
-          </figure>
+
           <div class="media-content">
             <div class="content">
               <p>
-                <strong>{{newsItem.title}}</strong>{{newsItem.published|date}}<i class="fa"
-                                                                                 [ngClass]="{'fa-chevron-down':!newsItem.contentVisible,'fa-chevron-up':newsItem.contentVisible}"
-                                                                                 (click)="onNewsClick(newsItem)"></i>
+                <strong [innerHTML]="newsItem.title"></strong>
+                <span class="is-pulled-right"><i class="fa fa-calendar"></i> {{newsItem.published|date}}</span>
+                <i class="fa"
+                   [ngClass]="{'fa-chevron-down':!newsItem.contentVisible,'fa-chevron-up':newsItem.contentVisible}"
+                   (click)="onNewsClick(newsItem)"></i>
               </p>
 
               <div *ngIf="newsItem.content" [ngClass]="{'is-hidden':!newsItem.contentVisible}">
@@ -72,7 +70,15 @@
                           [ngClass]="{'is-hidden':!newsItem.loading}"
                           max="100">60%
                 </progress>
-                <span [innerHTML]="display(newsItem.content) | striphtml"></span>
+                <div class="columns">
+                  <div class="column is-narrow" *ngIf="hasImage(newsItem.content)">
+                    <img class="image is-128x128"
+                         [src]="getImageSrc(newsItem.content)"/>
+                  </div>
+                  <div class="column">
+                    <span [innerHTML]="display(newsItem.content) | striphtml"></span>
+                  </div>
+                </div>
               </div>
             </div>
             <nav class="level">

@@ -81,7 +81,22 @@ export class ChannelsPageComponent implements OnInit {
         newsItem.loading = false;
         newsItem.content = response;
         newsItem.contentVisible = !newsItem.contentVisible;
+
+        var tempDiv = document.createElement('div');
+        tempDiv.innerHTML = this.display(response);
+        var firstImage = tempDiv.getElementsByTagName('img')[0]
+        var imgSrc = firstImage ? firstImage.src : "";
+
+        newsItem.content.Image = imgSrc;
       });
+  }
+
+   hasImage(news: NewsContent): boolean {
+    return news.Image && news.Image.length > 0;
+  }
+
+  getImageSrc(news: NewsContent): string {
+    return news.Image;
   }
 
   onExternalLinkClick(newsItan: News) {
@@ -123,6 +138,7 @@ class News {
 class NewsContent {
   Content: string;
   Description: string;
+  Image: string;
   Author: string;
   Link: string;
 }
