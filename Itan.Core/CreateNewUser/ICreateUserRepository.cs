@@ -21,14 +21,14 @@ namespace Itan.Core.CreateNewUser
             this.connectionString = options.SqlWriter;
         }
 
-        public Task CreatePersonIfNotExists(Guid requestUserId)
+        public async Task CreatePersonIfNotExists(Guid requestUserId)
         {
             var sql = $"if not exists (select * from Persons where id='{requestUserId.ToString()}')\n" +
                       "BEGIN\n" +
                       $"INSERT INTO Persons (Id, CreatedOn) VALUES ('{requestUserId.ToString()}','{DateTime.UtcNow.ToString(CultureInfo.InvariantCulture)}')\n" +
                       "END";
             using var connection = new SqlConnection(this.connectionString);
-            return connection.ExecuteAsync(sql);
+            await connection.ExecuteAsync(sql);
         }
     }
 }
