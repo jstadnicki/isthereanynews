@@ -21,6 +21,7 @@ import {
   HTTP_INTERCEPTORS,
   HttpClientModule,
 } from "@angular/common/http";
+import { LockerComponent } from './components/locker/locker.component';
 
 
 const isIE =
@@ -40,7 +41,8 @@ const isIE =
     ChannelsPageComponent,
     StripHtmlPipe,
     SubscriptionsPageComponent,
-    AddNewChannelComponent
+    AddNewChannelComponent,
+    LockerComponent
   ],
 
   imports: [
@@ -62,9 +64,7 @@ const isIE =
         },
       },
       {
-        consentScopes: [
-          "User.Read",
-        ],
+        consentScopes: [],
         unprotectedResources: [],
         protectedResourceMap: [
           ["https://graph.microsoft.com/me", ["User.Read"]],

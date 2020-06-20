@@ -25,11 +25,13 @@
 <!--        admin-->
 <!--      </a>-->
       <a class="navbar-item" routerLink="/channels">
-        <span><i class="fa fa-unlock"></i> All</span>
+        <span>All</span>
       </a>
 
       <a class="navbar-item" routerLink="/subscriptions">
-        <span><i class="fa fa-lock"></i> Subscriptions</span>
+        <span>
+          <app-locker *ngIf="!loggedIn"></app-locker> Subscriptions
+        </span>
       </a>
 
 <!--      <div class="navbar-item has-dropdown is-hoverable">-->

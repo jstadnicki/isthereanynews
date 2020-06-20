@@ -6,8 +6,8 @@
       <button class='button is-small'
               [ngClass]="{'is-active':this.isLoggedIn}"
               (click)="showAddNewChannel()">
-        <i class="fa " [ngClass]="{' fa-plus-circle':this.isLoggedIn,' fa-lock':!this.isLoggedIn}">
-        </i>
+        <app-locker *ngIf="!isLoggedIn"></app-locker>
+        <i class="fa fa-plus-circle" *ngIf="isLoggedIn"></i>
         <span>add new</span>
       </button>
       <hr/>
