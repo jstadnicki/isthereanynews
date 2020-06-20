@@ -1,5 +1,5 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Itan.Core.Requests;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
