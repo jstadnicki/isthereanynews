@@ -1,7 +1,7 @@
 ﻿using System;
 using MediatR;
 
-namespace Itan.Api.Controllers
+namespace Itan.Core.Requests
 {
     public class UserSubscribeToChannelRequest : IRequest
     {

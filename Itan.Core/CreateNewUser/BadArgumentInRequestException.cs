@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Itan.Core.Handlers
+namespace Itan.Core.CreateNewUser
 {
     internal class BadArgumentInRequestException : Exception
     {

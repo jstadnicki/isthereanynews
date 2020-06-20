@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Itan.Core.CreateNewUser;
 using Itan.Core.Handlers;
 using MediatR;
 
-namespace Itan.Api.Controllers
+namespace Itan.Core.Requests
 {
     public class UserUnsubscribeFromChannelRequest : IRequest
     {

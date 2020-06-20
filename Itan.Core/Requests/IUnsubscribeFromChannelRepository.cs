@@ -3,9 +3,8 @@ using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Dapper;
 using Itan.Common;
-using MediatR;
 
-namespace Itan.Api.Controllers
+namespace Itan.Core.Requests
 {
     public interface IUnsubscribeFromChannelRepository
     {

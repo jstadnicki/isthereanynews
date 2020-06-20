@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Itan.Api.Controllers;
+using Itan.Core.CreateNewUser;
+using Itan.Core.Requests;
 using MediatR;
 
 namespace Itan.Core.Handlers
