@@ -34,6 +34,7 @@
           <e p="ChannelsPostDto.cs" t="Include" />
           <e p="ChannelSubscriptionsController.cs" t="Include" />
           <e p="ItanExceptionMiddleware.cs" t="Include" />
+          <e p="LandingPageController.cs" t="Include" />
           <e p="NewsController.cs" t="Include" />
           <e p="SubscriptionsController.cs" t="Include" />
           <e p="UsersController.cs" t="Include" />
@@ -208,8 +209,10 @@
           <e p="UserSubscribeToChannelHandler.cs" t="Include" />
           <e p="UserToChannelSubscriptionsRepository.cs" t="Include" />
         </e>
+        <e p="HomePageNews.cs" t="Include" />
         <e p="Itan.Core.csproj" t="IncludeRecursive" />
         <e p="ItanCoreModule.cs" t="Include" />
+        <e p="LandingPageNews.cs" t="Include" />
         <e p="NewsProvider.cs" t="Include" />
         <e p="NewsViewModel.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
