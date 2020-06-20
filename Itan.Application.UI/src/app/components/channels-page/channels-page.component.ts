@@ -91,7 +91,7 @@ export class ChannelsPageComponent implements OnInit {
       });
   }
 
-   hasImage(news: NewsContent): boolean {
+  hasImage(news: NewsContent): boolean {
     return news.Image && news.Image.length > 0;
   }
 

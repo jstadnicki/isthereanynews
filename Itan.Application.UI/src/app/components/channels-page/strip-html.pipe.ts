@@ -5,6 +5,6 @@
 })
 export class StripHtmlPipe implements PipeTransform {
     transform(value: string): any {
-        return value.replace(/<.*?>/g, ''); // replace tags
+        return value?.replace(/<.*?>/g, ''); // replace tags
     }
 }
