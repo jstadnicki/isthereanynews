@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Itan.Common\Itan.Common.csproj" />
+    <ProjectReference Include="..\Itan.Functions.Workers\Itan.Functions.Workers.csproj" />
   </ItemGroup>
 
 <!--  <Target Name="PostBuild" AfterTargets="PostBuildEvent">-->
