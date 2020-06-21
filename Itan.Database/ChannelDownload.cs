@@ -1,6 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data;
 
 namespace Itan.Database
 {
@@ -15,5 +15,9 @@ namespace Itan.Database
         [ForeignKey(nameof(ChannelId))]
         public Channel Channel { get; set; }
         public int HashCode { get; set; }
+
+        [MaxLength(64)]
+        [MinLength(64)]
+        public string SHA256 { get; set; }
     }
 }

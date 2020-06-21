@@ -25,7 +25,7 @@ namespace Itan.Functions.Workers
 
         public async Task InsertAsync(DownloadDto data)
         {
-            var query = "INSERT INTO ChannelDownloads (Id, ChannelId, Path, CreatedOn, HashCode) VALUES (@id, @channelId, @path, @createdOn, @hashCode)";
+            var query = "INSERT INTO ChannelDownloads (Id, ChannelId, Path, CreatedOn, HashCode, SHA256) VALUES (@id, @channelId, @path, @createdOn, @hashCode, @SHA)";
 
             try
             {

@@ -25,6 +25,7 @@ namespace Itan.Functions
             builder.Services.AddScoped<IBlobPathGenerator, BlobPathGenerator>();
             builder.Services.AddScoped<IHttpDownloader, HttpDownloader>();
             builder.Services.AddScoped<IBlobContainer, BlobContainer>();
+            builder.Services.AddScoped<IHashSum, SHA256Wrapper>();
 
             builder.Services.AddOptions<ConnectionOptions>()
                 .Configure<IConfiguration>((settings, configuration) =>

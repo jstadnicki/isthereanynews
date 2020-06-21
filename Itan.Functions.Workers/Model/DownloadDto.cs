@@ -9,5 +9,6 @@ namespace Itan.Functions.Workers.Model
         public string Path { get; set; }
         public DateTime CreatedOn { get; set; } = DateTime.Now;
         public int HashCode { get; set; }
+        public string SHA { get; set; }
     }
 }

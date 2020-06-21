@@ -1,4 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Itan.Functions.Models;
 using Itan.Functions.Workers.Model;
@@ -15,6 +14,7 @@ namespace Itan.Functions.Workers
         private readonly IHttpDownloader httpDownloader;
         private readonly IChannelsDownloadsWriter downloadsWriter;
         private readonly ISerializer serializer;
+        private readonly IHashSum hasher;
 
         public Function2Worker(
             ILoger<Function2Worker> log,
@@ -23,7 +23,8 @@ namespace Itan.Functions.Workers
             IHttpDownloader httpDownloader,
             IBlobContainer blobContainer,
             IChannelsDownloadsWriter downloadsWriter,
-            ISerializer serializer)
+            ISerializer serializer, 
+            IHashSum hasher)
         {
             Ensure.NotNull(log, nameof(log));
             Ensure.NotNull(downloadsReader, nameof(downloadsReader));
@@ -32,6 +33,7 @@ namespace Itan.Functions.Workers
             Ensure.NotNull(blobContainer, nameof(blobContainer));
             Ensure.NotNull(downloadsWriter, nameof(downloadsWriter));
             Ensure.NotNull(serializer, nameof(serializer));
+            Ensure.NotNull(hasher, nameof(hasher));
 
             this.log = log;
             this.downloadsReader = downloadsReader;
@@ -40,6 +42,7 @@ namespace Itan.Functions.Workers
             this.blobContainer = blobContainer;
             this.downloadsWriter = downloadsWriter;
             this.serializer = serializer;
+            this.hasher = hasher;
         }
 
         public async Task Run(string queueItem)
@@ -47,12 +50,13 @@ namespace Itan.Functions.Workers
             var channelToDownload = this.serializer.Deserialize<ChannelToDownload>(queueItem);
 
             var channelString = await this.httpDownloader.GetStringAsync(channelToDownload.Url);
-            if(string.IsNullOrWhiteSpace(channelString))
+            if (string.IsNullOrWhiteSpace(channelString))
             {
                 return;
             }
 
             var hashCode = channelString.GetHashCode();
+            var sha = this.hasher.GetHash(channelString); 
 
             if (await this.downloadsReader.Exists(channelToDownload.Id, hashCode))
             {
@@ -60,13 +64,14 @@ namespace Itan.Functions.Workers
             }
 
             var channelDownloadPath = this.blobPathGenerator.CreateChannelDownloadPath(channelToDownload.Id);
-            await this.blobContainer.UploadStringAsync("rss",channelDownloadPath, channelString, IBlobContainer.UploadStringCompression.GZip);
+            await this.blobContainer.UploadStringAsync("rss", channelDownloadPath, channelString, IBlobContainer.UploadStringCompression.GZip);
 
             var data = new DownloadDto
             {
                 ChannelId = channelToDownload.Id,
                 Path = channelDownloadPath,
-                HashCode = hashCode
+                HashCode = hashCode,
+                SHA=sha
             };
 
             await this.downloadsWriter.InsertAsync(data);

@@ -82,22 +82,26 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker2
         [Fact]
         public void PassingNullToConstructorThrowsException()
         {
-            Assert.Throws<ArgumentNullException>(() => new Function2Worker(null, null, null, null, null, null, null));
+            Assert.Throws<ArgumentNullException>(() => new Function2Worker(null, null, null, null, null, null, null, null));
             Assert.Throws<ArgumentNullException>(() =>
-                new Function2Worker(Mock.Of<ILoger<Function2Worker>>(), null, null, null, null, null, null));
+                new Function2Worker(Mock.Of<ILoger<Function2Worker>>(), null, null, null, null, null, null, null));
             Assert.Throws<ArgumentNullException>(() => new Function2Worker(Mock.Of<ILoger<Function2Worker>>(),
-                Mock.Of<IChannelsDownloadsReader>(), null, null, null, null, null));
+                Mock.Of<IChannelsDownloadsReader>(), null, null, null, null, null, null));
             Assert.Throws<ArgumentNullException>(() => new Function2Worker(Mock.Of<ILoger<Function2Worker>>(),
-                Mock.Of<IChannelsDownloadsReader>(), Mock.Of<IBlobPathGenerator>(), null, null, null, null));
+                Mock.Of<IChannelsDownloadsReader>(), Mock.Of<IBlobPathGenerator>(), null, null, null, null, null));
             Assert.Throws<ArgumentNullException>(() => new Function2Worker(Mock.Of<ILoger<Function2Worker>>(),
                 Mock.Of<IChannelsDownloadsReader>(), Mock.Of<IBlobPathGenerator>(), Mock.Of<IHttpDownloader>(), null,
-                null, null));
+                null, null, null));
             Assert.Throws<ArgumentNullException>(() => new Function2Worker(Mock.Of<ILoger<Function2Worker>>(),
                 Mock.Of<IChannelsDownloadsReader>(), Mock.Of<IBlobPathGenerator>(), Mock.Of<IHttpDownloader>(),
-                Mock.Of<IBlobContainer>(), null, null));
+                Mock.Of<IBlobContainer>(), null, null, null));
             Assert.Throws<ArgumentNullException>(() => new Function2Worker(Mock.Of<ILoger<Function2Worker>>(),
                 Mock.Of<IChannelsDownloadsReader>(), Mock.Of<IBlobPathGenerator>(), Mock.Of<IHttpDownloader>(),
-                Mock.Of<IBlobContainer>(), Mock.Of<IChannelsDownloadsWriter>(), null));
+                Mock.Of<IBlobContainer>(), Mock.Of<IChannelsDownloadsWriter>(), null, null));
+            
+            Assert.Throws<ArgumentNullException>(() => new Function2Worker(Mock.Of<ILoger<Function2Worker>>(),
+                Mock.Of<IChannelsDownloadsReader>(), Mock.Of<IBlobPathGenerator>(), Mock.Of<IHttpDownloader>(),
+                Mock.Of<IBlobContainer>(), Mock.Of<IChannelsDownloadsWriter>(), Mock.Of<ISerializer>(), null));
         }
     }
 }

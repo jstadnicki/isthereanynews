@@ -15,6 +15,7 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker1
         private readonly Mock<IChannelsDownloadsWriter> mockChannelsDownloadWriter;
         private readonly Mock<ISerializer> mockSerializer;
         private readonly Mock<ILoger<Function2Worker>> mockLoger;
+        private IMock<IHashSum> mockHasher;
 
         public Function2WorkerFixture()
         {
@@ -25,6 +26,7 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker1
             this.mockBlobContainer = new Mock<IBlobContainer>();
             this.mockChannelsDownloadWriter = new Mock<IChannelsDownloadsWriter>();
             this.mockSerializer = new Mock<ISerializer>();
+            this.mockHasher = new Mock<IHashSum>();
         }
 
         public Mock<IBlobPathGenerator> PathGenerator => this.mockBlogPathGenerator;
@@ -41,7 +43,8 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker1
                 this.mockHttpDownloader.Object,
                 this.mockBlobContainer.Object,
                 this.mockChannelsDownloadWriter.Object,
-                this.mockSerializer.Object);
+                this.mockSerializer.Object,
+                this.mockHasher.Object);
         }
 
         public Function2WorkerFixture SerializerReturnsValidObject()

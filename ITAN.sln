@@ -21,6 +21,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Itan.Functions.Workers.Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Itan.Common", "Itan.Common\Itan.Common.csproj", "{1DF2BB79-61CB-4BF9-926E-67F78A0039A5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SupportTools", "SupportTools", "{F8A029A1-FC9A-4B43-B588-DA05DC957E1C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{04C8B4B5-9139-4A09-8622-171FB41AB81F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,11 +67,18 @@ Global
 		{1DF2BB79-61CB-4BF9-926E-67F78A0039A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DF2BB79-61CB-4BF9-926E-67F78A0039A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DF2BB79-61CB-4BF9-926E-67F78A0039A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04C8B4B5-9139-4A09-8622-171FB41AB81F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04C8B4B5-9139-4A09-8622-171FB41AB81F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04C8B4B5-9139-4A09-8622-171FB41AB81F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04C8B4B5-9139-4A09-8622-171FB41AB81F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {947ABC64-9878-4E7E-A798-703DBDCC8535}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{04C8B4B5-9139-4A09-8622-171FB41AB81F} = {F8A029A1-FC9A-4B43-B588-DA05DC957E1C}
 	EndGlobalSection
 EndGlobal
