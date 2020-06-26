@@ -20,6 +20,7 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker3
         private readonly Mock<IBlobContainer> mockBlobContainer;
         private readonly Mock<ISerializer> mockSerializer;
         private readonly Mock<INewsWriter> mockNewsWriter;
+        private readonly Mock<IHashSum> mockHash;
 
         public Function3WorkerFixture()
         {
@@ -31,6 +32,7 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker3
             this.mockBlobContainer = new Mock<IBlobContainer>();
             this.mockSerializer = new Mock<ISerializer>();
             this.mockNewsWriter = new Mock<INewsWriter>();
+            this.mockHash = new Mock<IHashSum>();
         }
 
         public Function3Worker GetWorker()
@@ -43,7 +45,8 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker3
                 this.mockBlobPathGenerator.Object,
                 this.mockBlobContainer.Object,
                 this.mockSerializer.Object,
-                this.mockNewsWriter.Object);
+                this.mockNewsWriter.Object,
+                this.mockHash.Object);
         }
 
         public Mock<ILoger<Function3Worker>> MockLoger => this.mockLoger;
@@ -121,7 +124,7 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker3
         public Function3WorkerFixture MakeNewsWriterThrowsOnWrite()
         {
             this.MockNewsWriter
-                .Setup(s => s.InsertNewsLinkAsync(It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<Guid>(), It.IsAny<DateTime>(),It.IsAny<string>()))
+                .Setup(s => s.InsertNewsLinkAsync(It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<Guid>(), It.IsAny<DateTime>(),It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>()))
                 .Throws(new NewsWriterInsertNewsLinkException(new Exception()));
 
             return this;

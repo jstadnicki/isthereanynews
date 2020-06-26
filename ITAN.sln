@@ -23,7 +23,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Itan.Common", "Itan.Common\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SupportTools", "SupportTools", "{F8A029A1-FC9A-4B43-B588-DA05DC957E1C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{04C8B4B5-9139-4A09-8622-171FB41AB81F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChannelDownloadSha256Generator", "ChannelDownloadSha256Generator\ChannelDownloadSha256Generator.csproj", "{04C8B4B5-9139-4A09-8622-171FB41AB81F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -4,7 +4,7 @@ using Itan.Core.Handlers;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
-namespace Itan.Api.Controllers
+namespace Itan.Api.Middleware
 {
     public class ItanExceptionMiddleware : IMiddleware
     {

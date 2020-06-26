@@ -12,6 +12,18 @@
     <e p="C:\Users\jarek\AppData\local\JetBrains\Rider2020.1\extResources" t="IncludeRecursive" />
     <e p="C:\Users\jarek\AppData\local\JetBrains\Rider2020.1\resharper-host\local\Transient\ReSharperHost\v201\SolutionCaches\_ITAN.1359292259.00" t="ExcludeRecursive" />
     <e p="C:\Users\jarek\Dropbox\source\ITAN" t="IncludeFlat">
+      <e p="ChannelDownloadSha256Generator" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="ChannelDownloadSha256Generator.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="ChannelDownloadSha256Generator.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Program.cs" t="Include" />
+      </e>
       <e p="ImportOpml" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="ImportOpml.csproj" t="IncludeRecursive" />
@@ -31,16 +43,22 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="Controllers" t="Include">
           <e p="ChannelsController.cs" t="Include" />
-          <e p="ChannelsPostDto.cs" t="Include" />
           <e p="ChannelSubscriptionsController.cs" t="Include" />
-          <e p="ItanExceptionMiddleware.cs" t="Include" />
           <e p="LandingPageController.cs" t="Include" />
           <e p="NewsController.cs" t="Include" />
           <e p="SubscriptionsController.cs" t="Include" />
           <e p="UsersController.cs" t="Include" />
         </e>
+        <e p="Dto" t="Include">
+          <e p="ChannelsPostDto.cs" t="Include" />
+          <e p="UserChannelsSubscriptionsControllerPostDto.cs" t="Include" />
+          <e p="UsersControllerPostDto.cs" t="Include" />
+        </e>
         <e p="Itan.Api.csproj" t="IncludeRecursive" />
         <e p="ItanApiModule.cs" t="Include" />
+        <e p="Middleware" t="Include">
+          <e p="ItanExceptionMiddleware.cs" t="Include" />
+        </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.0" t="Include">
@@ -269,6 +287,10 @@
           <e p="20200616125952_AddRequiredLinkPropertyToNewsNonRequired.Designer.cs" t="Include" />
           <e p="20200616130708_NewsLinkRequired.cs" t="Include" />
           <e p="20200616130708_NewsLinkRequired.Designer.cs" t="Include" />
+          <e p="20200621141723_AddChannelDownloadSha256.cs" t="Include" />
+          <e p="20200621141723_AddChannelDownloadSha256.Designer.cs" t="Include" />
+          <e p="20200622204232_NewsAddSha.cs" t="Include" />
+          <e p="20200622204232_NewsAddSha.Designer.cs" t="Include" />
           <e p="EntityFrameworkContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="News.cs" t="Include" />
@@ -339,6 +361,7 @@
         <e p="IFunction3Worker.cs" t="Include" />
         <e p="IFunction4Worker.cs" t="Include" />
         <e p="IFunctionWorker.cs" t="Include" />
+        <e p="IHashSum.cs" t="Include" />
         <e p="INewsWriter.cs" t="Include" />
         <e p="Itan.Functions.Workers.csproj" t="IncludeRecursive" />
         <e p="Model" t="Include">
@@ -354,6 +377,7 @@
             </e>
           </e>
         </e>
+        <e p="SHA256Wrapper.cs" t="Include" />
         <e p="Wrappers" t="Include">
           <e p="AzureQueueWrapper.cs" t="Include" />
           <e p="BlobContainer.cs" t="Include" />
@@ -403,6 +427,7 @@
       </e>
       <e p="ITAN.sln" t="IncludeFlat" />
       <e p="packages" t="ExcludeRecursive" />
+      <e p="SupportTools" t="Include" />
     </e>
   </component>
 </project>

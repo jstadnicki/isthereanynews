@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Itan.Api.Dto;
 using Itan.Core;
 using Itan.Core.Requests;
 using MediatR;
@@ -39,7 +40,7 @@ namespace Itan.Api.Controllers
             {
                 Url = model.Url, PersonId = Guid.Parse(userId)
             };
-            var result = await this.mediator.Send(command);
+            await this.mediator.Send(command);
             return this.Accepted();
         }
 

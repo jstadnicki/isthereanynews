@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Itan.Api.Dto;
 using Itan.Core.CreateNewUser;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -17,16 +18,11 @@ namespace Itan.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post(UsersControllerPost dto)
+        public async Task<ActionResult> Post(UsersControllerPostDto dto)
         {
             var command = new CreateNewUserRequest(dto.UserId);
             await this.mediator.Send(command);
             return this.Accepted();
         }
-    }
-
-    public class UsersControllerPost
-    {
-        public string UserId { get; set; }
     }
 }

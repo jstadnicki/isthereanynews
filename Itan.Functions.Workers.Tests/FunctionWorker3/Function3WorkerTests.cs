@@ -15,20 +15,27 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker3
         public void PassingNullToConstructorThrowsException()
         {
             Assert.Throws<ArgumentNullException>(() =>
-                new Function3Worker(null, null, null, null, null, null, null, null));
+                new Function3Worker(null, null, null, null, null, null, null, null, null));
 
             Assert.Throws<ArgumentNullException>(() => new Function3Worker(
                 Mock.Of<ILoger<Function3Worker>>(),
-                null, null, null, null, null, null, null));
+                null, null, null, null, null, null, null, null));
 
             Assert.Throws<ArgumentNullException>(() => new Function3Worker(
                 Mock.Of<ILoger<Function3Worker>>(),
-                Mock.Of<IStreamBlobReader>(), null, null, null, null, null, null));
+                Mock.Of<IStreamBlobReader>(), null, null, null, null, null, null, null));
 
             Assert.Throws<ArgumentNullException>(() => new Function3Worker(
                 Mock.Of<ILoger<Function3Worker>>(),
                 Mock.Of<IStreamBlobReader>(),
                 Mock.Of<IFeedReader>(),
+                null, null, null, null, null, null));
+
+            Assert.Throws<ArgumentNullException>(() => new Function3Worker(
+                Mock.Of<ILoger<Function3Worker>>(),
+                Mock.Of<IStreamBlobReader>(),
+                Mock.Of<IFeedReader>(),
+                Mock.Of<IQueue<ChannelUpdate>>(),
                 null, null, null, null, null));
 
             Assert.Throws<ArgumentNullException>(() => new Function3Worker(
@@ -36,6 +43,7 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker3
                 Mock.Of<IStreamBlobReader>(),
                 Mock.Of<IFeedReader>(),
                 Mock.Of<IQueue<ChannelUpdate>>(),
+                Mock.Of<IBlobPathGenerator>(),
                 null, null, null, null));
 
             Assert.Throws<ArgumentNullException>(() => new Function3Worker(
@@ -44,6 +52,7 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker3
                 Mock.Of<IFeedReader>(),
                 Mock.Of<IQueue<ChannelUpdate>>(),
                 Mock.Of<IBlobPathGenerator>(),
+                Mock.Of<IBlobContainer>(),
                 null, null, null));
 
             Assert.Throws<ArgumentNullException>(() => new Function3Worker(
@@ -53,8 +62,9 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker3
                 Mock.Of<IQueue<ChannelUpdate>>(),
                 Mock.Of<IBlobPathGenerator>(),
                 Mock.Of<IBlobContainer>(),
+                Mock.Of<ISerializer>(),
                 null, null));
-
+            
             Assert.Throws<ArgumentNullException>(() => new Function3Worker(
                 Mock.Of<ILoger<Function3Worker>>(),
                 Mock.Of<IStreamBlobReader>(),
@@ -63,6 +73,7 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker3
                 Mock.Of<IBlobPathGenerator>(),
                 Mock.Of<IBlobContainer>(),
                 Mock.Of<ISerializer>(),
+                Mock.Of<INewsWriter>(),
                 null));
         }
 
@@ -102,7 +113,7 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker3
             fixture.MockBlobContainer.Verify(v => v.DeleteAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
             fixture.MockNewsWriter.Verify(
                 v => v.InsertNewsLinkAsync(It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<Guid>(),
-                    It.IsAny<DateTime>(), It.IsAny<string>()), Times.Never);
+                    It.IsAny<DateTime>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>()), Times.Never);
         }
 
         [Theory, AutoData]
@@ -144,7 +155,7 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker3
             fixture.MockNewsWriter
                 .Verify(
                     v => v.InsertNewsLinkAsync(It.Is<Guid>(p => p == channelId), It.IsAny<string>(), It.IsAny<Guid>(),
-                        It.IsAny<DateTime>(), It.IsAny<string>()),
+                        It.IsAny<DateTime>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>()),
                     Times.Exactly(itemsCount));
         }
 
@@ -188,7 +199,7 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker3
             fixture.MockNewsWriter
                 .Verify(
                     v => v.InsertNewsLinkAsync(It.Is<Guid>(p => p == channelId), It.IsAny<string>(), It.IsAny<Guid>(),
-                        It.IsAny<DateTime>(), It.IsAny<string>()),
+                        It.IsAny<DateTime>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>()),
                     Times.Exactly(itemsCount));
 
             fixture.MockLoger.Verify(v => v.LogCritical(It.IsAny<string>()), Times.Exactly(itemsCount));

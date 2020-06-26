@@ -19,6 +19,7 @@ namespace Itan.Functions.Workers
         private readonly IBlobContainer blobContainer;
         private readonly ISerializer serializer;
         private readonly INewsWriter newsWriter;
+        private readonly IHashSum hasher;
 
         public Function3Worker(
             ILoger<Function3Worker> logger,
@@ -28,7 +29,8 @@ namespace Itan.Functions.Workers
             IBlobPathGenerator pathGenerator,
             IBlobContainer blobContainer,
             ISerializer serializer,
-            INewsWriter newsWriter)
+            INewsWriter newsWriter,
+            IHashSum hasher)
         {
             Ensure.NotNull(logger, nameof(logger));
             Ensure.NotNull(reader, nameof(reader));
@@ -47,6 +49,7 @@ namespace Itan.Functions.Workers
             this.blobContainer = blobContainer;
             this.serializer = serializer;
             this.newsWriter = newsWriter;
+            this.hasher = hasher;
         }
 
         public async Task RunAsync(Guid channelId, string blobName, Stream myBlob)
@@ -61,7 +64,7 @@ namespace Itan.Functions.Workers
                 var channelUpdate = new ChannelUpdate
                 {
                     Title = feed.Title,
-                    Description = feed.Description??string.Empty,
+                    Description = feed.Description ?? string.Empty,
                     Id = channelId
                 };
 
@@ -73,9 +76,29 @@ namespace Itan.Functions.Workers
                     var itemUploadPath = this.pathGenerator.GetPathUpload(channelId, item.Id);
                     await this.blobContainer.UploadStringAsync("rss", itemUploadPath, itemJson, IBlobContainer.UploadStringCompression.GZip);
 
+                    var hashCode = new
+                    {
+                        title = item.Title.Trim(),
+                        channelId
+                    }.GetHashCode();
+
+                    var hash = this.hasher.GetHash(
+                        item.Content?.Trim()
+                        + item.Description?.Trim()
+                        + item.Title?.Trim()
+                        + item.Link?.Trim());
+
+                    if (string.IsNullOrWhiteSpace(item.Content.Trim())
+                        && string.IsNullOrWhiteSpace(item.Description.Trim())
+                        && string.IsNullOrWhiteSpace(item.Title.Trim())
+                        && string.IsNullOrWhiteSpace(item.Link.Trim()))
+                    {
+                        throw new Exception("Crap - how to calculate sha for item?");
+                    }
+
                     try
                     {
-                        await this.newsWriter.InsertNewsLinkAsync(channelId, item.Title, item.Id, item.PublishingDate, item.Link);
+                        await this.newsWriter.InsertNewsLinkAsync(channelId, item.Title, item.Id, item.PublishingDate, item.Link, hashCode, hash);
                     }
                     catch (NewsWriterInsertNewsLinkException e)
                     {

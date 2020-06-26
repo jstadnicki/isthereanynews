@@ -1,4 +1,4 @@
-﻿namespace Itan.Api.Controllers
+﻿namespace Itan.Api.Dto
 {
     public class ChannelsPostDto
     {

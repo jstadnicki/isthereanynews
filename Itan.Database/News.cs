@@ -21,5 +21,9 @@ namespace Itan.Database
 
         [Required]
         public string Link { get; set; }
+        
+        [MaxLength(64)]
+        [MinLength(64)]
+        public string SHA256 { get; set; }
     }
 }

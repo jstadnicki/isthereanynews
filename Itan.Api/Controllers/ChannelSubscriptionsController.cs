@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Itan.Api.Dto;
 using Itan.Core.Requests;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +19,7 @@ namespace Itan.Api.Controllers
 
         [HttpPost]
         [Route("{userId}/channels")]
-        public async Task<ActionResult> Post(string userId, UserChannelsSubscriptionsControllerPost model)
+        public async Task<ActionResult> Post(string userId, UserChannelsSubscriptionsControllerPostDto model)
         {
             var command = new UserSubscribeToChannelRequest(userId, model.ChannelId);
             await this.mediator.Send(command);
@@ -33,10 +34,5 @@ namespace Itan.Api.Controllers
             await this.mediator.Send(command);
             return this.Accepted();
         }
-    }
-
-    public class UserChannelsSubscriptionsControllerPost
-    {
-        public string ChannelId { get; set; }
     }
 }

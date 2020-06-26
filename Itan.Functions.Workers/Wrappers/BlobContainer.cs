@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.IO.Compression;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,20 +43,29 @@ namespace Itan.Functions.Workers.Wrappers
 
         private async Task CompressAndUpload(string stringToUpload, CloudBlockBlob blob)
         {
-            byte[] jsonArrayLength = Encoding.UTF8.GetBytes(stringToUpload);
+            byte[] jsonArrayLength;
             byte[] gzipArray;
-            using (var gzipMemoryStream = new MemoryStream(jsonArrayLength))
-            {
-                using (var gzip = new GZipStream(gzipMemoryStream, CompressionLevel.Optimal))
-                {
-                    await gzip.WriteAsync(jsonArrayLength, 0, jsonArrayLength.Length);
-                }
-                gzipArray = gzipMemoryStream.ToArray();
-            }
+            MemoryStream gzipMemoryStream;
+            GZipStream gzip;
 
-            blob.Properties.ContentEncoding = "gzip";
-            blob.Properties.ContentType = "application/json";
-            await blob.UploadFromByteArrayAsync(gzipArray, 0, gzipArray.Length);
+            try
+            {
+                jsonArrayLength = Encoding.UTF8.GetBytes(stringToUpload);
+                await using MemoryStream stream = gzipMemoryStream = new MemoryStream(jsonArrayLength);
+                using GZipStream zipStream = gzip = new GZipStream(gzipMemoryStream, CompressionLevel.Optimal);
+                
+                await gzip.WriteAsync(jsonArrayLength, 0, jsonArrayLength.Length);
+                gzipArray = gzipMemoryStream.ToArray();
+
+                blob.Properties.ContentEncoding = "gzip";
+                blob.Properties.ContentType = "application/json";
+                await blob.UploadFromByteArrayAsync(gzipArray, 0, gzipArray.Length);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         public Task DeleteAsync(string containerName, string path)
@@ -89,6 +99,7 @@ namespace Itan.Functions.Workers.Wrappers
                 {
                     await gzip.CopyToAsync(memoryStream);
                 }
+
                 var result = Encoding.UTF8.GetString(memoryStream.ToArray());
                 return result;
             }

@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <RootNamespace>ChannelDownloadSha256Generator</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Dapper" Version="2.0.35" />
+      <PackageReference Include="System.Data.SqlClient" Version="4.8.0" />
+      <PackageReference Include="WindowsAzure.Storage" Version="9.3.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Itan.Functions.Models\Itan.Functions.Models.csproj" />
+      <ProjectReference Include="..\Itan.Functions.Workers\Itan.Functions.Workers.csproj" />
+    </ItemGroup>
+
+</Project>
