@@ -4,14 +4,16 @@ using Itan.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Itan.Database.Migrations
 {
     [DbContext(typeof(EntityFrameworkContext))]
-    partial class EntityFrameworkContextModelSnapshot : ModelSnapshot
+    [Migration("20200627122204_RemoveHashCodeSetSha256AsRequired")]
+    partial class RemoveHashCodeSetSha256AsRequired
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,8 +71,7 @@ namespace Itan.Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ChannelId", "SHA256")
-                        .IsUnique();
+                    b.HasIndex("ChannelId");
 
                     b.ToTable("ChannelDownloads");
                 });
@@ -154,8 +155,7 @@ namespace Itan.Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ChannelId", "SHA256")
-                        .IsUnique();
+                    b.HasIndex("ChannelId");
 
                     b.ToTable("News");
                 });

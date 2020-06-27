@@ -4,14 +4,16 @@ using Itan.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Itan.Database.Migrations
 {
     [DbContext(typeof(EntityFrameworkContext))]
-    partial class EntityFrameworkContextModelSnapshot : ModelSnapshot
+    [Migration("20200627122440_AddUniqueConstraintForShaChannelAndShaNews")]
+    partial class AddUniqueConstraintForShaChannelAndShaNews
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

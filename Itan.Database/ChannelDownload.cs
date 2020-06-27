@@ -14,10 +14,10 @@ namespace Itan.Database
         
         [ForeignKey(nameof(ChannelId))]
         public Channel Channel { get; set; }
-        public int HashCode { get; set; }
-
+        
         [MaxLength(64)]
         [MinLength(64)]
+        [RequiredAttribute]
         public string SHA256 { get; set; }
     }
 }

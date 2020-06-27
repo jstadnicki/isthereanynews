@@ -21,13 +21,13 @@ namespace Itan.Database
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<ChannelDownload>()
-                .HasIndex(x => new {x.ChannelId, x.HashCode})
+                .HasIndex(x => new {x.ChannelId, x.SHA256})
                 .IsUnique(true);
-
+            
             modelBuilder.Entity<News>()
-                .HasIndex(x => new {x.ChannelId, x.HashCode})
+                .HasIndex(x => new {x.ChannelId, x.SHA256})
                 .IsUnique(true);
-
+            
             modelBuilder.Entity<News>()
                 .HasOne<Channel>(x => x.Channel)
                 .WithMany(x => x.News)

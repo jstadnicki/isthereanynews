@@ -11,8 +11,6 @@ namespace Itan.Database
         public Guid ChannelId { get; set; }
         [ForeignKey(nameof(ChannelId))]
         public Channel Channel { get; set; }
-        public long HashCode { get; set; }
-        
         [Required]
         public string Title { get; set; }
         public DateTime CreatedOn { get; set; }
@@ -24,6 +22,7 @@ namespace Itan.Database
         
         [MaxLength(64)]
         [MinLength(64)]
+        [Required]
         public string SHA256 { get; set; }
     }
 }
