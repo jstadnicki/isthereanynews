@@ -20,7 +20,7 @@ namespace Itan.Functions.Workers
         public async Task InsertNewsLinkAsync(Guid channelId, string title, Guid id, DateTime publishingDate, string link, string hash)
         {
             var query =
-                "INSERT INTO News (Id, ChannelId, Title, CreatedOn, HashCode, Published, Link, SHA256) VALUES (@id, @channelId, @title, @createdOn, @published, @link, @hash)";
+                "INSERT INTO News (Id, ChannelId, Title, CreatedOn, Published, Link, SHA256) VALUES (@id, @channelId, @title, @createdOn, @published, @link, @hash)";
 
             var data = new
             {
