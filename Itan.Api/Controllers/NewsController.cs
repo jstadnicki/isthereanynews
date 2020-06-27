@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Itan.Core;
 using Itan.Core.Requests;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -13,20 +15,20 @@ namespace Itan.Api.Controllers
     [AllowAnonymous]
     public class NewsController : ControllerBase
     {
-        private readonly IConfiguration configuration;
+        private IMediator mediator;
 
-        public NewsController(IConfiguration configuration)
+        public NewsController(IMediator mediator)
         {
-            this.configuration = configuration;
+            this.mediator = mediator;
         }
 
         [HttpGet]
         [Route("{channelId}")]
-        public ActionResult<List<NewsViewModel>> Get(Guid channelId)
+        public async Task<ActionResult<List<NewsViewModel>>> Get(Guid channelId)
         {
             var request = new GetNewsByChannelRequest(channelId);
-            var x = new NewsProvider(this.configuration);
-            return x.GetAllByChannelId(channelId);
+            var result = await this.mediator.Send(request);
+            return this.Ok(result);
         }
     }
 }

@@ -248,6 +248,7 @@
           <e p="GetNewsByChannelRequestHandler.cs" t="Include" />
           <e p="HomePageNewsRequestHandlerRepository.cs" t="Include" />
           <e p="IHomePageNewsRequestHandlerRepository.cs" t="Include" />
+          <e p="INewsByChannelRequestHandlerRepository.cs" t="Include" />
           <e p="IUnsubscribeFromChannelRepository.cs" t="Include" />
           <e p="UserSubscribeToChannelRequest.cs" t="Include" />
           <e p="UserUnsubscribeFromChannelRequest.cs" t="Include" />

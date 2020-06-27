@@ -2,26 +2,34 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Threading.Tasks;
 using Dapper;
-using Microsoft.Extensions.Configuration;
+using Itan.Common;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 
-namespace Itan.Core
+namespace Itan.Core.Requests
 {
-    public class NewsProvider
+    public interface INewsByChannelRequestHandlerRepository
     {
-        private readonly IConfiguration configuration;
+        Task<List<NewsViewModel>> GetAllByChannel(Guid channelId);
+    }
 
-        public NewsProvider(IConfiguration configuration)
+    class NewsByChannelRequestHandlerRepository : INewsByChannelRequestHandlerRepository
+    {
+        private string connectionString;
+        private string emulator;
+
+        public NewsByChannelRequestHandlerRepository(ConnectionOptions options)
         {
-            this.configuration = configuration;
+            this.connectionString = options.SqlReader;
+            this.emulator = options.Emulator;
         }
-        public List<NewsViewModel> GetAllByChannelId(Guid channelId)
+        
+        public async Task<List<NewsViewModel>> GetAllByChannel(Guid channelId)
         {
-            var connectionString = "server=.;database=itan;User Id=itanreaduser;password=12qw!@QW";
             var newsHeaderList = new List<NewsHeader>();
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(this.connectionString))
             {
                 var query = "select n.id,n.Title, n.Published, n.Link from News n where n.ChannelId = @channelId order by n.Published desc";
                 var queryData = new
@@ -29,13 +37,12 @@ namespace Itan.Core
                     channelId = channelId
                 };
 
-                var queryResult = connection.Query<NewsHeader>(query, queryData);
+                var queryResult = await connection.QueryAsync<NewsHeader>(query, queryData);
                 newsHeaderList.AddRange(queryResult);
             }
 
 
-            var emulatorConnectionString = this.configuration.GetConnectionString("emulator");
-            var account = CloudStorageAccount.Parse(emulatorConnectionString);
+            var account = CloudStorageAccount.Parse(this.emulator);
             var serviceClient = account.CreateCloudBlobClient();
             var container = serviceClient.GetContainerReference("rss");
 
