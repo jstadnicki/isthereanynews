@@ -1,8 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Itan.Core;
+using Itan.Core.Requests;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 
 namespace Itan.Api.Controllers
 {
@@ -11,19 +12,19 @@ namespace Itan.Api.Controllers
     [AllowAnonymous]
     public class LandingPageController : ControllerBase
     {
-        private readonly IConfiguration configuration;
+        private readonly IMediator mediator;
 
-        public LandingPageController(IConfiguration configuration)
+        public LandingPageController(IMediator mediator)
         {
-            this.configuration = configuration;
+            this.mediator = mediator;
         }
         
         [Route("news")]
         [HttpGet]
         public async Task<ActionResult<HomePageNews>> Get()
         {
-            var np = new NewsProvider(configuration);
-            var hpn = await np.GetHomePageNews();
+            var request = new GetHomePageNewsRequest();
+            var hpn = await this.mediator.Send(request);
             return this.Ok(hpn);
         }
     }

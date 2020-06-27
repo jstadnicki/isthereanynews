@@ -243,6 +243,11 @@
         <e p="Requests" t="Include">
           <e p="ChannelCreateRequestResult.cs" t="Include" />
           <e p="ChannelsCreateNewChannelRequest.cs" t="Include" />
+          <e p="GetHomePageNewsRequest.cs" t="Include" />
+          <e p="GetNewsByChannelRequest.cs" t="Include" />
+          <e p="GetNewsByChannelRequestHandler.cs" t="Include" />
+          <e p="HomePageNewsRequestHandlerRepository.cs" t="Include" />
+          <e p="IHomePageNewsRequestHandlerRepository.cs" t="Include" />
           <e p="IUnsubscribeFromChannelRepository.cs" t="Include" />
           <e p="UserSubscribeToChannelRequest.cs" t="Include" />
           <e p="UserUnsubscribeFromChannelRequest.cs" t="Include" />

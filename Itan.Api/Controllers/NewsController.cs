@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Itan.Core;
+using Itan.Core.Requests;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +24,7 @@ namespace Itan.Api.Controllers
         [Route("{channelId}")]
         public ActionResult<List<NewsViewModel>> Get(Guid channelId)
         {
+            var request = new GetNewsByChannelRequest(channelId);
             var x = new NewsProvider(this.configuration);
             return x.GetAllByChannelId(channelId);
         }
