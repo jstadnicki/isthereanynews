@@ -124,7 +124,7 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker3
         public Function3WorkerFixture MakeNewsWriterThrowsOnWrite()
         {
             this.MockNewsWriter
-                .Setup(s => s.InsertNewsLinkAsync(It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<Guid>(), It.IsAny<DateTime>(),It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>()))
+                .Setup(s => s.InsertNewsLinkAsync(It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<Guid>(), It.IsAny<DateTime>(), It.IsAny<string>(), It.IsAny<string>()))
                 .Throws(new NewsWriterInsertNewsLinkException(new Exception()));
 
             return this;

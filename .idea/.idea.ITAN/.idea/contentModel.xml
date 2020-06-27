@@ -231,7 +231,6 @@
         <e p="Itan.Core.csproj" t="IncludeRecursive" />
         <e p="ItanCoreModule.cs" t="Include" />
         <e p="LandingPageNews.cs" t="Include" />
-        <e p="NewsProvider.cs" t="Include" />
         <e p="NewsViewModel.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">

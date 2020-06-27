@@ -55,7 +55,7 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker2
                 .DownloadsReader
                 .Verify(
                     v => v.Exists(It.Is<Guid>(p => p == channelGuid),
-                        It.Is<int>(p => p == downloadContent.GetHashCode())),
+                        It.IsAny<string>()),
                     Times.Once());
 
             workerFixture
@@ -75,8 +75,7 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker2
                 .DownloadsWriter
                 .Verify(
                     v => v.InsertAsync(It.Is<DownloadDto>(p =>
-                        p.Path == uploadPath && p.ChannelId == channelGuid &&
-                        p.HashCode == downloadContent.GetHashCode())), Times.Once);
+                        p.Path == uploadPath && p.ChannelId == channelGuid)), Times.Once);
         }
 
         [Fact]
@@ -98,7 +97,7 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker2
             Assert.Throws<ArgumentNullException>(() => new Function2Worker(Mock.Of<ILoger<Function2Worker>>(),
                 Mock.Of<IChannelsDownloadsReader>(), Mock.Of<IBlobPathGenerator>(), Mock.Of<IHttpDownloader>(),
                 Mock.Of<IBlobContainer>(), Mock.Of<IChannelsDownloadsWriter>(), null, null));
-            
+
             Assert.Throws<ArgumentNullException>(() => new Function2Worker(Mock.Of<ILoger<Function2Worker>>(),
                 Mock.Of<IChannelsDownloadsReader>(), Mock.Of<IBlobPathGenerator>(), Mock.Of<IHttpDownloader>(),
                 Mock.Of<IBlobContainer>(), Mock.Of<IChannelsDownloadsWriter>(), Mock.Of<ISerializer>(), null));

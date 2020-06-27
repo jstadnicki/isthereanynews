@@ -5,6 +5,6 @@ namespace Itan.Functions.Workers
 {
     public interface IChannelsDownloadsReader
     {
-        Task<bool> Exists(Guid id, int hashCode);
+        Task<bool> Exists(Guid id, string hashCode);
     }
 }

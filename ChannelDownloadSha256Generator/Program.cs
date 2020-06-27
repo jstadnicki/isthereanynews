@@ -21,8 +21,62 @@ namespace ConsoleApp1
             //await UpdateChannel();
             //await UpdateNews();
 
-            await CleanupNews();
+            //await CleanupNews();
+            await CleanupChannels();
+        }
 
+        private static async Task CleanupChannels()
+        {
+            var connectionString = "server=.;database=itan;User Id=itanwriteuser;password=12qw!@QW";
+            using var connection = new SqlConnection(connectionString);
+            int counter = 1;
+
+            while (1 == 1)
+            {
+                Console.WriteLine(counter++);
+
+                var query = "select * from ChannelDownloads where SHA256 in (select top 1 SHA256 from ChannelDownloads group by SHA256, ChannelId having count(*) > 1)";
+                var result = connection.Query<ItanChannelSql>(query);
+                var channelsToRemove = result.OrderByDescending(x => x.CreatedOn).Skip(1).ToList();
+                if (!channelsToRemove.Any())
+                {
+                    break;
+                }
+                foreach (var channel in channelsToRemove)
+                {
+                    await DeleteChannelFromBlob(channel.Path);
+                    await DeleteChannelFromSql(channel.Id);
+                }
+            }
+        }
+        
+        private static async Task DeleteChannelFromSql(Guid id)
+        {
+            var sql = "delete from ChannelDownloads where id=@id";
+            var sqlData = new {id};
+            var connectionString = "server=.;database=itan;User Id=itanwriteuser;password=12qw!@QW";
+            using var connection = new SqlConnection(connectionString);
+
+            await connection.ExecuteAsync(sql, sqlData);
+        }
+        
+        public static async Task DeleteChannelFromBlob(string path)
+        {
+            var account = CloudStorageAccount.Parse("AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;DefaultEndpointsProtocol=http;BlobEndpoint=http://127.0.0.1:10000/devstoreaccount1;QueueEndpoint=http://127.0.0.1:10001/devstoreaccount1;TableEndpoint=http://127.0.0.1:10002/devstoreaccount1;");
+            var serviceClient = account.CreateCloudBlobClient();
+            var container = serviceClient.GetContainerReference("rss");
+
+            var blob = container.GetBlockBlobReference(path);
+
+            try
+            {
+                await blob.DeleteIfExistsAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         public static async Task CleanupNews()
@@ -218,6 +272,13 @@ namespace ConsoleApp1
         public Guid Id { get; set; }
         public Guid ChannelId { get; set; }
         public DateTime CreatedOn { get; set; }
+    }
+
+    public class ItanChannelSql
+    {
+        public Guid Id { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public string Path { get; set; }
     }
 
     public class ItanFeedItemJson

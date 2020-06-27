@@ -23,7 +23,7 @@ namespace Itan.Functions.Workers
             IHttpDownloader httpDownloader,
             IBlobContainer blobContainer,
             IChannelsDownloadsWriter downloadsWriter,
-            ISerializer serializer, 
+            ISerializer serializer,
             IHashSum hasher)
         {
             Ensure.NotNull(log, nameof(log));
@@ -55,10 +55,9 @@ namespace Itan.Functions.Workers
                 return;
             }
 
-            var hashCode = channelString.GetHashCode();
-            var sha = this.hasher.GetHash(channelString); 
+            var sha = this.hasher.GetHash(channelString);
 
-            if (await this.downloadsReader.Exists(channelToDownload.Id, hashCode))
+            if (await this.downloadsReader.Exists(channelToDownload.Id, sha))
             {
                 return;
             }
@@ -70,8 +69,7 @@ namespace Itan.Functions.Workers
             {
                 ChannelId = channelToDownload.Id,
                 Path = channelDownloadPath,
-                HashCode = hashCode,
-                SHA=sha
+                SHA = sha
             };
 
             await this.downloadsWriter.InsertAsync(data);

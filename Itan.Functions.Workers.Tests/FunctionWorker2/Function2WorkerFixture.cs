@@ -77,7 +77,7 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker1
         public Function2WorkerFixture DownloadsAlreadyExists()
         {
             this.mockChannelsDownloadsReader
-                .Setup(s => s.Exists(It.IsAny<Guid>(), It.IsAny<int>()))
+                .Setup(s => s.Exists(It.IsAny<Guid>(), It.IsAny<string>()))
                 .ReturnsAsync(true);
 
             return this;
@@ -86,7 +86,7 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker1
         public Function2WorkerFixture DownloadDoesNotExits()
         {
             this.mockChannelsDownloadsReader
-                .Setup(s => s.Exists(It.IsAny<Guid>(), It.IsAny<int>()))
+                .Setup(s => s.Exists(It.IsAny<Guid>(), It.IsAny<string>()))
                 .ReturnsAsync(false);
 
             return this;

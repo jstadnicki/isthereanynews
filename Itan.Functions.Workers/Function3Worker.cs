@@ -76,12 +76,6 @@ namespace Itan.Functions.Workers
                     var itemUploadPath = this.pathGenerator.GetPathUpload(channelId, item.Id);
                     await this.blobContainer.UploadStringAsync("rss", itemUploadPath, itemJson, IBlobContainer.UploadStringCompression.GZip);
 
-                    var hashCode = new
-                    {
-                        title = item.Title.Trim(),
-                        channelId
-                    }.GetHashCode();
-
                     var hash = this.hasher.GetHash(
                         item.Content?.Trim()
                         + item.Description?.Trim()
@@ -98,7 +92,7 @@ namespace Itan.Functions.Workers
 
                     try
                     {
-                        await this.newsWriter.InsertNewsLinkAsync(channelId, item.Title, item.Id, item.PublishingDate, item.Link, hashCode, hash);
+                        await this.newsWriter.InsertNewsLinkAsync(channelId, item.Title, item.Id, item.PublishingDate, item.Link, hash);
                     }
                     catch (NewsWriterInsertNewsLinkException e)
                     {
