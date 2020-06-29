@@ -24,6 +24,18 @@
         </e>
         <e p="Program.cs" t="Include" />
       </e>
+      <e p="GZip" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="GZip.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="GZip.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Program.cs" t="Include" />
+      </e>
       <e p="ImportOpml" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="ImportOpml.csproj" t="IncludeRecursive" />
@@ -296,6 +308,10 @@
           <e p="20200621141723_AddChannelDownloadSha256.Designer.cs" t="Include" />
           <e p="20200622204232_NewsAddSha.cs" t="Include" />
           <e p="20200622204232_NewsAddSha.Designer.cs" t="Include" />
+          <e p="20200627122204_RemoveHashCodeSetSha256AsRequired.cs" t="Include" />
+          <e p="20200627122204_RemoveHashCodeSetSha256AsRequired.Designer.cs" t="Include" />
+          <e p="20200627122440_AddUniqueConstraintForShaChannelAndShaNews.cs" t="Include" />
+          <e p="20200627122440_AddUniqueConstraintForShaChannelAndShaNews.Designer.cs" t="Include" />
           <e p="EntityFrameworkContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="News.cs" t="Include" />

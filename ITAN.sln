@@ -25,6 +25,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SupportTools", "SupportTool
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChannelDownloadSha256Generator", "ChannelDownloadSha256Generator\ChannelDownloadSha256Generator.csproj", "{04C8B4B5-9139-4A09-8622-171FB41AB81F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GZip", "GZip\GZip.csproj", "{40EFE44A-F94A-4684-93DD-ED01B7DDE9B3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{04C8B4B5-9139-4A09-8622-171FB41AB81F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04C8B4B5-9139-4A09-8622-171FB41AB81F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04C8B4B5-9139-4A09-8622-171FB41AB81F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40EFE44A-F94A-4684-93DD-ED01B7DDE9B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40EFE44A-F94A-4684-93DD-ED01B7DDE9B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40EFE44A-F94A-4684-93DD-ED01B7DDE9B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40EFE44A-F94A-4684-93DD-ED01B7DDE9B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -80,5 +86,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{04C8B4B5-9139-4A09-8622-171FB41AB81F} = {F8A029A1-FC9A-4B43-B588-DA05DC957E1C}
+		{40EFE44A-F94A-4684-93DD-ED01B7DDE9B3} = {F8A029A1-FC9A-4B43-B588-DA05DC957E1C}
 	EndGlobalSection
 EndGlobal

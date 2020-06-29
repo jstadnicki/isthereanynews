@@ -43,28 +43,23 @@ namespace Itan.Functions.Workers.Wrappers
 
         private async Task CompressAndUpload(string stringToUpload, CloudBlockBlob blob)
         {
-            byte[] jsonArrayLength;
-            byte[] gzipArray;
-            MemoryStream gzipMemoryStream;
-            GZipStream gzip;
+            var bytes = this.Compress(stringToUpload);
+            blob.Properties.ContentEncoding = "gzip";
+            blob.Properties.ContentType = "application/json";
+            await blob.UploadFromByteArrayAsync(bytes, 0, bytes.Length);
+        }
 
-            try
+        private byte[] Compress(string text)
+        {
+            var bytes = Encoding.UTF8.GetBytes(text);
+            using (var mso = new MemoryStream())
             {
-                jsonArrayLength = Encoding.UTF8.GetBytes(stringToUpload);
-                await using MemoryStream stream = gzipMemoryStream = new MemoryStream(jsonArrayLength);
-                using GZipStream zipStream = gzip = new GZipStream(gzipMemoryStream, CompressionLevel.Optimal);
-                
-                await gzip.WriteAsync(jsonArrayLength, 0, jsonArrayLength.Length);
-                gzipArray = gzipMemoryStream.ToArray();
+                using (var gs = new GZipStream(mso, CompressionMode.Compress))
+                {
+                    gs.Write(bytes, 0, bytes.Length);
+                }
 
-                blob.Properties.ContentEncoding = "gzip";
-                blob.Properties.ContentType = "application/json";
-                await blob.UploadFromByteArrayAsync(gzipArray, 0, gzipArray.Length);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
+                return mso.ToArray();
             }
         }
 
@@ -93,16 +88,30 @@ namespace Itan.Functions.Workers.Wrappers
                 return result;
             }
 
-            using (var memoryStream = new MemoryStream())
-            {
-                using (var gzip = new GZipStream(readStream, CompressionMode.Decompress))
-                {
-                    await gzip.CopyToAsync(memoryStream);
-                }
+            var outputBytes = new byte[readStream.Length];
+            await readStream.ReadAsync(outputBytes);
 
-                var result = Encoding.UTF8.GetString(memoryStream.ToArray());
-                return result;
+            var decompressedString = Decompress(outputBytes);
+            return decompressedString;
+        }
+
+        public string Decompress(byte[] data)
+        {
+            // Read the last 4 bytes to get the length
+            byte[] lengthBuffer = new byte[4];
+            Array.Copy(data, data.Length - 4, lengthBuffer, 0, 4);
+            int uncompressedSize = BitConverter.ToInt32(lengthBuffer, 0);
+
+            var buffer = new byte[uncompressedSize];
+            using (var ms = new MemoryStream(data))
+            {
+                using (var gzip = new GZipStream(ms, CompressionMode.Decompress))
+                {
+                    gzip.Read(buffer, 0, uncompressedSize);
+                }
             }
+
+            return Encoding.Unicode.GetString(buffer);
         }
     }
 }
