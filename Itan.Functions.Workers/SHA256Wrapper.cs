@@ -11,7 +11,7 @@ namespace Itan.Functions.Workers
             using var sha256 = SHA256.Create();
             var bytesToHash = Encoding.UTF8.GetBytes(input);
             var hashedBytes = sha256.ComputeHash(bytesToHash);
-            var hash = hashedBytes.Aggregate(string.Empty, (current, b) => current + b.ToString("X"));
+            var hash = hashedBytes.Aggregate(string.Empty, (current, b) => current + b.ToString("X2"));
             return hash;
         }
     }
