@@ -95,7 +95,7 @@ namespace Itan.Functions.Workers.Wrappers
             return decompressedString;
         }
 
-        public string Decompress(byte[] data)
+        private string Decompress(byte[] data)
         {
             // Read the last 4 bytes to get the length
             byte[] lengthBuffer = new byte[4];
