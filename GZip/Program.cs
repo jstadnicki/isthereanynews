@@ -10,14 +10,15 @@ namespace GZip
     {
         static async Task Main(string[] args)
         {
-            var stringToUpload = File.ReadAllText("D:/20200627011910_19.xml");
-            var bytes = Encoding.UTF8.GetBytes(stringToUpload);
-            File.WriteAllText("D:/20200627011910_19_decompress.xml",Decompress(bytes));
+            var stringToUpload = File.ReadAllBytes("D:/msgraph-training-angularspa-master.zip");
+            var compresed = Compress(stringToUpload);
+            var decompresed = Decompress(compresed);
+            
+            File.WriteAllBytes("d:/zip.zip",decompresed);
         }
         
-        public static byte[] Compress(string text)
+        public static byte[] Compress(byte[] bytes)
         {
-            var bytes = Encoding.UTF8.GetBytes(text);
             using (var mso = new MemoryStream())
             {
                 using (var gs = new GZipStream(mso, CompressionMode.Compress))
@@ -28,7 +29,7 @@ namespace GZip
             }
         }
         
-        public static string Decompress(byte[] data)
+        public static byte[] Decompress(byte[] data)
         {
             // Read the last 4 bytes to get the length
             try
@@ -40,12 +41,13 @@ namespace GZip
                 var buffer = new byte[uncompressedSize];
                 using (var ms = new MemoryStream(data))
                 {
-                    using (var gzip = new GZipStream(ms, CompressionLevel.NoCompression))
+                    using (var gzip = new GZipStream(ms,CompressionMode.Decompress))
                     {
                         gzip.Read(buffer, 0, uncompressedSize);
                     }
                 }
-                return Encoding.UTF8.GetString(buffer);
+
+                return buffer;
             }
             catch (Exception e)
             {
