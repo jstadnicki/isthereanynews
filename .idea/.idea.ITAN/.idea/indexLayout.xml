@@ -4,6 +4,7 @@
     <attachedFolders>
       <Path>Itan.Application.UI</Path>
       <Path>ItanApplicationUI</Path>
+      <Path>terraform</Path>
     </attachedFolders>
     <explicitIncludes />
     <explicitExcludes />
