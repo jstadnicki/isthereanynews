@@ -11,6 +11,7 @@ pool:
 
 variables:
   project: '**/itan.api/itan.api.csproj'
+  solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
@@ -19,7 +20,7 @@ steps:
 
 - task: NuGetCommand@2
   inputs:
-    restoreSolution: '$(project)'
+    restoreSolution: '$(solution)'
 
 - task: VSBuild@1
   inputs:
