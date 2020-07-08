@@ -40,5 +40,5 @@ steps:
     azureSubscription: 'PAYG (itan) (25401b19-7bb7-436c-9fca-bbac0f4eaf95)'
     appType: 'webApp'
     appName: 'itan-app-webapi'
-    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    package: '$(build.artifactStagingDirectory)/**/*.zip'
     deploymentMethod: 'auto'
