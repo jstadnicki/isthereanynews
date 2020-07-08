@@ -41,4 +41,4 @@ steps:
     appType: 'webApp'
     appName: 'itan-app-webapi'
     package: '$(build.artifactStagingDirectory)/**/*.zip'
-    deploymentMethod: 'auto'
+    deploymentMethod: 'zipDeploy'
