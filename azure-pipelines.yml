@@ -40,4 +40,4 @@ steps:
     azureSubscription: 'PAYG (itan) (25401b19-7bb7-436c-9fca-bbac0f4eaf95)'
     appType: 'webApp'
     WebAppName: 'itan-app-webapi'
-    packageForLinux: '$(System.artifactStagingDirectory)/**/*.zip'
+    packageForLinux: '$(build.artifactStagingDirectory)/**/*.zip'
