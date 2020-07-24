@@ -194,14 +194,6 @@ ModelManifest.xml
 .vs/config/applicationhost.config
 *.tss
 coverage/
-IsThereAnyNews.Database/IsThereAnyNews.Database.jfm
-/.vs/Itan/v15/sqlite3/*.ide
-/.vs/Itan/v15/Server/sqlite3/*.ide
-/.vs/Itan/v15/Server/sqlite3/*.ide-shm
-/.vs/Itan/v15/sqlite3/*.ide-shm
-/.vs/Itan/v15/Server/sqlite3/*.ide-wal
-/.vs/Itan/v15/sqlite3/*.ide-wal
-/.vs/Itan/v15/Server/sqlite3/*.lock
-/.vs/Itan/v15/sqlite3/*.lock
 .vs
-/SolidSavings.Web/wwwroot/lib
+.terraform
+.idea
