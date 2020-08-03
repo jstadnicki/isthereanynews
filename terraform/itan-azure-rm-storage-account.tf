@@ -5,5 +5,5 @@ resource "azurerm_storage_account" "itan_storage_account" {
   name = "itanstorageaccount"
   resource_group_name = var.resource-group-name
   
-  depends_on = [azurerm_resource_group.itan_west_europe_resource_group]
+  depends_on = [azurerm_resource_group.itan-west-europe-resource-group]
 }

@@ -8,5 +8,5 @@ resource "azurerm_app_service_plan" "itan_app_service_function_plan" {
     size = "Y1"
     tier = "Dynamic"
   }
-  depends_on = [azurerm_resource_group.itan_west_europe_resource_group]
+  depends_on = [azurerm_resource_group.itan-west-europe-resource-group]
 }

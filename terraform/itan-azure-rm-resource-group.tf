@@ -1,4 +1,4 @@
-resource "azurerm_resource_group" "itan_west_europe_resource_group" {
+resource "azurerm_resource_group" "itan-west-europe-resource-group" {
   location = var.location
   name = var.resource-group-name
 }

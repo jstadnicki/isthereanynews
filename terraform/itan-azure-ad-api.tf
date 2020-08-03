@@ -1,8 +1,8 @@
-resource "azuread_application" "example" {
-  name = "itan-api2"
+resource "azuread_application" "itan-web-api-application" {
+  name = "itan-api"
   owners = [var.subscription-owner-id]
   type = "webapp/api"
-  identifier_uris = ["https://isthereanynewscodeblast.onmicrosoft.com/api2"]
+  identifier_uris = ["https://isthereanynewscodeblast.onmicrosoft.com/api"]
   oauth2_allow_implicit_flow = false
 
   oauth2_permissions {

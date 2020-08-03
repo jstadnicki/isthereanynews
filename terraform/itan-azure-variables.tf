@@ -25,3 +25,15 @@ variable "scope-writer" {
 variable "subscription-owner-id"{
   default = "65748239-c3de-4eaf-9379-ef295093119e"
 }
+
+variable "itan-reader-mssql" {
+  default = "itanreader"
+}
+
+variable "itan-writer-mssql" {
+  default = "itanwriter"
+}
+
+variable "itan-admin-mssql" {
+  default = "itanadmin"
+}
