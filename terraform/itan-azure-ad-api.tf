@@ -24,4 +24,6 @@ resource "azuread_application" "itan-web-api-application" {
     user_consent_display_name = "application_reader"
     value = var.scope-writer
   }
+  
+  
 }
