@@ -2,16 +2,34 @@
 using Itan.Functions.Workers;
 using Itan.Functions.Workers.Wrappers;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
+using Microsoft.Azure.KeyVault;
+using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration.AzureKeyVault;
 
 [assembly: FunctionsStartup(typeof(Itan.Functions.Startup))]
+
 namespace Itan.Functions
 {
     public class Startup : FunctionsStartup
     {
         public override void Configure(IFunctionsHostBuilder builder)
         {
+            var astp = new AzureServiceTokenProvider();
+            var kvc = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(astp.KeyVaultTokenCallback));
+
+            var configurationBuilder = new ConfigurationBuilder();
+            configurationBuilder.AddAzureKeyVault("https://itan-kv-secrets.vault.azure.net",
+                kvc,
+                new DefaultKeyVaultSecretManager());
+
+
+            var configuration = configurationBuilder.Build();
+
+            builder.Services.AddOptions<ConnectionOptions>()
+                .Bind(configuration.GetSection("ConnectionStrings"));
+
             builder.Services.AddScoped(typeof(ILoger<>), typeof(Loger<>));
             builder.Services.AddScoped<IChannelsProvider, ChannelProvider>();
             builder.Services.AddScoped<ISerializer, JsonWrapperSerializer>();
@@ -27,18 +45,20 @@ namespace Itan.Functions
             builder.Services.AddScoped<IBlobContainer, BlobContainer>();
             builder.Services.AddScoped<IHashSum, SHA256Wrapper>();
 
-            builder.Services.AddOptions<ConnectionOptions>()
-                .Configure<IConfiguration>((settings, configuration) =>
-               {
-                   configuration.GetSection("ConnectionStrings").Bind(settings);
-               });
-            
+            // builder.Services.AddOptions<ConnectionOptions>()
+            //     .Configure<IConfiguration>((settings, configuration) => { configuration.GetSection("ConnectionStrings").Bind(settings); });
+
             builder.Services.AddScoped(typeof(IQueue<>), typeof(AzureQueueWrapper<>));
 
             builder.Services.AddScoped<IFunction1Worker, Function1Worker>();
             builder.Services.AddScoped<IFunction2Worker, Function2Worker>();
             builder.Services.AddScoped<IFunction3Worker, Function3Worker>();
             builder.Services.AddScoped<IFunction4Worker, Function4Worker>();
+
+            builder.Services
+                   .AddScoped<ConnectionOptions>(context => configuration
+                   .GetSection("ConnectionStrings")
+                   .Get<ConnectionOptions>());
         }
     }
 }
