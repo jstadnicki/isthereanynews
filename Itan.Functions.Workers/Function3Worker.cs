@@ -82,10 +82,10 @@ namespace Itan.Functions.Workers
                         + item.Title?.Trim()
                         + item.Link?.Trim());
 
-                    if (string.IsNullOrWhiteSpace(item.Content.Trim())
-                        && string.IsNullOrWhiteSpace(item.Description.Trim())
-                        && string.IsNullOrWhiteSpace(item.Title.Trim())
-                        && string.IsNullOrWhiteSpace(item.Link.Trim()))
+                    if (string.IsNullOrWhiteSpace(item.Content?.Trim())
+                        && string.IsNullOrWhiteSpace(item.Description?.Trim())
+                        && string.IsNullOrWhiteSpace(item.Title?.Trim())
+                        && string.IsNullOrWhiteSpace(item.Link?.Trim()))
                     {
                         throw new Exception("Crap - how to calculate sha for item?");
                     }
