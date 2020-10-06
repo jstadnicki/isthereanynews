@@ -111,7 +111,7 @@ namespace Itan.Functions.Workers.Wrappers
                 }
             }
 
-            return Encoding.Unicode.GetString(buffer);
+            return Encoding.UTF8.GetString(buffer);
         }
     }
 }
