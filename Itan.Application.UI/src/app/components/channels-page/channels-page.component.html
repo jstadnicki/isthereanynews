@@ -19,7 +19,7 @@
         <span class="">({{channel.newsCount}})</span>
       </button>
     </div>
-    <div class="column">
+    <div class="column"style="overflow-y: hidden">
       <div *ngIf="selectedChannel!=null">
         <article class="media">
           <figure class="media-left">
@@ -51,7 +51,7 @@
         </progress>
         <hr/>
       </div>
-      <div class="container">
+      <div class="container" style="overflow-y: auto">
         <app-add-new-channel *ngIf="displayAddNewChannel"></app-add-new-channel>
         <article class="media" *ngFor="let newsItem of news">
 
