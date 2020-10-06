@@ -4,7 +4,7 @@ using Itan.Functions.Models;
 using Itan.Functions.Workers.Wrappers;
 using Moq;
 
-namespace Itan.Functions.Workers.Tests.FunctionWorker1
+namespace Itan.Functions.Workers.Tests.FunctionWorker2
 {
     public class Function2WorkerFixture : Fixture
     {
@@ -33,6 +33,9 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker1
         public Mock<IBlobContainer> BlobContainer => this.mockBlobContainer;
         public Mock<IChannelsDownloadsWriter> DownloadsWriter => this.mockChannelsDownloadWriter;
         public Mock<IChannelsDownloadsReader> DownloadsReader => this.mockChannelsDownloadsReader;
+
+        public Mock<IBlobPathGenerator> MockBlobPathGenerator => PathGenerator;
+        public Mock<IBlobContainer> MockBlobContainer => this.BlobContainer;
 
         public Function2Worker GetWorker()
         {
@@ -112,6 +115,21 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker1
             this.mockHttpDownloader
                 .Setup(s => s.GetStringAsync(It.IsAny<string>()))
                 .ReturnsAsync(downloadContent);
+
+            return this;
+        }
+
+        public Function2WorkerFixture WithSerializer_ReturnsValidObject(Guid channelGuid, string url)
+            => SerializerReturnsValidObject(channelGuid, url);
+
+        public Function2WorkerFixture WithDownloader_Returns(string downloadContent)
+            => DownloaderReturns(downloadContent);
+
+        public Function2WorkerFixture WithDownloadsReader_ConfirmingExistanceOfDownload()
+        {
+            this.mockChannelsDownloadsReader
+                .Setup(s => s.Exists(It.IsAny<Guid>(), It.IsAny<string>()))
+                .ReturnsAsync(true);
 
             return this;
         }
