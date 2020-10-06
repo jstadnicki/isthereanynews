@@ -23,10 +23,10 @@ namespace Itan.Functions.Workers.Wrappers
             }
             catch (Exception e)
             {
-                this.log.LogCritical(e.ToString());
+                this.log.LogCritical(e.Message);
+                return string.Empty;
+                //throw new ItanFailedToDownloadChannel($"Failed to download feed from channel: {url}", e);
             }
-
-            return string.Empty;
         }
     }
 }
