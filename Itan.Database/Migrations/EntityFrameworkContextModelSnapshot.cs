@@ -75,6 +75,36 @@ namespace Itan.Database.Migrations
                     b.ToTable("ChannelDownloads");
                 });
 
+            modelBuilder.Entity("Itan.Database.ChannelNewsRead", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ChannelId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("NewsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("PersonId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NewsId");
+
+                    b.HasIndex("PersonId");
+
+                    b.HasIndex("ChannelId", "NewsId", "PersonId")
+                        .IsUnique();
+
+                    b.ToTable("ChannelNewsReads");
+                });
+
             modelBuilder.Entity("Itan.Database.ChannelSubmitter", b =>
                 {
                     b.Property<Guid>("Id")
@@ -180,6 +210,27 @@ namespace Itan.Database.Migrations
                         .WithMany("Downloads")
                         .HasForeignKey("ChannelId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Itan.Database.ChannelNewsRead", b =>
+                {
+                    b.HasOne("Itan.Database.Channel", "Channel")
+                        .WithMany("ChannelNewsRead")
+                        .HasForeignKey("ChannelId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Itan.Database.News", "News")
+                        .WithMany("ChannelNewsRead")
+                        .HasForeignKey("NewsId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Itan.Database.Person", "Person")
+                        .WithMany("ChannelNewsRead")
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
