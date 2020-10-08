@@ -16,7 +16,7 @@ namespace Itan.Functions
         [FunctionName("Function3")]
         public async Task RunAsync(
             ILogger log,
-            [BlobTrigger("rss/raw/{folder}/{name}", Connection = "emulator")]
+            [BlobTrigger("rss/raw/{folder}/{name}", Connection = "Emulator")]
             Stream myBlob,
             Guid folder,
             string name
