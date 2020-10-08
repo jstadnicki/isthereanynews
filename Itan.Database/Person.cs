@@ -11,5 +11,6 @@ namespace Itan.Database
         public DateTime CreatedOn { get; set; }
         public virtual List<ChannelsPersons> SubscribedChannels { get; set; }
         public virtual List<ChannelSubmitter> SubmittedChannels { get; set; }
+        public IEnumerable<ChannelNewsRead> ChannelNewsRead { get; set; }
     }
 }

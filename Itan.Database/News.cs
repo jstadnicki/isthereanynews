@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -24,5 +25,7 @@ namespace Itan.Database
         [MinLength(64)]
         [Required]
         public string SHA256 { get; set; }
+
+        public IEnumerable<ChannelNewsRead> ChannelNewsRead { get; set; }
     }
 }
