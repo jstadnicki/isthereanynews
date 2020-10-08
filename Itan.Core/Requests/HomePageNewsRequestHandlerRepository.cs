@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Dapper;
 using Itan.Common;
+using Microsoft.Extensions.Options;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 
@@ -80,9 +81,10 @@ namespace Itan.Core.Requests
                 List<LandingPageNews> news;
                 try
                 {
-                    for (int i = 0; i < 28; i++)
+                    for (int i = 0; i < 27; i++)
                     {
-                        news = (await reader.ReadAsync<LandingPageNews>()).ToList();
+                        var readAsync = await reader.ReadAsync<LandingPageNews>();
+                        news = readAsync.ToList();
                         queryResult.AddRange(news);
                     }
                 }
