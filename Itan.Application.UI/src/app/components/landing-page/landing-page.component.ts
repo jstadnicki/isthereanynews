@@ -17,7 +17,7 @@ export class LandingPageComponent implements OnInit {
     setInterval(() => {
       this.topIndex = this.topIndex < this.news.topNews.length - 1 ? this.topIndex + 1 : 0;
       this.bottomPage = this.bottomPage * 3 <= this.news.bottomNews.length - 1 ? this.bottomPage + 3 : 0;
-    }, 1000);
+    }, 5000);
   }
 
   news: HomePageNews;
