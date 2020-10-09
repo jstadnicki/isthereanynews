@@ -1,5 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Itan.Api.Dto;
+using Itan.Core;
 using Itan.Core.Requests;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
