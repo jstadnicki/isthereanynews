@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {MsalWrapperService} from "../../service/msal-wrapper.service";
+import {NewsItemReadMarkerServiceService} from "../../service/news-item-read-marker-service.service";
 
 @Component({
   selector: 'app-subscriptions-page',
@@ -10,7 +11,8 @@ import {MsalWrapperService} from "../../service/msal-wrapper.service";
 export class SubscriptionsPageComponent implements OnInit {
   constructor(
     private http: HttpClient,
-    private msalWrapperService: MsalWrapperService
+    private msalWrapperService: MsalWrapperService,
+    private newsReadMarker: NewsItemReadMarkerServiceService
   ) {
   }
 
@@ -36,9 +38,9 @@ export class SubscriptionsPageComponent implements OnInit {
     this.selectedChannel = channel;
     this.areNewsLoading = true;
     this.news = null;
-
+    var options = await this.msalWrapperService.getOptionsReadHeaders();
     this.http
-      .get<News[]>(`https://localhost:5001/api/news/${channel.id}`)
+      .get<News[]>(`https://localhost:5001/api/UnreadNews/${channel.id}`, options)
       .subscribe((r) => {
         this.news = r;
         this.areNewsLoading = false;
@@ -50,6 +52,11 @@ export class SubscriptionsPageComponent implements OnInit {
       newsItem.contentVisible = !newsItem.contentVisible;
       return;
     }
+
+    if (newsItem.read == false) {
+      await this.newsReadMarker.MarkRead(this.selectedChannel.id, newsItem.id);
+    }
+    newsItem.read = true;
     newsItem.loading = true;
     const url = newsItem.contentUrl;
     let headers = new HttpHeaders();
@@ -73,7 +80,7 @@ export class SubscriptionsPageComponent implements OnInit {
     var options = await this.msalWrapperService.getOptionsReadHeaders();
 
     this.http
-      .get<Channel[]>(`https://localhost:5001/api/subscriptions/${userId}`,options)
+      .get<Channel[]>(`https://localhost:5001/api/subscriptions/${userId}`, options)
       .subscribe((r) => {
         this.channels = r;
         this.areChannelsLoaded = true;
@@ -96,6 +103,7 @@ class News {
   loading: boolean = false;
   contentVisible: boolean = false;
   published: Date
+  read: boolean = true;
 }
 
 
