@@ -9,8 +9,8 @@
     <e p="C:\Users\jarek\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.reporters.netcoreapp10.dll" t="Include" />
     <e p="C:\Users\jarek\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.utility.netcoreapp10.dll" t="Include" />
     <e p="C:\Users\jarek\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll" t="Include" />
-    <e p="C:\Users\jarek\AppData\local\JetBrains\Rider2020.1\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\jarek\AppData\local\JetBrains\Rider2020.1\resharper-host\local\Transient\ReSharperHost\v201\SolutionCaches\_ITAN.1359292259.00" t="ExcludeRecursive" />
+    <e p="C:\Users\jarek\AppData\local\JetBrains\Rider2020.2\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\jarek\AppData\local\JetBrains\Rider2020.2\resharper-host\local\Transient\Rider\v202\SolutionCaches\_ITAN.1359292259.00" t="ExcludeRecursive" />
     <e p="C:\Users\jarek\Dropbox\source\ITAN" t="IncludeFlat">
       <e p="ChannelDownloadSha256Generator" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
@@ -56,9 +56,12 @@
         <e p="Controllers" t="Include">
           <e p="ChannelsController.cs" t="Include" />
           <e p="ChannelSubscriptionsController.cs" t="Include" />
+          <e p="HealthController.cs" t="Include" />
           <e p="LandingPageController.cs" t="Include" />
           <e p="NewsController.cs" t="Include" />
+          <e p="ReadNewsController.cs" t="Include" />
           <e p="SubscriptionsController.cs" t="Include" />
+          <e p="UnreadNewsController.cs" t="Include" />
           <e p="UsersController.cs" t="Include" />
         </e>
         <e p="Dto" t="Include">
@@ -111,20 +114,32 @@
         <e p="node" t="IncludeRecursive" />
         <e p="source-list-map" t="IncludeRecursive" />
       </e>
+      <e p="Itan.Application.UI\node_modules\acorn" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\adal-angular" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\aggregate-error" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\ajv" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\ansi-colors" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\arg" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\blocking-proxy" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\bulma" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\canonical-path" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\chalk" t="IncludeRecursive" />
-      <e p="Itan.Application.UI\node_modules\chokidar" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\clean-stack" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\cli-cursor" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\cli-spinners" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\codelyzer" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\commander" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\del" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\dependency-graph" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\fast-deep-equal" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\font-awesome" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\hash.js" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\indent-string" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\is-interactive" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\is-path-cwd" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\is-path-in-cwd" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\is-path-inside" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\is-wsl" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\jasmine-core" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\jasmine-spec-reporter" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\jest-worker" t="IncludeRecursive" />
@@ -134,15 +149,27 @@
       <e p="Itan.Application.UI\node_modules\karma-jasmine" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\karma-jasmine-html-reporter" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\license-webpack-plugin" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\log-symbols" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\magic-string" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\make-dir" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\make-error" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\mimic-fn" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\msal" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\onetime" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\open" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\ora" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\p-map" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\parse5" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\portfinder" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\postcss" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\promise" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\protractor" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\reflect-metadata" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\restore-cursor" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\rollup" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\rxjs" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\schema-utils" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\semver-dsl" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\source-map" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\sourcemap-codec" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\symbol-observable" t="IncludeRecursive" />
@@ -151,6 +178,7 @@
       <e p="Itan.Application.UI\node_modules\ts-node" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\tslib" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\tslint" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\tsutils" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\typescript\lib\lib.d.ts" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\typescript\lib\lib.dom.d.ts" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\typescript\lib\lib.dom.iterable.d.ts" t="IncludeRecursive" />
@@ -203,10 +231,9 @@
       <e p="Itan.Application.UI\node_modules\typescript\lib\lib.scripthost.d.ts" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\typescript\lib\lib.webworker.d.ts" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\typescript\lib\lib.webworker.importscripts.d.ts" t="IncludeRecursive" />
-      <e p="Itan.Application.UI\node_modules\upath" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\uri-js" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\webdriver-js-extender" t="IncludeRecursive" />
-      <e p="Itan.Application.UI\node_modules\worker-farm" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\yn" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\zone.js" t="IncludeRecursive" />
       <e p="Itan.Common" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
@@ -231,6 +258,15 @@
         </e>
         <e p="GetAllChannelsViewModelsRequest.cs" t="Include" />
         <e p="GetAllSubscribedChannelsViewModelsRequest.cs" t="Include" />
+        <e p="GetUnreadNewsByChannel" t="Include">
+          <e p="GetUnreadNewsByChannelCloudRepository.cs" t="Include" />
+          <e p="GetUnreadNewsByChannelRepository.cs" t="Include" />
+          <e p="GetUnreadNewsByChannelRequest.cs" t="Include" />
+          <e p="GetUnreadNewsByChannelRequestHandler.cs" t="Include" />
+          <e p="IGetUnreadNewsByChannelCloudRepository.cs" t="Include" />
+          <e p="IGetUnreadNewsByChannelRepository.cs" t="Include" />
+          <e p="NewsHeader.cs" t="Include" />
+        </e>
         <e p="Handlers" t="Include">
           <e p="ChannelsCreateNewChannelRequestHandler.cs" t="Include" />
           <e p="CreateNewChannelRepository.cs" t="Include" />
@@ -243,6 +279,12 @@
         <e p="Itan.Core.csproj" t="IncludeRecursive" />
         <e p="ItanCoreModule.cs" t="Include" />
         <e p="LandingPageNews.cs" t="Include" />
+        <e p="MarkNewsRead" t="Include">
+          <e p="IMarkNewsReadRepository.cs" t="Include" />
+          <e p="MarkNewsReadCommand.cs" t="Include" />
+          <e p="MarkNewsReadCommandHandler.cs" t="Include" />
+          <e p="MarkNewsReadRepository.cs" t="Include" />
+        </e>
         <e p="NewsViewModel.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -270,6 +312,7 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="Channel.cs" t="Include" />
         <e p="ChannelDownload.cs" t="Include" />
+        <e p="ChannelNewsRead.cs" t="Include" />
         <e p="ChannelsPersons.cs" t="Include" />
         <e p="ChannelSubmitter.cs" t="Include" />
         <e p="DesignTimeDbContextFactory.cs" t="Include" />
@@ -312,6 +355,8 @@
           <e p="20200627122204_RemoveHashCodeSetSha256AsRequired.Designer.cs" t="Include" />
           <e p="20200627122440_AddUniqueConstraintForShaChannelAndShaNews.cs" t="Include" />
           <e p="20200627122440_AddUniqueConstraintForShaChannelAndShaNews.Designer.cs" t="Include" />
+          <e p="20201008212950_AddChannelNewsRead.cs" t="Include" />
+          <e p="20201008212950_AddChannelNewsRead.Designer.cs" t="Include" />
           <e p="EntityFrameworkContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="News.cs" t="Include" />
@@ -366,6 +411,7 @@
         <e p="Exceptions" t="Include">
           <e p="FeedReaderWrapperParseStringException.cs" t="Include" />
           <e p="ItanException.cs" t="Include" />
+          <e p="ItanFailedToDownloadChannel.cs" t="Include" />
           <e p="NewsWriterInsertNewsLinkException.cs" t="Include" />
         </e>
         <e p="Function1Worker.cs" t="Include" />
