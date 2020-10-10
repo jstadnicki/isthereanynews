@@ -28,12 +28,19 @@ namespace Itan.Core
             CancellationToken _)
         {
             var sqlQuery =
-                "SELECT Channels.id, Channels.title, Channels.description, Channels.Url, COUNT(News.Id) as NewsCount\n" +
-                "FROM ChannelsPersons\n" +
-                "JOIN Channels ON ChannelsPersons.ChannelId = Channels.Id\n" +
-                "LEFT JOIN News ON News.ChannelId = Channels.Id\n" +
-                "WHERE ChannelsPersons.PersonId = @personId\n" +
-                "GROUP BY Channels.Id, Channels.Title, Channels.Description, Channels.Url";
+                " select c.Id, c.Title, c.Description, c.Url, count(n.Id) as NewsCount from ChannelsPersons cp" +
+                " join News n " +
+                " on n.ChannelId = cp.ChannelId " +
+                " join Channels c " +
+                " on c.Id = cp.ChannelId " +
+                $" WHERE cp.PersonId = @personId " +
+                " and " +
+                " n.Id not in ( " +
+                " select cnr.NewsId from ChannelNewsReads cnr " +
+                $" where cnr.PersonId = @personId" +
+                " ) " +
+                " GROUP BY c.Id, c.Title, c.Description, c.Url ";
+
             var sqlData = new
             {
                 personId = request.PersonId
