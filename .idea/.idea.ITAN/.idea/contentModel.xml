@@ -411,7 +411,6 @@
         <e p="Exceptions" t="Include">
           <e p="FeedReaderWrapperParseStringException.cs" t="Include" />
           <e p="ItanException.cs" t="Include" />
-          <e p="ItanFailedToDownloadChannel.cs" t="Include" />
           <e p="NewsWriterInsertNewsLinkException.cs" t="Include" />
         </e>
         <e p="Function1Worker.cs" t="Include" />
