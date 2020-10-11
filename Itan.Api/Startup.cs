@@ -38,21 +38,23 @@ namespace Itan.Api
             this.configuration = configuration;
         }
 
-
         public void ConfigureServices(IServiceCollection services)
         {
             IdentityModelEventSource.ShowPII = true;
             services.AddSingleton<IConfiguration>(this.configuration);
+
+            services.AddOptions();
 
             services.AddResponseCompression(o =>
             {
                 o.Providers.Add<GzipCompressionProvider>();
                 o.EnableForHttps = true;
             });
-            
+
             services.Configure<GzipCompressionProviderOptions>(o => o.Level = CompressionLevel.Optimal);
 
-            services.AddAuthentication(AzureADDefaults.BearerAuthenticationScheme)
+            services
+                .AddAuthentication(AzureADDefaults.BearerAuthenticationScheme)
                 .AddAzureADBearer(options => { this.configuration.Bind("AzureAdB2C", options); });
 
             services.AddAuthentication(options => { options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme; })
@@ -112,20 +114,6 @@ namespace Itan.Api
             var files = Directory.GetFiles(path, "itan.*.dll", SearchOption.TopDirectoryOnly);
             var x = Assembly.GetExecutingAssembly().GetReferencedAssemblies();
 
-            builder.Register<ConnectionOptions>(context => this.configuration
-                .GetSection("ConnectionStrings")
-                .Get<ConnectionOptions>())
-                .SingleInstance();
-
-            builder.RegisterModule<ItanApiModule>();
-            
-            // builder.RegisterType<IOptions<ConnectionOptions>>()
-            // {
-            //     this.configuration
-            //         .GetSection("ConnectionStrings")
-            //         .Get<ConnectionOptions>();
-            // });
-            
             foreach (var assembly in x)
             {
                 if (assembly.FullName.ToLower().Contains("itan"))
@@ -134,11 +122,18 @@ namespace Itan.Api
                     builder.RegisterAssemblyModules(a);
                 }
             }
+
+            builder.Register<ConnectionOptions>(context => this.configuration
+                    .GetSection("ConnectionStrings")
+                    .Get<ConnectionOptions>())
+                .SingleInstance();
+            
+            builder.RegisterModule<ItanApiModule>(); 
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -147,6 +142,7 @@ namespace Itan.Api
             {
                 app.UseHsts();
             }
+
             app.UseMiddleware<ItanExceptionMiddleware>();
             app.UseResponseCompression();
 

@@ -21,12 +21,13 @@ namespace Itan.Api
             var astp = new AzureServiceTokenProvider();
             var kvc = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(astp.KeyVaultTokenCallback));
 
-            return WebHost.CreateDefaultBuilder(args)
+            return WebHost
+                .CreateDefaultBuilder(args)
                 .ConfigureServices(x => x.AddAutofac())
                 .ConfigureAppConfiguration((x, config) =>
                 {
                     config.AddJsonFile("appsettings.json");
-                    config.AddAzureKeyVault("https://itan-kv-secrets.vault.azure.net", 
+                    config.AddAzureKeyVault("https://itan-key-vault.vault.azure.net", 
                         kvc,
                         new DefaultKeyVaultSecretManager());
                 })
