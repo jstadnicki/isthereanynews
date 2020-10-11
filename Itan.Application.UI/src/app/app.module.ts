@@ -15,13 +15,13 @@ import {ChannelsPageComponent} from "./components/channels-page/channels-page.co
 import {SubscriptionsPageComponent} from './components/subscriptions-page/subscriptions-page.component';
 import {StripHtmlPipe} from "./components/channels-page/strip-html.pipe";
 import {AddNewChannelComponent} from './components/add-new-channel/add-new-channel.component';
-import { FormsModule }   from '@angular/forms';
+import {FormsModule} from '@angular/forms';
 
 import {
   HTTP_INTERCEPTORS,
   HttpClientModule,
 } from "@angular/common/http";
-import { LockerComponent } from './components/locker/locker.component';
+import {LockerComponent} from './components/locker/locker.component';
 
 
 const isIE =
