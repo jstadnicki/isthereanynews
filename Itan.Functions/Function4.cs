@@ -16,7 +16,7 @@ namespace Itan.Functions
             this.worker = worker;
         }
         [FunctionName("Function4")]
-        public async Task Run([QueueTrigger(QueuesName.ChannelUpdate, Connection = "Emulator")]string myQueueItem)
+        public async Task Run([QueueTrigger(QueuesName.ChannelUpdate, Connection = "Storage")]string myQueueItem)
         {
             await this.worker.RunAsync(myQueueItem);
         }

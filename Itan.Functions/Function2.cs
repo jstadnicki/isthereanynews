@@ -16,7 +16,7 @@ namespace Itan.Functions
         }
 
         [FunctionName("Function2")]
-        public async Task Run([QueueTrigger(QueuesName.ChannelToDownload, Connection = "Emulator")]string myQueueItem)
+        public async Task Run([QueueTrigger(QueuesName.ChannelToDownload, Connection = "Storage")]string myQueueItem)
         {
             await this.worker.Run(myQueueItem);
         }
