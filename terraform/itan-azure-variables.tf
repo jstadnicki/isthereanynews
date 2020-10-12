@@ -15,11 +15,11 @@ variable "subscription-id" {
 }
 
 variable "scope-reader" {
-  default = "application-reader-2"
+  default = "application-reader"
 }
 
 variable "scope-writer" {
-  default = "application-writer-2"
+  default = "application-writer"
 }
 
 variable "subscription-owner-id"{

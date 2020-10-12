@@ -1,6 +1,6 @@
 resource "azuread_application" "itan-web-ui" {
   name = "itan-ui"
-  owners = ["65748239-c3de-4eaf-9379-ef295093119e"]
+  owners = [var.subscription-owner-id]
   type = "webapp/api"
   identifier_uris = ["https://isthereanynewscodeblast.onmicrosoft.com/ui"]
   reply_urls = ["http://localhost:4200"]
