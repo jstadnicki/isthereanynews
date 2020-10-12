@@ -33,7 +33,7 @@ namespace Itan.Functions
             
             configurationBuilder
                 .SetBasePath(currentDirectory)
-                .AddJsonFile("local.settings.json", false);
+                .AddJsonFile("local.settings.json", true);
             var configuration = configurationBuilder.Build();
             
             builder
