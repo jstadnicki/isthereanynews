@@ -14,5 +14,5 @@ variables:
   project: Itan.Api\Itan.Api.csproj
 
 steps:
-- script: dotnet build --configuration $(buildConfiguration)
+- script: dotnet build $(project) --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
