@@ -22,4 +22,3 @@ steps:
   inputs:
     command: 'publish'
     publishWebProjects: true
-    arguments: $(project)
