@@ -13,6 +13,13 @@ variables:
   buildConfiguration: 'Release'
   project: Itan.Api/Itan.Api.csproj
 
-steps:
-- script: dotnet build $(project) --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: 'itan.api/itan.api.csproj'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+    arguments: 'itan.api/itan.api.csproj'
