@@ -11,7 +11,7 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-  project: Itan.Api\Itan.Api.csproj
+  project: Itan.Api/Itan.Api.csproj
 
 steps:
 - script: dotnet build $(project) --configuration $(buildConfiguration)
