@@ -1,4 +1,4 @@
-resource "azuread_application" "itan-web-ui" {
+resource "azuread_application" "itan-web-ui-ad-application" {
   name = "itan-ui"
   owners = [var.subscription-owner-id]
   type = "webapp/api"
@@ -7,11 +7,11 @@ resource "azuread_application" "itan-web-ui" {
   oauth2_allow_implicit_flow = false
 
   required_resource_access {
-    resource_app_id = azuread_application.itan-web-api-application.application_id
+    resource_app_id = azuread_application.itan-web-api-ad-application.application_id
 
     dynamic "resource_access" {
       iterator = item
-      for_each = azuread_application.itan-web-api-application.oauth2_permissions
+      for_each = azuread_application.itan-web-api-ad-application.oauth2_permissions
 
       content {
         id = item.value["id"]
