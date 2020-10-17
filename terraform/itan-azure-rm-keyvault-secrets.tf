@@ -1,7 +1,7 @@
 resource "azurerm_key_vault_secret" "clientid" {
   name = "clientid"
   key_vault_id = azurerm_key_vault.itan-key-vault.id
-  value = azuread_application.itan-web-api-application.application_id
+  value = azuread_application.itan-ad-application-api.application_id
 }
 
 resource "azurerm_key_vault_secret" "itan-secret-client-policy" {

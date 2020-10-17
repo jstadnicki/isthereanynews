@@ -1,4 +1,4 @@
-resource "azuread_application" "itan-web-api-ad-application" {
+resource "azuread_application" "itan-ad-application-api" {
   name = "itan-api"
   owners = [var.subscription-owner-id]
   type = "webapp/api"

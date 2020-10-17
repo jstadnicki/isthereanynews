@@ -1,6 +1,6 @@
-resource "azurerm_app_service_plan" "itan_app_service_function_plan" {
+resource "azurerm_app_service_plan" "itan-app-service-plan-function" {
   location = var.location
-  name = "itan_app_service_function_plan"
+  name = "itan-app-service-plan-function"
   resource_group_name = var.resource-group-name
   kind = "functionapp"
   sku {

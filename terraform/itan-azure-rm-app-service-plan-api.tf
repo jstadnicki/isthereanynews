@@ -1,7 +1,7 @@
-resource "azurerm_app_service_plan" "itan-app-service-plan" {
+resource "azurerm_app_service_plan" "itan-app-service-plan-api" {
   location = var.location
   resource_group_name = var.resource-group-name
-  name = "itan_app_service_plan"
+  name = "itan-app-service-plan-api"
   kind = "windows"
 
   sku {
