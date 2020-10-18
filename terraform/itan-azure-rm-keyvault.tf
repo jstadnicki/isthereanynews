@@ -20,7 +20,7 @@ resource "azurerm_key_vault" "itan-key-vault" {
   }
 
   access_policy {
-    object_id = azurerm_app_service.itan-app-service-function.identity[0].principal_id
+    object_id = azurerm_function_app.itan-app-service-function.identity[0].principal_id
     tenant_id = var.tenant-id
 
     secret_permissions = ["get","list"]
