@@ -7,8 +7,20 @@
 terraform {
   required_providers {
     azuread = {
-      source = "hashicorp/azuread"
+      source  = "hashicorp/azuread"
       version = "1.0.0"
+    }
+    azurerm = {
+      source = "hashicorp/azurerm"
+    }
+    http = {
+      source = "hashicorp/http"
+    }
+    null = {
+      source = "hashicorp/null"
+    }
+    random = {
+      source = "hashicorp/random"
     }
   }
 }
