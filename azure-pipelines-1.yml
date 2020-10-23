@@ -7,18 +7,11 @@ trigger:
 - master
 
 variables:
-  # Azure Resource Manager connection created during pipeline creation
   azureSubscription: 'b918893e-404a-4a7a-a31a-f3789b8a5c47'
   project: Itan.Functions/Itan.Functions.csproj
   buildConfiguration: 'Release'
-
-  # Function app name
   functionAppName: 'itan-app-service-function'
-
-  # Agent VM image name
   vmImageName: 'vs2017-win2016'
-
-  # Working Directory
   workingDirectory: '$(System.DefaultWorkingDirectory)/Itan.Functions'
 
 steps:
@@ -30,9 +23,9 @@ steps:
   inputs:
     command: 'publish'
     projects: $(project)
-    publishWebProjects: True
+    publishWebProjects: false
     arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-    zipAfterPublish: True
+    zipAfterPublish: false
 
 - task: PublishBuildArtifacts@1
   inputs:
