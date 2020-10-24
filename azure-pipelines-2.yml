@@ -12,6 +12,10 @@ pool:
 variables:
   buildConfiguration: 'Release'
 
-steps:
-- script: dotnet ef migrations script -i -o $(Build.ArtifactStagingDirectory)migrate.sql --project Itan.Database\Itan.Database.csproj --startup-project Itan.Database\Itan.Database.csproj
-  displayName: 'dotnet ef migrations'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'custom'
+    projects: 'Itan.Database\Itan.Database.csproj'
+    custom: 'dotnet ef migrations script -i -o $(Build.ArtifactStagingDirectory)migrate.sql'
+    arguments: '--project Itan.Database\Itan.Database.csproj --startup-project Itan.Database\Itan.Database.csproj'
