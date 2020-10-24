@@ -14,9 +14,9 @@ variables:
   project: 'Itan.Database\Itan.Database.csproj'
 
 steps:
-  
-- task: DotNetCoreCLI@2
+
+- task: CmdLine@2
   inputs:
-    command: 'custom'
-    custom: 'dotnet ef migrations script -i -o $(Build.ArtifactStagingDirectory)migrate.sql'
-    arguments: '--project $(project) --startup-project $(project)'
+    script: |
+      echo dotnet ef migrations script -i -o $(Build.ArtifactStagingDirectory)migrate.sql
+
