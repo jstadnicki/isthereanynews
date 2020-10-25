@@ -18,5 +18,5 @@ steps:
 - task: CmdLine@2
   inputs:
     script: |
-      echo dotnet ef migrations script -i -o $(Build.ArtifactStagingDirectory)migrate.sql
+      dotnet ef migrations script -i -o t:\mi.sql --project $(project)
 
