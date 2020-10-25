@@ -47,3 +47,27 @@ resource "azurerm_key_vault_secret" "itan-secret-sql-writer" {
   key_vault_id = azurerm_key_vault.itan-key-vault.id
   value = "server=.;database=itan;User Id=itanwriteuser;password=${random_password.itan-mssql-writer-password.result}"
 }
+
+resource "azurerm_key_vault_secret" "itan-secret-sql-connection" {
+  name = "SqlAdminConnectionString"
+  key_vault_id = azurerm_key_vault.itan-key-vault.id
+  value = "Server=tcp:${azurerm_mssql_server.itan-mssql-server.fully_qualified_domain_name} Database=${azurerm_mssql_database.itan-mssql-database.name};User ID=${var.itan-admin-mssql};Password=${random_password.itan-mssql-admin-password.result};Trusted_Connection=False;Encrypt=True;"
+}
+
+resource "azurerm_key_vault_secret" "itan-secret-admin-password" {
+  name = "SqlAdminPassword"
+  key_vault_id = azurerm_key_vault.itan-key-vault.id
+  value = random_password.itan-mssql-admin-password.result
+}
+
+resource "azurerm_key_vault_secret" "itan-secret-admin-name" {
+  name = "SqlAdminName"
+  key_vault_id = azurerm_key_vault.itan-key-vault.id
+  value = var.itan-admin-mssql
+}
+
+resource "azurerm_key_vault_secret" "itan-server-name" {
+  name = "SqlServerName"
+  key_vault_id = azurerm_key_vault.itan-key-vault.id
+  value = "Server=tcp:${azurerm_mssql_server.itan-mssql-server.fully_qualified_domain_name}"
+}
