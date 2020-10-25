@@ -27,5 +27,9 @@ steps:
         command: 'custom'
         custom: 'ef'
         arguments: 'migrations -i -o $(Build.ArtifactStagingDirectory)\migration.sql --project $(project)'
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
+      artifactName: 'artifact.itan.database'
 
 
