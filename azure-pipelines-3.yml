@@ -14,5 +14,18 @@ variables:
   project: 'Itan.Database\Itan.Database.csproj'
 
 steps:
-- script: dotnet ef migration script -i -o $(Build.ArtifactStagingDirectory)\migration.sql --project $(project)''
+  - task: UseDotNet@2
+    inputs:
+        version: '3.1.200'
+  - task: DotNetCoreCLI@2
+    inputs:
+        command: 'custom'
+        custom: 'tool'
+        arguments: 'install --global dotnet-ef'
+  - task: DotNetCoreCLI@2
+    inputs:
+        command: 'custom'
+        custom: 'ef migrations'
+        arguments: '-i -o $(Build.ArtifactStagingDirectory)\migration.sql --project $(project)'
+
 
