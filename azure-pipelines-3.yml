@@ -25,7 +25,7 @@ steps:
   - task: DotNetCoreCLI@2
     inputs:
         command: 'custom'
-        custom: 'ef migrations'
-        arguments: '-i -o $(Build.ArtifactStagingDirectory)\migration.sql --project $(project)'
+        custom: 'ef'
+        arguments: 'migrations -i -o $(Build.ArtifactStagingDirectory)\migration.sql --project $(project)'
 
 
