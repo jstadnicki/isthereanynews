@@ -32,7 +32,7 @@ steps:
     inputs:
         command: 'custom'
         custom: 'ef'
-        arguments: 'migrations script -i -o $(Build.ArtifactStagingDirectory)\migration.sql --project $(project) --startup-project $(project)'
+        arguments: 'migrations script -i -o $(Build.ArtifactStagingDirectory)\migration.sql --project $(project) --startup-project $(project) --msbuildprojectextensionspath obj/local''
   - task: PublishBuildArtifacts@1
     inputs:
       pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
