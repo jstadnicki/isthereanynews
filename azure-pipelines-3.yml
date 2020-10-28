@@ -11,7 +11,7 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-  project: 'Itan.Database\Itan.Database.csproj'
+  project: 'Itan.Database/Itan.Database.csproj'
 
 steps:
   - task: UseDotNet@2
