@@ -14,9 +14,6 @@ variables:
   project: 'Itan.Database/Itan.Database.csproj'
 
 steps:
-  - task: UseDotNet@2
-    inputs:
-        version: '3.1.200'
   - task: DotNetCoreCLI@2
     inputs:
         command: 'custom'
