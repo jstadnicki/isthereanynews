@@ -27,7 +27,7 @@ steps:
     inputs:
         command: 'custom'
         custom: 'ef'
-        arguments: 'migrations list --msbuildprojectextensionspath obj/local'
+        arguments: 'migrations list --project $(project) --startup-project $(project) --msbuildprojectextensionspath obj/local'
   - task: DotNetCoreCLI@2
     inputs:
         command: 'custom'
