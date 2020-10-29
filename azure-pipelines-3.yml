@@ -7,18 +7,14 @@ trigger:
 - master
 
 pool:
-  vmImage: 'windows-2019'
+  vmImage: 'windows-latest'
 
 variables:
   buildConfiguration: 'Release'
   project: 'Itan.Database/Itan.Database.csproj'
 
 steps:
-  - task: DotNetCoreCLI@2
-    inputs:
-        command: 'custom'
-        custom: 'tool'
-        arguments: 'install --global dotnet-ef'
+
   - task: DotNetCoreCLI@2
     displayName: dotnet restore
     inputs:
@@ -34,13 +30,29 @@ steps:
   - task: DotNetCoreCLI@2
     inputs:
         command: 'custom'
+        custom: 'tool'
+        arguments: 'install --global dotnet-ef'
+
+  - task: DotNetCoreCLI@2
+    displayName: 'Create migration'
+    continueOnError: true
+    inputs:
+      command: custom
+      custom: ef
+      arguments: 'migrations script -i -o migration.sql' 
+      workingDirectory: 'Itan.Database'
+
+  - task: DotNetCoreCLI@2
+    continueOnError: true
+    inputs:
+        command: 'custom'
         custom: 'ef'
-        arguments: 'migrations list --project $(project) --startup-project $(project) --msbuildprojectextensionspath obj/local'
+        arguments: 'migrations list --project $(project) --startup-project $(project) --msbuildprojectextensionspath Itan.Database/obj/local'
   - task: DotNetCoreCLI@2
     inputs:
         command: 'custom'
         custom: 'ef'
-        arguments: 'migrations script -i -o $(Build.ArtifactStagingDirectory)/migration.sql --project $(project) --startup-project $(project) --msbuildprojectextensionspath obj/local'
+        arguments: 'migrations script -i -o $(Build.ArtifactStagingDirectory)\migration.sql --project $(project) --startup-project $(project) --msbuildprojectextensionspath obj/local'
   - task: PublishBuildArtifacts@1
     inputs:
       pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
