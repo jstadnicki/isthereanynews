@@ -19,6 +19,17 @@ steps:
         command: 'custom'
         custom: 'tool'
         arguments: 'install --global dotnet-ef'
+  - task: DotNetCoreCLI@2
+    displayName: dotnet restore
+    inputs:
+      command: restore
+      projects: '$(project)'
+  
+  - task: DotNetCoreCLI@2
+    displayName: dotnet build
+    inputs:
+      command: build
+      projects: '$(project)'
 
   - task: DotNetCoreCLI@2
     inputs:
