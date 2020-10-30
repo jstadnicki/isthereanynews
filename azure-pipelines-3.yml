@@ -34,11 +34,11 @@ steps:
       SecretsFilter: '*'
       RunAsPreJob: false
   
-  - task: AzureCLI@2
+  - task: PowerShell@2
+    displayName: Set enviroment variable
     inputs:
-      scriptLocation: inlineScript
-      scriptType: ps
-      inlineScript: |
+      targetType: inline
+      script: |
             Write-Host "##vso[task.setvariable variable=SqlAdminConnectionString;]$(SqlAdminConnectionString)"
 
   - task: DotNetCoreCLI@2
