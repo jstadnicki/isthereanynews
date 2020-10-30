@@ -23,6 +23,9 @@ namespace Itan.Database
 
             var connectionString = configuration.GetValue<string>("SqlAdminConnectionString");
 
+            System.Diagnostics.Debug.WriteLine("CS:"+connectionString);
+            System.Diagnostics.Trace.WriteLine("CS:"+connectionString);
+
             var builder = new DbContextOptionsBuilder<EntityFrameworkContext>();
             // var connectionString =
             //     kvc.GetSecretAsync("https://itan-key-vault.vault.azure.net/", "SqlAdminConnectionString")
