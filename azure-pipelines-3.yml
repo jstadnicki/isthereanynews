@@ -27,13 +27,12 @@ steps:
       command: build
       projects: '$(project)'
 
-- task: AzureKeyVault@1
-  inputs:
-    azureSubscription: 'PAYG (itan) (jarek@codeblast.pl)'
-    KeyVaultName: 'itan-key-vault'
-    SecretsFilter: '*'
-    RunAsPreJob: false
-
+  - task: AzureKeyVault@1
+    inputs:
+      azureSubscription: 'PAYG (itan) (jarek@codeblast.pl)'
+      KeyVaultName: 'itan-key-vault'
+      SecretsFilter: '*'
+      RunAsPreJob: false
   - task: DotNetCoreCLI@2
     inputs:
         command: 'custom'
