@@ -37,6 +37,7 @@ steps:
   - task: AzureCLI@2
     inputs:
       scriptLocation: inlineScript
+      scriptType: ps
       inlineScript: |
             Write-Host "##vso[task.setvariable variable=SqlAdminConnectionString;]$(SqlAdminConnectionString)"
 
