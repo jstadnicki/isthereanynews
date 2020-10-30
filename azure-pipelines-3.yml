@@ -33,6 +33,13 @@ steps:
       KeyVaultName: 'itan-key-vault'
       SecretsFilter: '*'
       RunAsPreJob: false
+  
+  - task: AzureCLI@2
+    inputs:
+      scriptLocation: inlineScript
+      inlineScript: |
+            Write-Host "##vso[task.setvariable variable=SqlAdminConnectionString;]$(SqlAdminConnectionString)"
+
   - task: DotNetCoreCLI@2
     inputs:
         command: 'custom'
