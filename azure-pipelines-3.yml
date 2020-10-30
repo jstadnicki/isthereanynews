@@ -32,7 +32,7 @@ steps:
       azureSubscription: 'PAYG (itan) (jarek@codeblast.pl)'
       KeyVaultName: 'itan-key-vault'
       SecretsFilter: '*'
-      RunAsPreJob: false
+      RunAsPreJob: true
   
   - task: PowerShell@2
     displayName: Set enviroment variable
