@@ -21,12 +21,14 @@ namespace Itan.Database
                 .AddAzureKeyVault("https://itan-key-vault.vault.azure.net", kvc, new DefaultKeyVaultSecretManager())
                 .Build();
 
+            var connectionString = configuration.GetValue<string>("SqlAdminConnectionString");
+
             var builder = new DbContextOptionsBuilder<EntityFrameworkContext>();
-            var connectionString =
-                kvc.GetSecretAsync("https://itan-key-vault.vault.azure.net/", "SqlAdminConnectionString")
-                   .GetAwaiter()
-                   .GetResult()
-                   .Value;
+            // var connectionString =
+            //     kvc.GetSecretAsync("https://itan-key-vault.vault.azure.net/", "SqlAdminConnectionString")
+            //        .GetAwaiter()
+            //        .GetResult()
+            //        .Value;
             builder.UseSqlServer(connectionString);
             return new EntityFrameworkContext(builder.Options);
         }
