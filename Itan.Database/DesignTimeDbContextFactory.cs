@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.IO;
 using Microsoft.Azure.KeyVault;
 using Microsoft.Azure.Services.AppAuthentication;
@@ -23,6 +24,12 @@ namespace Itan.Database
             var x1 = Environment.GetEnvironmentVariable("SqlAdminConnectionString", EnvironmentVariableTarget.Machine);
             var x2 = Environment.GetEnvironmentVariable("SqlAdminConnectionString", EnvironmentVariableTarget.Process);
             var x3 = Environment.GetEnvironmentVariable("SqlAdminConnectionString", EnvironmentVariableTarget.User);
+
+            var e = Environment.GetEnvironmentVariables();
+            foreach (DictionaryEntry dictionaryEntry in e)
+            {
+                Console.WriteLine($"K:{dictionaryEntry.Key} - V:{dictionaryEntry.Value}");
+            }
 
             Console.WriteLine("CS:"+connectionString);
             Console.WriteLine("x1:"+x1);
