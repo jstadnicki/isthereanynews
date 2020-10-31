@@ -24,4 +24,4 @@ steps:
   inputs:
     targetType: inline
     script: |
-      Write-Host "value of SqlAdminConnectionString is:'$env:SqlAdminConnectionString'"
+      Write-Host "value of SqlAdminConnectionString is:'$(SqlAdminConnectionString)'"
