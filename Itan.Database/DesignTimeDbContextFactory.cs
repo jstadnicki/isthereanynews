@@ -20,11 +20,14 @@ namespace Itan.Database
                 .Build();
 
             var connectionString = Environment.GetEnvironmentVariable("SqlAdminConnectionString");
+            var x1 = Environment.GetEnvironmentVariable("SqlAdminConnectionString", EnvironmentVariableTarget.Machine);
+            var x2 = Environment.GetEnvironmentVariable("SqlAdminConnectionString", EnvironmentVariableTarget.Process);
+            var x3 = Environment.GetEnvironmentVariable("SqlAdminConnectionString", EnvironmentVariableTarget.User);
 
-            System.Diagnostics.Debug.WriteLine("CS:"+connectionString);
-            System.Diagnostics.Trace.WriteLine("CS:"+connectionString);
             Console.WriteLine("CS:"+connectionString);
-            File.WriteAllText("log.txt", "CS:"+connectionString);
+            Console.WriteLine("x1:"+x1);
+            Console.WriteLine("x2:"+x2);
+            Console.WriteLine("x3:"+x3);
 
             var builder = new DbContextOptionsBuilder<EntityFrameworkContext>();
             // var connectionString =
