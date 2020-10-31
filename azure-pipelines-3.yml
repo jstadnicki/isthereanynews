@@ -32,7 +32,15 @@ steps:
       azureSubscription: 'PAYG (itan) (jarek@codeblast.pl)'
       KeyVaultName: 'itan-key-vault'
       SecretsFilter: '*'
-      RunAsPreJob: false
+      RunAsPreJob: true
+  
+  - task: PowerShell@2
+    displayName: Set enviroment variable
+    inputs:
+      targetType: inline
+      script: |
+            Write-Host "##vso[task.setvariable variable=SqlAdminConnectionString;]$(SqlAdminConnectionString)"
+
   - task: DotNetCoreCLI@2
     inputs:
         command: 'custom'
