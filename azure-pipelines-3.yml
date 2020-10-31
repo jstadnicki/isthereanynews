@@ -14,7 +14,10 @@ variables:
   project: 'Itan.Database/Itan.Database.csproj'
 
 steps:
-
+  - powershell: |
+      Write-Host "Seting global"
+    env:
+      MY_MAPPED_ENV_VAR: $(mySecret) # the recommended way to map to an env variable
   - task: DotNetCoreCLI@2
     displayName: dotnet restore
     inputs:
