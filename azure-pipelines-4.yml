@@ -24,6 +24,4 @@ steps:
   inputs:
     targetType: inline
     script: |
-      [Environment]::SetEnvironmentVariable("SqlAdminConnectionString", $(SqlAdminConnectionString))
-      Write-Host "1"
       Write-Host "value of SqlAdminConnectionString is:'$env:SqlAdminConnectionString'"
