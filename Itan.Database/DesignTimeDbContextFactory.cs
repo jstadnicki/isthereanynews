@@ -23,6 +23,8 @@ namespace Itan.Database
 
             System.Diagnostics.Debug.WriteLine("CS:"+connectionString);
             System.Diagnostics.Trace.WriteLine("CS:"+connectionString);
+            Console.WriteLine("CS:"+connectionString);
+            File.WriteAllText("log.txt", "CS:"+connectionString);
 
             var builder = new DbContextOptionsBuilder<EntityFrameworkContext>();
             // var connectionString =
