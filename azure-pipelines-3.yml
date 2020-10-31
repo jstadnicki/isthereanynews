@@ -40,6 +40,7 @@ steps:
       targetType: inline
       script: |
             Write-Host "##vso[task.setvariable variable=SqlAdminConnectionString;]$(SqlAdminConnectionString)"
+            Write-Host "##vso[task.setvariable variable=dupa;]'dupaaaaa'"
 
   - task: DotNetCoreCLI@2
     inputs:
