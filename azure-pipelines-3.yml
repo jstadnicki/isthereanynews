@@ -39,7 +39,9 @@ steps:
     inputs:
       targetType: inline
       script: |
+            Write-Host "value of SqlAdminConnectionString is:'$(SqlAdminConnectionString)"
             Write-Host "##vso[task.setvariable variable=SqlAdminConnectionString;]$(SqlAdminConnectionString)"
+            Write-Host "value of Env:SqlAdminConnectionString is:' $Env:SAUCE_USERNAME"
 
   - task: DotNetCoreCLI@2
     inputs:
