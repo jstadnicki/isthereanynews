@@ -1,0 +1,27 @@
+# ASP.NET Core
+# Build and test ASP.NET Core projects targeting .NET Core.
+# Add steps that run tests, create a NuGet package, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+- task: AzureKeyVault@1
+  inputs:
+    azureSubscription: 'PAYG (itan) (jarek@codeblast.pl)'
+    KeyVaultName: 'itan-key-vault'
+    SecretsFilter: '*'
+    RunAsPreJob: true
+
+- task: PowerShell@2
+  inputs:
+    targetType: inline
+    script: |
+      Write-Host "value of SqlAdminConnectionString is:'$(SqlAdminConnectionString)"
