@@ -14,10 +14,6 @@ variables:
   project: 'Itan.Database/Itan.Database.csproj'
 
 steps:
-  - powershell: |
-      Write-Host "Seting global"
-    env:
-      MY_MAPPED_ENV_VAR: $(SqlAdminConnectionString)
   - task: DotNetCoreCLI@2
     displayName: dotnet restore
     inputs:
@@ -35,14 +31,15 @@ steps:
       azureSubscription: 'PAYG (itan) (jarek@codeblast.pl)'
       KeyVaultName: 'itan-key-vault'
       SecretsFilter: '*'
-      RunAsPreJob: true
+      RunAsPreJob: false
   
   - task: PowerShell@2
     displayName: Set enviroment variable
     inputs:
       targetType: inline
       script: |
-            Write-Host "##vso[task.setvariable variable=trolololo;]$(SqlAdminConnectionString)"
+            $mys = $(SqlAdminConnectionString)
+            Write-Host "##vso[task.setvariable variable=trolololo;]$(mys)"
             Write-Host "##vso[task.setvariable variable=dupa;]'dupaaaaa'"
 
   - task: DotNetCoreCLI@2
