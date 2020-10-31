@@ -26,7 +26,7 @@ steps:
     script: |
       [Environment]::SetEnvironmentVariable("SqlAdminConnectionString", $(SqlAdminConnectionString))
       Write-Host "1"
-      Write-Host "value of SqlAdminConnectionString is:'$(SqlAdminConnectionString)"
+      Write-Host "value of SqlAdminConnectionString is:'$(SqlAdminConnectionString)'"
       Write-Host "2"
       [string] $cs= $Env:SqlAdminConnectionString
       Write-Host "3"
