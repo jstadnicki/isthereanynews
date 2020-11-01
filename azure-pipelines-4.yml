@@ -15,7 +15,7 @@ steps:
   inputs:
     targetType: inline
     script: |
-      echo ##vso[task.setvariable variable=trolololo;]$env:MY_VARIABLE
+      Write-Host ##vso[task.setvariable variable=trolololo;]$env:MY_VARIABLE
   env:
     MY_VARIABLE : $(SqlAdminConnectionString)
 
