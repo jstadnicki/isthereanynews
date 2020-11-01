@@ -16,8 +16,10 @@ steps:
     targetType: inline
     script: |
       Write-Host "##vso[task.setvariable variable=trolololo;]$env:MY_VARIABLE"
+      Write-Host "##vso[task.setvariable variable=j;]$env:MY_VAR"
   env:
     MY_VARIABLE : $(SqlAdminConnectionString)
+    MY_VAR:$(jstadnicki)
 
 - task: DotNetCoreCLI@2
   continueOnError: true
