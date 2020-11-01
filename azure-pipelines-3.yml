@@ -38,7 +38,7 @@ steps:
     inputs:
       targetType: inline
       script: |
-            $mys = $(SqlAdminConnectionString)
+            $mys = '$(SqlAdminConnectionString)'
             #Write-Host "##vso[task.setvariable variable=trolololo;]$(mys)"
             #Write-Host "##vso[task.setvariable variable=dupa;]'dupaaaaa'"
 
