@@ -19,6 +19,7 @@ steps:
   inputs:
     targetType: inline
     script: |
+      Write-Host $(BuildTestVariable)
       Write-Host "##vso[task.setvariable variable=trolololo;]'$(SqlAdminConnectionString)'"
 
 - task: DotNetCoreCLI@2
