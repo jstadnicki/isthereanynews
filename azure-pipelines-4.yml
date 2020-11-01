@@ -9,17 +9,13 @@ trigger:
 pool:
   vmImage: 'windows-latest'
 
-variables:
-  - group: AKV 
-  - name: SqlAdminConnectionString
-    
 steps:
 - task: PowerShell@2
   displayName: Set enviroment variable
   inputs:
     targetType: inline
     script: |
-      Write-Host "##vso[task.setvariable variable=trolololo;]$env:MY_VARIABLE"
+      echo ##vso[task.setvariable variable=trolololo;]$env:MY_VARIABLE
   env:
     MY_VARIABLE : $(SqlAdminConnectionString)
 
