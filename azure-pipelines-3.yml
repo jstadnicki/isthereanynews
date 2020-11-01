@@ -30,7 +30,7 @@ steps:
     inputs:
       azureSubscription: 'PAYG (itan) (jarek@codeblast.pl)'
       KeyVaultName: 'itan-key-vault'
-      SecretsFilter: '*'
+      SecretsFilter: 'SqlAdminConnectionString'
       RunAsPreJob: false
   
   - task: PowerShell@2
@@ -38,9 +38,10 @@ steps:
     inputs:
       targetType: inline
       script: |
-            $mys = '$(SqlAdminConnectionString)'
-            #Write-Host "##vso[task.setvariable variable=trolololo;]$'(mys)''"
-            #Write-Host "##vso[task.setvariable variable=dupa;]'dupaaaaa'"
+        #Write-Host "##vso[task.setvariable variable=dupa;]'dupaaaaa'"
+        $mys = '$(SqlAdminConnectionString)'
+        #Write-Host "##vso[task.setvariable variable=trolololo;]$'(mys)'"
+            
 
   - task: DotNetCoreCLI@2
     inputs:
