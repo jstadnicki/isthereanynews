@@ -19,9 +19,9 @@ steps:
   inputs:
     targetType: inline
     script: |
-      Write-Host $(BuildTestVariable)
-      Write-Host '$(AKV.SqlAdminConnectionString)'
-      Write-Host "##vso[task.setvariable variable=trolololo;]'$(SqlAdminConnectionString)'"
+      Write-Host "##vso[task.setvariable variable=trolololo;]'$(MY_VARIABLE)'"
+  env:
+    MY_VARIABLE : $(SqlAdminConnectionString)
 
 - task: DotNetCoreCLI@2
   continueOnError: true
