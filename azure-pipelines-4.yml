@@ -11,6 +11,7 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
+  mys:''
 
 steps:
 - task: AzureKeyVault@1
