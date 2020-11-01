@@ -12,8 +12,6 @@ pool:
 variables:
   - group: AKV 
   - name: SqlAdminConnectionString
-    value:  $[variables.SqlAdminConnectionString]
-  buildConfiguration: 'Release'
     
 steps:
 - task: PowerShell@2
