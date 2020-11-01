@@ -11,9 +11,6 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-parameters:
-  - name: SqlAdminConnectionString
-    type: string
     
 steps:
 - task: PowerShell@2
