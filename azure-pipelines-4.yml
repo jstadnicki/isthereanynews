@@ -26,8 +26,7 @@ steps:
     targetType: inline
     script: |
       Write-Host "##vso[task.setvariable variable=dupa;]'dupaaaaa'"
-      $mys = '$(SqlAdminConnectionString)'
-      Write-Host "##vso[task.setvariable variable=trolololo;]$(mys)"
+      Write-Host "##vso[task.setvariable variable=trolololo;]'$(SqlAdminConnectionString)'"
 
 
 - task: DotNetCoreCLI@2
