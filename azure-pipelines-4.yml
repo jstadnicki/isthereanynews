@@ -25,8 +25,8 @@ steps:
   inputs:
     targetType: inline
     script: |
-      Write-Host "##vso[task.setvariable variable=varia;]'$[variables.SqlAdminConnectionString]'"
-      Write-Host "##vso[task.setvariable variable=adminstring;]'$(adminstring)'"
+      Write-Host "##vso[task.setvariable variable=varia;]$[variables.SqlAdminConnectionString]"
+      Write-Host "##vso[task.setvariable variable=adminstring;]$(adminstring)"
       Write-Host "##vso[task.setvariable variable=dupa;]'dupaaaaa'"
       Write-Host "##vso[task.setvariable variable=trolololo;]'$(SqlAdminConnectionString)'"
 
