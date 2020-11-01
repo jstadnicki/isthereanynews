@@ -12,6 +12,7 @@ pool:
 variables:
   - group: AKV 
   - name: SqlAdminConnectionString
+    value:  $[variables.SqlAdminConnectionString]
   buildConfiguration: 'Release'
     
 steps:
