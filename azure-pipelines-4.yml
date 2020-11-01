@@ -16,19 +16,12 @@ parameters:
     type: string
     
 steps:
-- task: AzureKeyVault@1
-  inputs:
-    azureSubscription: 'PAYG (itan) (jarek@codeblast.pl)'
-    KeyVaultName: 'itan-key-vault'
-    SecretsFilter: 'SqlAdminConnectionString'
-    RunAsPreJob: true
 - task: PowerShell@2
   displayName: Set enviroment variable
   inputs:
     targetType: inline
     script: |
       Write-Host "##vso[task.setvariable variable=trolololo;]'$(SqlAdminConnectionString)'"
-
 
 - task: DotNetCoreCLI@2
   continueOnError: true
