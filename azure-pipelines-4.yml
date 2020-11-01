@@ -19,9 +19,11 @@ steps:
     KeyVaultName: 'itan-key-vault'
     SecretsFilter: 'SqlAdminConnectionString'
     RunAsPreJob: true
-
 - task: PowerShell@2
+  displayName: Set enviroment variable
   inputs:
     targetType: inline
     script: |
-      Write-Host "value of SqlAdminConnectionString is:'$(SqlAdminConnectionString)'"
+      $mys = $(SqlAdminConnectionString)
+      #Write-Host "##vso[task.setvariable variable=trolololo;]$(mys)"
+      #Write-Host "##vso[task.setvariable variable=dupa;]'dupaaaaa'"
