@@ -10,16 +10,29 @@ pool:
   vmImage: 'windows-latest'
 
 steps:
+- task: AzureKeyVault@1
+  displayName: Fetch AKV
+  inputs:
+    azureSubscription: 'PAYG (itan) (jarek@codeblast.pl)'
+    KeyVaultName: 'itan-key-vault'
+    SecretsFilter: '*'
+    RunAsPreJob: false
 - task: PowerShell@2
   displayName: Set enviroment variable
   inputs:
     targetType: inline
     script: |
-      Write-Host '##vso[task.setvariable variable=trolololo;]'$env:MY_VARIABLE
-      Write-Host '##vso[task.setvariable variable=j;]'$env:MY_VAR
+      Write-Host '##vso[task.setvariable variable=var-1]$env:MY_VARIABLE'
+      Write-Host '##vso[task.setvariable variable=var-2]$env:MY_VAR'
+      Write-Host '##vso[task.setvariable variable=var-3]yolo'
+      Write-Host '##vso[task.setvariable variable=var-4]$(SqlAdminConnectionString)'
+      Write-Host '##vso[task.setvariable variable=var-5]$(MY_VARIABLE)'
+      Write-Host '##vso[task.setvariable variable=var-6]"$(SqlAdminConnectionString)"'
+      Write-Host "##vso[task.setvariable variable=var-7]'$(SqlAdminConnectionString)'"
+
   env:
     MY_VARIABLE : $(SqlAdminConnectionString)
-    MY_VAR: $(jstadnicki)
+    MY_VAR: "blablabla"
 
 - task: DotNetCoreCLI@2
   continueOnError: true
