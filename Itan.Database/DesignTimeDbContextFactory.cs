@@ -20,7 +20,7 @@ namespace Itan.Database
                 // .AddAzureKeyVault("https://itan-key-vault.vault.azure.net", kvc, new DefaultKeyVaultSecretManager())
                 .Build();
 
-            var connectionString = Environment.GetEnvironmentVariable("SqlAdminConnectionString");
+            var connectionString = Environment.GetEnvironmentVariable("var-6");
             var x1 = Environment.GetEnvironmentVariable("SqlAdminConnectionString", EnvironmentVariableTarget.Machine);
             var x2 = Environment.GetEnvironmentVariable("SqlAdminConnectionString", EnvironmentVariableTarget.Process);
             var x3 = Environment.GetEnvironmentVariable("SqlAdminConnectionString", EnvironmentVariableTarget.User);
