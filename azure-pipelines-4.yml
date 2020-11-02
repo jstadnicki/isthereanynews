@@ -19,7 +19,7 @@ steps:
       Write-Host '##vso[task.setvariable variable=var-dwa;]$env:MY_VAR'
   env:
     MY_VARIABLE : $(SqlAdminConnectionString)
-    MY_VAR: $(jstadnicki)
+    MY_VAR: "blablabla"
 
 - task: DotNetCoreCLI@2
   continueOnError: true
