@@ -28,7 +28,7 @@ steps:
       Write-Host '##vso[task.setvariable variable=var-4;]$(SqlAdminConnectionString)'
       Write-Host '##vso[task.setvariable variable=var-5;]$(MY_VARIABLE)'
       Write-Host '##vso[task.setvariable variable=var-6;]"$(SqlAdminConnectionString)"'
-      xxx = $(SqlAdminConnectionString)
+      xxx = '$(SqlAdminConnectionString)'
       Write-Host '##vso[task.setvariable variable=var-7;]"$(xxx)"'
   env:
     MY_VARIABLE : $(SqlAdminConnectionString)
