@@ -9,19 +9,30 @@ trigger:
 pool:
   vmImage: 'windows-latest'
 
-variables:
-  buildConfiguration: 'Release'
-
 steps:
-- task: AzureKeyVault@1
-  inputs:
-    azureSubscription: 'PAYG (itan) (jarek@codeblast.pl)'
-    KeyVaultName: 'itan-key-vault'
-    SecretsFilter: 'SqlAdminConnectionString'
-    RunAsPreJob: true
-
 - task: PowerShell@2
+  displayName: Set enviroment variable
   inputs:
     targetType: inline
     script: |
-      Write-Host "value of SqlAdminConnectionString is:'$(SqlAdminConnectionString)'"
+      Write-Host '##vso[task.setvariable variable=trolololo;]'$env:MY_VARIABLE
+      Write-Host '##vso[task.setvariable variable=j;]'$env:MY_VAR
+  env:
+    MY_VARIABLE : $(SqlAdminConnectionString)
+    MY_VAR: $(jstadnicki)
+
+- task: DotNetCoreCLI@2
+  continueOnError: true
+  inputs:
+    command: 'custom'
+    custom: 'tool'
+    arguments: 'install --global dotnet-ef'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Create migration'
+  continueOnError: true
+  inputs:
+    command: custom
+    custom: ef
+    arguments: 'migrations script -i -o migration.sql' 
+    workingDirectory: 'Itan.Database'

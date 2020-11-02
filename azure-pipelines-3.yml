@@ -14,7 +14,6 @@ variables:
   project: 'Itan.Database/Itan.Database.csproj'
 
 steps:
-
   - task: DotNetCoreCLI@2
     displayName: dotnet restore
     inputs:
@@ -31,15 +30,18 @@ steps:
     inputs:
       azureSubscription: 'PAYG (itan) (jarek@codeblast.pl)'
       KeyVaultName: 'itan-key-vault'
-      SecretsFilter: '*'
-      RunAsPreJob: true
+      SecretsFilter: 'SqlAdminConnectionString'
+      RunAsPreJob: false
   
   - task: PowerShell@2
     displayName: Set enviroment variable
     inputs:
       targetType: inline
       script: |
-            Write-Host "##vso[task.setvariable variable=SqlAdminConnectionString;]$(SqlAdminConnectionString)"
+        #Write-Host "##vso[task.setvariable variable=dupa;]'dupaaaaa'"
+        $mys = '$(SqlAdminConnectionString)'
+        #Write-Host "##vso[task.setvariable variable=trolololo;]$'(mys)'"
+            
 
   - task: DotNetCoreCLI@2
     inputs:
