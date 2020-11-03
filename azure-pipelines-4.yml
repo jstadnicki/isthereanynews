@@ -4,6 +4,9 @@ trigger:
 pool:
   vmImage: 'windows-latest'
 
+variables:
+  project: 'Itan.Database/Itan.Database.csproj'
+  
 steps:
 - task: AzureKeyVault@1
   displayName: Fetch AKV
