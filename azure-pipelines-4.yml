@@ -22,17 +22,7 @@ steps:
   inputs:
     targetType: inline
     script: |
-      Write-Host '##vso[task.setvariable variable=var-1]$env:MY_VARIABLE'
-      Write-Host '##vso[task.setvariable variable=var-2]$env:MY_VAR'
-      Write-Host '##vso[task.setvariable variable=var-3]yolo'
-      Write-Host '##vso[task.setvariable variable=var-4]$(SqlAdminConnectionString)'
-      Write-Host '##vso[task.setvariable variable=var-5]$(MY_VARIABLE)'
       Write-Host '##vso[task.setvariable variable=var-6]"$(SqlAdminConnectionString)"'
-      Write-Host "##vso[task.setvariable variable=var-7]'$(SqlAdminConnectionString)'"
-
-  env:
-    MY_VARIABLE : $(SqlAdminConnectionString)
-    MY_VAR: "blablabla"
 
 - task: DotNetCoreCLI@2
   continueOnError: true
@@ -49,3 +39,10 @@ steps:
     custom: ef
     arguments: 'migrations script -i -o migration.sql' 
     workingDirectory: 'Itan.Database'
+
+- task: PublishBuildArtifacts@1
+  displayName: Publish artifact
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
