@@ -22,8 +22,8 @@ steps:
     ng build --prod
   displayName: 'npm install and build'
 
-- task: PublishBuildArtifacts@1
+- task: CopyFiles@2
+  displayName: copy files
   inputs:
-    PathtoPublish: 'dist'
-    ArtifactName: 'ui'
-    publishLocation: 'Container'
+    Contents: 'dist/**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
