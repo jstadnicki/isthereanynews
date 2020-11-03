@@ -60,11 +60,12 @@ steps:
       azureSubscription: 'PAYG (itan) (jarek@codeblast.pl)'
       scriptType: 'pscore'
       scriptLocation: 'inlineScript'
-      inlineScript: 'dotnet ef migrations script -i -o $(Build.ArtifactStagingDirectory)\migration.sql --project $(project) --startup-project $(project) --msbuildprojectextensionspath obj/local'
+      inlineScript: 'dotnet ef migrations script -i -o migration.sql --project $(project) --startup-project $(project) --msbuildprojectextensionspath obj/local'
  
   - task: PublishBuildArtifacts@1
     inputs:
-      pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
-      artifactName: 'artifact.itan.database'
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'migration-sql-file'
+      publishLocation: 'Container'
 
 
