@@ -25,5 +25,6 @@ steps:
 - task: CopyFiles@2
   displayName: copy files
   inputs:
-    Contents: 'dist/ItanApplicationUI/**'
+    SourceFolder: 'dist/**'
+    Contents: '**'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
