@@ -9,6 +9,19 @@ variables:
   project: 'Itan.Database/Itan.Database.csproj'
 
 steps:
+  - task: AzureKeyVault@1
+    displayName: Fetch AKV
+    inputs:
+      azureSubscription: 'PAYG (itan) (jarek@codeblast.pl)'
+      KeyVaultName: 'itan-key-vault'
+      SecretsFilter: '*'
+      RunAsPreJob: false
+  - task: PowerShell@2
+    displayName: Set enviroment variable
+    inputs:
+      targetType: inline
+      script: |
+        Write-Host '##vso[task.setvariable variable=var-6]"$(SqlAdminConnectionString)"'
 
   - task: DotNetCoreCLI@2
     displayName: dotnet restore
