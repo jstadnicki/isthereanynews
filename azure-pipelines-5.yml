@@ -25,6 +25,6 @@ steps:
 - task: CopyFiles@2
   displayName: copy files
   inputs:
-    SourceFolder: '$(Build.SourcesDirectory)/Itan.Application.UI/dist/**/*'
+    SourceFolder: '$(Build.SourcesDirectory)/Itan.Application.UI/dist/ItanApplicationUI/*'
     Contents: '**'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
