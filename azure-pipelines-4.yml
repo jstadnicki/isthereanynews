@@ -1,51 +1,71 @@
-# ASP.NET Core
-# Build and test ASP.NET Core projects targeting .NET Core.
-# Add steps that run tests, create a NuGet package, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
-
 trigger:
 - master
 
 pool:
   vmImage: 'windows-latest'
 
+variables:
+  buildConfiguration: 'Release'
+  project: 'Itan.Database/Itan.Database.csproj'
+
 steps:
-- task: AzureKeyVault@1
-  displayName: Fetch AKV
-  inputs:
-    azureSubscription: 'PAYG (itan) (jarek@codeblast.pl)'
-    KeyVaultName: 'itan-key-vault'
-    SecretsFilter: '*'
-    RunAsPreJob: false
-- task: PowerShell@2
-  displayName: Set enviroment variable
-  inputs:
-    targetType: inline
-    script: |
-      Write-Host '##vso[task.setvariable variable=var-1]$env:MY_VARIABLE'
-      Write-Host '##vso[task.setvariable variable=var-2]$env:MY_VAR'
-      Write-Host '##vso[task.setvariable variable=var-3]yolo'
-      Write-Host '##vso[task.setvariable variable=var-4]$(SqlAdminConnectionString)'
-      Write-Host '##vso[task.setvariable variable=var-5]$(MY_VARIABLE)'
-      Write-Host '##vso[task.setvariable variable=var-6]"$(SqlAdminConnectionString)"'
-      Write-Host "##vso[task.setvariable variable=var-7]'$(SqlAdminConnectionString)'"
+  - task: AzureKeyVault@1
+    displayName: Fetch AKV
+    inputs:
+      azureSubscription: 'PAYG (itan) (jarek@codeblast.pl)'
+      KeyVaultName: 'itan-key-vault'
+      SecretsFilter: '*'
+      RunAsPreJob: false
+  - task: PowerShell@2
+    displayName: Set enviroment variable
+    inputs:
+      targetType: inline
+      script: |
+        Write-Host '##vso[task.setvariable variable=var-6]"$(SqlAdminConnectionString)"'
 
-  env:
-    MY_VARIABLE : $(SqlAdminConnectionString)
-    MY_VAR: "blablabla"
+  - task: DotNetCoreCLI@2
+    displayName: dotnet restore
+    inputs:
+      command: restore
+      projects: '$(project)'
+  
+  - task: DotNetCoreCLI@2
+    displayName: dotnet build
+    inputs:
+      command: build
+      projects: '$(project)'
 
-- task: DotNetCoreCLI@2
-  continueOnError: true
-  inputs:
-    command: 'custom'
-    custom: 'tool'
-    arguments: 'install --global dotnet-ef'
+  - task: DotNetCoreCLI@2
+    inputs:
+        command: 'custom'
+        custom: 'tool'
+        arguments: 'install --global dotnet-ef'
 
-- task: DotNetCoreCLI@2
-  displayName: 'Create migration'
-  continueOnError: true
-  inputs:
-    command: custom
-    custom: ef
-    arguments: 'migrations script -i -o migration.sql' 
-    workingDirectory: 'Itan.Database'
+  - task: AzureCLI@2
+    inputs:
+      azureSubscription: 'PAYG (itan) (jarek@codeblast.pl)'
+      scriptType: 'pscore'
+      scriptLocation: 'inlineScript'
+      inlineScript: 'dotnet ef migrations script -i -o migration.sql'
+      workingDirectory: 'Itan.Database'
+
+  - task: AzureCLI@2
+    inputs:
+      azureSubscription: 'PAYG (itan) (jarek@codeblast.pl)'
+      scriptType: 'pscore'
+      scriptLocation: 'inlineScript'
+      inlineScript: 'dotnet ef migrations list --project $(project) --startup-project $(project) --msbuildprojectextensionspath Itan.Database/obj/local'
+  - task: AzureCLI@2
+    inputs:
+      azureSubscription: 'PAYG (itan) (jarek@codeblast.pl)'
+      scriptType: 'pscore'
+      scriptLocation: 'inlineScript'
+      inlineScript: 'dotnet ef migrations script -i -o $(Build.ArtifactStagingDirectory)/migration.sql --project $(project) --startup-project $(project) --msbuildprojectextensionspath obj/local'
+ 
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'migration-sql-file'
+      publishLocation: 'Container'
+
+
