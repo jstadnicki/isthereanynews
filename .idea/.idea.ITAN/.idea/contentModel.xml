@@ -116,30 +116,26 @@
       </e>
       <e p="Itan.Application.UI\node_modules\acorn" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\adal-angular" t="IncludeRecursive" />
-      <e p="Itan.Application.UI\node_modules\aggregate-error" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\ajv" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\ajv-keywords" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\ansi-colors" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\arg" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\blocking-proxy" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\bulma" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\canonical-path" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\chalk" t="IncludeRecursive" />
-      <e p="Itan.Application.UI\node_modules\clean-stack" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\cli-cursor" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\cli-spinners" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\codelyzer" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\commander" t="IncludeRecursive" />
-      <e p="Itan.Application.UI\node_modules\del" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\dependency-graph" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\fast-deep-equal" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\fast-json-stable-stringify" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\font-awesome" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\fsevents" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\hash.js" t="IncludeRecursive" />
-      <e p="Itan.Application.UI\node_modules\indent-string" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\is-docker" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\is-interactive" t="IncludeRecursive" />
-      <e p="Itan.Application.UI\node_modules\is-path-cwd" t="IncludeRecursive" />
-      <e p="Itan.Application.UI\node_modules\is-path-in-cwd" t="IncludeRecursive" />
-      <e p="Itan.Application.UI\node_modules\is-path-inside" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\is-wsl" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\jasmine-core" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\jasmine-spec-reporter" t="IncludeRecursive" />
@@ -152,14 +148,12 @@
       <e p="Itan.Application.UI\node_modules\license-webpack-plugin" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\log-symbols" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\magic-string" t="IncludeRecursive" />
-      <e p="Itan.Application.UI\node_modules\make-dir" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\make-error" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\mimic-fn" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\msal" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\onetime" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\open" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\ora" t="IncludeRecursive" />
-      <e p="Itan.Application.UI\node_modules\p-map" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\parse5" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\portfinder" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\postcss" t="IncludeRecursive" />
@@ -173,6 +167,7 @@
       <e p="Itan.Application.UI\node_modules\semver-dsl" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\source-map" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\sourcemap-codec" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\strip-ansi" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\symbol-observable" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\terser" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\tree-kill" t="IncludeRecursive" />
@@ -234,6 +229,7 @@
       <e p="Itan.Application.UI\node_modules\typescript\lib\lib.webworker.importscripts.d.ts" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\uri-js" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\webdriver-js-extender" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\webdriver-manager" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\yn" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\zone.js" t="IncludeRecursive" />
       <e p="Itan.Common" t="IncludeRecursive">
