@@ -4,6 +4,7 @@ resource "azurerm_storage_account" "itan_storage_account" {
   location = var.location
   name = "itanstorageaccount"
   resource_group_name = var.resource-group-name
+  account_kind = "StorageV2"
 
   static_website {
     index_document = "index.html"
