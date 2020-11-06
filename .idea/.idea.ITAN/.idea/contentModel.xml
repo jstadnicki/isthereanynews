@@ -100,7 +100,6 @@
       <e p="Itan.Application.UI\node_modules\@angular-devkit\architect" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\@angular-devkit\build-angular" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\@angular-devkit\build-optimizer" t="IncludeRecursive" />
-      <e p="Itan.Application.UI\node_modules\@angular-devkit\build-webpack" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\@angular-devkit\core" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\@angular-devkit\schematics" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\@azure\msal-angular" t="IncludeRecursive" />
@@ -119,6 +118,7 @@
       <e p="Itan.Application.UI\node_modules\ajv" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\ajv-keywords" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\ansi-colors" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\ansi-regex" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\arg" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\blocking-proxy" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\bulma" t="IncludeRecursive" />
@@ -127,6 +127,7 @@
       <e p="Itan.Application.UI\node_modules\cli-cursor" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\cli-spinners" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\codelyzer" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\colorette" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\commander" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\dependency-graph" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\fast-deep-equal" t="IncludeRecursive" />
@@ -154,10 +155,8 @@
       <e p="Itan.Application.UI\node_modules\onetime" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\open" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\ora" t="IncludeRecursive" />
-      <e p="Itan.Application.UI\node_modules\parse5" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\portfinder" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\postcss" t="IncludeRecursive" />
-      <e p="Itan.Application.UI\node_modules\promise" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\protractor" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\reflect-metadata" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\restore-cursor" t="IncludeRecursive" />
@@ -211,25 +210,25 @@
       <e p="Itan.Application.UI\node_modules\typescript\lib\lib.es2019.object.d.ts" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\typescript\lib\lib.es2019.string.d.ts" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\typescript\lib\lib.es2019.symbol.d.ts" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\typescript\lib\lib.es2020.bigint.d.ts" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\typescript\lib\lib.es2020.d.ts" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\typescript\lib\lib.es2020.full.d.ts" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\typescript\lib\lib.es2020.intl.d.ts" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\typescript\lib\lib.es2020.promise.d.ts" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\typescript\lib\lib.es2020.string.d.ts" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\typescript\lib\lib.es2020.symbol.wellknown.d.ts" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\typescript\lib\lib.es5.d.ts" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\typescript\lib\lib.es6.d.ts" t="IncludeRecursive" />
-      <e p="Itan.Application.UI\node_modules\typescript\lib\lib.esnext.array.d.ts" t="IncludeRecursive" />
-      <e p="Itan.Application.UI\node_modules\typescript\lib\lib.esnext.asynciterable.d.ts" t="IncludeRecursive" />
-      <e p="Itan.Application.UI\node_modules\typescript\lib\lib.esnext.bigint.d.ts" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\typescript\lib\lib.esnext.d.ts" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\typescript\lib\lib.esnext.full.d.ts" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\typescript\lib\lib.esnext.intl.d.ts" t="IncludeRecursive" />
-      <e p="Itan.Application.UI\node_modules\typescript\lib\lib.esnext.symbol.d.ts" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\typescript\lib\lib.esnext.promise.d.ts" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\typescript\lib\lib.esnext.string.d.ts" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\typescript\lib\lib.scripthost.d.ts" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\typescript\lib\lib.webworker.d.ts" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\typescript\lib\lib.webworker.importscripts.d.ts" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\uri-js" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\webdriver-js-extender" t="IncludeRecursive" />
-      <e p="Itan.Application.UI\node_modules\webdriver-manager" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\yn" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\zone.js" t="IncludeRecursive" />
       <e p="Itan.Common" t="IncludeRecursive">
