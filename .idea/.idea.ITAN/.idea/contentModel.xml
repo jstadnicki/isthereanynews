@@ -319,7 +319,6 @@
         <e p="DesignTimeDbContextFactory.cs" t="Include" />
         <e p="EntityFrameworkContext.cs" t="Include" />
         <e p="Itan.Database.csproj" t="IncludeRecursive" />
-        <e p="m.sql" t="Include" />
         <e p="Migrations" t="Include">
           <e p="20190914223358_Channels.cs" t="Include" />
           <e p="20190914223358_Channels.Designer.cs" t="Include" />
