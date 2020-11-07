@@ -58,7 +58,7 @@ export class ChannelsPageComponent implements OnInit {
     this.news = null;
 
     this.http
-      .get<News[]>(`https://localhost:5001/api/news/${channel.id}`)
+      .get<News[]>(`https://itan-app-service-webapi.azurewebsites.net/api/news/${channel.id}`)
       .subscribe((r) => {
         this.news = r;
         this.areNewsLoading = false;
@@ -109,7 +109,7 @@ export class ChannelsPageComponent implements OnInit {
 
   async loadChannels() {
     this.http
-      .get<Channel[]>("https://localhost:5001/api/channels")
+      .get<Channel[]>("https://itan-app-service-webapi.azurewebsites.net/channels")
       .subscribe((r) => {
         this.channels = r;
         this.areChannelsLoaded = true;
