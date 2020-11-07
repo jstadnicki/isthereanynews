@@ -10,3 +10,10 @@ if (environment.production) {
 
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
+
+declare module "@angular/core" {
+  interface ModuleWithProviders<T = any> {
+    ngModule: Type<T>;
+    providers?: Provider[];
+  }
+}
