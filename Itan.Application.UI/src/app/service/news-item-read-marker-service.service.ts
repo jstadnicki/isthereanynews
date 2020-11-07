@@ -21,7 +21,7 @@ export class NewsItemReadMarkerServiceService {
     };
 
     this.http
-      .post(`https://localhost:5001/api/ChannelReadNews`, body, options)
+      .post(`https://itan-app-service-webapi.azurewebsites.net/api/ChannelReadNews`, body, options)
       .subscribe((r) => {
         console.log(r);
       });

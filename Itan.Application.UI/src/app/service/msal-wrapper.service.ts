@@ -63,7 +63,7 @@ export class MsalWrapperService {
       }
 
       this.http
-        .post("https://localhost:5001/api/users", body, options)
+        .post("https://itan-app-service-webapi.azurewebsites.net/api/users", body, options)
         .subscribe(e => {
           console.log(e);
         });

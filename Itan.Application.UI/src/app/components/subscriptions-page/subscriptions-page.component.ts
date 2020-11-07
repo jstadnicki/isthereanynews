@@ -40,7 +40,7 @@ export class SubscriptionsPageComponent implements OnInit {
     this.news = null;
     var options = await this.msalWrapperService.getOptionsReadHeaders();
     this.http
-      .get<News[]>(`https://localhost:5001/api/UnreadNews/${channel.id}`, options)
+      .get<News[]>(`https://itan-app-service-webapi.azurewebsites.net/api/UnreadNews/${channel.id}`, options)
       .subscribe((r) => {
         this.news = r;
         this.areNewsLoading = false;
@@ -80,7 +80,7 @@ export class SubscriptionsPageComponent implements OnInit {
     var options = await this.msalWrapperService.getOptionsReadHeaders();
 
     this.http
-      .get<Channel[]>(`https://localhost:5001/api/subscriptions/${userId}`, options)
+      .get<Channel[]>(`https://itan-app-service-webapi.azurewebsites.net/api/subscriptions/${userId}`, options)
       .subscribe((r) => {
         this.channels = r;
         this.areChannelsLoaded = true;

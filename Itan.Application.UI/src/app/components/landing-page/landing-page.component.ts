@@ -26,7 +26,7 @@ export class LandingPageComponent implements OnInit {
   loaded: boolean = false;
 
   loadLandingPageNews() {
-    this.http.get<HomePageNews>('https://localhost:5001/api/landingpage/news')
+    this.http.get<HomePageNews>('https://itan-app-service-webapi.azurewebsites.net/api/landingpage/news')
       .subscribe(result => {
         this.news = result;
         this.loadContent();

@@ -21,7 +21,7 @@ export class ChannelsSubscriptionsServiceService {
     };
 
     this.http
-      .post(`https://localhost:5001/api/users/${userId}/channels`, body, options)
+      .post(`https://itan-app-service-webapi.azurewebsites.net/api/users/${userId}/channels`, body, options)
       .subscribe((r) => {
         console.log(r);
       });
@@ -33,7 +33,7 @@ export class ChannelsSubscriptionsServiceService {
     const userId = this.msalWrapperService.getAccountId();
 
     this.http
-      .delete(`https://localhost:5001/api/users/${userId}/channels/${channelId}`, options)
+      .delete(`https://itan-app-service-webapi.azurewebsites.net/api/users/${userId}/channels/${channelId}`, options)
       .subscribe((r) => {
         console.log(r);
       });

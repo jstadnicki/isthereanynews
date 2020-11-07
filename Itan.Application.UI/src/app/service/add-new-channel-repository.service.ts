@@ -22,6 +22,6 @@ export class AddNewChannelRepositoryService {
     };
 
     return this.http
-      .post(`https://localhost:5001/api/channels`, body, options);
+      .post(`https://itan-app-service-webapi.azurewebsites.net/api/channels`, body, options);
   }
 }
