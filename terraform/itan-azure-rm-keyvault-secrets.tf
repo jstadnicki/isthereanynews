@@ -39,13 +39,13 @@ resource "azurerm_key_vault_secret" "itan-secret-storage" {
 resource "azurerm_key_vault_secret" "itan-secret-sql-reader" {
   name = "ConnectionStrings--SqlReader"
   key_vault_id = azurerm_key_vault.itan-key-vault.id
-  value = "server=.;database=itan;User Id=itanreaduser;password=${random_password.itan-mssql-reader-password.result}"
+  value = "server=tcp:${azurerm_mssql_server.itan-mssql-server.fully_qualified_domain_name};database=itan;User Id=itanreaduser;password=${random_password.itan-mssql-reader-password.result}"
 }
 
 resource "azurerm_key_vault_secret" "itan-secret-sql-writer" {
   name = "ConnectionStrings--SqlWriter"
   key_vault_id = azurerm_key_vault.itan-key-vault.id
-  value = "server=.;database=itan;User Id=itanwriteuser;password=${random_password.itan-mssql-writer-password.result}"
+  value = "server=tcp:${azurerm_mssql_server.itan-mssql-server.fully_qualified_domain_name};database=itan;User Id=itanwriteuser;password=${random_password.itan-mssql-writer-password.result}"
 }
 
 resource "azurerm_key_vault_secret" "itan-secret-sql-connection" {
