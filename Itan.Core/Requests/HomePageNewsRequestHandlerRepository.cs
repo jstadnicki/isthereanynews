@@ -15,12 +15,12 @@ namespace Itan.Core.Requests
     class HomePageNewsRequestHandlerRepository : IHomePageNewsRequestHandlerRepository
     {
         private string connectionString;
-        private string emulator;
+        private string storage;
 
         public HomePageNewsRequestHandlerRepository(ConnectionOptions options)
         {
             this.connectionString = options.SqlReader;
-            this.emulator = options.Emulator;
+            this.storage = options.Storage;
         }
         public async Task<HomePageNews> GetHomePageNews()
         {
@@ -97,7 +97,7 @@ namespace Itan.Core.Requests
                 result.BottomNews = queryResult.Skip(3).ToList();
             }
 
-            var account = CloudStorageAccount.Parse(this.emulator);
+            var account = CloudStorageAccount.Parse(this.storage);
             var serviceClient = account.CreateCloudBlobClient();
             var container = serviceClient.GetContainerReference("rss");
 

@@ -20,7 +20,7 @@ namespace Itan.Functions.Workers.Wrappers
             Ensure.NotNull(serializer, nameof(serializer));
 
             this.serializer = serializer;
-            this.storageAccount = CloudStorageAccount.Parse(connectionOptions.Value.Emulator);
+            this.storageAccount = CloudStorageAccount.Parse(connectionOptions.Value.Storage);
             this.queueClient = this.storageAccount.CreateCloudQueueClient();
             
         }

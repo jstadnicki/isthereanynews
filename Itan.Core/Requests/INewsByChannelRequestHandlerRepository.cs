@@ -23,7 +23,7 @@ namespace Itan.Core.Requests
         public NewsByChannelRequestHandlerRepository(ConnectionOptions options)
         {
             this.connectionString = options.SqlReader;
-            this.emulator = options.Emulator;
+            this.emulator = options.Storage;
         }
         
         public async Task<List<NewsViewModel>> GetAllByChannel(Guid channelId)

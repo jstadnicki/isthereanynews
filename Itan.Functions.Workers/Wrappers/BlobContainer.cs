@@ -12,12 +12,12 @@ namespace Itan.Functions.Workers.Wrappers
 {
     public class BlobContainer : IBlobContainer
     {
-        private readonly string emulatorConnectionString;
+        private readonly string storage;
 
         public BlobContainer(IOptions<ConnectionOptions> connectionOptions)
         {
             Ensure.NotNull(connectionOptions, nameof(connectionOptions));
-            this.emulatorConnectionString = connectionOptions.Value.Emulator;
+            this.storage = connectionOptions.Value.Storage;
         }
 
         public async Task UploadStringAsync(
@@ -26,7 +26,7 @@ namespace Itan.Functions.Workers.Wrappers
             string stringToUpload,
             IBlobContainer.UploadStringCompression compression = IBlobContainer.UploadStringCompression.None)
         {
-            var account = CloudStorageAccount.Parse(this.emulatorConnectionString);
+            var account = CloudStorageAccount.Parse(this.storage);
             var serviceClient = account.CreateCloudBlobClient();
             var container = serviceClient.GetContainerReference(containerName);
             await container.CreateIfNotExistsAsync();
@@ -65,7 +65,7 @@ namespace Itan.Functions.Workers.Wrappers
 
         public Task DeleteAsync(string containerName, string path)
         {
-            var account = CloudStorageAccount.Parse(this.emulatorConnectionString);
+            var account = CloudStorageAccount.Parse(this.storage);
             var serviceClient = account.CreateCloudBlobClient();
             var container = serviceClient.GetContainerReference(containerName);
             var blob = container.GetBlockBlobReference(path);
@@ -74,7 +74,7 @@ namespace Itan.Functions.Workers.Wrappers
 
         public async Task<string> ReadBlobAsStringAsync(string containerName, string path, IBlobContainer.UploadStringCompression compression)
         {
-            var account = CloudStorageAccount.Parse(this.emulatorConnectionString);
+            var account = CloudStorageAccount.Parse(this.storage);
             var serviceClient = account.CreateCloudBlobClient();
             var container = serviceClient.GetContainerReference(containerName);
             var blob = container.GetBlockBlobReference(path);
