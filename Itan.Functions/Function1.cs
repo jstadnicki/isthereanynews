@@ -11,7 +11,7 @@ namespace Itan.Functions
         public Function1(IFunction1Worker worker) => this.worker = worker;
 
         [FunctionName("Function1")]
-        public async Task RunAsync([TimerTrigger("0 0 0 */6 * *")] TimerInfo myTimer)
+        public async Task RunAsync([TimerTrigger("0 0 */6 * * *")] TimerInfo myTimer)
         {
             await worker.Run();
         }
