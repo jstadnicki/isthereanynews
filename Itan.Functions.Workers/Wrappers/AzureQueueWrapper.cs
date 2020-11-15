@@ -10,13 +10,18 @@ namespace Itan.Functions.Workers.Wrappers
     public class AzureQueueWrapper<T> : IQueue<T>
     {
         private readonly ISerializer serializer;
-        private CloudStorageAccount storageAccount;
-        private CloudQueueClient queueClient;
+        private readonly CloudStorageAccount storageAccount;
+        private readonly CloudQueueClient queueClient;
         private CloudQueue queue;
 
         public AzureQueueWrapper(IOptions<ConnectionOptions> connectionOptions, ISerializer serializer)
         {
             Ensure.NotNull(connectionOptions, nameof(connectionOptions));
+            Ensure.NotNull(connectionOptions.Value, nameof(connectionOptions.Value));
+            Ensure.NotNull(connectionOptions.Value.SqlReader, nameof(connectionOptions.Value.SqlReader));
+            Ensure.NotNull(connectionOptions.Value.SqlWriter, nameof(connectionOptions.Value.SqlWriter));
+            Ensure.NotNull(connectionOptions.Value.Storage, nameof(connectionOptions.Value.Storage));
+
             Ensure.NotNull(serializer, nameof(serializer));
 
             this.serializer = serializer;
