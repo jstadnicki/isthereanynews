@@ -9,4 +9,8 @@ resource "azurerm_app_service" "itan-app-service-api" {
   }
   
   depends_on = [azurerm_app_service_plan.itan-app-service-plan-api]
+
+  app_settings = {
+    APPINSIGHTS_INSTRUMENTATIONKEY = azurerm_application_insights.itan-application-insights.instrumentation_key
+  }
 }
