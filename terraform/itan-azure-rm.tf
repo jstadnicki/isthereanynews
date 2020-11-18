@@ -1,5 +1,5 @@
 provider "azurerm" {
-  version = "=2.32"
+  version = "=2.36"
   subscription_id = var.subscription-id
   tenant_id = var.tenant-id
   features {
