@@ -12,7 +12,7 @@ steps:
   - task: AzureKeyVault@1
     displayName: Fetch AKV
     inputs:
-      azureSubscription: 'PAYG (itan) (jarek@codeblast.pl)'
+      azureSubscription: 'PAYG (itan) service connection'
       KeyVaultName: 'itan-key-vault'
       SecretsFilter: '*'
       RunAsPreJob: false
