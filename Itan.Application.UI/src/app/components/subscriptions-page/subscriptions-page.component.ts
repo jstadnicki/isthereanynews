@@ -13,8 +13,7 @@ export class SubscriptionsPageComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private msalWrapperService: MsalWrapperService,
-    private newsReadMarker: NewsItemReadMarkerServiceService
-  ) {
+    private newsReadMarker: NewsItemReadMarkerServiceService) {
   }
 
   channels: Channel[];
@@ -61,7 +60,7 @@ export class SubscriptionsPageComponent implements OnInit {
     newsItem.loading = true;
     const url = newsItem.contentUrl;
     let headers = new HttpHeaders();
-    headers.append("Origin", "http://localhost:4200");
+    headers.append("Origin", window.location.hostname);
     let options = {headers: headers}
     this.http
       .get<NewsContent>(url, options)

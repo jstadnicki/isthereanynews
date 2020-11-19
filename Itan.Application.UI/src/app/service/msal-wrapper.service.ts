@@ -100,7 +100,7 @@ export class MsalWrapperService {
   }
 
   private authority: string = "https://isthereanynewscodeblast.b2clogin.com/isthereanynewscodeblast.onmicrosoft.com/B2C_1_itansignup";
-  private redirectUri: string = "http://localhost:4200";
+  private redirectUri: string = window.location.hostname;
 
   private createLoginRequest(): AuthenticationParameters {
     return {
