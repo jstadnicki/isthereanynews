@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {BehaviorSubject, Subject} from "rxjs";
 import {AuthenticationParameters} from "msal";
 import {BroadcastService, MsalService} from "@azure/msal-angular";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -63,7 +64,7 @@ export class MsalWrapperService {
       }
 
       this.http
-        .post("https://itan-app-service-webapi.azurewebsites.net/api/users", body, options)
+        .post(`${environment.apiUrl}/api/users`, body, options)
         .subscribe(e => {
           console.log(e);
         });

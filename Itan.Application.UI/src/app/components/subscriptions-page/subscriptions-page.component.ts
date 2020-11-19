@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {MsalWrapperService} from "../../service/msal-wrapper.service";
 import {NewsItemReadMarkerServiceService} from "../../service/news-item-read-marker-service.service";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-subscriptions-page',
@@ -40,7 +41,7 @@ export class SubscriptionsPageComponent implements OnInit {
     this.news = null;
     var options = await this.msalWrapperService.getOptionsReadHeaders();
     this.http
-      .get<News[]>(`https://itan-app-service-webapi.azurewebsites.net/api/UnreadNews/${channel.id}`, options)
+      .get<News[]>(`${environment.apiUrl}/api/UnreadNews/${channel.id}`, options)
       .subscribe((r) => {
         this.news = r;
         this.areNewsLoading = false;
@@ -80,7 +81,7 @@ export class SubscriptionsPageComponent implements OnInit {
     var options = await this.msalWrapperService.getOptionsReadHeaders();
 
     this.http
-      .get<Channel[]>(`https://itan-app-service-webapi.azurewebsites.net/api/subscriptions/${userId}`, options)
+      .get<Channel[]>(`${environment.apiUrl}/api/subscriptions/${userId}`, options)
       .subscribe((r) => {
         this.channels = r;
         this.areChannelsLoaded = true;

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {MsalWrapperService} from "./msal-wrapper.service";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class NewsItemReadMarkerServiceService {
     };
 
     this.http
-      .post(`https://itan-app-service-webapi.azurewebsites.net/api/ChannelReadNews`, body, options)
+      .post(`${environment.apiUrl}/api/ChannelReadNews`, body, options)
       .subscribe((r) => {
         console.log(r);
       });

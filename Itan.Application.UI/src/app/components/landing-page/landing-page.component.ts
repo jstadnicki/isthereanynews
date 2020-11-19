@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-landing-page',
@@ -26,7 +27,7 @@ export class LandingPageComponent implements OnInit {
   loaded: boolean = false;
 
   loadLandingPageNews() {
-    this.http.get<HomePageNews>('https://itan-app-service-webapi.azurewebsites.net/api/landingpage/news')
+    this.http.get<HomePageNews>(`${environment.apiUrl}/api/landingpage/news`)
       .subscribe(result => {
         this.news = result;
         this.loadContent();

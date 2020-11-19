@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {MsalWrapperService} from "../../service/msal-wrapper.service";
 import {ChannelsSubscriptionsServiceService} from "../../service/channels-subscriptions-service.service";
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: "app-channels-page",
@@ -58,7 +59,7 @@ export class ChannelsPageComponent implements OnInit {
     this.news = null;
 
     this.http
-      .get<News[]>(`https://itan-app-service-webapi.azurewebsites.net/api/news/${channel.id}`)
+      .get<News[]>(`${environment.apiUrl}/api/news/${channel.id}`)
       .subscribe((r) => {
         this.news = r;
         this.areNewsLoading = false;
@@ -109,7 +110,7 @@ export class ChannelsPageComponent implements OnInit {
 
   async loadChannels() {
     this.http
-      .get<Channel[]>("https://itan-app-service-webapi.azurewebsites.net/channels")
+      .get<Channel[]>(`${environment.apiUrl}/api/channels`)
       .subscribe((r) => {
         this.channels = r;
         this.areChannelsLoaded = true;
