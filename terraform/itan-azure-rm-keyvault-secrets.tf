@@ -69,5 +69,5 @@ resource "azurerm_key_vault_secret" "itan-secret-admin-name" {
 resource "azurerm_key_vault_secret" "itan-server-name" {
   name = "SqlServerName"
   key_vault_id = azurerm_key_vault.itan-key-vault.id
-  value = "Server=tcp:${azurerm_mssql_server.itan-mssql-server.fully_qualified_domain_name}"
+  value = azurerm_mssql_server.itan-mssql-server.fully_qualified_domain_name
 }
