@@ -62,7 +62,6 @@
         <div class="columns">
           <div class="column" *ngFor="let idx of [0,1,2]">
             <article class="media">
-              <figure class="media-left"
               <figure class="media-left" *ngIf="hasImage(news.bottomNews[bottomPage+idx])">>
                 <p class="image is-64x64">
                   <img src="{{news.bottomNews[bottomPage+idx].content.Image}}">
