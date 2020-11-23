@@ -52,7 +52,7 @@ const isIE =
     MsalModule.forRoot(
       {
         auth: {
-          clientId: "01805485-e711-4975-bbed-d10eb448d097",
+          clientId: "9181bdde-959f-42a6-a253-b10a6f05d883",
           authority:
             "https://isthereanynewscodeblast.b2clogin.com/isthereanynewscodeblast.onmicrosoft.com/B2C_1_itansignup",
           validateAuthority: false,
