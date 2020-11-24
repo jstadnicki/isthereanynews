@@ -1,5 +1,5 @@
-resource "azurerm_key_vault_secret" "clientid" {
-  name = "clientid"
+resource "azurerm_key_vault_secret" "itan-secret-client-id" {
+  name = "AzureAdB2C--ClientId"
   key_vault_id = azurerm_key_vault.itan-key-vault.id
   value = azuread_application.itan-ad-application-api.application_id
 }
