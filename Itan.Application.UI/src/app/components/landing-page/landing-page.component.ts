@@ -21,7 +21,7 @@ export class LandingPageComponent implements OnInit {
     }, 5000);
   }
 
-  news: HomePageNews;
+  news:HomePageNews = new HomePageNews();
   topIndex: number = 0;
   bottomPage: number = 0;
   loaded: boolean = false;
@@ -91,6 +91,11 @@ export class LandingPageComponent implements OnInit {
 class HomePageNews {
   topNews: LandingPageNews[];
   bottomNews: LandingPageNews[];
+
+  constructor() {
+    this.topNews = new LandingPageNews()[0];
+    this.bottomNews = new LandingPageNews()[0];
+  }
 }
 
 class LandingPageNews {
