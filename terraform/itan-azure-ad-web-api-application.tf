@@ -9,7 +9,7 @@ resource "azuread_application" "itan-ad-application-api" {
     admin_consent_description = "application_writer."
     admin_consent_display_name = "application_writer"
     is_enabled = true
-    type = "User"
+    type = "Admin"
     user_consent_description = "application_writer."
     user_consent_display_name = "application_writer"
     value = var.scope-reader
@@ -19,7 +19,7 @@ resource "azuread_application" "itan-ad-application-api" {
     admin_consent_description = "application_reader."
     admin_consent_display_name = "application_reader"
     is_enabled = true
-    type = "User"
+    type = "Admin"
     user_consent_description = "application_reader."
     user_consent_display_name = "application_reader"
     value = var.scope-writer
