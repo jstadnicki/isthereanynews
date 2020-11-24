@@ -5,6 +5,7 @@ resource "azuread_application" "itan-ad-application-ui" {
   identifier_uris = ["https://isthereanynewscodeblast.onmicrosoft.com/ui"]
   reply_urls = ["http://localhost:4200"]
   oauth2_allow_implicit_flow = false
+  available_to_other_tenants = true
 
   required_resource_access {
     resource_app_id = azuread_application.itan-ad-application-api.application_id
