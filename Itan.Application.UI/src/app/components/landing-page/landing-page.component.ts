@@ -42,7 +42,7 @@ export class LandingPageComponent implements OnInit {
     this.news.topNews.forEach((newsItem) => {
       const url = newsItem.contentLink;
       let headers = new HttpHeaders();
-      headers.append("Origin", window.location.hostname);
+      headers.set("Access-Control-Allow-Origin", window.location.origin);
       let options = {headers: headers}
       this.http
         .get<NewsContent>(url, options)
@@ -61,7 +61,7 @@ export class LandingPageComponent implements OnInit {
     this.news.bottomNews.forEach((newsItem) => {
       const url = newsItem.contentLink;
       let headers = new HttpHeaders();
-      headers.append("Origin", window.location.hostname);
+      headers.append("Origin", window.location.origin);
       let options = {headers: headers}
       this.http
         .get<NewsContent>(url, options)

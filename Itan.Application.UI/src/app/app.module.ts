@@ -56,7 +56,7 @@ const isIE =
           authority:
             "https://isthereanynewscodeblast.b2clogin.com/isthereanynewscodeblast.onmicrosoft.com/B2C_1_itansignup",
           validateAuthority: false,
-          redirectUri: window.location.hostname
+          redirectUri: window.location.origin
         },
         cache: {
           cacheLocation: "localStorage",

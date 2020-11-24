@@ -100,7 +100,7 @@ export class MsalWrapperService {
   }
 
   private authority: string = "https://isthereanynewscodeblast.b2clogin.com/isthereanynewscodeblast.onmicrosoft.com/B2C_1_itansignup";
-  private redirectUri: string = window.location.hostname;
+  private redirectUri: string = window.location.origin;
 
   private createLoginRequest(): AuthenticationParameters {
     return {
@@ -127,7 +127,7 @@ export class MsalWrapperService {
   private createReadAccessRequest(): AuthenticationParameters {
     return {
       scopes: [
-        "https://isthereanynewscodeblast.onmicrosoft.com/api/application_writer",
+        "https://isthereanynewscodeblast.onmicrosoft.com/api/application-reader",
       ],
       authority: this.authority,
       redirectUri: this.redirectUri,
