@@ -115,7 +115,7 @@ export class MsalWrapperService {
   private createWriteAccessRequest(): AuthenticationParameters {
     return {
       scopes: [
-        "https://isthereanynewscodeblast.onmicrosoft.com/api/application_writer",
+        "https://isthereanynewscodeblast.onmicrosoft.com/api/application-writer",
       ],
       authority: this.authority,
       redirectUri: this.redirectUri,
