@@ -93,8 +93,8 @@ class HomePageNews {
   bottomNews: LandingPageNews[];
 
   constructor() {
-    this.topNews = new LandingPageNews()[0];
-    this.bottomNews = new LandingPageNews()[0];
+    this.topNews = new Array(0);
+    this.bottomNews = new Array(0);
   }
 }
 
