@@ -71,11 +71,11 @@ namespace Itan.Api
                     {
                         ValidAudiences = new[]
                         {
-                            "05cd7635-e6f4-47c9-a5ce-8ec04368b297",
-                            "f1ab593c-f0b4-44da-85dc-d89a457745a9",
+                            "9181bdde-959f-42a6-a253-b10a6f05d883",
+                            "67e91a82-4dbe-4d74-9c8e-68873f4a5e16"
                         },
                         ValidIssuer =
-                            "https://isthereanynewscodeblast.b2clogin.com/3408b585-a1ca-41d4-ae2f-ea3ea685223f/v2.0/"
+                            $"https://isthereanynewscodeblast.b2clogin.com/{this.configuration["AzureAdB2C:Tenant"]}/v2.0/"
                     };
                 });
 
