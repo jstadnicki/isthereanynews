@@ -32,8 +32,8 @@
                       {{news.topNews[topIndex].author}}
                     </small>
                     <br>
-                    <span>
-                      {{display(news.topNews[topIndex]) | striphtml}}
+                    <span [innerHTML]="display(news.topNews[topIndex])|striphtml">
+
                     </span>
                     <span class="icon is-small">
                     <i
@@ -76,8 +76,7 @@
                       {{news.bottomNews[bottomPage + idx]?.author}}
                     </small>
                     <br>
-                    <span>
-                      {{display(news.bottomNews[bottomPage + idx]) | striphtml}}
+                    <span [innerHTML]="display(news.bottomNews[bottomPage + idx]) | striphtml">
                     </span>
                     <br>
                     <span class="icon is-small"><i
