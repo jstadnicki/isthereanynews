@@ -1,12 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Autofac;
-using Itan.Api.Controllers;
 using Itan.Api.Middleware;
 using Itan.Common;
 using Microsoft.AspNetCore.Authentication;
@@ -21,7 +19,6 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 
@@ -79,22 +76,13 @@ namespace Itan.Api
                     };
                 });
 
-            // services.AddControllers(o =>
-            //     {
-            //         o.EnableEndpointRouting = false;
-            //         var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-            //         o.Filters.Add(new AuthorizeFilter(policy));
-            //     })
-            //     .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
-            //     .AddNewtonsoftJson();
-
             services.AddMvc(o =>
                 {
                     o.EnableEndpointRouting = false;
                     var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
                     o.Filters.Add(new AuthorizeFilter(policy));
                 })
-            .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddCors();
 
             services.AddAuthorization();
@@ -127,9 +115,8 @@ namespace Itan.Api
                     .GetSection("ConnectionStrings")
                     .Get<ConnectionOptions>())
                 .SingleInstance();
-            
-            builder.RegisterModule<ItanApiModule>(); 
 
+            builder.RegisterModule<ItanApiModule>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
