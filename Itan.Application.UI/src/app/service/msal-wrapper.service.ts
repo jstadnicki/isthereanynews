@@ -74,7 +74,7 @@ export class MsalWrapperService {
   private getOptions(token: string) {
     let headers = new HttpHeaders();
     let setHeaders = headers
-      .append("Access-Control-Allow-Origin", window.location.origin)
+      .append("Origin", window.location.origin)
       .append("Authorization",`Bearer ${token}`);
 
     return {headers: setHeaders};
