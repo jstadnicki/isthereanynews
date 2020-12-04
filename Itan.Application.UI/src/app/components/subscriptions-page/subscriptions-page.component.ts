@@ -38,7 +38,7 @@ export class SubscriptionsPageComponent implements OnInit {
     this.selectedChannel = channel;
     this.areNewsLoading = true;
     this.news = null;
-    var options = await this.msalWrapperService.getOptionsReadHeaders();
+    var options = await this.msalWrapperService.getOptionsHeaders();
     this.http
       .get<News[]>(`${environment.apiUrl}/api/UnreadNews/${channel.id}`, options)
       .subscribe((r) => {
@@ -77,7 +77,7 @@ export class SubscriptionsPageComponent implements OnInit {
 
   async loadChannels() {
     const userId = this.msalWrapperService.getAccountId();
-    var options = await this.msalWrapperService.getOptionsReadHeaders();
+    var options = await this.msalWrapperService.getOptionsHeaders();
 
     this.http
       .get<Channel[]>(`${environment.apiUrl}/api/subscriptions/${userId}`, options)

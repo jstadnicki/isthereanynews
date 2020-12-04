@@ -14,7 +14,7 @@ export class NewsItemReadMarkerServiceService {
   ) { }
 
   async MarkRead(channelId: string, newsId: string) {
-    const options = await this.msalWrapperService.getOptionsWriteHeaders();
+    const options = await this.msalWrapperService.getOptionsHeaders();
 
     const body = {
       channelId: channelId,

@@ -55,7 +55,7 @@ export class MsalWrapperService {
 
   private async createPersonAccount() {
     if (this.account.idToken.newUser === true) {
-      let accessTokenRequest = this.createWriteAccessRequest();
+      let accessTokenRequest = this.createAccessRequest();
       const token = await this.authService.acquireTokenSilent(accessTokenRequest);
       const options = this.getOptions(token.accessToken);
 
@@ -72,13 +72,16 @@ export class MsalWrapperService {
   }
 
   private getOptions(token: string) {
-    return {
-      headers: new HttpHeaders({Authorization: `Bearer ${token}`}),
-    };
+    let headers = new HttpHeaders();
+    let setHeaders = headers
+      .append("Access-Control-Allow-Origin", window.location.origin)
+      .append("Authorization",`Bearer ${token}`);
+
+    return {headers: setHeaders};
   }
 
-  public async getOptionsWriteHeaders() {
-    let accessTokenRequest = this.createWriteAccessRequest();
+  public async getOptionsHeaders() {
+    let accessTokenRequest = this.createAccessRequest();
     const token = await this.authService.acquireTokenSilent(accessTokenRequest);
     return this.getOptions(token.accessToken);
   }
@@ -112,22 +115,13 @@ export class MsalWrapperService {
     };
   }
 
-  private createWriteAccessRequest(): AuthenticationParameters {
-    return {
-      scopes: [
-        "https://isthereanynewscodeblast.onmicrosoft.com/api/application-writer",
-      ],
-      authority: this.authority,
-      redirectUri: this.redirectUri,
-      account: this.account,
-      sid: this.sessionId
-    };
-  }
 
-  private createReadAccessRequest(): AuthenticationParameters {
+
+  private createAccessRequest(): AuthenticationParameters {
     return {
       scopes: [
         "https://isthereanynewscodeblast.onmicrosoft.com/api/application-reader",
+        "https://isthereanynewscodeblast.onmicrosoft.com/api/application-writer",
       ],
       authority: this.authority,
       redirectUri: this.redirectUri,
@@ -140,9 +134,5 @@ export class MsalWrapperService {
     return this.account.accountIdentifier;
   }
 
-  public async getOptionsReadHeaders() {
-    let accessTokenRequest = this.createReadAccessRequest();
-    const token = await this.authService.acquireTokenSilent(accessTokenRequest);
-    return this.getOptions(token.accessToken);
-  }
+
 }
