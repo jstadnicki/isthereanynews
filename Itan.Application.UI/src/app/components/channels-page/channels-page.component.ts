@@ -74,7 +74,6 @@ export class ChannelsPageComponent implements OnInit {
     newsItem.loading = true;
     const url = newsItem.contentUrl;
     let headers = new HttpHeaders();
-    headers.append("Origin", window.location.origin);
     let options = {headers: headers}
     this.http
       .get<NewsContent>(url, options)
