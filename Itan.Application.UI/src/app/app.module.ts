@@ -77,8 +77,8 @@ const isIE =
       {path: "admin", component: AdminPageComponent},
       {path: "subscriptions", component: SubscriptionsPageComponent, canActivate: [MsalGuard]},
       {path: "channels", component: ChannelsPageComponent},
-      {path: "**", component: HomePageComponent},
-    ]),
+      {path: "**", component: HomePageComponent}
+    ],{useHash:true}),
   ],
   providers: [
     {
