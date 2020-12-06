@@ -83,7 +83,12 @@ namespace Itan.Api
                     o.Filters.Add(new AuthorizeFilter(policy));
                 })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-            services.AddCors();
+            services.AddCors(a => a.AddDefaultPolicy(builder =>
+            {
+                builder.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+            }));
 
             services.AddAuthorization();
         }
@@ -133,10 +138,7 @@ namespace Itan.Api
             app.UseMiddleware<ItanExceptionMiddleware>();
             app.UseResponseCompression();
 
-            app.UseCors(b =>
-                b.AllowAnyOrigin()
-                    .AllowAnyHeader()
-                    .AllowAnyMethod());
+            app.UseCors();
             app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc();
