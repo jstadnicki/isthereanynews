@@ -16,6 +16,7 @@ import {SubscriptionsPageComponent} from './components/subscriptions-page/subscr
 import {StripHtmlPipe} from "./components/channels-page/strip-html.pipe";
 import {AddNewChannelComponent} from './components/add-new-channel/add-new-channel.component';
 import {FormsModule} from '@angular/forms';
+import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 
 import {
   HTTP_INTERCEPTORS,
@@ -78,14 +79,14 @@ const isIE =
       {path: "subscriptions", component: SubscriptionsPageComponent, canActivate: [MsalGuard]},
       {path: "channels", component: ChannelsPageComponent},
       {path: "**", component: HomePageComponent}
-    ],{useHash:true}),
+    ]),
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: MsalInterceptor,
       multi: true,
-    },
+    }, {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   bootstrap: [AppComponent],
 })
