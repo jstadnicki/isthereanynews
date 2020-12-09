@@ -56,7 +56,7 @@ export class MsalWrapperService {
   private async createPersonAccount() {
     if (this.account.idToken.newUser === true) {
       let accessTokenRequest = this.createAccessRequest();
-      const token = await this.authService.acquireTokenSilent(accessTokenRequest);
+      const token = await this.authService.acquireTokenPopup(accessTokenRequest);
       const options = this.getOptions(token.accessToken);
 
       let body = {
