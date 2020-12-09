@@ -78,7 +78,7 @@ const isIE =
       {path: "subscriptions", component: SubscriptionsPageComponent, canActivate: [MsalGuard]},
       {path: "channels", component: ChannelsPageComponent},
       {path: "**", component: HomePageComponent}
-    ],{useHash:true}),
+    ]),
   ],
   providers: [
     {
