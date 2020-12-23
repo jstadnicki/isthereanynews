@@ -15,18 +15,22 @@
     </div>
     <div class="column" style="overflow-y: hidden">
       <div *ngIf="importOpml==true">
-        <p>
-          Please select a valid .opml file that contains channels you would like to subscribe to.<br/>
-          Channels that already exists will be added to your subscriptions.<br/>
-          Channels new to ITAN will be added to public list and your subscriptions.<br/>
-          No data subscriptions will be removed.
-        </p>
+        <ul>
+          <li>Please select a valid .opml file that contains channels you would like to subscribe to</li>
+          <li>Channels that already exists will be added to your subscriptions</li>
+          <li>Channels new to ITAN will be added to public list and your subscriptions</li>
+          <li>No data subscriptions will be removed.</li>
+        </ul>
+        <div [ngClass]="{'is-hidden':!isImporting}" class="fa-5x fa fa-spin fa-spinner">
+
+        </div>
         <form [formGroup]="importForm" (ngSubmit)="onImportSubmit()">
-          <input id="file-input" type="file" (change)="handleFileInput($event)" />
+          <input id="file-input" type="file" (change)="handleFileInput($event)"/>
           <button
             class='button is-primary'
             type='submit'
-            id='buttonUpload'>upload file</button>
+            id='buttonUpload'>upload file
+          </button>
         </form>
       </div>
       <div *ngIf="selectedChannel!=null">

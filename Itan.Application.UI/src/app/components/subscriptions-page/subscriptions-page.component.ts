@@ -27,6 +27,7 @@ export class SubscriptionsPageComponent implements OnInit {
     inputFile: new FormControl(),
     buttonUpload: new FormControl(),
   });
+  isImporting: boolean = false;
 
   async ngOnInit(): Promise<void> {
     this.areChannelsLoaded = false;
@@ -74,14 +75,17 @@ export class SubscriptionsPageComponent implements OnInit {
     const formData = new FormData();
     let fileSourceValue = this.importForm.get('inputFile').value;
     formData.append('file', fileSourceValue);
+    this.isImporting = true;
 
     var options = await this.msalWrapperService.getOptionsHeaders();
     this.http.post(`${environment.apiUrl}/api/subscriptions/import`, formData, options)
       .subscribe(res => {
         console.log(res);
         alert('Uploaded Successfully.');
+        this.isImporting = false;
       }, err => {
         console.error(err);
+        this.isImporting = false;
       });
   }
 
