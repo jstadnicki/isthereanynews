@@ -33,6 +33,7 @@ export class MsalWrapperService {
 
   logout() {
     this.authService.logout();
+    this.authService.clearCacheForScope(this.sessionIdKeyName)
     localStorage.removeItem(this.sessionIdKeyName);
   }
 
