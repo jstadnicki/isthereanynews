@@ -9,8 +9,8 @@
     <e p="C:\Users\jaroslaw.stadnicki\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.reporters.netcoreapp10.dll" t="Include" />
     <e p="C:\Users\jaroslaw.stadnicki\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.utility.netcoreapp10.dll" t="Include" />
     <e p="C:\Users\jaroslaw.stadnicki\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll" t="Include" />
-    <e p="C:\Users\jaroslaw.stadnicki\AppData\local\JetBrains\Rider2020.2\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\jaroslaw.stadnicki\AppData\local\JetBrains\Rider2020.2\resharper-host\local\Transient\Rider\v202\SolutionCaches\_ITAN.188834465.00" t="ExcludeRecursive" />
+    <e p="C:\Users\jaroslaw.stadnicki\AppData\local\JetBrains\Rider2020.3\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\jaroslaw.stadnicki\AppData\local\JetBrains\Rider2020.3\resharper-host\local\Transient\Rider\v203\SolutionCaches\_ITAN.188834465.00" t="ExcludeRecursive" />
     <e p="C:\Users\jaroslaw.stadnicki\Dropbox\source\ITAN" t="IncludeFlat">
       <e p="ChannelDownloadSha256Generator" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
@@ -172,8 +172,6 @@
       <e p="Itan.Application.UI\node_modules\tree-kill" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\ts-node" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\tslib" t="IncludeRecursive" />
-      <e p="Itan.Application.UI\node_modules\tslint" t="IncludeRecursive" />
-      <e p="Itan.Application.UI\node_modules\tsutils" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\typescript\lib\lib.d.ts" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\typescript\lib\lib.dom.d.ts" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\typescript\lib\lib.dom.iterable.d.ts" t="IncludeRecursive" />
@@ -272,6 +270,14 @@
           <e p="UserToChannelSubscriptionsRepository.cs" t="Include" />
         </e>
         <e p="HomePageNews.cs" t="Include" />
+        <e p="ImportSubscriptions" t="Include">
+          <e p="Body.cs" t="Include" />
+          <e p="Head.cs" t="Include" />
+          <e p="ImportSubscriptionsRequest.cs" t="Include" />
+          <e p="ImportSubscriptionsRequestHandler.cs" t="Include" />
+          <e p="Opml.cs" t="Include" />
+          <e p="Outline.cs" t="Include" />
+        </e>
         <e p="Itan.Core.csproj" t="IncludeRecursive" />
         <e p="ItanCoreModule.cs" t="Include" />
         <e p="LandingPageNews.cs" t="Include" />
