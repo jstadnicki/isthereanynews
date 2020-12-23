@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using CodeHollow.FeedReader;
 using Itan.Core.Requests;
 using MediatR;
 
 namespace Itan.Core.Handlers
 {
-    public class ChannelsCreateNewChannelRequestHandler : RequestHandler<ChannelsCreateNewChannelRequest, ChannelCreateRequestResult>
+    public class ChannelsCreateNewChannelRequestHandler : IRequestHandler<ChannelsCreateNewChannelRequest, ChannelCreateRequestResult>
     {
         private readonly ICreateNewChannelRepository repository;
 
@@ -14,10 +16,10 @@ namespace Itan.Core.Handlers
             this.repository = repository;
         }
 
-        protected override ChannelCreateRequestResult Handle(ChannelsCreateNewChannelRequest request)
+        public async Task<ChannelCreateRequestResult> Handle(ChannelsCreateNewChannelRequest request, CancellationToken cancellationToken)
         {
             this.Validate(request);
-            this.repository.Save(request.Url, request.PersonId);
+            await this.repository.SaveAsync(request.Url, request.PersonId);
             return ChannelCreateRequestResult.Created;
         }
 
