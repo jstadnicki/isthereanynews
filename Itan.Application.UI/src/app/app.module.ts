@@ -15,7 +15,7 @@ import {ChannelsPageComponent} from "./components/channels-page/channels-page.co
 import {SubscriptionsPageComponent} from './components/subscriptions-page/subscriptions-page.component';
 import {StripHtmlPipe} from "./components/channels-page/strip-html.pipe";
 import {AddNewChannelComponent} from './components/add-new-channel/add-new-channel.component';
-import {FormsModule} from '@angular/forms';
+import {FormGroup, FormControl, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {
   HTTP_INTERCEPTORS,
@@ -42,7 +42,7 @@ const isIE =
     StripHtmlPipe,
     SubscriptionsPageComponent,
     AddNewChannelComponent,
-    LockerComponent
+    LockerComponent,
   ],
 
   imports: [
@@ -79,6 +79,7 @@ const isIE =
       {path: "channels", component: ChannelsPageComponent},
       {path: "**", component: HomePageComponent}
     ]),
+    ReactiveFormsModule,
   ],
   providers: [
     {

@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {MsalWrapperService} from "../../service/msal-wrapper.service";
 import {NewsItemReadMarkerServiceService} from "../../service/news-item-read-marker-service.service";
 import {environment} from "../../../environments/environment";
+import {FormGroup, FormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-subscriptions-page',
@@ -21,6 +22,11 @@ export class SubscriptionsPageComponent implements OnInit {
   news: News[];
   areChannelsLoaded: boolean;
   areNewsLoading: boolean;
+  importOpml: boolean = false;
+  importForm: FormGroup = new FormGroup({
+    inputFile: new FormControl(),
+    buttonUpload: new FormControl(),
+  });
 
   async ngOnInit(): Promise<void> {
     this.areChannelsLoaded = false;
@@ -32,6 +38,8 @@ export class SubscriptionsPageComponent implements OnInit {
   }
 
   async onChannelClick(channel: Channel) {
+    this.importOpml = false;
+
     if (channel == this.selectedChannel) {
       return;
     }
@@ -47,7 +55,38 @@ export class SubscriptionsPageComponent implements OnInit {
       });
   }
 
+  async onImportClick() {
+    this.selectedChannel = null;
+    this.importOpml = true;
+    this.news = null;
+  }
+
+  async handleFileInput(event) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.importForm.patchValue({
+        inputFile: file
+      });
+    }
+  }
+
+  async onImportSubmit() {
+    const formData = new FormData();
+    let fileSourceValue = this.importForm.get('inputFile').value;
+    formData.append('file', fileSourceValue);
+
+    var options = await this.msalWrapperService.getOptionsHeaders();
+    this.http.post(`${environment.apiUrl}/api/subscriptions/import`, formData, options)
+      .subscribe(res => {
+        console.log(res);
+        alert('Uploaded Successfully.');
+      }, err => {
+        console.error(err);
+      });
+  }
+
   async onNewsClick(newsItem: News) {
+
     if (newsItem.content != null) {
       newsItem.contentVisible = !newsItem.contentVisible;
       return;

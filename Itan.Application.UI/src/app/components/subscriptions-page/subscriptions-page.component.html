@@ -10,8 +10,25 @@
         <span class="text-ellipsis">{{channel.title}}</span>
         <span class="">({{channel.newsCount}})</span>
       </button>
+      <hr/>
+      <button class="button" (click)="onImportClick()">import</button>
     </div>
     <div class="column" style="overflow-y: hidden">
+      <div *ngIf="importOpml==true">
+        <p>
+          Please select a valid .opml file that contains channels you would like to subscribe to.<br/>
+          Channels that already exists will be added to your subscriptions.<br/>
+          Channels new to ITAN will be added to public list and your subscriptions.<br/>
+          No data subscriptions will be removed.
+        </p>
+        <form [formGroup]="importForm" (ngSubmit)="onImportSubmit()">
+          <input id="file-input" type="file" (change)="handleFileInput($event)" />
+          <button
+            class='button is-primary'
+            type='submit'
+            id='buttonUpload'>upload file</button>
+        </form>
+      </div>
       <div *ngIf="selectedChannel!=null">
         <article class="media">
           <figure class="media-left">
