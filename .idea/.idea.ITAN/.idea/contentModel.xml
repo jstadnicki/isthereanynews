@@ -273,6 +273,7 @@
         <e p="ImportSubscriptions" t="Include">
           <e p="Body.cs" t="Include" />
           <e p="Head.cs" t="Include" />
+          <e p="IChannelFinderRepository.cs" t="Include" />
           <e p="ImportSubscriptionsRequest.cs" t="Include" />
           <e p="ImportSubscriptionsRequestHandler.cs" t="Include" />
           <e p="Opml.cs" t="Include" />
