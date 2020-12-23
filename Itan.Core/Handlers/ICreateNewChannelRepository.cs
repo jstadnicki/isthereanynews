@@ -5,6 +5,6 @@ namespace Itan.Core.Handlers
 {
     public interface ICreateNewChannelRepository
     {
-        Task Save(string url, Guid submitterId);
+        Task<Guid> SaveAsync(string url, Guid submitterId);
     }
 }

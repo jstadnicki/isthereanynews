@@ -14,7 +14,7 @@ namespace Itan.Core.Handlers
         {
             this.connectionString = options.SqlWriter;
         }
-        public async Task Save(string url, Guid submitterId)
+        public async Task<Guid> SaveAsync(string url, Guid submitterId)
         {
             var sql = "if not exists " +
                       "(select top 1 url from channels where url=@url) " +
@@ -34,6 +34,7 @@ namespace Itan.Core.Handlers
 
             await using var connection = new SqlConnection(this.connectionString);
             await connection.ExecuteAsync(sql, sqlData);
+            return sqlData.channelId;
         }
     }
 }
