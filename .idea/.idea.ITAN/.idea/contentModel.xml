@@ -54,6 +54,7 @@
         <e p="appsettings.json" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="Controllers" t="Include">
+          <e p="ChannelOpenNewsController.cs" t="Include" />
           <e p="ChannelsController.cs" t="Include" />
           <e p="ChannelSubscriptionsController.cs" t="Include" />
           <e p="HealthController.cs" t="Include" />
@@ -282,6 +283,12 @@
         <e p="Itan.Core.csproj" t="IncludeRecursive" />
         <e p="ItanCoreModule.cs" t="Include" />
         <e p="LandingPageNews.cs" t="Include" />
+        <e p="MarkNewsOpen" t="Include">
+          <e p="IMarkNewsOpenRepository.cs" t="Include" />
+          <e p="MarkNewsOpenCommand.cs" t="Include" />
+          <e p="MarkNewsOpenCommandHandler.cs" t="Include" />
+          <e p="MarkNewsOpenRepository.cs" t="Include" />
+        </e>
         <e p="MarkNewsRead" t="Include">
           <e p="IMarkNewsReadRepository.cs" t="Include" />
           <e p="MarkNewsReadCommand.cs" t="Include" />
@@ -315,6 +322,7 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="Channel.cs" t="Include" />
         <e p="ChannelDownload.cs" t="Include" />
+        <e p="ChannelNewsOpened.cs" t="Include" />
         <e p="ChannelNewsRead.cs" t="Include" />
         <e p="ChannelsPersons.cs" t="Include" />
         <e p="ChannelSubmitter.cs" t="Include" />
@@ -360,6 +368,8 @@
           <e p="20200627122440_AddUniqueConstraintForShaChannelAndShaNews.Designer.cs" t="Include" />
           <e p="20201008212950_AddChannelNewsRead.cs" t="Include" />
           <e p="20201008212950_AddChannelNewsRead.Designer.cs" t="Include" />
+          <e p="20201225101939_AddChannelNewsOpened.cs" t="Include" />
+          <e p="20201225101939_AddChannelNewsOpened.Designer.cs" t="Include" />
           <e p="EntityFrameworkContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="News.cs" t="Include" />
