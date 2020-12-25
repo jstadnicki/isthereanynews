@@ -4,26 +4,26 @@ using System.Threading.Tasks;
 using Dapper;
 using Itan.Common;
 
-namespace Itan.Core.MarkNewsRead
+namespace Itan.Core.MarkNewsOpen
 {
-    internal class MarkNewsReadRepository : IMarkNewsReadRepository
+    class MarkNewsOpenRepository : IMarkNewsOpenRepository
     {
         private readonly string connectionString;
- 
-        public MarkNewsReadRepository(ConnectionOptions options)
+
+        public MarkNewsOpenRepository(ConnectionOptions options)
         {
             this.connectionString = options.SqlWriter;
         }
 
-        public async Task MarkReadAsync(Guid channelId, Guid newsId, Guid personId)
+        public async Task MarkNewsOpenAsync(Guid channelId, Guid newsId, Guid personId)
         {
             var sql =
-                $"if not exists (select top 1 * from ChannelNewsReads where ChannelId=@channelId AND NewsId=@newsId AND PersonId=@personId)\n" +
+                $"if not exists (select top 1 * from ChannelNewsOpened where ChannelId=@channelId AND NewsId=@newsId AND PersonId=@personId)\n" +
                 "BEGIN\n" +
-                "INSERT INTO ChannelNewsReads (Id, ChannelId, NewsId, PersonId, CreatedOn) \n" +
+                "INSERT INTO ChannelNewsOpened (Id, ChannelId, NewsId, PersonId, CreatedOn) \n" +
                 "VALUES (@id, @channelId, @newsId, @personId, @createdOn)" +
                 "END";
-            
+
             var sqlData = new
             {
                 id = Guid.NewGuid(),

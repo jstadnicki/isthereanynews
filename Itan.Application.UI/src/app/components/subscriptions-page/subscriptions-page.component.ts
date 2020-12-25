@@ -4,6 +4,7 @@ import {MsalWrapperService} from "../../service/msal-wrapper.service";
 import {NewsItemReadMarkerServiceService} from "../../service/news-item-read-marker-service.service";
 import {environment} from "../../../environments/environment";
 import {FormGroup, FormControl, Validators} from '@angular/forms';
+import {NewsItemOpenedMarkerService} from "../../service/news-item-opened-marker.service";
 
 @Component({
   selector: 'app-subscriptions-page',
@@ -14,7 +15,8 @@ export class SubscriptionsPageComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private msalWrapperService: MsalWrapperService,
-    private newsReadMarker: NewsItemReadMarkerServiceService) {
+    private newsReadMarker: NewsItemReadMarkerServiceService,
+    private newsOpenedMarker: NewsItemOpenedMarkerService) {
   }
 
   channels: Channel[];
@@ -113,6 +115,11 @@ export class SubscriptionsPageComponent implements OnInit {
       });
   }
 
+  async onExternalLinkClick(news: News) {
+    await this.newsOpenedMarker.MarkOpen(this.selectedChannel.id, news.id);
+    window.open(news.link);
+  }
+
   display(news: NewsContent): string {
     return news.Description ?? news.Content;
   }
@@ -146,6 +153,7 @@ class News {
   contentVisible: boolean = false;
   published: Date
   read: boolean = true;
+  link: string;
 }
 
 
