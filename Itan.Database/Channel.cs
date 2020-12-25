@@ -18,9 +18,10 @@ namespace Itan.Database
         public string Description { get; set; }
 
         public List<ChannelDownload> Downloads { get; set; }
-        public List<News> News { get; set; }
+        public virtual List<News> News { get; set; }
         public virtual List<ChannelsPersons> PersonSubscribers { get; set; }
         public virtual ChannelSubmitter Submitter { get; set; }
-        public IEnumerable<ChannelNewsRead> ChannelNewsRead { get; set; }
+        public virtual IEnumerable<ChannelNewsRead> ChannelNewsRead { get; set; }
+        public virtual IEnumerable<ChannelNewsOpened> ChannelNewsOpened { get; set; }
     }
 }

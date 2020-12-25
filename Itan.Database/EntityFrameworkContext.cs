@@ -22,11 +22,29 @@ namespace Itan.Database
 
             ConfigureNews(modelBuilder);
             ConfigureChannel(modelBuilder);
-            ConfigurePerson(modelBuilder);
             ConfigureChannelsPersons(modelBuilder);
             ConfigureChannelDownload(modelBuilder);
             ConfigureChannelSubmitter(modelBuilder);
             ConfigureChannelNewsRead(modelBuilder);
+            ConfigureChannelNewsOpened(modelBuilder);
+        }
+
+        private void ConfigureChannelNewsOpened(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ChannelNewsOpened>()
+                .HasOne<News>(x => x.News)
+                .WithMany(x => x.ChannelNewsOpened)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ChannelNewsOpened>()
+                .HasOne<Channel>(x => x.Channel)
+                .WithMany(x => x.ChannelNewsOpened)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ChannelNewsOpened>()
+                .HasOne<Person>(x => x.Person)
+                .WithMany(x => x.ChannelNewsOpened)
+                .OnDelete(DeleteBehavior.Restrict);
         }
 
         private void ConfigureChannelNewsRead(ModelBuilder modelBuilder)
@@ -34,6 +52,21 @@ namespace Itan.Database
             modelBuilder.Entity<ChannelNewsRead>()
                 .HasIndex(x => new {x.ChannelId, x.NewsId, x.PersonId})
                 .IsUnique();
+
+            modelBuilder.Entity<ChannelNewsRead>()
+                .HasOne<News>(x => x.News)
+                .WithMany(x => x.ChannelNewsRead)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ChannelNewsRead>()
+                .HasOne<Channel>(x => x.Channel)
+                .WithMany(x => x.ChannelNewsRead)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ChannelNewsRead>()
+                .HasOne<Person>(x => x.Person)
+                .WithMany(x => x.ChannelNewsRead)
+                .OnDelete(DeleteBehavior.Restrict);
         }
 
         private void ConfigureChannelSubmitter(ModelBuilder modelBuilder)
@@ -41,6 +74,16 @@ namespace Itan.Database
             modelBuilder.Entity<ChannelSubmitter>()
                 .HasIndex(x => x.ChannelId)
                 .IsUnique();
+
+            modelBuilder.Entity<ChannelSubmitter>()
+                .HasOne<Person>(x => x.Person)
+                .WithMany(x => x.SubmittedChannels)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ChannelSubmitter>()
+                .HasOne<Channel>(x => x.Channel)
+                .WithOne(x => x.Submitter)
+                .OnDelete(DeleteBehavior.Restrict);
         }
 
         private void ConfigureChannelDownload(ModelBuilder modelBuilder)
@@ -63,28 +106,10 @@ namespace Itan.Database
                 .OnDelete(DeleteBehavior.Restrict);
         }
 
-        private void ConfigurePerson(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Person>()
-                .HasMany<ChannelSubmitter>(x => x.SubmittedChannels)
-                .WithOne(x => x.Submitter)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Person>()
-                .HasMany<ChannelNewsRead>(x => x.ChannelNewsRead)
-                .WithOne(x => x.Person)
-                .OnDelete(DeleteBehavior.Restrict);
-        }
-
         private void ConfigureChannel(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Channel>()
                 .HasOne<ChannelSubmitter>(x => x.Submitter)
-                .WithOne(x => x.Channel)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Channel>()
-                .HasMany<ChannelNewsRead>(x => x.ChannelNewsRead)
                 .WithOne(x => x.Channel)
                 .OnDelete(DeleteBehavior.Restrict);
         }
@@ -98,11 +123,6 @@ namespace Itan.Database
             modelBuilder.Entity<News>()
                 .HasOne<Channel>(x => x.Channel)
                 .WithMany(x => x.News)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<News>()
-                .HasMany<ChannelNewsRead>(x => x.ChannelNewsRead)
-                .WithOne(x => x.News)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

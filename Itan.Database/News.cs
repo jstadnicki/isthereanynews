@@ -26,6 +26,7 @@ namespace Itan.Database
         [Required]
         public string SHA256 { get; set; }
 
-        public IEnumerable<ChannelNewsRead> ChannelNewsRead { get; set; }
+        public virtual IEnumerable<ChannelNewsRead> ChannelNewsRead { get; set; }
+        public virtual IEnumerable<ChannelNewsOpened> ChannelNewsOpened { get; set; }
     }
 }
