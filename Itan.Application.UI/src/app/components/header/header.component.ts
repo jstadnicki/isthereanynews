@@ -14,6 +14,7 @@ export class HeaderComponent implements OnInit {
   }
 
   loggedIn: boolean = false;
+  isBurgerMenuActive:boolean=false;
 
   ngOnInit(): void {
   }
@@ -28,5 +29,9 @@ export class HeaderComponent implements OnInit {
 
   getUserName(): string {
     return this.msalWrapper.getUserName();
+  }
+
+  onBurgerClick() {
+    this.isBurgerMenuActive=!this.isBurgerMenuActive;
   }
 }

@@ -5,14 +5,14 @@
       <span>ITAN</span>
     </a>
 
-    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+    <a role="button" class="navbar-burger burger" [ngClass]="{'is-active':isBurgerMenuActive}" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" (click)="onBurgerClick()">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
     </a>
   </div>
 
-  <div id="navbarBasicExample" class="navbar-menu">
+  <div id="navbarBasicExample" class="navbar-menu" [ngClass]="{'is-active':isBurgerMenuActive}">
     <div class="navbar-start">
 <!--      <a class="navbar-item" routerLink="/settings">-->
 <!--        settings-->
@@ -62,7 +62,7 @@
           <a class="button is-light" *ngIf="!loggedIn" (click)="login()">Log in</a>
           <a class="button is-light" *ngIf="loggedIn" (click)="logout()">Log out</a>
           <span *ngIf="loggedIn">
-            <span class="fa fa-user">{{this.getUserName()}}</span>
+            <span class="fa fa-user"> {{this.getUserName()}}</span>
           </span>
         </div>
       </div>
