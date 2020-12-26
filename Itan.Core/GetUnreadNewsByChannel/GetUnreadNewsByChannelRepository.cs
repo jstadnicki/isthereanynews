@@ -25,7 +25,8 @@ namespace Itan.Core.GetUnreadNewsByChannel
                         " from ChannelNewsReads cnr" +
                         " where cnr.ChannelId = @channelId" +
                         " and cnr.PersonId = @personId)"+
-                        " and n.ChannelId = @channelId";
+                        " and n.ChannelId = @channelId" +
+                        " order by n.Published desc";
 
             var queryData = new
             {
