@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +21,7 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 
@@ -103,25 +106,35 @@ namespace Itan.Api
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            var path = AppContext.BaseDirectory;
-            var files = Directory.GetFiles(path, "itan.*.dll", SearchOption.TopDirectoryOnly);
-            var x = Assembly.GetExecutingAssembly().GetReferencedAssemblies();
-
-            foreach (var assembly in x)
-            {
-                if (assembly.FullName.ToLower().Contains("itan"))
+            builder.Register<IOptions<ConnectionOptions>>(context =>
                 {
-                    var a = Assembly.Load(assembly);
-                    builder.RegisterAssemblyModules(a);
-                }
-            }
-
-            builder.Register<ConnectionOptions>(context => this.configuration
-                    .GetSection("ConnectionStrings")
-                    .Get<ConnectionOptions>())
+                    var s = this.configuration
+                        .GetSection("ConnectionStrings")
+                        .Get<ConnectionOptions>();
+                    return new OptionsWrapper<ConnectionOptions>(s);
+                })
                 .SingleInstance();
-
+            var assemblies = GetItanReferencedAssemblies(Assembly.GetExecutingAssembly());
+            RegisterAssemblyModules(builder, assemblies);
             builder.RegisterModule<ItanApiModule>();
+        }
+
+        private void RegisterAssemblyModules(ContainerBuilder builder, List<AssemblyName> assemblies)
+        {
+            foreach (var assembly in assemblies)
+            {
+                var a = Assembly.Load(assembly);
+                builder.RegisterAssemblyModules(a);
+                RegisterAssemblyModules(builder, GetItanReferencedAssemblies(a));
+            }
+        }
+
+        private List<AssemblyName> GetItanReferencedAssemblies(Assembly assembly)
+        {
+            return assembly
+                .GetReferencedAssemblies()
+                .Where(f => f.FullName.ToLowerInvariant().Contains("itan"))
+                .ToList();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
