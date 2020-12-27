@@ -1,6 +1,6 @@
 ﻿using AutoFixture;
 using Itan.Functions.Models;
-using Itan.Functions.Workers.Wrappers;
+using Itan.Wrappers;
 using Moq;
 
 namespace Itan.Functions.Workers.Tests.FunctionWorker4

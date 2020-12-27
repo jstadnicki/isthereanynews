@@ -16,6 +16,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Itan.Functions.Workers\Itan.Functions.Workers.csproj" />
+    <ProjectReference Include="..\Itan.Wrappers\Itan.Wrappers.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="host.json">

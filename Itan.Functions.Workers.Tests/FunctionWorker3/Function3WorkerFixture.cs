@@ -4,8 +4,7 @@ using System.IO;
 using AutoFixture;
 using Itan.Functions.Models;
 using Itan.Functions.Workers.Exceptions;
-using Itan.Functions.Workers.Model;
-using Itan.Functions.Workers.Wrappers;
+using Itan.Wrappers;
 using Moq;
 
 namespace Itan.Functions.Workers.Tests.FunctionWorker3

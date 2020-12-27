@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Dapper;
 using Itan.Common;
 using Itan.Functions.Workers.Model;
-using Itan.Functions.Workers.Wrappers;
+using Itan.Wrappers;
 using Microsoft.Extensions.Options;
 
 namespace Itan.Functions.Workers

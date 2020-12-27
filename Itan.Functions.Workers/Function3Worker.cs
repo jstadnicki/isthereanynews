@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Itan.Common;
 using Itan.Functions.Models;
 using Itan.Functions.Workers.Exceptions;
-using Itan.Functions.Workers.Wrappers;
-using Microsoft.Extensions.Logging;
+using Itan.Wrappers;
 
 namespace Itan.Functions.Workers
 {
