@@ -3,6 +3,7 @@ using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Dapper;
 using Itan.Common;
+using Microsoft.Extensions.Options;
 
 namespace Itan.Core.Requests
 {
@@ -15,9 +16,9 @@ namespace Itan.Core.Requests
     {
         private readonly string connectionString;
 
-        public UnsubscribeFromChannelRepository(ConnectionOptions options)
+        public UnsubscribeFromChannelRepository(IOptions<ConnectionOptions> options)
         {
-            this.connectionString = options.SqlWriter;
+            this.connectionString = options.Value.SqlWriter;
         }
 
         public async Task DeleteSubscriptionAsync(Guid channelId, Guid personId)

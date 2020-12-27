@@ -3,6 +3,7 @@ using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Dapper;
 using Itan.Common;
+using Microsoft.Extensions.Options;
 
 namespace Itan.Core.Handlers
 {
@@ -10,9 +11,9 @@ namespace Itan.Core.Handlers
     {
         private readonly string connectionString;
 
-        public CreateNewChannelRepository(ConnectionOptions options)
+        public CreateNewChannelRepository(IOptions<ConnectionOptions> options)
         {
-            this.connectionString = options.SqlWriter;
+            this.connectionString = options.Value.SqlWriter;
         }
         public async Task<Guid> SaveAsync(string url, Guid submitterId)
         {

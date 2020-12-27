@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using Itan.Common;
+using Microsoft.Extensions.Options;
 
 namespace Itan.Core.GetUnreadNewsByChannel
 {
@@ -11,9 +12,9 @@ namespace Itan.Core.GetUnreadNewsByChannel
     {
         private string connection;
 
-        public GetUnreadNewsByChannelRepository(ConnectionOptions connectionOptions)
+        public GetUnreadNewsByChannelRepository(IOptions<ConnectionOptions> connectionOptions)
         {
-            this.connection = connectionOptions.SqlReader;
+            this.connection = connectionOptions.Value.SqlReader;
         }
 
         public async Task<List<NewsHeader>> GetUnreadNewsAsync(string channelId, string personId)

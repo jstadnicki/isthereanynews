@@ -18,9 +18,9 @@ namespace Itan.Core
     {
         private string connectionString;
 
-        public GetAllChannelsViewModelsRequestHandler(ConnectionOptions options)
+        public GetAllChannelsViewModelsRequestHandler(IOptions<ConnectionOptions> options)
         {
-            this.connectionString = options.SqlReader;
+            this.connectionString = options.Value.SqlReader;
         }
 
         public async Task<List<ChannelViewModel>> Handle(

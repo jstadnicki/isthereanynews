@@ -17,10 +17,10 @@ namespace Itan.Core.Requests
         private string connectionString;
         private string storage;
 
-        public HomePageNewsRequestHandlerRepository(ConnectionOptions options)
+        public HomePageNewsRequestHandlerRepository(IOptions<ConnectionOptions> options)
         {
-            this.connectionString = options.SqlReader;
-            this.storage = options.Storage;
+            this.connectionString = options.Value.SqlReader;
+            this.storage = options.Value.Storage;
         }
         public async Task<HomePageNews> GetHomePageNews()
         {

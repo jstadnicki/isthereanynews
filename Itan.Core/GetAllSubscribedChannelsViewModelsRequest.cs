@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Dapper;
 using Itan.Common;
 using MediatR;
+using Microsoft.Extensions.Options;
 
 namespace Itan.Core
 {
@@ -18,9 +19,9 @@ namespace Itan.Core
     {
         private readonly string connectionString;
 
-        public GetAllSubscribedChannelsViewModelsRequestHandler(ConnectionOptions options)
+        public GetAllSubscribedChannelsViewModelsRequestHandler(IOptions<ConnectionOptions> options)
         {
-            this.connectionString = options.SqlReader;
+            this.connectionString = options.Value.SqlReader;
         }
 
         public async Task<List<ChannelViewModel>> Handle(

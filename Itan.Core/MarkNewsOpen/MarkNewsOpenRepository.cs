@@ -3,6 +3,7 @@ using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Dapper;
 using Itan.Common;
+using Microsoft.Extensions.Options;
 
 namespace Itan.Core.MarkNewsOpen
 {
@@ -10,9 +11,9 @@ namespace Itan.Core.MarkNewsOpen
     {
         private readonly string connectionString;
 
-        public MarkNewsOpenRepository(ConnectionOptions options)
+        public MarkNewsOpenRepository(IOptions<ConnectionOptions> options)
         {
-            this.connectionString = options.SqlWriter;
+            this.connectionString = options.Value.SqlWriter;
         }
 
         public async Task MarkNewsOpenAsync(Guid channelId, Guid newsId, Guid personId)

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using Itan.Common;
+using Microsoft.Extensions.Options;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 
@@ -20,10 +21,10 @@ namespace Itan.Core.Requests
         private string connectionString;
         private string emulator;
 
-        public NewsByChannelRequestHandlerRepository(ConnectionOptions options)
+        public NewsByChannelRequestHandlerRepository(IOptions<ConnectionOptions> options)
         {
-            this.connectionString = options.SqlReader;
-            this.emulator = options.Storage;
+            this.connectionString = options.Value.SqlReader;
+            this.emulator = options.Value.Storage;
         }
         
         public async Task<List<NewsViewModel>> GetAllByChannel(Guid channelId)

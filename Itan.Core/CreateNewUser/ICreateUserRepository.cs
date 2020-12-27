@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Threading.Tasks;
 using Dapper;
 using Itan.Common;
+using Microsoft.Extensions.Options;
 
 namespace Itan.Core.CreateNewUser
 {
@@ -16,9 +17,9 @@ namespace Itan.Core.CreateNewUser
     {
         private readonly string connectionString;
 
-        public CreateUserRepository(ConnectionOptions options)
+        public CreateUserRepository(IOptions<ConnectionOptions> options)
         {
-            this.connectionString = options.SqlWriter;
+            this.connectionString = options.Value.SqlWriter;
         }
 
         public async Task CreatePersonIfNotExists(Guid requestUserId)

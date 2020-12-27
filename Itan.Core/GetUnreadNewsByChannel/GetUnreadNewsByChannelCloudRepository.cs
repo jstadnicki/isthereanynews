@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Itan.Common;
+using Microsoft.Extensions.Options;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 
@@ -11,9 +12,9 @@ namespace Itan.Core.GetUnreadNewsByChannel
     {
         private string storage;
 
-        public GetUnreadNewsByChannelCloudRepository(ConnectionOptions connectionOptions)
+        public GetUnreadNewsByChannelCloudRepository(IOptions<ConnectionOptions> connectionOptions)
         {
-            this.storage = connectionOptions.Storage;
+            this.storage = connectionOptions.Value.Storage;
         }
 
         public List<NewsViewModel> GetNewsViewModel(string requestChannelId, List<NewsHeader> newsHeaders)

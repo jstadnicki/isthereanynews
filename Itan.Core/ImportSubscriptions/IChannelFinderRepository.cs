@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using Itan.Common;
+using Microsoft.Extensions.Options;
 
 namespace Itan.Core.ImportSubscriptions
 {
@@ -16,9 +17,9 @@ namespace Itan.Core.ImportSubscriptions
     {
         private readonly string connectionString;
 
-        public ChannelFinderRepository(ConnectionOptions options)
+        public ChannelFinderRepository(IOptions<ConnectionOptions> options)
         {
-            this.connectionString = options.SqlReader;
+            this.connectionString = options.Value.SqlReader;
         }
 
         public async Task<Guid> FindChannelIdByUrlAsync(string channelUrl)
