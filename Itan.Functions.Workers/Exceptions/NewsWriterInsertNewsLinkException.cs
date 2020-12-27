@@ -1,4 +1,5 @@
 ﻿using System;
+using Itan.Common;
 
 namespace Itan.Functions.Workers.Exceptions
 {
