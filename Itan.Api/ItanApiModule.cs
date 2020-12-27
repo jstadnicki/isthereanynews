@@ -1,13 +1,6 @@
-﻿using System.Reflection;
-using Autofac;
-using Autofac.Core;
-using Autofac.Core.Registration;
-using Itan.Api.Controllers;
+﻿using Autofac;
 using Itan.Api.Middleware;
-using Itan.Core.CreateNewUser;
-using MediatR;
 using Module = Autofac.Module;
-
 
 namespace Itan.Api
 {
