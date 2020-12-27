@@ -21,6 +21,11 @@
   <ItemGroup>
     <ProjectReference Include="..\Itan.Common\Itan.Common.csproj" />
     <ProjectReference Include="..\Itan.Functions.Models\Itan.Functions.Models.csproj" />
+    <ProjectReference Include="..\Itan.Wrappers\Itan.Wrappers.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Wrappers" />
   </ItemGroup>
 
 </Project>
