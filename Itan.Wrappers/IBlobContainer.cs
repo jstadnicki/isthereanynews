@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Itan.Functions.Workers.Wrappers
+namespace Itan.Wrappers
 {
     public interface IBlobContainer
     {

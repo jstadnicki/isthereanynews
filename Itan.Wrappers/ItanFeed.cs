@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Itan.Functions.Workers.Model
+namespace Itan.Wrappers
 {
     public class ItanFeed
     {

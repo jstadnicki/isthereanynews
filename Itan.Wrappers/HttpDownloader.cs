@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Itan.Common;
 
-namespace Itan.Functions.Workers.Wrappers
+namespace Itan.Wrappers
 {
     public class HttpDownloader : IHttpDownloader
     {

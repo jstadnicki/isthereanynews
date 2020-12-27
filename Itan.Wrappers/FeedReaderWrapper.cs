@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using CodeHollow.FeedReader;
-using Itan.Functions.Workers.Exceptions;
-using Itan.Functions.Workers.Model;
 
-namespace Itan.Functions.Workers.Wrappers
+namespace Itan.Wrappers
 {
     public class FeedReaderWrapper : IFeedReader
     {

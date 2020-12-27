@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Itan.Functions.Workers.Exceptions
+namespace Itan.Common
 {
     public class ItanException : Exception
     {

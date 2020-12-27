@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Itan.Functions.Workers
+namespace Itan.Common
 {
     public static class Ensure
     {

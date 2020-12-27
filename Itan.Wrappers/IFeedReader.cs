@@ -1,6 +1,4 @@
-﻿using Itan.Functions.Workers.Model;
-
-namespace Itan.Functions.Workers.Wrappers
+﻿namespace Itan.Wrappers
 {
     public interface IFeedReader
     {

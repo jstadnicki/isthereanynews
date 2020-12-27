@@ -8,7 +8,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 
-namespace Itan.Functions.Workers.Wrappers
+namespace Itan.Wrappers
 {
     public class BlobContainer : IBlobContainer
     {

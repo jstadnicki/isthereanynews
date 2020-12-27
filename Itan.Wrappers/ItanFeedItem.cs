@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Itan.Functions.Workers.Model
+namespace Itan.Wrappers
 {
     public class ItanFeedItem
-
     {
         public string Title { get; set; }
         public string Author { get; set; }

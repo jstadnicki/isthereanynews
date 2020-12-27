@@ -1,6 +1,7 @@
 ﻿using System;
+using Itan.Common;
 
-namespace Itan.Functions.Workers.Exceptions
+namespace Itan.Wrappers
 {
     public class FeedReaderWrapperParseStringException : ItanException
     {

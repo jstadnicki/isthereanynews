@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Queue;
 
-namespace Itan.Functions.Workers.Wrappers
+namespace Itan.Wrappers
 {
     public class AzureQueueWrapper<T> : IQueue<T>
     {

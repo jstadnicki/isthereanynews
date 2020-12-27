@@ -1,6 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Itan.Common;
+using Microsoft.Extensions.Logging;
 
-namespace Itan.Functions.Workers.Wrappers
+namespace Itan.Wrappers
 {
     public class Loger<T> : ILoger<T>
     {
