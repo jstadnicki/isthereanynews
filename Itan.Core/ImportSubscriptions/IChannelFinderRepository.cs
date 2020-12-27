@@ -10,7 +10,14 @@ namespace Itan.Core.ImportSubscriptions
 {
     public interface IChannelFinderRepository
     {
-        Task<Guid> FindChannelIdByUrlAsync(string channelUrl);
+        Task<Guid> FindChannelIdByUrlAsync(string channelUrl, Match match = Match.Exact);
+
+        public enum Match
+        {
+            Exact,
+            Like
+        }
+
     }
 
     class ChannelFinderRepository : IChannelFinderRepository
@@ -22,18 +29,24 @@ namespace Itan.Core.ImportSubscriptions
             this.connectionString = options.Value.SqlReader;
         }
 
-        public async Task<Guid> FindChannelIdByUrlAsync(string channelUrl)
+        public async Task<Guid> FindChannelIdByUrlAsync(string channelUrl, IChannelFinderRepository.Match match = IChannelFinderRepository.Match.Exact )
         {
-            var sql = "SELECT TOP 1 Id FROM channels WHERE url = @url";
+            var sql = $"SELECT TOP 1 Id FROM channels WHERE url {(match==IChannelFinderRepository.Match.Exact?GetExactUrlParam():GetLikeUrlParam())}";
 
             var sqlData = new
             {
-                url = channelUrl
+                url = match==IChannelFinderRepository.Match.Exact?GetValueExact(channelUrl):GetValueLike(channelUrl)
             };
 
             using var connection = new SqlConnection(this.connectionString);
             var executionResult = await connection.QueryAsync<Guid>(sql, sqlData);
             return executionResult.SingleOrDefault();
         }
+
+        private string GetValueLike(string channelUrl) => $"%{channelUrl}%";
+        private string GetValueExact(string channelUrl) => channelUrl;
+
+        private string GetLikeUrlParam() => "LIKE @url";
+        private string GetExactUrlParam() => " = @url";
     }
 }

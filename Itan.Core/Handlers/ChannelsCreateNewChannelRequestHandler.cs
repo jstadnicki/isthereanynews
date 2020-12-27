@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using CodeHollow.FeedReader;
+using Itan.Core.ImportSubscriptions;
 using Itan.Core.Requests;
 using Itan.Functions.Models;
 using Itan.Wrappers;
@@ -13,27 +14,39 @@ namespace Itan.Core.Handlers
     {
         private readonly ICreateNewChannelRepository repository;
         private readonly IQueue<ChannelToDownload> messagesCollector;
+        private readonly IChannelFinderRepository channelFinderRepository;
 
         public ChannelsCreateNewChannelRequestHandler(
             ICreateNewChannelRepository repository,
-            IQueue<ChannelToDownload> messagesCollector)
+            IQueue<ChannelToDownload> messagesCollector,
+            IChannelFinderRepository channelFinderRepository)
         {
             this.repository = repository;
             this.messagesCollector = messagesCollector;
+            this.channelFinderRepository = channelFinderRepository;
         }
 
         public async Task<ChannelCreateRequestResult> Handle(ChannelsCreateNewChannelRequest request, CancellationToken cancellationToken)
         {
             this.Validate(request);
-            var channelId = await this.repository.SaveAsync(request.Url, request.PersonId);
-            var mesg = new ChannelToDownload
+            var uri = new Uri(request.Url.ToLowerInvariant());
+            var channelToSearch = uri.Authority + uri.AbsolutePath;
+
+            var existingChannelId = await channelFinderRepository.FindChannelIdByUrlAsync(channelToSearch, IChannelFinderRepository.Match.Like);
+            if (existingChannelId == default(Guid))
             {
-                Id = channelId,
-                Url = request.Url
-            };
-            await this.messagesCollector.AddAsync(mesg,QueuesName.ChannelToDownload);
-            return ChannelCreateRequestResult.Created;
+                var channelId = await this.repository.SaveAsync(request.Url.ToLowerInvariant(), request.PersonId);
+                var mesg = new ChannelToDownload
+                {
+                    Id = channelId,
+                    Url = request.Url
+                };
+                await this.messagesCollector.AddAsync(mesg, QueuesName.ChannelToDownload);
+                return ChannelCreateRequestResult.Created;
+            }
+            return ChannelCreateRequestResult.AlreadyExists;
         }
+
 
         private void Validate(ChannelsCreateNewChannelRequest request)
         {

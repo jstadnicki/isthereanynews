@@ -36,18 +36,20 @@ namespace Itan.Core.ImportSubscriptions
                 {
                     continue;
                 }
+                var uri = new Uri(outline.XmlUrl.ToLowerInvariant());
+                var channelToSearch = uri.Authority + uri.AbsolutePath;
 
-                var channelId = await this.channelFinderRepository.FindChannelIdByUrlAsync(outline.XmlUrl.ToLowerInvariant());
+                var channelId = await this.channelFinderRepository.FindChannelIdByUrlAsync(channelToSearch, IChannelFinderRepository.Match.Like);
                 if (channelId == default(Guid))
                 {
                     channelId = await this.createNewChannelRepository.SaveAsync(outline.XmlUrl.ToLowerInvariant(), request.UserId);
                 }
-                var mesg = new ChannelToDownload
+                var message = new ChannelToDownload
                 {
                     Id = channelId,
                     Url = outline.XmlUrl.ToLowerInvariant()
                 };
-                await this.messagesCollector.AddAsync(mesg,QueuesName.ChannelToDownload);
+                await this.messagesCollector.AddAsync(message,QueuesName.ChannelToDownload);
                 await this.subscriptionsRepository.CreateSubscriptionAsync(channelId, request.UserId);
             }
 
