@@ -122,6 +122,12 @@ namespace Itan.Database.Migrations
                     b.Property<Guid>("PersonId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("ReadType")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("Read");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NewsId");

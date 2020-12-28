@@ -17,6 +17,9 @@ namespace Itan.Database
         public Guid NewsId { get; set; }
 
         public DateTime CreatedOn { get; set; }
+
+        [Required]
+        public string ReadType { get; set; }
         
         [Required]
         public Guid PersonId { get; set; }

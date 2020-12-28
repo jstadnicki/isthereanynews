@@ -67,6 +67,10 @@ namespace Itan.Database
                 .HasOne<Person>(x => x.Person)
                 .WithMany(x => x.ChannelNewsRead)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ChannelNewsRead>()
+                .Property(p => p.ReadType)
+                .HasDefaultValue("Read");
         }
 
         private void ConfigureChannelSubmitter(ModelBuilder modelBuilder)
