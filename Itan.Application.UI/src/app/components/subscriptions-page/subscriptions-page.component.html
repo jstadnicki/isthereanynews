@@ -3,6 +3,9 @@
     <div class="column is-2">
       <progress class="progress is-large is-info is-hidden" [ngClass]="{'is-hidden':areChannelsLoaded}" max="100">60%
       </progress>
+      <div [ngClass]="{'is-hidden':!areChannelsLoaded || channels.length>0 }">
+        Looks like you are up to date with all news. Check later or subscribe more channels.
+      </div>
       <button class='button is-small'
               (click)="onChannelClick(channel)"
               [ngClass]="{'is-active':this.selectedChannel!=null && channel.id == this.selectedChannel.id}"
