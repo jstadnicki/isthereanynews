@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Itan.Common;
 
@@ -18,6 +19,8 @@ namespace Itan.Wrappers
         public async Task<string> GetStringAsync(string url)
         {
             var client = HttpClientFactory.Create();
+            client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue(new ProductHeaderValue("www.isthereanynews.com")));
+
             try
             {
                 return await client.GetStringAsync(url);

@@ -522,7 +522,20 @@
         <e p="StreamReaderWrapper.cs" t="Include" />
       </e>
       <e p="packages" t="ExcludeRecursive" />
-      <e p="SupportTools" t="Include" />
+      <e p="SupportTools" t="Include">
+        <e p="Worker2Runner" t="IncludeRecursive">
+          <e p="bin" t="ExcludeRecursive" />
+          <e p="obj" t="ExcludeRecursive">
+            <e p="Debug" t="Include">
+              <e p="netcoreapp3.1" t="Include">
+                <e p="Worker2Runner.AssemblyInfo.cs" t="Include" />
+              </e>
+            </e>
+          </e>
+          <e p="Program.cs" t="Include" />
+          <e p="Worker2Runner.csproj" t="IncludeRecursive" />
+        </e>
+      </e>
     </e>
   </component>
 </project>
