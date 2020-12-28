@@ -51,11 +51,13 @@
             </div>
             <nav class="level is-mobile">
               <div class="level-left">
-                <a class="level-item">
-                  <span class="icon is-small">
-                    <i class="fa fa-minus-square-o" alt="subscribe" (click)="unsubscribe(selectedChannel)"></i>
-                  </span>
-                </a>
+                <button class="level-item button is-small" (click)="unsubscribe(selectedChannel)">
+                  <i class="fa fa-minus-square-o" alt="unsubscribe"></i>
+                  Unsubscribe
+                </button>
+                <button class="level-item button is-small" (click)="markUnreadAsRead(selectedChannel)">
+                  mark unread as read
+                </button>
               </div>
             </nav>
           </div>
@@ -105,7 +107,7 @@
                 <!--                  <span class="icon is-small"><i class="fa fa-bookmark-o"></i></span>-->
                 <!--                </a>-->
                 <a class="level-item"
-                   (click)="onExternalLinkClick(newsItem)" >
+                   (click)="onExternalLinkClick(newsItem)">
                   <span class="icon is-small"><i class="fa fa-external-link"></i></span>
                 </a>
               </div>

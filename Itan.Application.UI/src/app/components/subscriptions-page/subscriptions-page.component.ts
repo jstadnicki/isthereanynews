@@ -99,7 +99,10 @@ export class SubscriptionsPageComponent implements OnInit {
     }
 
     if (newsItem.read == false) {
-      await this.newsReadMarker.MarkRead(this.selectedChannel.id, newsItem.id);
+      this.newsReadMarker.MarkRead(this.selectedChannel.id, newsItem.id)
+        .then(()=>{
+          this.channels.find(c=>c.id == this.selectedChannel.id).newsCount--;
+        })
     }
     newsItem.read = true;
     newsItem.loading = true;
@@ -112,6 +115,16 @@ export class SubscriptionsPageComponent implements OnInit {
         newsItem.loading = false;
         newsItem.content = response;
         newsItem.contentVisible = !newsItem.contentVisible;
+      });
+  }
+
+  async markUnreadAsRead(channel: Channel) {
+    let unread = this.news.filter(f => f.read == false);
+    let unreadIds = unread.map(m => m.id);
+    this.newsReadMarker.MarkUnreadAsRead(channel.id, unreadIds)
+      .then(() => {
+        this.news.forEach(n => n.read = true);
+        this.channels.find(c => c.id == channel.id).newsCount = 0;
       });
   }
 
@@ -155,7 +168,6 @@ class News {
   read: boolean = true;
   link: string;
 }
-
 
 class NewsContent {
   Content: string;

@@ -15,7 +15,7 @@ namespace Itan.Core.MarkNewsRead
 
         protected override async Task Handle(MarkNewsReadCommand request, CancellationToken cancellationToken)
         {
-            await this.repository.MarkReadAsync(request.ChannelId, request.NewsId, request.UserId);
+            await this.repository.MarkReadAsync(request.ChannelId, request.NewsId, request.UserId, IMarkNewsReadRepository.NewsReadType.Read);
         }
     }
 }

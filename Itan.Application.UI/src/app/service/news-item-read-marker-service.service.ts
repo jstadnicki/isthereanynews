@@ -27,4 +27,19 @@ export class NewsItemReadMarkerServiceService {
         console.log(r);
       });
   }
+
+  async MarkUnreadAsRead(channelId: string, newsId: string[]) {
+    const options = await this.msalWrapperService.getOptionsHeaders();
+
+    const body = {
+      channelId: channelId,
+      newsId: newsId,
+    };
+
+    this.http
+      .post(`${environment.apiUrl}/api/ChannelReadNews/skipped`, body, options)
+      .subscribe((r) => {
+        console.log(r);
+      });
+  }
 }
