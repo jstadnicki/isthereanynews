@@ -115,6 +115,14 @@ export class ChannelsPageComponent implements OnInit {
         this.areChannelsLoaded = true;
       });
   }
+
+  displayTitleOrDescriptionOrUrl(selectedChannel: Channel) {
+    if(selectedChannel.title!=null && selectedChannel.title.length>0)
+      return selectedChannel.title;
+    if(selectedChannel.description!=null && selectedChannel.description.length>0)
+      return selectedChannel.description;
+    return selectedChannel.url;
+  }
 }
 
 class Channel {
@@ -122,6 +130,7 @@ class Channel {
   title: string;
   id: string;
   newsCount: number;
+  description:string;
 }
 
 class News {

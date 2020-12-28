@@ -15,7 +15,7 @@
               (click)="onChannelClick(channel)"
               [ngClass]="{'is-active':this.selectedChannel!=null && channel.id == this.selectedChannel.id}"
               *ngFor="let channel of channels">
-        <span class="text-ellipsis">{{channel.title}}</span>
+        <span class="text-ellipsis">{{displayTitleOrDescriptionOrUrl(channel)}}</span>
         <span class="">({{channel.newsCount}})</span>
       </button>
     </div>
@@ -30,7 +30,7 @@
           <div class="media-content">
             <div class="content">
               <p>
-                <strong>{{selectedChannel.title}}</strong><br>
+                <strong>{{displayTitleOrDescriptionOrUrl(selectedChannel)}}</strong><br>
                 <small>{{selectedChannel.url}}</small>
                 <br>
               </p>
