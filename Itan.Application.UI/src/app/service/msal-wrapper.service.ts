@@ -35,6 +35,7 @@ export class MsalWrapperService {
     this.authService.logout();
     this.authService.clearCacheForScope(this.sessionIdKeyName)
     localStorage.removeItem(this.sessionIdKeyName);
+
   }
 
   login() {
@@ -103,7 +104,7 @@ export class MsalWrapperService {
   }
 
   private authority: string = "https://isthereanynewscodeblast.b2clogin.com/isthereanynewscodeblast.onmicrosoft.com/B2C_1_itansignup";
-  private redirectUri: string = window.location.origin;
+  private redirectUri: string = environment.homeUrl;
 
   private createLoginRequest(): AuthenticationParameters {
     return {

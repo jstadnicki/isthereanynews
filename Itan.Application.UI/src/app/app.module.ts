@@ -22,6 +22,7 @@ import {
   HttpClientModule,
 } from "@angular/common/http";
 import {LockerComponent} from './components/locker/locker.component';
+import {environment} from "../environments/environment";
 
 
 const isIE =
@@ -56,7 +57,8 @@ const isIE =
           authority:
             "https://isthereanynewscodeblast.b2clogin.com/isthereanynewscodeblast.onmicrosoft.com/B2C_1_itansignup",
           validateAuthority: false,
-          redirectUri: window.location.origin
+          redirectUri: environment.homeUrl,
+          postLogoutRedirectUri:environment.homeUrl
         },
         cache: {
           cacheLocation: "localStorage",
