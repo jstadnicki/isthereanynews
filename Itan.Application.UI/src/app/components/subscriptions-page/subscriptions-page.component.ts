@@ -156,6 +156,13 @@ export class SubscriptionsPageComponent implements OnInit {
       return selectedChannel.description;
     return selectedChannel.url;
   }
+
+  getNewsTitle(newsItem: News) {
+    if(newsItem.title!= null && newsItem.title.length>0){
+      return newsItem.title;
+    }
+    return newsItem.link;
+  }
 }
 
 class Channel {

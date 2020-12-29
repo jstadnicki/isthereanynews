@@ -79,7 +79,7 @@
           <div class="media-content">
             <div class="content">
               <p>
-                <strong>{{newsItem.title}}</strong>{{newsItem.published|date}}<i class="fa"
+                <strong>{{getNewsTitle(newsItem)}}</strong>{{newsItem.published|date}}<i class="fa"
                                                                                  [ngClass]="{'fa-chevron-down':!newsItem.contentVisible,'fa-chevron-up':newsItem.contentVisible}"
                                                                                  (click)="onNewsClick(newsItem)"></i>
               </p>

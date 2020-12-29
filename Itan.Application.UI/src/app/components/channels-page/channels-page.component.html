@@ -58,7 +58,7 @@
           <div class="media-content">
             <div class="content">
               <p>
-                <strong [innerHTML]="newsItem.title"></strong>
+                <strong [innerHTML]="getNewsTitle(newsItem)"></strong>
                 <span class="is-pulled-right"><i class="fa fa-calendar"></i> {{newsItem.published|date}}</span>
                 <i class="fa"
                    [ngClass]="{'fa-chevron-down':!newsItem.contentVisible,'fa-chevron-up':newsItem.contentVisible}"
