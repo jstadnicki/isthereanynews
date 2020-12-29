@@ -1,8 +1,9 @@
 <div class="container">
   <div class="columns">
     <div class="column is-2">
-      <progress class="progress is-large is-info is-hidden" [ngClass]="{'is-hidden':areChannelsLoaded}" max="100">60%
-      </progress>
+      <div>
+        <img src="./assets/giphy.webp" [ngClass]="{'is-hidden':areChannelsLoaded}" style="filter:grayscale(100%)"/>
+      </div>
       <button class='button is-small'
               [ngClass]="{'is-active':this.isLoggedIn}"
               (click)="showAddNewChannel()">
