@@ -25,15 +25,14 @@ namespace Itan.Functions.Workers
 
         public async Task Update(ChannelUpdate message)
         {
-            var query =
-                "UPDATE Channels SET Title = @title, Description = @description, ModifiedOn = @modified WHERE Id = @id";
+            var query = "UPDATE Channels SET Title = @title, Description = @description, ModifiedOn = @modified WHERE Id = @id";
 
             var queryData = new
             {
-                message.Title,
-                message.Description,
+                title = message.Title,
+                description = message.Description,
                 modified = DateTime.UtcNow,
-                message.Id
+                id = message.Id
             };
 
             try

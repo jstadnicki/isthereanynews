@@ -9,4 +9,8 @@
       <ProjectReference Include="..\..\Itan.Functions.Workers\Itan.Functions.Workers.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Moq" Version="4.13.1" />
+    </ItemGroup>
+
 </Project>
