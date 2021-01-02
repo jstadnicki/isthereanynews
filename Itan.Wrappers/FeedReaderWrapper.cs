@@ -32,8 +32,15 @@ namespace Itan.Wrappers
             }
         }
 
-        private IEnumerable<ItanFeedItem> GetItems(ICollection<FeedItem> feedItems) =>
-            feedItems.Select(this.ConvertIntoItanFeedItem);
+        private IEnumerable<ItanFeedItem> GetItems(ICollection<FeedItem> feedItems)
+        {
+            var ordered = feedItems.Where(fi => fi.PublishingDate != null);
+            var withoutPublicationDate = feedItems.Except(ordered).Reverse();
+            List<ItanFeedItem> list = new List<ItanFeedItem>();
+            list.AddRange(ordered.Select(this.ConvertIntoItanFeedItem));
+            list.AddRange(withoutPublicationDate.Select(this.ConvertIntoItanFeedItem));
+            return list;
+        }
 
         private ItanFeedItem ConvertIntoItanFeedItem(FeedItem item) =>
             new ItanFeedItem
