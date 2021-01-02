@@ -15,6 +15,7 @@ import {ChannelsPageComponent} from "./components/channels-page/channels-page.co
 import {SubscriptionsPageComponent} from './components/subscriptions-page/subscriptions-page.component';
 import {StripHtmlPipe} from "./components/channels-page/strip-html.pipe";
 import {AddNewChannelComponent} from './components/add-new-channel/add-new-channel.component';
+import {PrivacyPageComponent } from './components/privacy-page/privacy-page.component';
 import {FormGroup, FormControl, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {
@@ -23,6 +24,7 @@ import {
 } from "@angular/common/http";
 import {LockerComponent} from './components/locker/locker.component';
 import {environment} from "../environments/environment";
+
 
 
 
@@ -45,6 +47,7 @@ const isIE =
     SubscriptionsPageComponent,
     AddNewChannelComponent,
     LockerComponent,
+    PrivacyPageComponent,
   ],
 
   imports: [
@@ -80,6 +83,7 @@ const isIE =
       {path: "admin", component: AdminPageComponent},
       {path: "subscriptions", component: SubscriptionsPageComponent, canActivate: [MsalGuard]},
       {path: "channels", component: ChannelsPageComponent},
+      {path: "privacy", component: PrivacyPageComponent},
       {path: "**", component: HomePageComponent}
     ]),
     ReactiveFormsModule,
