@@ -13,6 +13,7 @@ export class MsalWrapperService {
   isLoggedIn: Subject<boolean> = new BehaviorSubject<boolean>(false);
   private account;
   private sessionIdKeyName: string = "MsalWrapperService-uuid";
+  private httpHeadersOptions: any;
 
   constructor(
     private broadcastService: BroadcastService,
@@ -81,10 +82,14 @@ export class MsalWrapperService {
     return {headers: setHeaders};
   }
 
-  public async getOptionsHeaders() {
-    let accessTokenRequest = this.createAccessRequest();
-    const token = await this.authService.acquireTokenSilent(accessTokenRequest);
-    return this.getOptions(token.accessToken);
+  public async getOptionsHeaders():Promise<any> {
+    if(this.httpHeadersOptions==null) {
+      let accessTokenRequest = this.createAccessRequest();
+      // const token = await this.authService.acquireTokenSilent(accessTokenRequest);
+      const token = await this.authService.acquireTokenPopup(accessTokenRequest);
+      this.httpHeadersOptions = this.getOptions(token.accessToken);
+    }
+    return this.httpHeadersOptions;
   }
 
   checkAccount(): void {
