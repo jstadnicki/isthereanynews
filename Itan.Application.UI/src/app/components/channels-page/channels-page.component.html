@@ -39,11 +39,13 @@
             <nav class="level is-mobile">
               <div class="level-left">
                 <a class="level-item">
-                  <button role="button" class="button is-small">
-                    <i class="fa fa-link" alt="subscribe" (click)="subscribe(selectedChannel)"></i>
+                  <button role="button" class="button is-small" (click)="subscribe(selectedChannel)">
+                    <i class="fa fa-link" alt="subscribe">&nbsp;</i>
+                    subscribe
                   </button>
-                  <button role="button" class="button is-small">
-                    <i class="fa fa-unlink" alt="subscribe" (click)="unsubscribe(selectedChannel)"></i>
+                  <button role="button" class="button is-small" (click)="unsubscribe(selectedChannel)">
+                    <i class="fa fa-unlink" alt="subscribe">&nbsp;</i>
+                    unsubscribe
                   </button>
                 </a>
               </div>
