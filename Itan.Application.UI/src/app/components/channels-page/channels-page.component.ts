@@ -2,7 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {MsalWrapperService} from "../../service/msal-wrapper.service";
 import {ChannelsSubscriptionsServiceService} from "../../service/channels-subscriptions-service.service";
-import { environment } from '../../../environments/environment';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: "app-channels-page",
@@ -24,6 +24,9 @@ export class ChannelsPageComponent implements OnInit {
   areNewsLoading: boolean;
   displayAddNewChannel: boolean = false;
   isLoggedIn: boolean = false;
+  notificationText: string = "";
+  notificationSuccessful: boolean = false;
+  notificationTimeout: any;
 
   async ngOnInit(): Promise<void> {
     this.areChannelsLoaded = false;
@@ -34,15 +37,19 @@ export class ChannelsPageComponent implements OnInit {
   }
 
   async subscribe(channel: Channel) {
-    await this.channelsSubscriptionsServiceService.subscribeToChannel(channel.id);
+    this.channelsSubscriptionsServiceService.subscribeToChannel(channel.id)
+      .then(() => this.showSubscribeNotification(true))
+      .catch(() => this.showSubscribeNotification(false));
   }
 
   async unsubscribe(channel: Channel) {
-    await this.channelsSubscriptionsServiceService.unsubscribeFromChannel(channel.id);
+    this.channelsSubscriptionsServiceService.unsubscribeFromChannel(channel.id)
+      .then(() => this.showUnsubscribeNotification(true))
+      .catch(() => this.showUnsubscribeNotification(false));
   }
 
   showAddNewChannel() {
-    if(!this.isLoggedIn)
+    if (!this.isLoggedIn)
       return false;
     this.selectedChannel = null;
     this.news = null;
@@ -117,18 +124,55 @@ export class ChannelsPageComponent implements OnInit {
   }
 
   displayTitleOrDescriptionOrUrl(selectedChannel: Channel) {
-    if(selectedChannel.title!=null && selectedChannel.title.length>0)
+    if (selectedChannel.title != null && selectedChannel.title.length > 0)
       return selectedChannel.title;
-    if(selectedChannel.description!=null && selectedChannel.description.length>0)
+    if (selectedChannel.description != null && selectedChannel.description.length > 0)
       return selectedChannel.description;
     return selectedChannel.url;
   }
 
   getNewsTitle(newsItem: News) {
-    if(newsItem.title!= null && newsItem.title.length>0){
+    if (newsItem.title != null && newsItem.title.length > 0) {
       return newsItem.title;
     }
     return newsItem.link;
+  }
+
+  private showUnsubscribeNotification(successful: boolean) {
+    if (successful) {
+      this.notificationText = "unsubscription command executed successfully";
+    } else {
+      this.notificationText = "unsubscription command executed with error";
+    }
+    this.notificationSuccessful = successful;
+
+    this.setNotificationClearTimer();
+  }
+
+  private showSubscribeNotification(successful: boolean) {
+    if (successful) {
+      this.notificationText = "subscription command executed successfully";
+    } else {
+      this.notificationText = "subscription command executed with error";
+    }
+    this.notificationSuccessful = successful;
+    this.setNotificationClearTimer();
+  }
+
+  private setNotificationClearTimer() {
+    if(this.notificationTimeout!=null){
+      clearTimeout(this.notificationTimeout);
+      this.notificationTimeout = null;
+    }
+    this.notificationTimeout = setTimeout(() => {
+        this.closeNotification();
+      }
+      , 3500);
+  }
+
+  closeNotification() {
+    this.notificationText = "";
+    this.notificationTimeout = null;
   }
 }
 
@@ -137,7 +181,7 @@ class Channel {
   title: string;
   id: string;
   newsCount: number;
-  description:string;
+  description: string;
 }
 
 class News {

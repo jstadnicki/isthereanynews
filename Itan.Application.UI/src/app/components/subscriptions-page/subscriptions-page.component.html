@@ -70,6 +70,13 @@
         <progress class="progress is-large is-info is-hidden" [ngClass]="{'is-hidden':!areNewsLoading}" max="100">60%
         </progress>
         <hr/>
+        <div *ngIf="this.notificationText.length>0"
+             [ngClass]="{'is-danger':!this.notificationSuccessful,'is-success':!this.notificationSuccessful}"
+             class="notification is-primary">
+          <button class="delete" (click)="this.closeNotification()"></button>
+          <span [innerText]="this.notificationText"></span>
+
+        </div>
       </div>
       <div class="container" style="overflow-y: auto">
         <article class="media" *ngFor="let newsItem of news">

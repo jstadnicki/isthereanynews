@@ -27,6 +27,9 @@ export class SubscriptionsPageComponent implements OnInit {
   news: News[];
   areChannelsLoaded: boolean;
   areNewsLoading: boolean;
+  notificationText: string = "";
+  notificationSuccessful: boolean = false;
+  notificationTimeout: any;
   importOpml: boolean = false;
   importForm: FormGroup = new FormGroup({
     inputFile: new FormControl(),
@@ -41,7 +44,9 @@ export class SubscriptionsPageComponent implements OnInit {
   }
 
   async unsubscribe(channel: Channel) {
-    await this.channelsSubscriptionsServiceService.unsubscribeFromChannel(channel.id);
+     this.channelsSubscriptionsServiceService.unsubscribeFromChannel(channel.id)
+       .then(() => this.showUnsubscribeNotification(true))
+       .catch(() => this.showUnsubscribeNotification(false));
   }
 
   async onChannelClick(channel: Channel) {
@@ -166,6 +171,31 @@ export class SubscriptionsPageComponent implements OnInit {
       return newsItem.title;
     }
     return newsItem.link;
+  }
+
+  private showUnsubscribeNotification(successful: boolean) {
+    if (successful) {
+      this.notificationText = "unsubscription command executed successfully";
+    } else {
+      this.notificationText = "unsubscription command executed with error";
+    }
+    this.notificationSuccessful = successful;
+
+    this.setNotificationClearTimer();
+  }
+  private setNotificationClearTimer() {
+    clearTimeout(this.notificationTimeout);
+    this.notificationTimeout = null;
+
+    this.notificationTimeout = setTimeout(() => {
+       this.closeNotification();
+      }
+      , 3500);
+  }
+
+  closeNotification() {
+    this.notificationText = "";
+    this.notificationTimeout = null;
   }
 }
 
