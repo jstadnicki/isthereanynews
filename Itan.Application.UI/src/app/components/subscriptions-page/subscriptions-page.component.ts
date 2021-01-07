@@ -134,7 +134,9 @@ export class SubscriptionsPageComponent implements OnInit {
       .then(() => {
         this.news.forEach(n => n.read = true);
         this.channels.find(c => c.id == channel.id).newsCount = 0;
-      });
+        this.showMarkAsReadNotification(true);
+      })
+      .catch(()=>this.showMarkAsReadNotification(false));
   }
 
   async onExternalLinkClick(news: News) {
@@ -197,6 +199,16 @@ export class SubscriptionsPageComponent implements OnInit {
     this.notificationText = "";
     this.notificationTimeout = null;
   }
+
+  private showMarkAsReadNotification(successful: boolean) {
+    if (successful) {
+      this.notificationText = "marking unread as read command executed successfully";
+    } else {
+      this.notificationText = "marking unread as read command executed with error";
+    }
+    this.notificationSuccessful = successful;
+
+    this.setNotificationClearTimer();  }
 }
 
 class Channel {
