@@ -5,6 +5,7 @@ import {NewsItemReadMarkerServiceService} from "../../service/news-item-read-mar
 import {environment} from "../../../environments/environment";
 import {FormGroup, FormControl, Validators} from '@angular/forms';
 import {NewsItemOpenedMarkerService} from "../../service/news-item-opened-marker.service";
+import {ChannelsSubscriptionsServiceService} from "../../service/channels-subscriptions-service.service";
 
 @Component({
   selector: 'app-subscriptions-page',
@@ -16,7 +17,9 @@ export class SubscriptionsPageComponent implements OnInit {
     private http: HttpClient,
     private msalWrapperService: MsalWrapperService,
     private newsReadMarker: NewsItemReadMarkerServiceService,
-    private newsOpenedMarker: NewsItemOpenedMarkerService) {
+    private newsOpenedMarker: NewsItemOpenedMarkerService,
+    private channelsSubscriptionsServiceService: ChannelsSubscriptionsServiceService
+  ) {
   }
 
   channels: Channel[];
@@ -38,6 +41,7 @@ export class SubscriptionsPageComponent implements OnInit {
   }
 
   async unsubscribe(channel: Channel) {
+    await this.channelsSubscriptionsServiceService.unsubscribeFromChannel(channel.id);
   }
 
   async onChannelClick(channel: Channel) {

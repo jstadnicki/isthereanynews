@@ -55,11 +55,12 @@
             </div>
             <nav class="level is-mobile">
               <div class="level-left">
-                <button class="level-item button is-small" (click)="unsubscribe(selectedChannel)">
-                  <i class="fa fa-minus-square-o" alt="unsubscribe"></i>
+                <button class="button is-small" (click)="unsubscribe(selectedChannel)">
+                  <i class="fa fa-unlink" alt="unsubscribe">&nbsp;</i>
                   Unsubscribe
                 </button>
-                <button class="level-item button is-small" (click)="markUnreadAsRead(selectedChannel)">
+                <button class="button is-small" (click)="markUnreadAsRead(selectedChannel)">
+                  <i class="fa fa-eye" alt="mark unread as read">&nbsp;</i>
                   mark unread as read
                 </button>
               </div>

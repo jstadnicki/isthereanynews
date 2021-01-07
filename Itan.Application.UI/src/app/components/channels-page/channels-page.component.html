@@ -20,7 +20,7 @@
         <span class="">({{channel.newsCount}})</span>
       </button>
     </div>
-    <div class="column"style="overflow-y: hidden">
+    <div class="column" style="overflow-y: hidden">
       <div *ngIf="selectedChannel!=null">
         <article class="media">
           <figure class="media-left">
@@ -39,10 +39,12 @@
             <nav class="level is-mobile">
               <div class="level-left">
                 <a class="level-item">
-                  <span class="icon is-small">
-                    <i class="fa fa-plus-square-o" alt="subscribe" (click)="subscribe(selectedChannel)"></i>
-                    <i class="fa fa-minus-square-o" alt="subscribe" (click)="unsubscribe(selectedChannel)"></i>
-                  </span>
+                  <button role="button" class="button is-small">
+                    <i class="fa fa-link" alt="subscribe" (click)="subscribe(selectedChannel)"></i>
+                  </button>
+                  <button role="button" class="button is-small">
+                    <i class="fa fa-unlink" alt="subscribe" (click)="unsubscribe(selectedChannel)"></i>
+                  </button>
                 </a>
               </div>
             </nav>
