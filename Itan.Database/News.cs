@@ -20,6 +20,8 @@ namespace Itan.Database
 
         [Required]
         public string Link { get; set; }
+
+        public Guid? OriginalPostId { get; set; }
         
         [MaxLength(64)]
         [MinLength(64)]

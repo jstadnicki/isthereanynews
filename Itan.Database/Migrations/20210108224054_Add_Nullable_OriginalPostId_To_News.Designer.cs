@@ -4,14 +4,16 @@ using Itan.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Itan.Database.Migrations
 {
     [DbContext(typeof(EntityFrameworkContext))]
-    partial class EntityFrameworkContextModelSnapshot : ModelSnapshot
+    [Migration("20210108224054_Add_Nullable_OriginalPostId_To_News")]
+    partial class Add_Nullable_OriginalPostId_To_News
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,7 +21,7 @@ namespace Itan.Database.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Itan.Database.Channel", b =>
+            modelBuilder.Entity("Itan.Database.Models.Channel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -47,7 +49,7 @@ namespace Itan.Database.Migrations
                     b.ToTable("Channels");
                 });
 
-            modelBuilder.Entity("Itan.Database.ChannelDownload", b =>
+            modelBuilder.Entity("Itan.Database.Models.ChannelDownload", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -75,7 +77,7 @@ namespace Itan.Database.Migrations
                     b.ToTable("ChannelDownloads");
                 });
 
-            modelBuilder.Entity("Itan.Database.ChannelNewsOpened", b =>
+            modelBuilder.Entity("Itan.Database.Models.ChannelNewsOpened", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -104,7 +106,7 @@ namespace Itan.Database.Migrations
                     b.ToTable("ChannelNewsOpened");
                 });
 
-            modelBuilder.Entity("Itan.Database.ChannelNewsRead", b =>
+            modelBuilder.Entity("Itan.Database.Models.ChannelNewsRead", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -140,7 +142,7 @@ namespace Itan.Database.Migrations
                     b.ToTable("ChannelNewsReads");
                 });
 
-            modelBuilder.Entity("Itan.Database.ChannelSubmitter", b =>
+            modelBuilder.Entity("Itan.Database.Models.ChannelSubmitter", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -165,7 +167,7 @@ namespace Itan.Database.Migrations
                     b.ToTable("ChannelsSubmitters");
                 });
 
-            modelBuilder.Entity("Itan.Database.ChannelsPersons", b =>
+            modelBuilder.Entity("Itan.Database.Models.ChannelsPersons", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -189,7 +191,7 @@ namespace Itan.Database.Migrations
                     b.ToTable("ChannelsPersons");
                 });
 
-            modelBuilder.Entity("Itan.Database.News", b =>
+            modelBuilder.Entity("Itan.Database.Models.News", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -228,7 +230,7 @@ namespace Itan.Database.Migrations
                     b.ToTable("News");
                 });
 
-            modelBuilder.Entity("Itan.Database.Person", b =>
+            modelBuilder.Entity("Itan.Database.Models.Person", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -242,90 +244,90 @@ namespace Itan.Database.Migrations
                     b.ToTable("Persons");
                 });
 
-            modelBuilder.Entity("Itan.Database.ChannelDownload", b =>
+            modelBuilder.Entity("Itan.Database.Models.ChannelDownload", b =>
                 {
-                    b.HasOne("Itan.Database.Channel", "Channel")
+                    b.HasOne("Itan.Database.Models.Channel", "Channel")
                         .WithMany("Downloads")
                         .HasForeignKey("ChannelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Itan.Database.ChannelNewsOpened", b =>
+            modelBuilder.Entity("Itan.Database.Models.ChannelNewsOpened", b =>
                 {
-                    b.HasOne("Itan.Database.Channel", "Channel")
+                    b.HasOne("Itan.Database.Models.Channel", "Channel")
                         .WithMany("ChannelNewsOpened")
                         .HasForeignKey("ChannelId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Itan.Database.News", "News")
+                    b.HasOne("Itan.Database.Models.News", "News")
                         .WithMany("ChannelNewsOpened")
                         .HasForeignKey("NewsId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Itan.Database.Person", "Person")
+                    b.HasOne("Itan.Database.Models.Person", "Person")
                         .WithMany("ChannelNewsOpened")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Itan.Database.ChannelNewsRead", b =>
+            modelBuilder.Entity("Itan.Database.Models.ChannelNewsRead", b =>
                 {
-                    b.HasOne("Itan.Database.Channel", "Channel")
+                    b.HasOne("Itan.Database.Models.Channel", "Channel")
                         .WithMany("ChannelNewsRead")
                         .HasForeignKey("ChannelId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Itan.Database.News", "News")
+                    b.HasOne("Itan.Database.Models.News", "News")
                         .WithMany("ChannelNewsRead")
                         .HasForeignKey("NewsId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Itan.Database.Person", "Person")
+                    b.HasOne("Itan.Database.Models.Person", "Person")
                         .WithMany("ChannelNewsRead")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Itan.Database.ChannelSubmitter", b =>
+            modelBuilder.Entity("Itan.Database.Models.ChannelSubmitter", b =>
                 {
-                    b.HasOne("Itan.Database.Channel", "Channel")
+                    b.HasOne("Itan.Database.Models.Channel", "Channel")
                         .WithOne("Submitter")
-                        .HasForeignKey("Itan.Database.ChannelSubmitter", "ChannelId")
+                        .HasForeignKey("Itan.Database.Models.ChannelSubmitter", "ChannelId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Itan.Database.Person", "Person")
+                    b.HasOne("Itan.Database.Models.Person", "Person")
                         .WithMany("SubmittedChannels")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Itan.Database.ChannelsPersons", b =>
+            modelBuilder.Entity("Itan.Database.Models.ChannelsPersons", b =>
                 {
-                    b.HasOne("Itan.Database.Channel", "Channel")
+                    b.HasOne("Itan.Database.Models.Channel", "Channel")
                         .WithMany("PersonSubscribers")
                         .HasForeignKey("ChannelId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Itan.Database.Person", "Reader")
+                    b.HasOne("Itan.Database.Models.Person", "Reader")
                         .WithMany("SubscribedChannels")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Itan.Database.News", b =>
+            modelBuilder.Entity("Itan.Database.Models.News", b =>
                 {
-                    b.HasOne("Itan.Database.Channel", "Channel")
+                    b.HasOne("Itan.Database.Models.Channel", "Channel")
                         .WithMany("News")
                         .HasForeignKey("ChannelId")
                         .OnDelete(DeleteBehavior.Restrict)
