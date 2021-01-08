@@ -19,8 +19,8 @@ namespace Itan.Functions.Workers
 
         public async Task InsertNewsLinkAsync(Guid channelId, string title, Guid id, DateTime publishingDate, string link, string hash)
         {
-            var query =
-                "INSERT INTO News (Id, ChannelId, Title, CreatedOn, Published, Link, SHA256) VALUES (@id, @channelId, @title, @createdOn, @published, @link, @hash)";
+            var query = " INSERT INTO News (Id, ChannelId, Title, CreatedOn, Published, Link, SHA256, OriginalPostId)" +
+                        " VALUES (@id, @channelId, @title, @createdOn, @published, @link, @hash, (select top 1 id from News n where Link = @link order by Published, CreatedOn asc))";
 
             var data = new
             {
@@ -40,7 +40,6 @@ namespace Itan.Functions.Workers
             }
             catch (Exception e)
             {
-                
                 throw new NewsWriterInsertNewsLinkException(e);
             }
         }
