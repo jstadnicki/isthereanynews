@@ -169,10 +169,14 @@ export class SubscriptionsPageComponent implements OnInit {
   }
 
   getNewsTitle(newsItem: News) {
-    if(newsItem.title!= null && newsItem.title.length>0){
-      return newsItem.title;
+    var postfix = "";
+    if(newsItem.originalPostId!=null){
+      postfix = " (*** UPDATE ***)"
     }
-    return newsItem.link;
+    if(newsItem.title!= null && newsItem.title.length>0){
+      return newsItem.title + postfix;
+    }
+    return newsItem.link + postfix;
   }
 
   private showUnsubscribeNotification(successful: boolean) {
@@ -229,6 +233,7 @@ class News {
   published: Date
   read: boolean = true;
   link: string;
+  originalPostId:string;
 }
 
 class NewsContent {
