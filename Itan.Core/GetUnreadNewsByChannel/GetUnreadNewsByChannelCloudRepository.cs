@@ -41,7 +41,8 @@ namespace Itan.Core.GetUnreadNewsByChannel
                     Title = x.Title,
                     Published = x.Published,
                     ContentUrl = blob.Uri + sas,
-                    Link = x.Link
+                    Link = x.Link,
+                    OriginalPostId = x.OriginalPostId
                 };
                 return newsViewModel;
             });

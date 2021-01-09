@@ -10,5 +10,6 @@ namespace Itan.Core
         public DateTime Published { get; set; }
         public string Link { get; set; }
         public bool Read { get; set; } = false;
+        public Guid? OriginalPostId { get; set; }
     }
 }

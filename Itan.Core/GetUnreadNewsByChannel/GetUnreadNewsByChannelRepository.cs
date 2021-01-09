@@ -19,7 +19,7 @@ namespace Itan.Core.GetUnreadNewsByChannel
 
         public async Task<List<NewsHeader>> GetUnreadNewsAsync(string channelId, string personId)
         {
-            var query = " select n.Id, n.Title, n.Published, n.Published, n.Link"+
+            var query = " select n.Id, n.Title, n.Published, n.Published, n.Link, n.OriginalPostId"+
                         " from News n" +
                         " where n.Id not in(" +
                         " select cnr.NewsId" +

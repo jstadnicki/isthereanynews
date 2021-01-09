@@ -9,5 +9,6 @@ namespace Itan.Core.GetUnreadNewsByChannel
         public DateTime Published { get; set; }
 
         public string Link { get; set; }
+        public Guid? OriginalPostId { get; set; }
     }
 }
