@@ -58,6 +58,7 @@ export class ChannelsPageComponent implements OnInit {
 
   async onChannelClick(channel: Channel) {
     this.displayAddNewChannel = false;
+    this.closeNotification();
     if (channel == this.selectedChannel) {
       return;
     }
@@ -171,6 +172,10 @@ export class ChannelsPageComponent implements OnInit {
   }
 
   closeNotification() {
+    if(this.notificationTimeout!=null){
+      clearTimeout(this.notificationTimeout);
+      this.notificationTimeout = null;
+    }
     this.notificationText = "";
     this.notificationTimeout = null;
   }

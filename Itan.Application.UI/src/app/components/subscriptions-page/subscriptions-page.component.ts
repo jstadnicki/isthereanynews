@@ -50,6 +50,7 @@ export class SubscriptionsPageComponent implements OnInit {
   }
 
   async onChannelClick(channel: Channel) {
+    this.closeNotification();
     this.importOpml = false;
 
     if (channel == this.selectedChannel) {
@@ -190,8 +191,10 @@ export class SubscriptionsPageComponent implements OnInit {
     this.setNotificationClearTimer();
   }
   private setNotificationClearTimer() {
-    clearTimeout(this.notificationTimeout);
-    this.notificationTimeout = null;
+    if(this.notificationTimeout!=null){
+      clearTimeout(this.notificationTimeout);
+      this.notificationTimeout = null;
+    }
 
     this.notificationTimeout = setTimeout(() => {
        this.closeNotification();
@@ -200,6 +203,9 @@ export class SubscriptionsPageComponent implements OnInit {
   }
 
   closeNotification() {
+    if(this.notificationTimeout!=null) {
+      clearTimeout(this.notificationTimeout);
+    }
     this.notificationText = "";
     this.notificationTimeout = null;
   }
