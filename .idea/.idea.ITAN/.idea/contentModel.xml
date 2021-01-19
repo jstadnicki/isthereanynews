@@ -285,6 +285,10 @@
         <e p="Itan.Core.csproj" t="IncludeRecursive" />
         <e p="ItanCoreModule.cs" t="Include" />
         <e p="LandingPageNews.cs" t="Include" />
+        <e p="MarkNewsAsReadWithClick" t="Include">
+          <e p="MarkNewsAsReadWithClickCommand.cs" t="Include" />
+          <e p="MarkNewsAsReadWithClickCommandHandler.cs" t="Include" />
+        </e>
         <e p="MarkNewsOpen" t="Include">
           <e p="IMarkNewsOpenRepository.cs" t="Include" />
           <e p="MarkNewsOpenCommand.cs" t="Include" />
@@ -378,6 +382,8 @@
           <e p="20201225101939_AddChannelNewsOpened.Designer.cs" t="Include" />
           <e p="20201228110448_ChannelNewsRead_ReadType.cs" t="Include" />
           <e p="20201228110448_ChannelNewsRead_ReadType.Designer.cs" t="Include" />
+          <e p="20210108224054_Add_Nullable_OriginalPostId_To_News.cs" t="Include" />
+          <e p="20210108224054_Add_Nullable_OriginalPostId_To_News.Designer.cs" t="Include" />
           <e p="EntityFrameworkContextModelSnapshot.cs" t="Include" />
         </e>
         <e p="News.cs" t="Include" />

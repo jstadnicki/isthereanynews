@@ -12,7 +12,8 @@ namespace Itan.Core.MarkNewsRead
         public enum NewsReadType
         {
             Read,
-            Skip
+            Skip,
+            Click
         }
     }
 }

@@ -102,7 +102,6 @@ export class SubscriptionsPageComponent implements OnInit {
   }
 
   async onNewsClick(newsItem: News) {
-
     if (newsItem.content != null) {
       newsItem.contentVisible = !newsItem.contentVisible;
       return;
@@ -142,6 +141,15 @@ export class SubscriptionsPageComponent implements OnInit {
 
   async onExternalLinkClick(news: News) {
     await this.newsOpenedMarker.MarkOpen(this.selectedChannel.id, news.id);
+
+    if(!news.read){
+      this.newsOpenedMarker.MarkOpenWithClick(this.selectedChannel.id, news.id)
+        .then(()=> {
+          this.channels.find(c=>c.id == this.selectedChannel.id).newsCount--;
+          news.read = true;
+        });
+
+    }
     window.open(news.link);
   }
 

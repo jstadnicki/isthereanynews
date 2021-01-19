@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Itan.Core.MarkNewsAsReadWithClick;
 using Itan.Core.MarkNewsRead;
 using Itan.Core.MarkUnreadNewsAsRead;
 using MediatR;
@@ -44,7 +45,24 @@ namespace Itan.Api.Controllers
             return this.Ok();
         }
 
+        [HttpPost]
+        [Authorize]
+        [Route("click")]
+        public async Task<ActionResult> Post([FromBody]MarkNewsAsReadWithClickRequest request)
+        {
+            var userId = Guid.Parse(this.User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
+            var command = new MarkNewsAsReadWithClickCommand(request.ChannelId, request.NewsId, userId);
+            await this.mediator.Send(command);
+            return this.Ok();
+        }
+
         public class MarkNewsAsReadRequest
+        {
+            public Guid ChannelId { get; set; }
+            public Guid NewsId { get; set; }
+        }
+
+        public class MarkNewsAsReadWithClickRequest
         {
             public Guid ChannelId { get; set; }
             public Guid NewsId { get; set; }
