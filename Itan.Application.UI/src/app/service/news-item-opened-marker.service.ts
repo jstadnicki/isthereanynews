@@ -37,7 +37,7 @@ export class NewsItemOpenedMarkerService {
     };
 
     this.http
-      .post(`${environment.apiUrl}/api/ChannelOpenNews`, body, options)
+      .post(`${environment.apiUrl}/api/ChannelReadNews/click`, body, options)
       .subscribe((r) => {
         console.log(r);
       });
