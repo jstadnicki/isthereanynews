@@ -6,17 +6,15 @@
   <section class="hero is-primary is-medium">
     <div class="hero-body">
       <div class="container">
-        <div class="tag is-primary">
-          Last week news
-        </div>
         <div class="columns">
-          <div class="column is-size-4 is-offset-2">
-            <article class="media">
-              <figure class="media-left" *ngIf="hasImage(news.topNews[topIndex])">
-                <p class="image">
-                  <img src="{{news.topNews[topIndex].content.Image}}">
-                </p>
-              </figure>
+          <div class="column is-4 is-offset-1">
+            <figure *ngIf="hasImage(news.topNews[topIndex])">
+              <p class="image">
+                <img src="{{news.topNews[topIndex].content.Image}}">
+              </p>
+            </figure>
+          </div>
+          <div class="column is-6">
               <div class="media-content">
                 <div class="content">
                   <p>
@@ -46,7 +44,6 @@
                   </p>
                 </div>
               </div>
-            </article>
           </div>
         </div>
       </div>
