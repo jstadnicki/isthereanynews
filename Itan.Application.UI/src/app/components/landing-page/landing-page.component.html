@@ -56,35 +56,34 @@
           Last 24 news
         </div>
         <div class="columns">
-          <div class="column" *ngFor="let idx of [0,1,2]">
+          <div class="column is-4" *ngFor="let idx of [0,1,2]" style="max-width: 100%">
             <article class="media">
-              <figure class="media-left" *ngIf="hasImage(news.bottomNews[bottomPage+idx])">
+              <figure class="media-left">
                 <p class="image is-64x64">
-                  <img src="{{news.bottomNews[bottomPage+idx].content.Image}}">
+                  <img src="https://picsum.photos/1024/768">
                 </p>
               </figure>
-              <div class="media-content">
-                <div class="content">
-                  <p>
-                    <strong>{{news.bottomNews[bottomPage + idx]?.title}}</strong>
-                    <small class="is-pulled-right">
+              <div class="media-content" style="max-width: 75%">
+                <div class="content" style="max-width: 100%">
+                    <div class="hide-with-ellipsis" style="max-width: 100%">{{news.bottomNews[bottomPage + idx]?.title}}</div>
+                    <small class="is-pulled-right hide-with-ellipsis" style="max-width: 100%">
                       <span class="fa fa-rss"></span>
                       {{news.bottomNews[bottomPage + idx]?.author}}
                     </small>
                     <br>
-                    <span [innerHTML]="display(news.bottomNews[bottomPage + idx]) | striphtml">
+                    <span class="is-pulled-right hide-with-ellipsis"
+                          style="max-width: 100%"
+                          [innerHTML]="display(news.bottomNews[bottomPage + idx]) | striphtml">
                     </span>
                     <br>
-                    <span class="icon is-small"><i
+                    <a href class="icon is-small"><i
                       (click)="onExternalLinkClick(news.bottomNews[bottomPage + idx])"
-                      class="fa fa-external-link"></i></span>
+                      class="fa fa-external-link alias"></i></a>
                     <br/>
                     <small class="is-pulled-right">
                       <span class="fa fa-calendar"></span>
                     {{news.bottomNews[bottomPage + idx]?.published|date}}
                     </small>
-
-                  </p>
                 </div>
               </div>
             </article>

@@ -11,3 +11,9 @@ html{
   height: 256px;
   width: 256px;
 }
+
+.hide-with-ellipsis{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
