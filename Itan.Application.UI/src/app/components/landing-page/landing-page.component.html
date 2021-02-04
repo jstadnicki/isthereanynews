@@ -10,7 +10,7 @@
           <div class="column is-4 is-offset-1">
             <figure *ngIf="hasImage(news.topNews[topIndex])">
               <p class="image">
-                <img src="{{news.topNews[topIndex].content.Image}}">
+                <img [src]="getImage(news.topNews[topIndex])">
               </p>
             </figure>
           </div>
@@ -57,13 +57,13 @@
         </div>
         <div class="columns">
           <div class="column is-4" *ngFor="let idx of [0,1,2]" style="max-width: 100%">
-            <article class="media">
-              <figure class="media-left">
-                <p class="image is-64x64">
-                  <img src="https://picsum.photos/1024/768">
+            <article class="media columns">
+              <figure *ngIf="hasImage(news.bottomNews[bottomPage + idx])" class="media-left column is-4">
+                <p class="image">
+                  <img [src]="getImage(news.bottomNews[bottomPage + idx])">
                 </p>
               </figure>
-              <div class="media-content" style="max-width: 75%">
+              <div class="media-content column is-8">
                 <div class="content" style="max-width: 100%">
                     <div class="hide-with-ellipsis" style="max-width: 100%">{{news.bottomNews[bottomPage + idx]?.title}}</div>
                     <small class="is-pulled-right hide-with-ellipsis" style="max-width: 100%">

@@ -38,6 +38,13 @@ export class LandingPageComponent implements OnInit {
     return news?.content?.Image?.length > 0;
   }
 
+  getImage(news: LandingPageNews):string{
+    if(news?.content?.Image.startsWith('https')){
+      return news.content?.Image;
+    }
+    return `https://itan-app-service-function.azurewebsites.net/api/HttpHttpsImage?url=${news.content?.Image}`;
+  }
+
   private loadContent() {
     this.news.topNews.forEach((newsItem) => {
       const url = newsItem.contentLink;
@@ -54,6 +61,8 @@ export class LandingPageComponent implements OnInit {
           var imgSrc = firstImage ? firstImage.src : "";
 
           newsItem.content.Image = imgSrc;
+        }, error =>{
+          console.log(error);
         });
     });
 
@@ -72,6 +81,8 @@ export class LandingPageComponent implements OnInit {
           var imgSrc = firstImage ? firstImage.src : "";
 
           newsItem.content.Image = imgSrc;
+        }, error => {
+          console.log(error);
         });
     });
     this.loaded = true;
