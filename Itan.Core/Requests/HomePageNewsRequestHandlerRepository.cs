@@ -22,58 +22,34 @@ namespace Itan.Core.Requests
             this.connectionString = options.Value.SqlReader;
             this.storage = options.Value.Storage;
         }
+
         public async Task<HomePageNews> GetHomePageNews()
         {
-            var date = DateTime.UtcNow.Date.AddDays(-14);
+            var queries = new List<string>();
 
-            var date1 = date;
-            var date2 = date1.AddDays(-1);
-            var date3 = date1.AddDays(-7);
-
-            var query1 = "SELECT TOP 1 n.id, n.Title, n.Published, n.Link, c.Id as ChannelId, c.Title as Author FROM News n join Channels c on n.ChannelId = c.Id WHERE n.Published > @date1 ORDER BY n.Published ASC;";
-            var query2 = "SELECT TOP 1 n.id, n.Title, n.Published, n.Link, c.Id as ChannelId, c.Title as Author FROM News n join Channels c on n.ChannelId = c.Id WHERE n.Published > @date2 ORDER BY n.Published ASC;";
-            var query3 = "SELECT TOP 1 n.id, n.Title, n.Published, n.Link, c.Id as ChannelId, c.Title as Author FROM News n join Channels c on n.ChannelId = c.Id WHERE n.Published > @date3 ORDER BY n.Published ASC;";
-
-            var date24start = date.AddDays(-1);
-
-            var query24 = this.Create24Query();
-
-            HomePageNews result = new HomePageNews();
-
-            var queryData = new
+            for (int i = 1; i <= 7; i++)
             {
-                date1,
-                date2,
-                date3,
-                date240 = date24start.AddHours(0),
-                date241 = date24start.AddHours(1),
-                date242 = date24start.AddHours(2),
-                date243 = date24start.AddHours(3),
-                date244 = date24start.AddHours(4),
-                date245 = date24start.AddHours(5),
-                date246 = date24start.AddHours(6),
-                date247 = date24start.AddHours(7),
-                date248 = date24start.AddHours(8),
-                date249 = date24start.AddHours(9),
-                date2410 = date24start.AddHours(10),
-                date2411 = date24start.AddHours(11),
-                date2412 = date24start.AddHours(12),
-                date2413 = date24start.AddHours(13),
-                date2414 = date24start.AddHours(14),
-                date2415 = date24start.AddHours(15),
-                date2416 = date24start.AddHours(16),
-                date2417 = date24start.AddHours(17),
-                date2418 = date24start.AddHours(18),
-                date2419 = date24start.AddHours(19),
-                date2420 = date24start.AddHours(20),
-                date2421 = date24start.AddHours(21),
-                date2422 = date24start.AddHours(22),
-                date2423 = date24start.AddHours(23),
-                date2424 = date24start.AddHours(24)
-            };
+                var q = $"SELECT TOP 1 n.id, n.Title, n.Published, n.Link, c.Id as ChannelId, c.Title as Author" +
+                        $" FROM News n join Channels c on n.ChannelId = c.Id" +
+                        $" WHERE n.Published > @date{i} ORDER BY n.Published ASC;";
+                queries.Add(q);
+            }
 
-            var query = query1 + query2 + query3 + query24;
+            for (var i = 0; i < 24; i++)
+            {
+                var q = $"SELECT TOP 1 n.id, n.Title, n.Published, n.Link, c.Id as ChannelId, c.Title as Author" +
+                        $" FROM News n join Channels c on n.ChannelId = c.Id " +
+                        $" WHERE n.Published > @date24{i} ORDER BY n.Published ASC;";
+                queries.Add(q);
+            }
+
+
+            var today = DateTime.UtcNow.Date;
+            var queryData = GenerateQueryData(today);
+
+            var query = string.Join("\n", queries);
             List<LandingPageNews> queryResult = new List<LandingPageNews>();
+            HomePageNews result = new HomePageNews();
 
             using (var connection = new SqlConnection(this.connectionString))
             {
@@ -81,20 +57,33 @@ namespace Itan.Core.Requests
                 List<LandingPageNews> news;
                 try
                 {
-                    for (int i = 0; i < 27; i++)
+                    for (int i = 0; i < queries.Count; i++)
                     {
                         var readAsync = await reader.ReadAsync<LandingPageNews>();
                         news = readAsync.ToList();
                         queryResult.AddRange(news);
                     }
                 }
-                catch (Exception e) 
+                catch (Exception e)
                 {
                     Console.WriteLine(e);
                 }
 
-                result.TopNews = queryResult.Take(3).ToList();
-                result.BottomNews = queryResult.Skip(3).ToList();
+                for (int i = 0; i < 7; i++)
+                {
+                    if (result.TopNews.Select(x => x.Id).Contains(queryResult[i].Id) == false)
+                    {
+                        result.TopNews.Add(queryResult[i]);
+                    }
+                }
+                
+                for (int i = 7; i < 31; i++)
+                {
+                    if (result.BottomNews.Select(x => x.Id).Contains(queryResult[i].Id) == false)
+                    {
+                        result.BottomNews.Add(queryResult[i]);
+                    }
+                }
             }
 
             var account = CloudStorageAccount.Parse(this.storage);
@@ -119,16 +108,42 @@ namespace Itan.Core.Requests
 
             return result;
         }
-        private string Create24Query()
-        {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < 24; i++)
-            {
-                var query = $"SELECT TOP 1 n.id, n.Title, n.Published, n.Link, c.Id as ChannelId, c.Title as Author FROM News n join Channels c on n.ChannelId = c.Id WHERE n.Published > @date24{i} ORDER BY n.Published ASC;";
-                sb.Append(query);
-            }
 
-            return sb.ToString();
-        }
+        private object GenerateQueryData(DateTime today) =>
+            new 
+            {
+                date1 = today.AddDays(-0),
+                date2 = today.AddDays(-1),
+                date3 = today.AddDays(-2),
+                date4 = today.AddDays(-3),
+                date5 = today.AddDays(-4),
+                date6 = today.AddDays(-5),
+                date7 = today.AddDays(-6),
+                date240 = today.AddDays(-1).AddHours(0),
+                date241 = today.AddDays(-1).AddHours(1),
+                date242 = today.AddDays(-1).AddHours(2),
+                date243 = today.AddDays(-1).AddHours(3),
+                date244 = today.AddDays(-1).AddHours(4),
+                date245 = today.AddDays(-1).AddHours(5),
+                date246 = today.AddDays(-1).AddHours(6),
+                date247 = today.AddDays(-1).AddHours(7),
+                date248 = today.AddDays(-1).AddHours(8),
+                date249 = today.AddDays(-1).AddHours(9),
+                date2410 = today.AddDays(-1).AddHours(10),
+                date2411 = today.AddDays(-1).AddHours(11),
+                date2412 = today.AddDays(-1).AddHours(12),
+                date2413 = today.AddDays(-1).AddHours(13),
+                date2414 = today.AddDays(-1).AddHours(14),
+                date2415 = today.AddDays(-1).AddHours(15),
+                date2416 = today.AddDays(-1).AddHours(16),
+                date2417 = today.AddDays(-1).AddHours(17),
+                date2418 = today.AddDays(-1).AddHours(18),
+                date2419 = today.AddDays(-1).AddHours(19),
+                date2420 = today.AddDays(-1).AddHours(20),
+                date2421 = today.AddDays(-1).AddHours(21),
+                date2422 = today.AddDays(-1).AddHours(22),
+                date2423 = today.AddDays(-1).AddHours(23),
+                date2424 = today.AddDays(-1).AddHours(24)
+            };
     }
 }
