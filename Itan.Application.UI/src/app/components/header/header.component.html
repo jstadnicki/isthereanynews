@@ -1,11 +1,12 @@
 <nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-item" href="https://bulma.io" routerLink="/" >
+    <a class="navbar-item" href="https://bulma.io" routerLink="/">
       <img src="./favicon.ico" alt="itan logo">
       <span>ITAN</span>
     </a>
 
-    <a role="button" class="navbar-burger burger" [ngClass]="{'is-active':isBurgerMenuActive}" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" (click)="onBurgerClick()">
+    <a role="button" class="navbar-burger burger" [ngClass]="{'is-active':isBurgerMenuActive}" aria-label="menu"
+       aria-expanded="false" data-target="navbarBasicExample" (click)="onBurgerClick()">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
@@ -14,16 +15,16 @@
 
   <div id="navbarBasicExample" class="navbar-menu" [ngClass]="{'is-active':isBurgerMenuActive}">
     <div class="navbar-start">
-<!--      <a class="navbar-item" routerLink="/settings">-->
-<!--        settings-->
-<!--      </a>-->
+      <!--      <a class="navbar-item" routerLink="/settings">-->
+      <!--        settings-->
+      <!--      </a>-->
 
-<!--      <a class="navbar-item" routerLink="/owner">-->
-<!--        owner-->
-<!--      </a>-->
-<!--      <a class="navbar-item" routerLink="/admin">-->
-<!--        admin-->
-<!--      </a>-->
+      <!--      <a class="navbar-item" routerLink="/owner">-->
+      <!--        owner-->
+      <!--      </a>-->
+      <!--      <a class="navbar-item" routerLink="/admin">-->
+      <!--        admin-->
+      <!--      </a>-->
       <a class="navbar-item" routerLink="/channels">
         <span>All</span>
       </a>
@@ -39,36 +40,52 @@
         </span>
       </a>
 
-<!--      <div class="navbar-item has-dropdown is-hoverable">-->
-<!--        <a class="navbar-link">-->
-<!--          More-->
-<!--        </a>-->
-<!--        <div class="navbar-dropdown">-->
-<!--          <a class="navbar-item">-->
-<!--            About-->
-<!--          </a>-->
-<!--          <a class="navbar-item">-->
-<!--            Jobs-->
-<!--          </a>-->
-<!--          <a class="navbar-item">-->
-<!--            Contact-->
-<!--          </a>-->
-<!--          <hr class="navbar-divider">-->
-<!--          <a class="navbar-item">-->
-<!--            Report an issue-->
-<!--          </a>-->
-<!--        </div>-->
-<!--      </div>-->
+      <!--      <div class="navbar-item has-dropdown is-hoverable">-->
+      <!--        <a class="navbar-link">-->
+      <!--          More-->
+      <!--        </a>-->
+      <!--        <div class="navbar-dropdown">-->
+      <!--          <a class="navbar-item">-->
+      <!--            About-->
+      <!--          </a>-->
+      <!--          <a class="navbar-item">-->
+      <!--            Jobs-->
+      <!--          </a>-->
+      <!--          <a class="navbar-item">-->
+      <!--            Contact-->
+      <!--          </a>-->
+      <!--          <hr class="navbar-divider">-->
+      <!--          <a class="navbar-item">-->
+      <!--            Report an issue-->
+      <!--          </a>-->
+      <!--        </div>-->
+      <!--      </div>-->
     </div>
 
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
           <a class="button is-light" *ngIf="!loggedIn" (click)="login()">Log in</a>
-          <a class="button is-light" *ngIf="loggedIn" (click)="logout()">Log out</a>
-          <span *ngIf="loggedIn">
-            <span class="fa fa-user"> {{this.getUserName()}}</span>
-          </span>
+          <div class="dropdown is-hoverable">
+            <div class="dropdown-trigger" >
+              <button class="button">
+                <span>{{this.getUserName()}}</span>
+                <span class="icon is-small">
+                  <i class="fa fa-angle-down" aria-hidden="true"></i>
+                </span>
+              </button>
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu" role="menu">
+              <div class="dropdown-content">
+                <a href="#" *ngIf="loggedIn" class="dropdown-item" (click)="logout()">
+                  logout
+                </a>
+                <a class="dropdown-item" routerLink="/delete-account">
+                  delete account
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -24,6 +24,7 @@ import {
 } from "@angular/common/http";
 import {LockerComponent} from './components/locker/locker.component';
 import {environment} from "../environments/environment";
+import { DeleteAccountComponent } from './components/delete-account/delete-account.component';
 
 
 
@@ -48,6 +49,7 @@ const isIE =
     AddNewChannelComponent,
     LockerComponent,
     PrivacyPageComponent,
+    DeleteAccountComponent,
   ],
 
   imports: [
@@ -84,6 +86,7 @@ const isIE =
       {path: "subscriptions", component: SubscriptionsPageComponent, canActivate: [MsalGuard]},
       {path: "channels", component: ChannelsPageComponent},
       {path: "privacy", component: PrivacyPageComponent},
+      {path: "delete-account", component: DeleteAccountComponent},
       {path: "**", component: HomePageComponent}
     ]),
     ReactiveFormsModule,
