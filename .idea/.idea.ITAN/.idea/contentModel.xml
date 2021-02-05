@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\jaroslaw.stadnicki\.nuget\packages\microsoft.net.test.sdk\16.6.0\build\netcoreapp2.1" t="Include">
+    <e p="C:\Users\jarek\.nuget\packages\microsoft.net.test.sdk\16.6.0\build\netcoreapp2.1" t="Include">
       <e p="Microsoft.NET.Test.Sdk.Program.cs" t="Include" />
     </e>
-    <e p="C:\Users\jaroslaw.stadnicki\.nuget\packages\microsoft.testplatform.testhost\16.6.0\build\netcoreapp2.1\x64\testhost.dll" t="Include" />
-    <e p="C:\Users\jaroslaw.stadnicki\.nuget\packages\microsoft.testplatform.testhost\16.6.0\build\netcoreapp2.1\x64\testhost.exe" t="Include" />
-    <e p="C:\Users\jaroslaw.stadnicki\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.reporters.netcoreapp10.dll" t="Include" />
-    <e p="C:\Users\jaroslaw.stadnicki\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.utility.netcoreapp10.dll" t="Include" />
-    <e p="C:\Users\jaroslaw.stadnicki\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll" t="Include" />
-    <e p="C:\Users\jaroslaw.stadnicki\AppData\local\JetBrains\Rider2020.3\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\jaroslaw.stadnicki\AppData\local\JetBrains\Rider2020.3\resharper-host\local\Transient\Rider\v203\SolutionCaches\_ITAN.188834465.00" t="ExcludeRecursive" />
-    <e p="C:\Users\jaroslaw.stadnicki\Dropbox\source\ITAN" t="IncludeFlat">
+    <e p="C:\Users\jarek\.nuget\packages\microsoft.testplatform.testhost\16.6.0\build\netcoreapp2.1\x64\testhost.dll" t="Include" />
+    <e p="C:\Users\jarek\.nuget\packages\microsoft.testplatform.testhost\16.6.0\build\netcoreapp2.1\x64\testhost.exe" t="Include" />
+    <e p="C:\Users\jarek\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.reporters.netcoreapp10.dll" t="Include" />
+    <e p="C:\Users\jarek\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.utility.netcoreapp10.dll" t="Include" />
+    <e p="C:\Users\jarek\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll" t="Include" />
+    <e p="C:\Users\jarek\AppData\local\JetBrains\Rider2020.3\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\jarek\AppData\local\JetBrains\Rider2020.3\resharper-host\local\Transient\Rider\v203\SolutionCaches\_ITAN.1359292259.00" t="ExcludeRecursive" />
+    <e p="C:\Users\jarek\Dropbox\source\ITAN" t="IncludeFlat">
       <e p="ChannelDownloadSha256Generator" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="ChannelDownloadSha256Generator.csproj" t="IncludeRecursive" />
@@ -54,6 +54,7 @@
         <e p="appsettings.json" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="Controllers" t="Include">
+          <e p="AccountController.cs" t="Include" />
           <e p="ChannelOpenNewsController.cs" t="Include" />
           <e p="ChannelsController.cs" t="Include" />
           <e p="ChannelSubscriptionsController.cs" t="Include" />
@@ -136,6 +137,7 @@
       <e p="Itan.Application.UI\node_modules\font-awesome" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\fsevents" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\hash.js" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\help" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\is-docker" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\is-interactive" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\is-wsl" t="IncludeRecursive" />
@@ -252,6 +254,9 @@
           <e p="CreateNewUserRequest.cs" t="Include" />
           <e p="CreateUserHandler.cs" t="Include" />
           <e p="ICreateUserRepository.cs" t="Include" />
+        </e>
+        <e p="DeleteAccount" t="Include">
+          <e p="DeleteAccountCommand.cs" t="Include" />
         </e>
         <e p="GetAllChannelsViewModelsRequest.cs" t="Include" />
         <e p="GetAllSubscribedChannelsViewModelsRequest.cs" t="Include" />
@@ -404,7 +409,9 @@
         <e p="Function3.cs" t="Include" />
         <e p="Function4.cs" t="Include" />
         <e p="host.json" t="Include" />
+        <e p="HttpHttpsImage.cs" t="Include" />
         <e p="Itan.Functions.csproj" t="IncludeRecursive" />
+        <e p="local.settings.json" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.0" t="Include">
