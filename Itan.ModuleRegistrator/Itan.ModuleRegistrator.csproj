@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Autofac" Version="5.2.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.9" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Itan.Core\Itan.Core.csproj" />
+    </ItemGroup>
+
+</Project>

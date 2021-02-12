@@ -78,7 +78,7 @@
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
-            <e p="netcoreapp3.0" t="Include">
+            <e p="netcoreapp3.1" t="Include">
               <e p="Itan.Api.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
@@ -257,6 +257,8 @@
         </e>
         <e p="DeleteAccount" t="Include">
           <e p="DeleteAccountCommand.cs" t="Include" />
+          <e p="DeleteAccountCommandHandler.cs" t="Include" />
+          <e p="GraphApiSettings.cs" t="Include" />
         </e>
         <e p="GetAllChannelsViewModelsRequest.cs" t="Include" />
         <e p="GetAllSubscribedChannelsViewModelsRequest.cs" t="Include" />
@@ -502,6 +504,18 @@
         </e>
         <e p="Properties" t="Include">
           <e p="launchSettings.json" t="Include" />
+        </e>
+      </e>
+      <e p="Itan.ModuleRegistrator" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Itan.ModuleRegistrator.csproj" t="IncludeRecursive" />
+        <e p="ItanModuleRegistrator.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="Itan.ModuleRegistrator.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
         </e>
       </e>
       <e p="ITAN.sln" t="IncludeFlat" />

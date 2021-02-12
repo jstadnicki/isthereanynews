@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.IO.Compression;
-using System.Linq;
-using System.Reflection;
+﻿using System.IO.Compression;
 using System.Text;
 using System.Threading.Tasks;
 using Autofac;
 using Itan.Api.Middleware;
 using Itan.Common;
+using Itan.ModuleRegistrator;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.AzureAD.UI;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -114,29 +110,11 @@ namespace Itan.Api
                     return new OptionsWrapper<ConnectionOptions>(s);
                 })
                 .SingleInstance();
-            var assemblies = GetItanReferencedAssemblies(Assembly.GetExecutingAssembly());
-            RegisterAssemblyModules(builder, assemblies);
+            
+            builder.RegisterModule(new ItanModuleRegistrator(this.configuration));
             builder.RegisterModule<ItanApiModule>();
         }
-
-        private void RegisterAssemblyModules(ContainerBuilder builder, List<AssemblyName> assemblies)
-        {
-            foreach (var assembly in assemblies)
-            {
-                var a = Assembly.Load(assembly);
-                builder.RegisterAssemblyModules(a);
-                RegisterAssemblyModules(builder, GetItanReferencedAssemblies(a));
-            }
-        }
-
-        private List<AssemblyName> GetItanReferencedAssemblies(Assembly assembly)
-        {
-            return assembly
-                .GetReferencedAssemblies()
-                .Where(f => f.FullName.ToLowerInvariant().Contains("itan"))
-                .ToList();
-        }
-
+        
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

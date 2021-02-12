@@ -19,6 +19,7 @@ export class DeleteAccountService {
       .delete(`${environment.apiUrl}/api/delete-account`, options)
       .subscribe((r) => {
         alert('done');
+        this.msalWrapperService.logout();
       });
   }
 }

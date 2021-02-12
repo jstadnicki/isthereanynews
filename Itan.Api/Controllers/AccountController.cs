@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Itan.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/delete-account")]
     [ApiController]
     public class AccountController:ControllerBase
     {
@@ -18,6 +18,7 @@ namespace Itan.Api.Controllers
             this.mediator = mediator;
         }
 
+        [HttpDelete]
         public async Task<OkResult> Delete()
         {
             var userId = Guid.Parse(this.User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
