@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using Autofac;
-using Itan.Common;
 using Itan.Core.CreateNewUser;
 using Itan.Core.DeleteAccount;
 using MediatR;

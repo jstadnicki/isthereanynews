@@ -17,7 +17,7 @@ namespace Itan.ModuleRegistrator
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterModule(new ItanCoreModule(this.configuration));
-            builder.RegisterModule<ItanWrappersModule>();
+            builder.RegisterModule(new ItanWrappersModule(this.configuration));
         }
     }
 }
