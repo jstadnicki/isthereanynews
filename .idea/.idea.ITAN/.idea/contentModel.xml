@@ -252,7 +252,7 @@
         <e p="CreateNewUser" t="Include">
           <e p="BadArgumentInRequestException.cs" t="Include" />
           <e p="CreateNewUserRequest.cs" t="Include" />
-          <e p="CreateUserHandler.cs" t="Include" />
+          <e p="CreateNewUserRequestHandler.cs" t="Include" />
           <e p="ICreateUserRepository.cs" t="Include" />
         </e>
         <e p="DeleteAccount" t="Include">
@@ -315,7 +315,7 @@
         <e p="NewsViewModel.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
-            <e p="netcoreapp3.0" t="Include">
+            <e p="netcoreapp3.1" t="Include">
               <e p="Itan.Core.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
@@ -416,7 +416,7 @@
         <e p="local.settings.json" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
-            <e p="netcoreapp3.0" t="Include">
+            <e p="netcoreapp3.1" t="Include">
               <e p="Itan.Functions.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
@@ -468,7 +468,7 @@
         <e p="NewsWriter.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
-            <e p="netcoreapp3.0" t="Include">
+            <e p="netcoreapp3.1" t="Include">
               <e p="Itan.Functions.Workers.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
@@ -523,10 +523,13 @@
         <e p="AzureQueueWrapper.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="BlobContainer.cs" t="Include" />
+        <e p="EmailSender.cs" t="Include" />
+        <e p="EmailSenderSettings.cs" t="Include" />
         <e p="FeedReaderWrapper.cs" t="Include" />
         <e p="FeedReaderWrapperParseStringException.cs" t="Include" />
         <e p="HttpDownloader.cs" t="Include" />
         <e p="IBlobContainer.cs" t="Include" />
+        <e p="IEmailSender.cs" t="Include" />
         <e p="IFeedReader.cs" t="Include" />
         <e p="IHttpDownloader.cs" t="Include" />
         <e p="ILoger.cs" t="Include" />
@@ -541,7 +544,7 @@
         <e p="Loger.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
-            <e p="netcoreapp3.0" t="Include">
+            <e p="netcoreapp3.1" t="Include">
               <e p="Itan.Wrappers.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
