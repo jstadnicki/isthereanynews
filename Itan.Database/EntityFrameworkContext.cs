@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Itan.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
@@ -27,6 +28,23 @@ namespace Itan.Database
             ConfigureChannelSubmitter(modelBuilder);
             ConfigureChannelNewsRead(modelBuilder);
             ConfigureChannelNewsOpened(modelBuilder);
+            ConfigurePersonSettings(modelBuilder);
+        }
+
+        private void ConfigurePersonSettings(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ReaderSettings>()
+                .HasOne<Person>(x => x.Person)
+                .WithOne(x => x.Settings)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ReaderSettings>()
+                .Property(x => x.ShowUpdatedNews)
+                .HasDefaultValue(UpdatedNews.Show);
+
+            modelBuilder.Entity<ReaderSettings>()
+                .Property(x => x.SquashNewsUpdates)
+                .HasDefaultValue(SquashUpdate.Show);
         }
 
         private void ConfigureChannelNewsOpened(ModelBuilder modelBuilder)

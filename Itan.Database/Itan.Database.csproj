@@ -21,4 +21,8 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.AzureKeyVault" Version="3.1.9" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Itan.Common\Itan.Common.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -242,6 +242,35 @@ namespace Itan.Database.Migrations
                     b.ToTable("Persons");
                 });
 
+            modelBuilder.Entity("Itan.Database.ReaderSettings", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("PersonId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ShowUpdatedNews")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(25)")
+                        .HasMaxLength(25)
+                        .HasDefaultValue("Show");
+
+                    b.Property<string>("SquashNewsUpdates")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(25)")
+                        .HasMaxLength(25)
+                        .HasDefaultValue("Show");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PersonId")
+                        .IsUnique();
+
+                    b.ToTable("ReaderSettings");
+                });
+
             modelBuilder.Entity("Itan.Database.ChannelDownload", b =>
                 {
                     b.HasOne("Itan.Database.Channel", "Channel")
@@ -328,6 +357,15 @@ namespace Itan.Database.Migrations
                     b.HasOne("Itan.Database.Channel", "Channel")
                         .WithMany("News")
                         .HasForeignKey("ChannelId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Itan.Database.ReaderSettings", b =>
+                {
+                    b.HasOne("Itan.Database.Person", "Person")
+                        .WithOne("Settings")
+                        .HasForeignKey("Itan.Database.ReaderSettings", "PersonId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
