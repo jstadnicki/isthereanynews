@@ -268,7 +268,7 @@ namespace Itan.Database.Migrations
                     b.HasIndex("PersonId")
                         .IsUnique();
 
-                    b.ToTable("ReaderSettings");
+                    b.ToTable("ReadersSettings");
                 });
 
             modelBuilder.Entity("Itan.Database.ChannelDownload", b =>

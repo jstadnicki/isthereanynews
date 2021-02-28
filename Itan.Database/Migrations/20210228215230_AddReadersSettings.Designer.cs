@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Itan.Database.Migrations
 {
     [DbContext(typeof(EntityFrameworkContext))]
-    [Migration("20210228213955_AddReaderSettings")]
-    partial class AddReaderSettings
+    [Migration("20210228215230_AddReadersSettings")]
+    partial class AddReadersSettings
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -270,7 +270,7 @@ namespace Itan.Database.Migrations
                     b.HasIndex("PersonId")
                         .IsUnique();
 
-                    b.ToTable("ReaderSettings");
+                    b.ToTable("ReadersSettings");
                 });
 
             modelBuilder.Entity("Itan.Database.ChannelDownload", b =>

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Itan.Database
 {
+    [Table("ReadersSettings")]
     internal class ReaderSettings
     {
         public Guid Id { get; set; }
