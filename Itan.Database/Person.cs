@@ -13,5 +13,7 @@ namespace Itan.Database
         public virtual List<ChannelSubmitter> SubmittedChannels { get; set; }
         public IEnumerable<ChannelNewsRead> ChannelNewsRead { get; set; }
         public IEnumerable<ChannelNewsOpened> ChannelNewsOpened { get; set; }
+
+        public virtual ReaderSettings Settings { get; set; }
     }
 }
