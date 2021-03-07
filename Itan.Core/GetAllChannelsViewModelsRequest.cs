@@ -29,8 +29,12 @@ namespace Itan.Core
         {
             using (var connection = new SqlConnection(this.connectionString))
             {
-                var sqlQuery =
-                    "select c.id, c.title, c.description, c.Url, count(n.Id) as NewsCount from Channels c left join News n on n.ChannelId = c.Id group by c.Id,c.Title,c.Description, c.Url";
+                var sqlQuery = 
+                    "SELECT c.id, c.title, c.description, c.Url, count(n.Id) as NewsCount"+
+                    " FROM Channels c" +
+                    " LEFT JOIN News n ON" +
+                    " (n.ChannelId = c.Id AND n.OriginalPostId IS NULL )" +
+                    " GROUP BY c.Id,c.Title,c.Description, c.Url";
                 var result = await connection.QueryAsync<ChannelViewModel>(sqlQuery);
                 return result.ToList();
             }

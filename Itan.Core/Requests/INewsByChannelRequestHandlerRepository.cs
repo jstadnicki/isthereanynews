@@ -32,7 +32,7 @@ namespace Itan.Core.Requests
             var newsHeaderList = new List<NewsHeader>();
             using (var connection = new SqlConnection(this.connectionString))
             {
-                var query = "select n.id,n.Title, n.Published, n.Link from News n where n.ChannelId = @channelId order by n.Published desc";
+                var query = "select n.id,n.Title, n.Published, n.Link from News n where n.ChannelId = @channelId AND n.OriginalPostId IS NULL order by n.Published desc";
                 var queryData = new
                 {
                     channelId = channelId
