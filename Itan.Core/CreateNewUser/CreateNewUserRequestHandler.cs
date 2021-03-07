@@ -4,6 +4,7 @@ using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using Itan.Core.DeleteAccount;
+using Itan.Core.GetUnreadNewsByChannel;
 using Itan.Core.Handlers;
 using Itan.Wrappers;
 using MediatR;
@@ -18,12 +19,16 @@ namespace Itan.Core.CreateNewUser
         private readonly ICreateUserRepository repository;
         private readonly GraphApiSettings graphApiSettings;
         private readonly IEmailSender emailWrapper;
+        private readonly IReaderSettingsRepository readersSettingsRepository;
 
         public CreateNewUserRequestHandler(ICreateUserRepository repository,
-            IOptions<GraphApiSettings> graphApiSettings, IEmailSender emailWrapper)
+            IOptions<GraphApiSettings> graphApiSettings,
+            IEmailSender emailWrapper, 
+            IReaderSettingsRepository readersSettingsRepository)
         {
             this.repository = repository;
             this.emailWrapper = emailWrapper;
+            this.readersSettingsRepository = readersSettingsRepository;
             this.graphApiSettings = graphApiSettings.Value;
         }
         private void Validate(CreateNewUserRequest request)
@@ -38,6 +43,7 @@ namespace Itan.Core.CreateNewUser
         {
             this.Validate(request);
             await this.repository.CreatePersonIfNotExists(request.UserId);
+            await this.readersSettingsRepository.CreateDefaultValuesAsync(request.UserId);
             
             var scopes = new string[] {"https://graph.microsoft.com/.default"};
             

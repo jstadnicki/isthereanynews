@@ -1,20 +1,47 @@
 <div class="container">
   <div class="columns">
+    <div *ngIf="this.notificationText.length>0"
+         [ngClass]="{'is-danger':!this.notificationSuccessful,'is-success':!this.notificationSuccessful}"
+         class="notification is-primary">
+      <button class="delete" (click)="this.closeNotification()"></button>
+      <span [innerText]="this.notificationText"></span>
+
+    </div>
     <div class="column is-2">
-      <button class="button is-medium is-fullwidth">Button</button>
-      <button class="button is-medium is-fullwidth">Button</button>
-      <button class="button is-medium is-fullwidth">Button</button>
-      <button class="button is-medium is-fullwidth">Button</button>
-      <button class="button is-medium is-fullwidth">Button</button>
-      <button class="button is-medium is-fullwidth">Button</button>
-      <button class="button is-medium is-fullwidth">Button</button>
-      <button class="button is-medium is-fullwidth">Button</button>
-      <button class="button is-medium is-fullwidth">Button</button>
-      <button class="button is-medium is-fullwidth">Button</button>
-      <button class="button is-medium is-fullwidth">Button</button>
+      <button class="button is-medium is-fullwidth">News updates</button>
     </div>
     <div class="column">
-      here be settings
+      <div id="newsUpdatesSettings" *ngIf="this.readerSettings!=undefined">
+        <div class="control">
+          <label class="radio">
+            <input type="radio" name="updatedNews" value="{{settingsUpdatedNews.Show}}"
+                   (change)="onShowUpdatedNews()"
+                   [checked]="this.getShowUpdatedNews(settingsUpdatedNews.Show)">
+            Show me updated news
+          </label>
+          <label class="radio">
+            <input type="radio" name="updatedNews" value="{{settingsUpdatedNews.Ignore}}"
+                   (change)="onIgnoreUpdatedNews()"
+                   [checked]="this.getShowUpdatedNews(settingsUpdatedNews.Ignore)">
+            Ignore updated news
+          </label>
+        </div>
+
+        <div class="control">
+          <label class="radio">
+            <input type="radio" name="squashNews" value="{{settingsSquashUpdate.Squash}}"
+                   (change)="onSquashNews()"
+                   [checked]="this.getSquashUpdatedNews(settingsSquashUpdate.Squash)">
+            Squash updates (💲)
+          </label>
+          <label class="radio">
+            <input type="radio" name="squashNews" value="{{settingsSquashUpdate.Show}}"
+                   (change)="onShowAllNews()"
+                   [checked]="this.getSquashUpdatedNews(settingsSquashUpdate.Show)">
+            Show each update
+          </label>
+        </div>
+      </div>
     </div>
   </div>
 </div>
