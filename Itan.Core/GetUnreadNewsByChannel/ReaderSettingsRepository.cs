@@ -10,11 +10,14 @@ namespace Itan.Core.GetUnreadNewsByChannel
 {
     class ReaderSettingsRepository : IReaderSettingsRepository
     {
-        private string connectionString;
+        private readonly string readConnectionString;
+        private string writeConnectionString;
 
         public ReaderSettingsRepository(IOptions<ConnectionOptions> options)
         {
-            this.connectionString = options.Value.SqlReader;
+            this.readConnectionString = options.Value.SqlReader;
+            this.writeConnectionString = options.Value.SqlWriter;
+            
         }
 
         public async Task<ReaderSettings> GetAsync(string personId)
@@ -25,7 +28,7 @@ namespace Itan.Core.GetUnreadNewsByChannel
                 personId
             };
 
-            using var connection = new SqlConnection(this.connectionString);
+            using var connection = new SqlConnection(this.readConnectionString);
             var queryResult = await connection.QueryAsync<ReaderSettings>(query, queryData);
             var readerSettings = queryResult.Single();
             return readerSettings;
@@ -42,7 +45,7 @@ namespace Itan.Core.GetUnreadNewsByChannel
                 squash = SquashUpdate.Show.ToString()
             };
 
-            await using var connection = new SqlConnection(this.connectionString);
+            await using var connection = new SqlConnection(this.writeConnectionString);
             await connection.ExecuteAsync(query, queryData);
         }
     }
