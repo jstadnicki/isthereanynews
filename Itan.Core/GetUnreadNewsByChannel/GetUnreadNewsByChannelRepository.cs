@@ -39,7 +39,7 @@ namespace Itan.Core.GetUnreadNewsByChannel
                         (updatedNews == UpdatedNews.Ignore ? hideUpdatesQuery : empty) +
                         " order by n.Published desc";
 
-            if (squashUpdate == SquashUpdate.Squash)
+            if (updatedNews == UpdatedNews.Show &&  squashUpdate == SquashUpdate.Squash)
             {
                 query = " select t.Id, t.Title, t.Published, t.Link, t.OriginalPostId, rn" +
                         " into #ns" +

@@ -59,7 +59,7 @@ namespace Itan.Core
                 queryNews +
                 " GROUP BY c.Id, c.Title, c.Description, c.Url ";
 
-            if (readerSettings.SquashNewsUpdates == SquashUpdate.Squash)
+            if (readerSettings.ShowUpdatedNews == UpdatedNews.Show && readerSettings.SquashNewsUpdates == SquashUpdate.Squash)
             {
                 sqlQuery = " SELECT ChannelId as Id, Title, Description, Url, Count(*) as NewsCount FROM\n" +
                            " (\n" +
