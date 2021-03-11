@@ -10,7 +10,9 @@ using MediatR;
 
 namespace Itan.Core.Handlers
 {
-    public class ChannelsCreateNewChannelRequestHandler : IRequestHandler<ChannelsCreateNewChannelRequest, ChannelCreateRequestResult>
+    public class
+        ChannelsCreateNewChannelRequestHandler : IRequestHandler<ChannelsCreateNewChannelRequest,
+            ChannelCreateRequestResult>
     {
         private readonly ICreateNewChannelRepository repository;
         private readonly IQueue<ChannelToDownload> messagesCollector;
@@ -26,45 +28,30 @@ namespace Itan.Core.Handlers
             this.channelFinderRepository = channelFinderRepository;
         }
 
-        public async Task<ChannelCreateRequestResult> Handle(ChannelsCreateNewChannelRequest request, CancellationToken cancellationToken)
+        public async Task<ChannelCreateRequestResult> Handle(
+            ChannelsCreateNewChannelRequest request,
+            CancellationToken _)
         {
-            this.Validate(request);
+            var feed = await FeedReader.ReadAsync(request.Url);
             var uri = new Uri(request.Url.ToLowerInvariant());
+
+            var title = string.IsNullOrWhiteSpace(feed.Title) ? uri.ToString() : feed.Title;
             var channelToSearch = uri.Authority + uri.AbsolutePath;
 
-            var existingChannelId = await channelFinderRepository.FindChannelIdByUrlAsync(channelToSearch, IChannelFinderRepository.Match.Like);
-            if (existingChannelId == default(Guid))
+            var existingChannelId =
+                await channelFinderRepository.FindChannelIdByUrlAsync(channelToSearch, IChannelFinderRepository.Match.Like);
+            if (existingChannelId != default(Guid))
             {
-                var channelId = await this.repository.SaveAsync(request.Url.ToLowerInvariant(), request.PersonId);
-                var mesg = new ChannelToDownload
-                {
-                    Id = channelId,
-                    Url = request.Url
-                };
-                await this.messagesCollector.AddAsync(mesg, QueuesName.ChannelToDownload);
-                return ChannelCreateRequestResult.Created;
+                return ChannelCreateRequestResult.Exists(title);
             }
-            return ChannelCreateRequestResult.AlreadyExists;
-        }
-
-
-        private void Validate(ChannelsCreateNewChannelRequest request)
-        {
-            try
+            var channelId = await this.repository.SaveAsync(request.Url.ToLowerInvariant(), request.PersonId);
+            var mesg = new ChannelToDownload
             {
-                FeedReader.Read(request.Url);
-            }
-            catch (Exception e)
-            {
-                throw new ItanValidationException(e);
-            }
-        }
-    }
-
-    public class ItanValidationException : Exception
-    {
-        public ItanValidationException(Exception exception) : base("ItanValidationException", exception)
-        {
+                Id = channelId,
+                Url = request.Url
+            };
+            await this.messagesCollector.AddAsync(mesg, QueuesName.ChannelToDownload);
+            return ChannelCreateRequestResult.Created(title);
         }
     }
 }

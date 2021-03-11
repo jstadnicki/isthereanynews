@@ -9,7 +9,7 @@
 </style>
 <div class="notification is-primary" *ngIf="displaySuccess">
   <button class="delete"></button>
-  Url succesfully registered as Itan channel ❤ - please give it a moment to download and update information about the channel
+  {{this.successMessage}}
 </div>
 <div class="notification is-danger" *ngIf="displayError">
   <button class="delete"></button>

@@ -1,6 +1,6 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Threading.Tasks;
-using Itan.Core.Handlers;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
@@ -23,5 +23,9 @@ namespace Itan.Api.Middleware
                 await context.Response.WriteAsync(result);
             }
         }
+    }
+
+    public class ItanValidationException : Exception
+    {
     }
 }

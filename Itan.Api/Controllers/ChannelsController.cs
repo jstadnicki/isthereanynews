@@ -40,8 +40,8 @@ namespace Itan.Api.Controllers
             {
                 Url = model.Url, PersonId = Guid.Parse(userId)
             };
-            await this.mediator.Send(command);
-            return this.Accepted();
+            var channelCreateRequestResult = await this.mediator.Send(command);
+            return this.Accepted(channelCreateRequestResult);
         }
 
         

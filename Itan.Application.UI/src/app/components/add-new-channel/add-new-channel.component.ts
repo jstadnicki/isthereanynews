@@ -10,6 +10,7 @@ import {AddNewChannelRepositoryService} from "../../service/add-new-channel-repo
 export class AddNewChannelComponent implements OnInit {
 
   showSpinner: boolean = false;
+  successMessage: string='';
 
   constructor(
     private addNewChannelRepositoryService: AddNewChannelRepositoryService
@@ -26,22 +27,31 @@ export class AddNewChannelComponent implements OnInit {
   async onSubmit(form: NgForm) {
     this.showSpinner = true;
     (await this.addNewChannelRepositoryService.Save(this.url))
-    .subscribe(s=>this.showSuccess(),e=>this.showError());
+      .subscribe(s => {
+          this.showSuccess(s)
+        },
+        e => this.showError());
     this.showSpinner = false;
   }
 
-  async showSuccess() {
+  async showSuccess(s) {
+    if(s.channelCreateRequestResultType == 2){
+      this.successMessage = `Channel already exists, find it by ${s.channelName}`;
+    }
+    if(s.channelCreateRequestResultType == 1){
+      this.successMessage = `Channel created, find it by ${s.channelName}. Please give ITAN some time to parse it (refresh maybe be required - sorry)`;
+    }
     this.displaySuccess = true;
     setTimeout(() => {
       this.displaySuccess = false;
-    }, 3000);
+    }, 15000);
   };
 
   async showError() {
     this.displayError = true;
     setTimeout(() => {
       this.displayError = false;
-    }, 3000);
+    }, 5000);
   };
 
 }
