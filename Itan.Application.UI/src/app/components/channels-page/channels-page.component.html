@@ -6,10 +6,11 @@
       </div>
       <button class='button is-small'
               [ngClass]="{'is-active':this.isLoggedIn}"
-              (click)="showAddNewChannel()">
+              (click)="showAddNewChannel()"
+              [disabled]="!this.isLoggedIn">
         <app-locker *ngIf="!isLoggedIn"></app-locker>
         <i class="fa fa-plus-circle" *ngIf="isLoggedIn"></i>
-        <span>add new</span>
+        <span>&nbsp;add new</span>
       </button>
       <hr/>
       <button class='button is-small'
@@ -39,13 +40,15 @@
             <nav class="level is-mobile">
               <div class="level-left">
                 <a class="level-item">
-                  <button role="button" class="button is-small" (click)="subscribe(selectedChannel)">
-                    <i class="fa fa-link" alt="subscribe">&nbsp;</i>
-                    subscribe
+                  <button role="button" class="button is-small" (click)="subscribe(selectedChannel)" [disabled]="!this.isLoggedIn">
+                    <i *ngIf="this.isLoggedIn" class="fa fa-link" alt="subscribe">&nbsp;</i>
+                    <app-locker *ngIf="!isLoggedIn"></app-locker>
+                    &nbsp;subscribe
                   </button>
-                  <button role="button" class="button is-small" (click)="unsubscribe(selectedChannel)">
-                    <i class="fa fa-unlink" alt="subscribe">&nbsp;</i>
-                    unsubscribe
+                  <button role="button" class="button is-small" (click)="unsubscribe(selectedChannel)"[disabled]="!this.isLoggedIn">
+                    <i *ngIf="this.isLoggedIn" class="fa fa-unlink" alt="subscribe">&nbsp;</i>
+                    <app-locker *ngIf="!isLoggedIn"></app-locker>
+                    &nbsp;unsubscribe
                   </button>
                 </a>
               </div>
