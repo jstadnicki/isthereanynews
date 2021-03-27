@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import {MsalWrapperService} from "./../../service/msal-wrapper.service";
+import {MsalWrapperService} from "../../service/msal-wrapper.service";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {ReaderSettings} from "./reader.settings";
-import {UpdatedNews} from "./updated.news";
-import {SquashUpdate} from "./squash.update";
+import {UpdatedNews} from "../../../server/Itan/Common/UpdatedNews";
+import {SquashUpdate} from "../../../server/Itan/Common/SquashUpdate";
 import {Observable} from "rxjs";
 
 @Injectable({

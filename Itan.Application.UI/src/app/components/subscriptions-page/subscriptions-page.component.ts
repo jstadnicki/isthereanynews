@@ -7,6 +7,9 @@ import {FormGroup, FormControl, Validators} from '@angular/forms';
 import {NewsItemOpenedMarkerService} from "../../service/news-item-opened-marker.service";
 import {ChannelsSubscriptionsServiceService} from "../../service/channels-subscriptions-service.service";
 
+import {ChannelViewModel} from '../../../server/Itan/Core/ChannelViewModel';
+import {NewsViewModel} from '../../../server/Itan/Core/NewsViewModel';
+
 @Component({
   selector: 'app-subscriptions-page',
   templateUrl: './subscriptions-page.component.html',
@@ -44,7 +47,7 @@ export class SubscriptionsPageComponent implements OnInit {
   }
 
   async unsubscribe(channel: Channel) {
-     this.channelsSubscriptionsServiceService.unsubscribeFromChannel(channel.id)
+     this.channelsSubscriptionsServiceService.unsubscribeFromChannel(channel.viewModel.id)
        .then(() => this.showUnsubscribeNotification(true))
        .catch(() => this.showUnsubscribeNotification(false));
   }
@@ -61,9 +64,9 @@ export class SubscriptionsPageComponent implements OnInit {
     this.news = null;
     var options = await this.msalWrapperService.getOptionsHeaders();
     this.http
-      .get<News[]>(`${environment.apiUrl}/api/UnreadNews/${channel.id}`, options)
+      .get<NewsViewModel[]>(`${environment.apiUrl}/api/UnreadNews/${channel.viewModel.id}`, options)
       .subscribe((r) => {
-        this.news = r;
+        this.news = r.map(vm=>new News(vm))
         this.areNewsLoading = false;
       });
   }
@@ -108,14 +111,14 @@ export class SubscriptionsPageComponent implements OnInit {
     }
 
     if (newsItem.read == false) {
-      this.newsReadMarker.MarkRead(this.selectedChannel.id, newsItem.id)
+      this.newsReadMarker.MarkRead(this.selectedChannel.viewModel.id, newsItem.viewModel.id)
         .then(()=>{
-          this.channels.find(c=>c.id == this.selectedChannel.id).newsCount--;
+          this.channels.find(c=>c.viewModel.id == this.selectedChannel.viewModel.id).viewModel.newsCount--;
         })
     }
     newsItem.read = true;
     newsItem.loading = true;
-    const url = newsItem.contentUrl;
+    const url = newsItem.viewModel.contentUrl;
     let headers = new HttpHeaders();
     let options = {headers: headers}
     this.http
@@ -129,28 +132,28 @@ export class SubscriptionsPageComponent implements OnInit {
 
   async markUnreadAsRead(channel: Channel) {
     let unread = this.news.filter(f => f.read == false);
-    let unreadIds = unread.map(m => m.id);
-    this.newsReadMarker.MarkUnreadAsRead(channel.id, unreadIds)
+    let unreadIds = unread.map(m => m.viewModel.id);
+    this.newsReadMarker.MarkUnreadAsRead(channel.viewModel.id, unreadIds)
       .then(() => {
         this.news.forEach(n => n.read = true);
-        this.channels.find(c => c.id == channel.id).newsCount = 0;
+        this.channels.find(c => c.viewModel.id == channel.viewModel.id).viewModel.newsCount = 0;
         this.showMarkAsReadNotification(true);
       })
       .catch(()=>this.showMarkAsReadNotification(false));
   }
 
   async onExternalLinkClick(news: News) {
-    await this.newsOpenedMarker.MarkOpen(this.selectedChannel.id, news.id);
+    await this.newsOpenedMarker.MarkOpen(this.selectedChannel.viewModel.id, news.viewModel.id);
 
     if(!news.read){
-      this.newsOpenedMarker.MarkOpenWithClick(this.selectedChannel.id, news.id)
+      this.newsOpenedMarker.MarkOpenWithClick(this.selectedChannel.viewModel.id, news.viewModel.id)
         .then(()=> {
-          this.channels.find(c=>c.id == this.selectedChannel.id).newsCount--;
+          this.channels.find(c=>c.viewModel.id == this.selectedChannel.viewModel.id).viewModel.newsCount--;
           news.read = true;
         });
 
     }
-    window.open(news.link);
+    window.open(news.viewModel.link);
   }
 
   display(news: NewsContent): string {
@@ -162,30 +165,30 @@ export class SubscriptionsPageComponent implements OnInit {
     var options = await this.msalWrapperService.getOptionsHeaders();
 
     this.http
-      .get<Channel[]>(`${environment.apiUrl}/api/subscriptions/${userId}`, options)
+      .get<ChannelViewModel[]>(`${environment.apiUrl}/api/subscriptions/${userId}`, options)
       .subscribe((r) => {
-        this.channels = r;
+        this.channels = r.map(vm=>new Channel(vm));
         this.areChannelsLoaded = true;
       });
   }
 
   displayTitleOrDescriptionOrUrl(selectedChannel: Channel):string {
-    if(selectedChannel.title!=null && selectedChannel.title.length>0)
-      return selectedChannel.title;
-    if(selectedChannel.description!=null && selectedChannel.description.length>0)
-      return selectedChannel.description;
-    return selectedChannel.url;
+    if(selectedChannel.viewModel.title!=null && selectedChannel.viewModel.title.length>0)
+      return selectedChannel.viewModel.title;
+    if(selectedChannel.viewModel.description!=null && selectedChannel.viewModel.description.length>0)
+      return selectedChannel.viewModel.description;
+    return selectedChannel.viewModel.url;
   }
 
   getNewsTitle(newsItem: News) {
     var postfix = "";
-    if(newsItem.originalPostId!=null){
+    if(newsItem.viewModel.originalPostId!=null){
       postfix = " (*** UPDATE ***)"
     }
-    if(newsItem.title!= null && newsItem.title.length>0){
-      return newsItem.title + postfix;
+    if(newsItem.viewModel.title!= null && newsItem.viewModel.title.length>0){
+      return newsItem.viewModel.title + postfix;
     }
-    return newsItem.link + postfix;
+    return newsItem.viewModel.link + postfix;
   }
 
   private showUnsubscribeNotification(successful: boolean) {
@@ -229,25 +232,23 @@ export class SubscriptionsPageComponent implements OnInit {
     this.setNotificationClearTimer();  }
 }
 
-class Channel {
-  url: string;
-  title: string;
-  id: string;
-  newsCount: number;
-  description:string;
+class Channel{
+  constructor(vm:ChannelViewModel) {
+    this.viewModel = vm;
+  }
+  viewModel:ChannelViewModel;
 }
 
 class News {
-  title: string;
-  id: string;
-  contentUrl: string;
+  read: Boolean;
+  constructor(vm: NewsViewModel) {
+    this.viewModel = vm;
+  }
+
+  viewModel: NewsViewModel;
   content: NewsContent;
-  loading: boolean = false;
-  contentVisible: boolean = false;
-  published: Date
-  read: boolean = true;
-  link: string;
-  originalPostId:string;
+  contentVisible: boolean;
+  loading: boolean;
 }
 
 class NewsContent {

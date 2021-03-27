@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {SettingsServiceService} from "./settings-service.service";
 import {ReaderSettings} from "./reader.settings";
-import {UpdatedNews} from "./updated.news";
-import {SquashUpdate} from "./squash.update";
+import {UpdatedNews} from "../../../server/Itan/Common/UpdatedNews";
+import {SquashUpdate} from "../../../server/Itan/Common/SquashUpdate";
 
 @Component({
   selector: 'app-settings-page',

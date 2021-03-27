@@ -21,7 +21,7 @@ namespace Itan.Api.Controllers
         
         [Route("news")]
         [HttpGet]
-        public async Task<ActionResult<HomePageNews>> Get()
+        public async Task<ActionResult<HomePageNewsViewModel>> Get()
         {
             var request = new GetHomePageNewsRequest();
             var hpn = await this.mediator.Send(request);

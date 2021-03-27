@@ -4,6 +4,6 @@ namespace Itan.Core.Requests
 {
     public interface IHomePageNewsRequestHandlerRepository
     {
-        Task<HomePageNews> GetHomePageNews();
+        Task<HomePageNewsViewModel> GetHomePageNews();
     }
 }

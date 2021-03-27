@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Reinforced.Typings" Version="1.5.9" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Itan.Common\Itan.Common.csproj" />
+      <ProjectReference Include="..\Itan.Core\Itan.Core.csproj" />
+    </ItemGroup>
+
+</Project>

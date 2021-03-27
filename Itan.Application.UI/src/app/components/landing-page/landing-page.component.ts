@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
+import {HomePageNewsViewModel} from '../../../server/Itan/Core/HomePageNewsViewModel'
+import {LandingPageNewsViewModel} from '../../../server/Itan/Core/LandingPageNewsViewModel'
 
 @Component({
   selector: 'app-landing-page',
@@ -21,15 +23,15 @@ export class LandingPageComponent implements OnInit {
     }, 5000);
   }
 
-  news:HomePageNews = new HomePageNews();
+  news: HomePageNews;
   topIndex: number = 0;
   bottomPage: number = 0;
   loaded: boolean = false;
 
   loadLandingPageNews() {
-    this.http.get<HomePageNews>(`${environment.apiUrl}/api/landingpage/news`)
+    this.http.get<HomePageNewsViewModel>(`${environment.apiUrl}/api/landingpage/news`)
       .subscribe(result => {
-        this.news = result;
+        this.news = new HomePageNews(result);
         this.loadContent();
       })
   }
@@ -38,8 +40,8 @@ export class LandingPageComponent implements OnInit {
     return news?.content?.Image?.length > 0;
   }
 
-  getImage(news: LandingPageNews):string{
-    if(news?.content?.Image.startsWith('https')){
+  getImage(news: LandingPageNews): string {
+    if (news?.content?.Image.startsWith('https')) {
       return news.content?.Image;
     }
     return `https://itan-app-service-function.azurewebsites.net/api/HttpHttpsImage?url=${news.content?.Image}`;
@@ -47,7 +49,7 @@ export class LandingPageComponent implements OnInit {
 
   private loadContent() {
     this.news.topNews.forEach((newsItem) => {
-      const url = newsItem.contentLink;
+      const url = newsItem.viewModel.contentLink;
       let headers = new HttpHeaders();
       let options = {headers: headers}
       this.http
@@ -55,19 +57,19 @@ export class LandingPageComponent implements OnInit {
         .subscribe(response => {
           newsItem.content = response;
 
-          var tempDiv = document.createElement('div');
+          const tempDiv = document.createElement('div');
           tempDiv.innerHTML = this.display(newsItem);
-          var firstImage = tempDiv.getElementsByTagName('img')[0]
-          var imgSrc = firstImage ? firstImage.src : "";
+          const firstImage = tempDiv.getElementsByTagName('img')[0];
+          const imgSrc = firstImage ? firstImage.src : "";
 
           newsItem.content.Image = imgSrc;
-        }, error =>{
+        }, error => {
           console.log(error);
         });
     });
 
-    this.news.bottomNews.forEach((newsItem) => {
-      const url = newsItem.contentLink;
+    this.news.bottomNews.forEach(newsItem => {
+      const url = newsItem.viewModel.contentLink;
       let headers = new HttpHeaders();
       let options = {headers: headers}
       this.http
@@ -75,10 +77,10 @@ export class LandingPageComponent implements OnInit {
         .subscribe(response => {
           newsItem.content = response;
 
-          var tempDiv = document.createElement('div');
+          const tempDiv = document.createElement('div');
           tempDiv.innerHTML = this.display(newsItem);
-          var firstImage = tempDiv.getElementsByTagName('img')[0]
-          var imgSrc = firstImage ? firstImage.src : "";
+          const firstImage = tempDiv.getElementsByTagName('img')[0];
+          const imgSrc = firstImage ? firstImage.src : "";
 
           newsItem.content.Image = imgSrc;
         }, error => {
@@ -93,33 +95,30 @@ export class LandingPageComponent implements OnInit {
   }
 
   onExternalLinkClick(newsItan: LandingPageNews) {
-    window.open(newsItan.link);
+    window.open(newsItan.viewModel.link);
   }
 }
 
 class HomePageNews {
+  constructor(vm: HomePageNewsViewModel) {
+    this.viewModel = vm;
+    this.bottomNews = vm.bottomNews.map(n => new LandingPageNews(n));
+    this.topNews = vm.topNews.map(n => new LandingPageNews(n));
+  }
+
+  private viewModel: HomePageNewsViewModel;
   topNews: LandingPageNews[];
   bottomNews: LandingPageNews[];
-
-  constructor() {
-    this.topNews = new Array(0);
-    this.bottomNews = new Array(0);
-  }
 }
 
 class LandingPageNews {
-  constructor() {
+  constructor(vm: LandingPageNewsViewModel) {
     this.content = new NewsContent();
+    this.viewModel = vm;
   }
 
-  author: string;
-  title: string;
-  id: string;
-  published: Date
-  link: string;
-  image: string;
+  viewModel: LandingPageNewsViewModel;
   content: NewsContent;
-  contentLink: string;
 }
 
 class NewsContent {
@@ -129,4 +128,3 @@ class NewsContent {
   Author: string;
   Link: string;
 }
-

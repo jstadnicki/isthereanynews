@@ -288,7 +288,7 @@
           <e p="UserSubscribeToChannelHandler.cs" t="Include" />
           <e p="UserToChannelSubscriptionsRepository.cs" t="Include" />
         </e>
-        <e p="HomePageNews.cs" t="Include" />
+        <e p="HomePageNewsViewModel.cs" t="Include" />
         <e p="ImportSubscriptions" t="Include">
           <e p="Body.cs" t="Include" />
           <e p="Head.cs" t="Include" />
@@ -300,7 +300,7 @@
         </e>
         <e p="Itan.Core.csproj" t="IncludeRecursive" />
         <e p="ItanCoreModule.cs" t="Include" />
-        <e p="LandingPageNews.cs" t="Include" />
+        <e p="LandingPageNewsViewModel.cs" t="Include" />
         <e p="MarkNewsAsReadWithClick" t="Include">
           <e p="MarkNewsAsReadWithClickCommand.cs" t="Include" />
           <e p="MarkNewsAsReadWithClickCommandHandler.cs" t="Include" />
@@ -540,6 +540,19 @@
         </e>
       </e>
       <e p="ITAN.sln" t="IncludeFlat" />
+      <e p="Itan.TypesGenerator" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Itan.TypesGenerator.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="Itan.TypesGenerator.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Reinforced.Typings.settings.xml" t="Include" />
+        <e p="ReinforcedTypingsConfiguration.cs" t="Include" />
+      </e>
       <e p="Itan.Wrappers" t="IncludeRecursive">
         <e p="AzureQueueWrapper.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />

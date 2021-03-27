@@ -7,10 +7,10 @@
       </div>
       <button class='button is-small'
               (click)="onChannelClick(channel)"
-              [ngClass]="{'is-active':this.selectedChannel!=null && channel.id == this.selectedChannel.id}"
+              [ngClass]="{'is-active':this.selectedChannel!=null && channel.viewModel.id == this.selectedChannel.viewModel.id}"
               *ngFor="let channel of channels">
         <span class="text-ellipsis">{{displayTitleOrDescriptionOrUrl(channel)}}</span>
-        <span class="">({{channel.newsCount}})</span>
+        <span class="">({{channel.viewModel.newsCount}})</span>
       </button>
       <hr/>
       <button class="button" (click)="onImportClick()">import</button>
@@ -47,7 +47,7 @@
             <div class="content">
               <p>
                 <strong>{{displayTitleOrDescriptionOrUrl(selectedChannel)}}</strong><br>
-                <small>{{selectedChannel.url}}</small>
+                <small>{{selectedChannel.viewModel.url}}</small>
                 <br>
               </p>
             </div>
@@ -86,7 +86,7 @@
           <div class="media-content">
             <div class="content">
               <p>
-                <strong>{{getNewsTitle(newsItem)}}</strong>{{newsItem.published|date}}<i class="fa"
+                <strong>{{getNewsTitle(newsItem)}}</strong>{{newsItem.viewModel.published|date}}<i class="fa"
                                                                                  [ngClass]="{'fa-chevron-down':!newsItem.contentVisible,'fa-chevron-up':newsItem.contentVisible}"
                                                                                  (click)="onNewsClick(newsItem)"></i>
               </p>

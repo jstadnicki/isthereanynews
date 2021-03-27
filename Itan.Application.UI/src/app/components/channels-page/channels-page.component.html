@@ -75,7 +75,7 @@
             <div class="content">
               <p>
                 <strong [innerHTML]="getNewsTitle(newsItem)"></strong>
-                <span class="is-pulled-right"><i class="fa fa-calendar"></i> {{newsItem.published|date}}</span>
+                <span class="is-pulled-right"><i class="fa fa-calendar"></i> {{newsItem.viewModel.published|date}}</span>
                 <i class="fa"
                    [ngClass]="{'fa-chevron-down':!newsItem.contentVisible,'fa-chevron-up':newsItem.contentVisible}"
                    (click)="onNewsClick(newsItem)"></i>

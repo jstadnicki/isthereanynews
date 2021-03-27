@@ -1,5 +1,5 @@
-﻿import {SquashUpdate} from "./squash.update";
-import {UpdatedNews} from "./updated.news";
+﻿import {UpdatedNews} from "../../../server/Itan/Common/UpdatedNews";
+import {SquashUpdate} from "../../../server/Itan/Common/SquashUpdate";
 
 export class ReaderSettings {
     public showUpdatedNews: UpdatedNews;

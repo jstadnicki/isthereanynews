@@ -4,11 +4,11 @@ using MediatR;
 
 namespace Itan.Core.Requests
 {
-    public class GetHomePageNewsRequest : IRequest<HomePageNews>
+    public class GetHomePageNewsRequest : IRequest<HomePageNewsViewModel>
     {
     }
 
-    public class GetHomePageNewsRequestHandler : IRequestHandler<GetHomePageNewsRequest, HomePageNews>
+    public class GetHomePageNewsRequestHandler : IRequestHandler<GetHomePageNewsRequest, HomePageNewsViewModel>
     {
         private IHomePageNewsRequestHandlerRepository getHomePageNewsRequestHandlerRepository;
 
@@ -17,7 +17,7 @@ namespace Itan.Core.Requests
             this.getHomePageNewsRequestHandlerRepository = getHomePageNewsRequestHandlerRepository;
         }
 
-        public async Task<HomePageNews> Handle(GetHomePageNewsRequest request, CancellationToken cancellationToken)
+        public async Task<HomePageNewsViewModel> Handle(GetHomePageNewsRequest request, CancellationToken cancellationToken)
         {
             var hpn = await this.getHomePageNewsRequestHandlerRepository.GetHomePageNews();
             return hpn;

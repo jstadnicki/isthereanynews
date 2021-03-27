@@ -3,6 +3,8 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {MsalWrapperService} from "../../service/msal-wrapper.service";
 import {ChannelsSubscriptionsServiceService} from "../../service/channels-subscriptions-service.service";
 import {environment} from '../../../environments/environment';
+import {ChannelViewModel} from '../../../server/Itan/Core/ChannelViewModel';
+import {NewsViewModel} from '../../../server/Itan/Core/NewsViewModel';
 
 @Component({
   selector: "app-channels-page",
@@ -17,8 +19,8 @@ export class ChannelsPageComponent implements OnInit {
   ) {
   }
 
-  channels: Channel[];
-  selectedChannel: Channel;
+  channels: ChannelViewModel[];
+  selectedChannel: ChannelViewModel;
   news: News[];
   areChannelsLoaded: boolean;
   areNewsLoading: boolean;
@@ -36,13 +38,13 @@ export class ChannelsPageComponent implements OnInit {
     this.msalWrapperService.isLoggedIn.subscribe(v => this.isLoggedIn = v);
   }
 
-  async subscribe(channel: Channel) {
+  async subscribe(channel: ChannelViewModel) {
     this.channelsSubscriptionsServiceService.subscribeToChannel(channel.id)
       .then(() => this.showSubscribeNotification(true))
       .catch(() => this.showSubscribeNotification(false));
   }
 
-  async unsubscribe(channel: Channel) {
+  async unsubscribe(channel: ChannelViewModel) {
     this.channelsSubscriptionsServiceService.unsubscribeFromChannel(channel.id)
       .then(() => this.showUnsubscribeNotification(true))
       .catch(() => this.showUnsubscribeNotification(false));
@@ -56,7 +58,7 @@ export class ChannelsPageComponent implements OnInit {
     this.displayAddNewChannel = true;
   }
 
-  async onChannelClick(channel: Channel) {
+  async onChannelClick(channel: ChannelViewModel) {
     this.displayAddNewChannel = false;
     this.closeNotification();
     if (channel == this.selectedChannel) {
@@ -67,9 +69,9 @@ export class ChannelsPageComponent implements OnInit {
     this.news = null;
 
     this.http
-      .get<News[]>(`${environment.apiUrl}/api/news/${channel.id}`)
+      .get<NewsViewModel[]>(`${environment.apiUrl}/api/news/${channel.id}`)
       .subscribe((r) => {
-        this.news = r;
+        this.news = r.map(vm => new News(vm))
         this.areNewsLoading = false;
       });
   }
@@ -80,7 +82,7 @@ export class ChannelsPageComponent implements OnInit {
       return;
     }
     newsItem.loading = true;
-    const url = newsItem.contentUrl;
+    const url = newsItem.viewModel.contentUrl;
     let headers = new HttpHeaders();
     let options = {headers: headers}
     this.http
@@ -108,7 +110,7 @@ export class ChannelsPageComponent implements OnInit {
   }
 
   onExternalLinkClick(newsItan: News) {
-    window.open(newsItan.link);
+    window.open(newsItan.viewModel.link);
   }
 
   display(news: NewsContent): string {
@@ -117,14 +119,14 @@ export class ChannelsPageComponent implements OnInit {
 
   async loadChannels() {
     this.http
-      .get<Channel[]>(`${environment.apiUrl}/api/channels`)
+      .get<ChannelViewModel[]>(`${environment.apiUrl}/api/channels`)
       .subscribe((r) => {
         this.channels = r;
         this.areChannelsLoaded = true;
       });
   }
 
-  displayTitleOrDescriptionOrUrl(selectedChannel: Channel) {
+  displayTitleOrDescriptionOrUrl(selectedChannel: ChannelViewModel) {
     if (selectedChannel.title != null && selectedChannel.title.length > 0)
       return selectedChannel.title;
     if (selectedChannel.description != null && selectedChannel.description.length > 0)
@@ -133,10 +135,10 @@ export class ChannelsPageComponent implements OnInit {
   }
 
   getNewsTitle(newsItem: News) {
-    if (newsItem.title != null && newsItem.title.length > 0) {
-      return newsItem.title;
+    if (newsItem.viewModel.title != null && newsItem.viewModel.title.length > 0) {
+      return newsItem.viewModel.title;
     }
-    return newsItem.link;
+    return newsItem.viewModel.link;
   }
 
   private showUnsubscribeNotification(successful: boolean) {
@@ -161,7 +163,7 @@ export class ChannelsPageComponent implements OnInit {
   }
 
   private setNotificationClearTimer() {
-    if(this.notificationTimeout!=null){
+    if (this.notificationTimeout != null) {
       clearTimeout(this.notificationTimeout);
       this.notificationTimeout = null;
     }
@@ -172,7 +174,7 @@ export class ChannelsPageComponent implements OnInit {
   }
 
   closeNotification() {
-    if(this.notificationTimeout!=null){
+    if (this.notificationTimeout != null) {
       clearTimeout(this.notificationTimeout);
       this.notificationTimeout = null;
     }
@@ -181,23 +183,15 @@ export class ChannelsPageComponent implements OnInit {
   }
 }
 
-class Channel {
-  url: string;
-  title: string;
-  id: string;
-  newsCount: number;
-  description: string;
-}
-
 class News {
-  title: string;
-  id: string;
-  contentUrl: string;
+  constructor(vm: NewsViewModel) {
+    this.viewModel = vm;
+  }
+
+  viewModel: NewsViewModel;
   content: NewsContent;
-  loading: boolean = false;
-  contentVisible: boolean = false;
-  published: Date
-  link: string;
+  contentVisible: boolean;
+  loading: boolean;
 }
 
 class NewsContent {
@@ -207,3 +201,4 @@ class NewsContent {
   Author: string;
   Link: string;
 }
+

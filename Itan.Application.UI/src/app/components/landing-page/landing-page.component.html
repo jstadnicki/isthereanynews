@@ -20,13 +20,13 @@
                   <p>
                     <strong>
                       <span>
-                        {{news.topNews[topIndex].title}}
+                        {{news.topNews[topIndex].viewModel.title}}
                       </span>
                     </strong>
                     <br/>
                     <small class="is-pulled-right">
                       <span class="fa fa-rss"></span>
-                      {{news.topNews[topIndex].author}}
+                      {{news.topNews[topIndex].viewModel.author}}
                     </small>
                     <br>
                     <span [innerHTML]="display(news.topNews[topIndex])|striphtml">
@@ -39,7 +39,7 @@
                     <br/>
                     <small class="is-pulled-right">
                       <span class="fa fa-calendar"></span>
-                      {{news.topNews[topIndex].published|date}}
+                      {{news.topNews[topIndex].viewModel.published|date}}
                     </small>
                   </p>
                 </div>
@@ -65,10 +65,10 @@
               </figure>
               <div class="media-content column is-8">
                 <div class="content" style="max-width: 100%">
-                    <div class="hide-with-ellipsis" style="max-width: 100%">{{news.bottomNews[bottomPage + idx]?.title}}</div>
+                    <div class="hide-with-ellipsis" style="max-width: 100%">{{news.bottomNews[bottomPage + idx]?.viewModel.title}}</div>
                     <small class="is-pulled-right hide-with-ellipsis" style="max-width: 100%">
                       <span class="fa fa-rss"></span>
-                      {{news.bottomNews[bottomPage + idx]?.author}}
+                      {{news.bottomNews[bottomPage + idx]?.viewModel.author}}
                     </small>
                     <br>
                     <span class="is-pulled-right hide-with-ellipsis"
@@ -82,7 +82,7 @@
                     <br/>
                     <small class="is-pulled-right">
                       <span class="fa fa-calendar"></span>
-                    {{news.bottomNews[bottomPage + idx]?.published|date}}
+                    {{news.bottomNews[bottomPage + idx]?.viewModel.published|date}}
                     </small>
                 </div>
               </div>

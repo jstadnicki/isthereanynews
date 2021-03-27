@@ -23,7 +23,7 @@ namespace Itan.Core.Requests
             this.storage = options.Value.Storage;
         }
 
-        public async Task<HomePageNews> GetHomePageNews()
+        public async Task<HomePageNewsViewModel> GetHomePageNews()
         {
             var queries = new List<string>();
 
@@ -48,18 +48,18 @@ namespace Itan.Core.Requests
             var queryData = GenerateQueryData(today);
 
             var query = string.Join("\n", queries);
-            List<LandingPageNews> queryResult = new List<LandingPageNews>();
-            HomePageNews result = new HomePageNews();
+            List<LandingPageNewsViewModel> queryResult = new List<LandingPageNewsViewModel>();
+            HomePageNewsViewModel result = new HomePageNewsViewModel();
 
             using (var connection = new SqlConnection(this.connectionString))
             {
                 var reader = await connection.QueryMultipleAsync(query, queryData);
-                List<LandingPageNews> news;
+                List<LandingPageNewsViewModel> news;
                 try
                 {
                     for (int i = 0; i < queries.Count; i++)
                     {
-                        var readAsync = await reader.ReadAsync<LandingPageNews>();
+                        var readAsync = await reader.ReadAsync<LandingPageNewsViewModel>();
                         news = readAsync.ToList();
                         queryResult.AddRange(news);
                     }
