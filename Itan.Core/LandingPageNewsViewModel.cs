@@ -2,7 +2,7 @@
 
 namespace Itan.Core
 {
-    public class LandingPageNews
+    public class LandingPageNewsViewModel
     {
         public string Author { get; set; }
         public Guid ChannelId { get; set; }

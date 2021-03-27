@@ -7,5 +7,6 @@ export class LandingPageNewsViewModel
 	public published: any;
 	public link: string;
 	public image: string;
+	public content: string;
 	public contentLink: string;
 }
