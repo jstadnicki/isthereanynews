@@ -240,20 +240,21 @@ class Channel{
 }
 
 class News {
-  read: Boolean;
   constructor(vm: NewsViewModel) {
     this.viewModel = vm;
   }
 
   viewModel: NewsViewModel;
-  content: NewsContent;
-  contentVisible: boolean;
-  loading: boolean;
+  content: NewsContent=null;
+
+  read: boolean=false;
+  contentVisible: boolean=false;
+  loading: boolean=false;
 }
 
 class NewsContent {
-  Content: string;
-  Description: string;
-  Author: string;
-  Link: string;
+  Content: string='';
+  Description: string='';
+  Author: string='';
+  Link: string='';
 }
