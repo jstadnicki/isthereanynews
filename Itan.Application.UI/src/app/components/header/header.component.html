@@ -29,9 +29,9 @@
         <span>All</span>
       </a>
 
-      <a class="navbar-item" routerLink="/subscriptions">
+      <a *ngIf="loggedIn" class="navbar-item" routerLink="/subscriptions">
         <span>
-          <app-locker *ngIf="!loggedIn"></app-locker> Subscriptions
+          Subscriptions
         </span>
       </a>
       <a class="navbar-item" routerLink="/privacy">
