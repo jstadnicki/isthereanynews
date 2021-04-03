@@ -1,5 +1,6 @@
 ﻿using Itan.Common;
 using Itan.Core;
+using Itan.Core.GetAllReaders;
 using Reinforced.Typings.Fluent;
 
 namespace Itan.TypesGenerator
@@ -26,6 +27,9 @@ namespace Itan.TypesGenerator
                 .WithAllProperties();
 
             builder.ExportAsClass<LandingPageNewsViewModel>()
+                .WithAllProperties();
+
+            builder.ExportAsClass<ReaderViewModel>()
                 .WithAllProperties();
         }
     }

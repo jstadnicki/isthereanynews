@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="columns">
+    <div class="column is-2">
+      <div>
+        <img src="./assets/giphy.webp" style="filter:grayscale(100%)" *ngIf="readersLoaded"/>
+      </div>
+      <hr/>
+      <button class='button is-small'
+              [ngClass]="{'is-active':reader.id == this.selectedReader?.id}"
+              *ngFor="let reader of readers">
+        <span class="text-ellipsis">{{reader.displayName}}</span>
+      </button>
+    </div>
+    <div class="column" style="overflow-y: hidden">
+    </div>
+  </div>
+</div>

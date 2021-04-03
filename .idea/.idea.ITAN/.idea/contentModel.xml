@@ -61,6 +61,7 @@
           <e p="HealthController.cs" t="Include" />
           <e p="LandingPageController.cs" t="Include" />
           <e p="NewsController.cs" t="Include" />
+          <e p="ReadersController.cs" t="Include" />
           <e p="ReadNewsController.cs" t="Include" />
           <e p="SettingsController.cs" t="Include" />
           <e p="SubscriptionsController.cs" t="Include" />
@@ -117,6 +118,7 @@
         <e p="source-list-map" t="IncludeRecursive" />
       </e>
       <e p="Itan.Application.UI\node_modules\acorn" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\acorn-walk" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\adal-angular" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\ajv" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\ajv-keywords" t="IncludeRecursive" />
@@ -132,6 +134,7 @@
       <e p="Itan.Application.UI\node_modules\codelyzer" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\colorette" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\commander" t="IncludeRecursive" />
+      <e p="Itan.Application.UI\node_modules\component" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\dependency-graph" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\fast-deep-equal" t="IncludeRecursive" />
       <e p="Itan.Application.UI\node_modules\fast-json-stable-stringify" t="IncludeRecursive" />
@@ -264,6 +267,13 @@
           <e p="GraphApiSettings.cs" t="Include" />
         </e>
         <e p="GetAllChannelsViewModelsRequest.cs" t="Include" />
+        <e p="GetAllReaders" t="Include">
+          <e p="GetAllReadersRequest.cs" t="Include" />
+          <e p="GetAllReadersRequestHandler.cs" t="Include" />
+          <e p="IGraphRepository.cs" t="Include" />
+          <e p="IReadersRepository.cs" t="Include" />
+          <e p="ReaderViewModel.cs" t="Include" />
+        </e>
         <e p="GetAllSubscribedChannelsViewModelsRequest.cs" t="Include" />
         <e p="GetReaderSettings" t="Include">
           <e p="GetReaderSettingsRequest.cs" t="Include" />

@@ -25,6 +25,7 @@ import {
 import {LockerComponent} from './components/locker/locker.component';
 import {environment} from "../environments/environment";
 import { DeleteAccountComponent } from './components/delete-account/delete-account.component';
+import { ReadersPageComponent } from './components/readers-page/readers-page.component';
 
 
 
@@ -50,6 +51,7 @@ const isIE =
     LockerComponent,
     PrivacyPageComponent,
     DeleteAccountComponent,
+    ReadersPageComponent,
   ],
 
   imports: [
@@ -86,6 +88,7 @@ const isIE =
       {path: "subscriptions", component: SubscriptionsPageComponent, canActivate: [MsalGuard]},
       {path: "channels", component: ChannelsPageComponent},
       {path: "privacy", component: PrivacyPageComponent},
+      {path: "readers", component: ReadersPageComponent},
       {path: "delete-account", component: DeleteAccountComponent},
       {path: "**", component: HomePageComponent}
     ]),
