@@ -14,7 +14,7 @@ export class NewsItemOpenedMarkerService {
   ) { }
 
   async MarkOpen(channelId: string, newsId: string) {
-    const options = await this.msalWrapperService.getOptionsHeaders();
+    const options = await this.msalWrapperService.getOptionsHeadersAsync();
 
     const body = {
       channelId: channelId,
@@ -29,7 +29,7 @@ export class NewsItemOpenedMarkerService {
   }
 
   async MarkOpenWithClick(channelId: string, newsId: string) {
-    const options = await this.msalWrapperService.getOptionsHeaders();
+    const options = await this.msalWrapperService.getOptionsHeadersAsync();
 
     const body = {
       channelId: channelId,

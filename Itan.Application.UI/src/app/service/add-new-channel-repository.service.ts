@@ -16,7 +16,7 @@ export class AddNewChannelRepositoryService {
   }
 
   async Save(url: string): Promise<Observable<Object>> {
-    const options = await this.msalWrapperService.getOptionsHeaders();
+    const options = await this.msalWrapperService.getOptionsHeadersAsync();
 
     const body = {
       url: url

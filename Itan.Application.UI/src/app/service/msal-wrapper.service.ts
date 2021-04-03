@@ -82,7 +82,7 @@ export class MsalWrapperService {
     return {headers: setHeaders};
   }
 
-  public async getOptionsHeaders() : Promise<{headers:HttpHeaders}> {
+  public async getOptionsHeadersAsync() : Promise<{headers:HttpHeaders}> {
     if(this.httpHeadersOptions==null) {
       let accessTokenRequest = this.createAccessRequest();
       // const token = await this.authService.acquireTokenSilent(accessTokenRequest);
