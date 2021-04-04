@@ -275,6 +275,10 @@
           <e p="ReaderViewModel.cs" t="Include" />
         </e>
         <e p="GetAllSubscribedChannelsViewModelsRequest.cs" t="Include" />
+        <e p="GetReader" t="Include">
+          <e p="GetReaderRequest.cs" t="Include" />
+          <e p="IReaderRepository.cs" t="Include" />
+        </e>
         <e p="GetReaderSettings" t="Include">
           <e p="GetReaderSettingsRequest.cs" t="Include" />
         </e>
