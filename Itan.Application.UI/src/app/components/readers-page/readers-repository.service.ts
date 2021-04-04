@@ -3,6 +3,7 @@ import {MsalWrapperService} from "../../service/msal-wrapper.service";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {ReaderViewModel} from "../../../server/Itan/Core/GetAllReaders/ReaderViewModel";
+import {ReaderDetailsViewModel} from "../../../server/Itan/Core/GetReader/ReaderDetailsViewModel";
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,13 @@ export class ReadersRepositoryService {
     let options = await this.msalWrapperService.getOptionsHeadersAsync();
     let url = `${environment.apiUrl}/api/readers`;
     this.http.get<ReaderViewModel[]>(url, options)
+      .subscribe(res => onSuccess(res))
+  }
+
+  async GetReaderDetailsAsync(id:string, onSuccess,) {
+    let options = await this.msalWrapperService.getOptionsHeadersAsync();
+    let url = `${environment.apiUrl}/api/readers/${id}`;
+    this.http.get<ReaderDetailsViewModel>(url, options)
       .subscribe(res => onSuccess(res))
   }
 }

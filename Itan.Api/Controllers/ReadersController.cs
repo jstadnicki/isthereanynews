@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Itan.Core.GetAllReaders;
+using Itan.Core.GetReader;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +24,15 @@ namespace Itan.Api.Controllers
         public async Task<List<ReaderViewModel>> Get()
         {
             var query = new GetAllReadersRequest();
+            var result = await this.mediatr.Send(query);
+            return result;
+        }
+        
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<ReaderDetailsViewModel> Get(string id)
+        {
+            var query = new GetReaderRequest(id);
             var result = await this.mediatr.Send(query);
             return result;
         }

@@ -7,11 +7,15 @@
       <hr/>
       <button class='button is-small'
               [ngClass]="{'is-active':reader.id == this.selectedReader?.id}"
+              (click)="onReaderClick(reader)"
               *ngFor="let reader of readers">
         <span class="text-ellipsis">{{reader.displayName}}</span>
       </button>
     </div>
     <div class="column" style="overflow-y: hidden">
+      <ul>
+        <li *ngFor="let channel of this.selectedReaderDetails?.subscribedChannels">{{channel}}</li>
+      </ul>
     </div>
   </div>
 </div>

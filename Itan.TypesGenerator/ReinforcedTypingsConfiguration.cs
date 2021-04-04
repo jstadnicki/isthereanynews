@@ -1,6 +1,7 @@
 ﻿using Itan.Common;
 using Itan.Core;
 using Itan.Core.GetAllReaders;
+using Itan.Core.GetReader;
 using Reinforced.Typings.Fluent;
 
 namespace Itan.TypesGenerator
@@ -30,6 +31,9 @@ namespace Itan.TypesGenerator
                 .WithAllProperties();
 
             builder.ExportAsClass<ReaderViewModel>()
+                .WithAllProperties();
+
+            builder.ExportAsClass<ReaderDetailsViewModel>()
                 .WithAllProperties();
         }
     }
