@@ -34,7 +34,7 @@
           Subscriptions
         </span>
       </a>
-      <a class="navbar-item" routerLink="/readers">
+      <a *ngIf="loggedIn" class="navbar-item" routerLink="/readers">
         <span>
           Readers
         </span>
