@@ -62,9 +62,8 @@ namespace Itan.Core.CreateNewUser
                 })
             );
 
-            var user = await graphServiceClient.Users[request.UserId.ToString()].Request().GetAsync(cancellationToken);
-
-            await this.emailWrapper.SendEmailNewAccountRegisteredAsync(user.DisplayName, request.UserId);
+            // var user = await graphServiceClient.Users[request.UserId.ToString()].Request().GetAsync(cancellationToken);
+            // await this.emailWrapper.SendEmailNewAccountRegisteredAsync(user.DisplayName, request.UserId);
             
             return await Task.FromResult(new Unit());
         }
