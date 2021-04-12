@@ -11,13 +11,4 @@
         public static ChannelCreateRequestResult Created(string feedTitle) => new ChannelCreateRequestResult
             {ChannelName = feedTitle, ChannelCreateRequestResultType = ChannelCreateRequestResultType.Created};
     }
-
-    public enum ChannelCreateRequestResultType
-    {
-        Unknown = 0,
-        Created,
-        AlreadyExists,
-        NotValidUrl,
-        NoResponse
-    }
 }
