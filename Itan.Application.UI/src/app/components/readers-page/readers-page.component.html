@@ -1,10 +1,10 @@
 <div class="container">
   <div class="columns">
     <div class="column is-2">
-      <div>
-        <img src="./assets/giphy.webp" style="filter:grayscale(100%)" *ngIf="readersLoaded"/>
+      <div *ngIf="!readersLoaded">
+        <img src="./assets/giphy.webp" style="filter:grayscale(100%)"/>
+        <hr/>
       </div>
-      <hr/>
       <button class='button is-small'
               [ngClass]="{'is-active':reader.id == this.selectedReader?.id}"
               (click)="onReaderClick(reader)"
@@ -13,9 +13,40 @@
       </button>
     </div>
     <div class="column" style="overflow-y: hidden">
-      <ul>
-        <li *ngFor="let channel of this.selectedReaderDetails?.subscribedChannels">{{channel}}</li>
-      </ul>
+      <div class="container" style="overflow-y: auto">
+        <ul>
+          <li *ngFor="let channel of this.selectedReaderDetails?.subscribedChannels">
+            <div class="card">
+              <header class="card-header"
+                      (click)="this.selectedChannel===channel?this.selectedChannel=null:this.selectedChannel=channel">
+                <p class="card-header-title">
+                  {{channel.title}}
+                </p>
+                <i class="fa"
+                   [ngClass]="{'fa-chevron-down':this.selectedChannel===channel, 'fa-chevron-up':this.selectedChannel!=channel}"
+                   aria-hidden="true"></i>
+              </header>
+              <div *ngIf="this.selectedChannel === channel">
+                <div class="card-content">
+                  <div class="content">
+                    <p>Subscribed: {{channel.createdOn}}</p>
+                    <p>
+                      <span>Total news count: {{channel.totalNewsCount}}</span>
+                      <span *ngIf="channel.read">&ngsp;Read: {{channel.read}}</span>
+                      <span *ngIf="channel.click">&ngsp;Click: {{channel.click}}</span>
+                      <span *ngIf="channel.skip">&ngsp;Skip: {{channel.skip}}</span>
+                    </p>
+                  </div>
+                </div>
+<!--                <footer class="card-footer">-->
+<!--                  <a href="#" class="card-footer-item">Subscribe</a>-->
+<!--                </footer>-->
+              </div>
+            </div>
+
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>

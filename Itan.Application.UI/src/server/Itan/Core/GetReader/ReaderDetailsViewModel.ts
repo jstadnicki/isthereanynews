@@ -1,4 +1,6 @@
+import { ReaderSubscribedChannel } from './ReaderSubscribedChannel';
+
 export class ReaderDetailsViewModel
 {
-	public subscribedChannels: string[];
+	public subscribedChannels: ReaderSubscribedChannel[];
 }

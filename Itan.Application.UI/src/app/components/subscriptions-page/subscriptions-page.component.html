@@ -16,66 +16,6 @@
       <button class="button" (click)="onImportClick()">import</button>
     </div>
     <div class="column" style="overflow-y: hidden">
-      <div *ngIf="importOpml==true">
-        <ul>
-          <li>Please select a valid .opml file that contains channels you would like to subscribe to</li>
-          <li>Channels that already exists will be added to your subscriptions</li>
-          <li>Channels new to ITAN will be added to public list and your subscriptions</li>
-          <li>No data subscriptions will be removed.</li>
-          <li>Once imported it can take a while to download all information and update channels - please be patient</li>
-        </ul>
-        <div [ngClass]="{'is-hidden':!isImporting}" class="fa-5x fa fa-spin fa-spinner">
-
-        </div>
-        <form [formGroup]="importForm" (ngSubmit)="onImportSubmit()">
-          <input id="file-input" type="file" (change)="handleFileInput($event)"/>
-          <button
-            class='button is-primary'
-            type='submit'
-            id='buttonUpload'>upload file
-          </button>
-        </form>
-      </div>
-      <div *ngIf="selectedChannel!=null">
-        <article class="media">
-          <figure class="media-left">
-            <p class="image is-64x64">
-              <img src="https://bulma.io/images/placeholders/128x128.png">
-            </p>
-          </figure>
-          <div class="media-content">
-            <div class="content">
-              <p>
-                <strong>{{displayTitleOrDescriptionOrUrl(selectedChannel)}}</strong><br>
-                <small>{{selectedChannel.viewModel.url}}</small>
-                <br>
-              </p>
-            </div>
-            <nav class="level is-mobile">
-              <div class="level-left">
-                <button class="button is-small" (click)="unsubscribe(selectedChannel)">
-                  <i class="fa fa-unlink" alt="unsubscribe">&nbsp;</i>
-                  Unsubscribe
-                </button>
-                <button class="button is-small" (click)="markUnreadAsRead(selectedChannel)">
-                  <i class="fa fa-eye" alt="mark unread as read">&nbsp;</i>
-                  mark unread as read
-                </button>
-              </div>
-            </nav>
-          </div>
-        </article>
-        <progress class="progress is-large is-info is-hidden" [ngClass]="{'is-hidden':!areNewsLoading}" max="100">60%
-        </progress>
-        <hr/>
-        <div *ngIf="this.notificationText.length>0"
-             [ngClass]="{'is-danger':!this.notificationSuccessful,'is-success':!this.notificationSuccessful}"
-             class="notification is-primary">
-          <button class="delete" (click)="this.closeNotification()"></button>
-          <span [innerText]="this.notificationText"></span>
-
-        </div>
-      </div>
       <div class="container" style="overflow-y: auto">
         <article class="media" *ngFor="let newsItem of news">
           <figure class="media-left">

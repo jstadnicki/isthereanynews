@@ -35,6 +35,9 @@ namespace Itan.TypesGenerator
 
             builder.ExportAsClass<ReaderDetailsViewModel>()
                 .WithAllProperties();
+
+            builder.ExportAsClass<ReaderSubscribedChannel>()
+                .WithAllProperties();
         }
     }
 }

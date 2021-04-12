@@ -13,6 +13,7 @@ export class ReadersPageComponent implements OnInit {
   isLoggedIn: boolean;
   readers: ReaderViewModel[];
   selectedReader: ReaderViewModel;
+  selectedChannel:any;
   readersLoaded: boolean = false;
   selectedReaderDetails: ReaderDetailsViewModel;
 
@@ -33,8 +34,6 @@ export class ReadersPageComponent implements OnInit {
 
   async onReaderClick(reader: ReaderViewModel) {
     this.selectedReader = reader;
-
     await this.readersRepository.GetReaderDetailsAsync(this.selectedReader.id,r => this.selectedReaderDetails = r);
-
   }
 }
