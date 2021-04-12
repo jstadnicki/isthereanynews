@@ -14,6 +14,12 @@
     </div>
     <div class="column" style="overflow-y: hidden">
       <div class="container" style="overflow-y: auto">
+        <div *ngIf="this.notificationText.length>0"
+             [ngClass]="{'is-danger':!this.notificationSuccessful,'is-success':!this.notificationSuccessful}"
+             class="notification is-primary">
+          <button class="delete" (click)="this.closeNotification()"></button>
+          <span [innerText]="this.notificationText"></span>
+        </div>
         <ul>
           <li *ngFor="let channel of this.selectedReaderDetails?.subscribedChannels">
             <div class="card">
@@ -38,12 +44,9 @@
                     </p>
                   </div>
                 </div>
-<!--                <footer class="card-footer">-->
-<!--                  <a href="#" class="card-footer-item">Subscribe</a>-->
-<!--                </footer>-->
+                  <div class="button" href="#" (click)="onChannelSubscribeClick(channel.id)">Subscribe channel</div>
               </div>
             </div>
-
           </li>
         </ul>
       </div>
