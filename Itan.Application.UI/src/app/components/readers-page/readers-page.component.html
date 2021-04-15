@@ -13,6 +13,41 @@
       </button>
     </div>
     <div class="column" style="overflow-y: hidden">
+      <div *ngIf="this.selectedReaderDetails!=null">
+        <article class="media">
+          <figure class="media-left">
+            <p class="image is-64x64">
+              <img src="https://bulma.io/images/placeholders/128x128.png">
+            </p>
+          </figure>
+          <div class="media-content">
+            <div class="content">
+              <p>
+                <strong>{{this.selectedReader.displayName}}</strong><br>
+                <br>
+              </p>
+            </div>
+            <nav class="level is-mobile">
+              <div class="level-left">
+                <a class="level-item">
+                  <button role="button" class="button is-small" (click)="onSubscribeReader(this.selectedReader.id)" [disabled]="!this.isLoggedIn">
+                    <i *ngIf="this.isLoggedIn" class="fa fa-link" alt="subscribe">&nbsp;</i>
+                    <app-locker *ngIf="!isLoggedIn"></app-locker>
+                    &nbsp;subscribe
+                  </button>
+                  <button role="button" class="button is-small" (click)="onUnsubscribeReader(this.selectedReader.id)"[disabled]="!this.isLoggedIn">
+                    <i *ngIf="this.isLoggedIn" class="fa fa-unlink" alt="subscribe">&nbsp;</i>
+                    <app-locker *ngIf="!isLoggedIn"></app-locker>
+                    &nbsp;unsubscribe
+                  </button>
+                </a>
+              </div>
+            </nav>
+          </div>
+
+        </article>
+        <hr/>
+      </div>
       <div class="container" style="overflow-y: auto">
         <div *ngIf="this.notificationText.length>0"
              [ngClass]="{'is-danger':!this.notificationSuccessful,'is-success':!this.notificationSuccessful}"

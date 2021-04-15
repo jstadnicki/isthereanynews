@@ -4,7 +4,7 @@ import {ReadersRepositoryService} from "./readers-repository.service";
 import {ReaderViewModel} from "../../../server/Itan/Core/GetAllReaders/ReaderViewModel";
 import {ReaderDetailsViewModel} from "../../../server/Itan/Core/GetReader/ReaderDetailsViewModel";
 import {ChannelsSubscriptionsServiceService} from "../../service/channels-subscriptions-service.service";
-import {ChannelViewModel} from "../../../server/Itan/Core/ChannelViewModel";
+import {ReadersSubscriptionsServiceService} from "./readers-subscriptions-service.service";
 
 @Component({
   selector: 'app-readers-page',
@@ -25,7 +25,8 @@ export class ReadersPageComponent implements OnInit {
   constructor(
     private msalWrapperService: MsalWrapperService,
     private readersRepository: ReadersRepositoryService,
-    private subscriptionService: ChannelsSubscriptionsServiceService
+    private subscriptionService: ChannelsSubscriptionsServiceService,
+    private readersSubscriptionsService : ReadersSubscriptionsServiceService
   ) {
   }
 
@@ -48,13 +49,25 @@ export class ReadersPageComponent implements OnInit {
       .then(() => this.showSubscribeNotification(true))
       .catch(() => this.showSubscribeNotification(false));
   }
-  private showSubscribeNotification(successful: boolean) {
-    if (successful) {
+
+  async onSubscribeReader(id: string) {
+    await this.readersSubscriptionsService.subscribeToReaderAsync(id)
+      .then(() => this.showSubscribeNotification(true))
+      .catch(() => this.showSubscribeNotification(false));
+  }
+
+  async onUnsubscribeReader(id: string) {
+    await this.readersSubscriptionsService.unsubscribeToReaderAsync(id)
+      .then(() => this.showSubscribeNotification(true))
+      .catch(() => this.showSubscribeNotification(false));
+  }
+  private showSubscribeNotification(wasSuccessful: boolean) {
+    if (wasSuccessful) {
       this.notificationText = "subscription command executed successfully";
     } else {
       this.notificationText = "subscription command executed with error";
     }
-    this.notificationSuccessful = successful;
+    this.notificationSuccessful = wasSuccessful;
     this.setNotificationClearTimer();
   }
 
@@ -77,4 +90,5 @@ export class ReadersPageComponent implements OnInit {
     this.notificationText = "";
     this.notificationTimeout = null;
   }
+
 }
