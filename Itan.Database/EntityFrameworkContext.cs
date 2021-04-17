@@ -16,6 +16,7 @@ namespace Itan.Database
         public DbSet<ChannelDownload> ChannelDownloads { get; set; }
         public DbSet<Person> Persons { get; set; }
         public DbSet<ChannelsPersons> ChannelsPersons { get; set; }
+        public DbSet<PersonPerson> PersonsPersons { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -29,6 +30,24 @@ namespace Itan.Database
             ConfigureChannelNewsRead(modelBuilder);
             ConfigureChannelNewsOpened(modelBuilder);
             ConfigurePersonSettings(modelBuilder);
+            ConfigurePersonsPersons(modelBuilder);
+        }
+
+        private void ConfigurePersonsPersons(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<PersonPerson>()
+                .HasOne(x => x.Target)
+                .WithMany(x => x.Following)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<PersonPerson>()
+                .HasOne(x => x.Follower)
+                .WithMany(x => x.Followed)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<PersonPerson>()
+                .HasIndex(x => new {x.Id, x.FollowerPersonId, x.TargetPersonId})
+                .IsUnique();
         }
 
         private void ConfigurePersonSettings(ModelBuilder modelBuilder)
