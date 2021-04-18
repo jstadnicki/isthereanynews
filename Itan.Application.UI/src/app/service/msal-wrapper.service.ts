@@ -77,7 +77,8 @@ export class MsalWrapperService {
   private getOptions(token: string) {
     let headers = new HttpHeaders();
     let setHeaders = headers
-      .append("Authorization",`Bearer ${token}`);
+      .append("Authorization",`Bearer ${token}`)
+      .append("Content-Type", "application/json");
 
     return {headers: setHeaders};
   }
