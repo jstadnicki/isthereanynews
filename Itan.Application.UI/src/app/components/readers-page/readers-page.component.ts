@@ -46,27 +46,23 @@ export class ReadersPageComponent implements OnInit {
 
   async onChannelSubscribeClick(id: any) {
     this.subscriptionService.subscribeToChannel(id.toString())
-      .then(() => this.showSubscribeNotification(true))
-      .catch(() => this.showSubscribeNotification(false));
+      .then(() => this.showNotification(true,"subscription command executed successfully"))
+      .catch(() => this.showNotification(false,"subscription command executed with error"));
   }
 
   async onSubscribeReader(id: string) {
     await this.readersSubscriptionsService.subscribeToReaderAsync(id)
-      .then(() => this.showSubscribeNotification(true))
-      .catch(() => this.showSubscribeNotification(false));
+      .then(() => this.showNotification(true,"subscription command executed successfully"))
+      .catch(() => this.showNotification(false,"subscription command executed with error"));
   }
 
   async onUnsubscribeReader(id: string) {
     await this.readersSubscriptionsService.unsubscribeToReaderAsync(id)
-      .then(() => this.showSubscribeNotification(true))
-      .catch(() => this.showSubscribeNotification(false));
+      .then(() => this.showNotification(true,"unsubscription command executed successfully"))
+      .catch(() => this.showNotification(false,"subscription command executed with error"));
   }
-  private showSubscribeNotification(wasSuccessful: boolean) {
-    if (wasSuccessful) {
-      this.notificationText = "subscription command executed successfully";
-    } else {
-      this.notificationText = "subscription command executed with error";
-    }
+  private showNotification(wasSuccessful: boolean, notificationText:string) {
+    this.notificationText = notificationText;
     this.notificationSuccessful = wasSuccessful;
     this.setNotificationClearTimer();
   }
@@ -90,5 +86,4 @@ export class ReadersPageComponent implements OnInit {
     this.notificationText = "";
     this.notificationTimeout = null;
   }
-
 }
