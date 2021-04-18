@@ -21,8 +21,6 @@ export class SettingsServiceService {
 
   async updateShowsUpdated(showUpdatedNews: UpdatedNews) {
     const options = await this.msalWrapperService.getOptionsHeadersAsync();
-
-
     const body = {
       showUpdatedNews: showUpdatedNews
     };
