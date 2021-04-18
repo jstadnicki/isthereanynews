@@ -1,4 +1,5 @@
-﻿using Itan.Common;
+﻿using Itan.Api.Controllers;
+using Itan.Common;
 using Itan.Core;
 using Itan.Core.GetAllReaders;
 using Itan.Core.GetReader;
@@ -37,6 +38,9 @@ namespace Itan.TypesGenerator
                 .WithAllProperties();
 
             builder.ExportAsClass<ReaderSubscribedChannel>()
+                .WithAllProperties();
+
+            builder.ExportAsClass<SubscribedReaderViewModel>()
                 .WithAllProperties();
         }
     }

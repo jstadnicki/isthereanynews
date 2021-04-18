@@ -1,0 +1,108 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Net.Http.Headers;
+using System.Threading;
+using System.Threading.Tasks;
+using Dapper;
+using Itan.Common;
+using Itan.Core.DeleteAccount;
+using Itan.Core.GetAllReaders;
+using MediatR;
+using Microsoft.Extensions.Options;
+using Microsoft.Graph;
+using Microsoft.Identity.Client;
+
+namespace Itan.Api.Controllers
+{
+    public class GetFollowersQuery : IRequest<List<SubscribedReaderViewModel>>
+    {
+        public Guid FollowerPersonId { get; }
+
+        public GetFollowersQuery(Guid followerPersonId)
+        {
+            FollowerPersonId = followerPersonId;
+        }
+    }
+
+    public class GetFollowersQueryHandler : IRequestHandler<GetFollowersQuery, List<SubscribedReaderViewModel>>
+    {
+        private readonly GraphApiSettings graphApiSettings;
+        private readonly string readConnectionString;
+
+        public GetFollowersQueryHandler(
+            IOptions<ConnectionOptions> options, 
+            IOptions<GraphApiSettings> graphApiSettings)
+        {
+            this.graphApiSettings = graphApiSettings.Value;
+            this.readConnectionString = options.Value.SqlReader;
+        }
+
+        public async Task<List<SubscribedReaderViewModel>> Handle(GetFollowersQuery request, CancellationToken cancellationToken)
+        {
+
+            var confidentialClientApplication = ConfidentialClientApplicationBuilder
+                .Create(this.graphApiSettings.ClientId)
+                .WithClientSecret(this.graphApiSettings.ClientSecret)
+                .WithTenantId(this.graphApiSettings.TenantId)
+                .Build();
+            
+            var scopes = new string[] {"https://graph.microsoft.com/.default"};
+            
+            var graphServiceClient = new GraphServiceClient(new DelegateAuthenticationProvider(
+                async requestMessage =>
+                {
+                    var authResult = await confidentialClientApplication.AcquireTokenForClient(scopes).ExecuteAsync();
+                    requestMessage.Headers.Authorization =
+                        new AuthenticationHeaderValue("Bearer", authResult.AccessToken);
+                })
+            );
+
+            var followersIds = await GetFollowersIds(request);
+            var quotedIds = followersIds.Select(x => $"'{x}'");
+            var filter = "id eq '" + followersIds.First()+"'";
+            if (quotedIds.Count() > 1)
+            {
+                var ids = string.Join(string.Empty,quotedIds.Skip(1).Select(x => $" or id eq {x}"));
+                filter+=ids;
+            }
+
+            var req = await graphServiceClient.Users
+                .Request()
+                .Select("displayName,id")
+                .Filter(filter)
+                .GetAsync();
+            
+            var results = req.Select(res => new SubscribedReaderViewModel(res.Id, res.DisplayName)).ToList();
+            return results;
+        }
+
+        private async Task<List<Guid>> GetFollowersIds(GetFollowersQuery request)
+        {
+            var query = "SELECT pp.TargetPersonId from PersonsPersons pp\n" +
+                        "WHERE pp.FollowerPersonId=@followerPersonId";
+            var queryData = new
+            {
+                followerPersonId = request.FollowerPersonId
+            };
+
+            var connection = new SqlConnection(this.readConnectionString);
+            var queryAsyncRaw = await connection.QueryAsync<Guid>(query, queryData);
+            var followersIds = queryAsyncRaw.ToList();
+            return followersIds;
+        }
+    }
+
+    public class SubscribedReaderViewModel
+    {
+        public string PersonId { get; }
+        public string DisplayName { get; }
+
+        public SubscribedReaderViewModel(string personId, string displayName)
+        {
+            PersonId = personId;
+            DisplayName = displayName;
+        }
+    }
+}

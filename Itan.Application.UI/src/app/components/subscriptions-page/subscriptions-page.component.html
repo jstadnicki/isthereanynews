@@ -5,6 +5,7 @@
       <div [ngClass]="{'is-hidden':!areChannelsLoaded || channels.length>0 }">
         Looks like you are up to date with all news. Check later or subscribe more channels.
       </div>
+      <div [ngClass]="{'is-hidden':!areChannelsLoaded || channels.length===0 }">Channels:</div>
       <button class='button is-small'
               (click)="onChannelClick(channel)"
               [ngClass]="{'is-active':this.selectedChannel!=null && channel.viewModel.id == this.selectedChannel.viewModel.id}"
@@ -13,6 +14,16 @@
         <span class="">({{channel.viewModel.newsCount}})</span>
       </button>
       <hr/>
+      <div [ngClass]="{'is-hidden':!areReadersLoaded || readers.length===0 }">
+        Readers:
+        <button class='button is-small'
+                (click)="onReaderClick(reader)"
+                [ngClass]="{'is-active':this.selectedReader!=null && reader.personId == this.selectedReader.personId}"
+                *ngFor="let reader of readers">
+          <span class="text-ellipsis">{{reader.displayName}}</span>
+        </button>
+        <hr/>
+      </div>
       <button class="button" (click)="onImportClick()">import</button>
     </div>
     <div class="column" style="overflow-y: hidden">

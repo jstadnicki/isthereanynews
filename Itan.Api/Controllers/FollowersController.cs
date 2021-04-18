@@ -35,6 +35,15 @@ namespace Itan.Api.Controllers
             this.mediator.Send(command);
             return Ok();
         }
+        
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var userId = Guid.Parse(this.User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
+            var command = new GetFollowersQuery(userId);
+            var followers = await this.mediator.Send(command);
+            return Ok(followers);
+        }
     }
 
     public class UnfollowPerson

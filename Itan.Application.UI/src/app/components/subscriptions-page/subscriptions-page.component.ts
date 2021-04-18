@@ -9,6 +9,8 @@ import {ChannelsSubscriptionsServiceService} from "../../service/channels-subscr
 
 import {ChannelViewModel} from '../../../server/Itan/Core/ChannelViewModel';
 import {NewsViewModel} from '../../../server/Itan/Core/NewsViewModel';
+import {ReaderSubscriptionServiceService} from "./reader-subscription-service.service";
+import {SubscribedReaderViewModel} from "../../../server/Itan/Api/Controllers/SubscribedReaderViewModel";
 
 @Component({
   selector: 'app-subscriptions-page',
@@ -21,15 +23,19 @@ export class SubscriptionsPageComponent implements OnInit {
     private msalWrapperService: MsalWrapperService,
     private newsReadMarker: NewsItemReadMarkerServiceService,
     private newsOpenedMarker: NewsItemOpenedMarkerService,
-    private channelsSubscriptionsServiceService: ChannelsSubscriptionsServiceService
+    private channelsSubscriptionsServiceService: ChannelsSubscriptionsServiceService,
+    private readerSubscriptionServiceService: ReaderSubscriptionServiceService
   ) {
   }
 
   channels: Channel[];
+  readers: SubscribedReaderViewModel[];
   selectedChannel: Channel;
+  selectedReader: SubscribedReaderViewModel;
   news: News[];
-  areChannelsLoaded: boolean;
-  areNewsLoading: boolean;
+  areChannelsLoaded: boolean=false;
+  areReadersLoaded: boolean=false;
+  areNewsLoading: boolean=false;
   notificationText: string = "";
   notificationSuccessful: boolean = false;
   notificationTimeout: any;
@@ -41,9 +47,11 @@ export class SubscriptionsPageComponent implements OnInit {
   isImporting: boolean = false;
 
   async ngOnInit(): Promise<void> {
-    this.areChannelsLoaded = false;
-    this.areNewsLoading = false;
     await this.loadChannels();
+    this.readerSubscriptionServiceService.loadReadersAsync((r)=>{
+      this.readers=r;
+      this.areReadersLoaded=true;
+    }, ()=>{});
   }
 
   async unsubscribe(channel: Channel) {
@@ -230,6 +238,10 @@ export class SubscriptionsPageComponent implements OnInit {
     this.notificationSuccessful = successful;
 
     this.setNotificationClearTimer();  }
+
+  onReaderClick(reader: SubscribedReaderViewModel) {
+
+  }
 }
 
 class Channel{
