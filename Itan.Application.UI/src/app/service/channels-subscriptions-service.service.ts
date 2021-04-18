@@ -24,7 +24,6 @@ export class ChannelsSubscriptionsServiceService {
     this.http
       .post(`${environment.apiUrl}/api/users/${userId}/channels`, body, options)
       .subscribe((r) => {
-        console.log(r);
       });
   }
 
@@ -36,7 +35,6 @@ export class ChannelsSubscriptionsServiceService {
     this.http
       .delete(`${environment.apiUrl}/api/users/${userId}/channels/${channelId}`, options)
       .subscribe((r) => {
-        console.log(r);
       });
   }
 }
