@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Itan.Core.GetFollowerActivity;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -44,6 +45,21 @@ namespace Itan.Api.Controllers
             var followers = await this.mediator.Send(command);
             return Ok(followers);
         }
+        
+        [HttpGet]
+        [Route("{personId}/activity")]
+        public async Task<IActionResult> Get([FromRoute]PersonActivity model)
+        {
+            var userId = Guid.Parse(this.User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
+            var command = new GetFollowerActivityQuery(model.PersonId);
+            var followers = await this.mediator.Send(command);
+            return Ok(followers);
+        }
+    }
+
+    public class PersonActivity
+    {
+        public string PersonId { get; set; }
     }
 
     public class UnfollowPerson

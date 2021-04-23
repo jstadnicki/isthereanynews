@@ -2,7 +2,9 @@
 using Itan.Common;
 using Itan.Core;
 using Itan.Core.GetAllReaders;
+using Itan.Core.GetFollowerActivity;
 using Itan.Core.GetReader;
+using Itan.Core.MarkNewsRead;
 using Reinforced.Typings.Fluent;
 
 namespace Itan.TypesGenerator
@@ -18,6 +20,7 @@ namespace Itan.TypesGenerator
 
             builder.ExportAsEnum<SquashUpdate>();
             builder.ExportAsEnum<UpdatedNews>();
+            builder.ExportAsEnum<IMarkNewsReadRepository.NewsReadType>();
 
             builder.ExportAsClass<ChannelViewModel>()
                 .WithAllProperties();
@@ -41,6 +44,9 @@ namespace Itan.TypesGenerator
                 .WithAllProperties();
 
             builder.ExportAsClass<SubscribedReaderViewModel>()
+                .WithAllProperties();
+
+            builder.ExportAsClass<FollowerActivityViewModel>()
                 .WithAllProperties();
         }
     }

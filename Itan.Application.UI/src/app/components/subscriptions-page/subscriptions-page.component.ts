@@ -11,6 +11,7 @@ import {ChannelViewModel} from '../../../server/Itan/Core/ChannelViewModel';
 import {NewsViewModel} from '../../../server/Itan/Core/NewsViewModel';
 import {ReaderSubscriptionServiceService} from "./reader-subscription-service.service";
 import {SubscribedReaderViewModel} from "../../../server/Itan/Api/Controllers/SubscribedReaderViewModel";
+import {FollowerActivityViewModel} from "../../../server/Itan/Core/GetFollowerActivity/FollowerActivityViewModel";
 
 @Component({
   selector: 'app-subscriptions-page',
@@ -32,10 +33,13 @@ export class SubscriptionsPageComponent implements OnInit {
   readers: SubscribedReaderViewModel[];
   selectedChannel: Channel;
   selectedReader: SubscribedReaderViewModel;
+  readerActivities: FollowerActivityViewModel[];
+  selectedActivity:FollowerActivityViewModel;
   news: News[];
   areChannelsLoaded: boolean=false;
   areReadersLoaded: boolean=false;
   areNewsLoading: boolean=false;
+  areActivitiesLoading:boolean=false;
   notificationText: string = "";
   notificationSuccessful: boolean = false;
   notificationTimeout: any;
@@ -70,6 +74,7 @@ export class SubscriptionsPageComponent implements OnInit {
     this.selectedChannel = channel;
     this.areNewsLoading = true;
     this.news = null;
+    this.readerActivities=null;
     var options = await this.msalWrapperService.getOptionsHeadersAsync();
     this.http
       .get<NewsViewModel[]>(`${environment.apiUrl}/api/UnreadNews/${channel.viewModel.id}`, options)
@@ -148,6 +153,11 @@ export class SubscriptionsPageComponent implements OnInit {
         this.showMarkAsReadNotification(true);
       })
       .catch(()=>this.showMarkAsReadNotification(false));
+  }
+
+  async onActivityExternalLinkClick(activity:FollowerActivityViewModel){
+    await this.newsOpenedMarker.MarkOpen(activity.channelId, activity.newsId);
+    window.open(activity.link);
   }
 
   async onExternalLinkClick(news: News) {
@@ -240,7 +250,11 @@ export class SubscriptionsPageComponent implements OnInit {
     this.setNotificationClearTimer();  }
 
   onReaderClick(reader: SubscribedReaderViewModel) {
-
+    this.readerSubscriptionServiceService.getReaderActivityAsync(reader.personId,r=>{
+      this.readerActivities = r;
+      this.selectedChannel=null;
+      this.news=null;
+    }, e=>{});
   }
 }
 

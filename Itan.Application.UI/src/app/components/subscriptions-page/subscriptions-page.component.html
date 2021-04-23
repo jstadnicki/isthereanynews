@@ -88,6 +88,36 @@
         </div>
       </div>
       <div class="container" style="overflow-y: auto">
+        <article *ngIf="readerActivities!=null&&readerActivities.length==0">
+          <p>There is no activity for this reader for last 7 days</p>
+        </article>
+        <article class="media" *ngFor="let activity of readerActivities">
+          <figure class="media-left">
+            <p class="image is-64x64">
+              <img src="https://bulma.io/images/placeholders/128x128.png"/>
+            </p>
+          </figure>
+          <div class="media-content">
+            <div class="content">
+              <p>
+                <strong>{{activity.title}}</strong>&nbsp;{{activity.published|date}} &nbsp;
+                <span class="pull-right tag"
+                      [ngClass]="{'is-info is-medium': activity.readType === 'Read','is-success is-large': activity.readType === 'Click'}">
+                  {{activity.readType}}
+                </span>
+              </p>
+            </div>
+            <nav class="level">
+              <div class="level-left">
+                <a class="level-item"
+                   (click)="onActivityExternalLinkClick(activity)">
+                  <span class="icon is-small"><i class="fa fa-external-link"></i></span>
+                </a>
+              </div>
+            </nav>
+          </div>
+        </article>
+
         <article class="media" *ngFor="let newsItem of news">
           <figure class="media-left">
             <p class="image is-64x64">
@@ -112,21 +142,6 @@
             </div>
             <nav class="level">
               <div class="level-left">
-                <!--                <a class="level-item">-->
-                <!--                  <span class="icon is-small"><i class="fa fa-comment-o"></i></span>-->
-                <!--                </a>-->
-                <!--                <a class="level-item">-->
-                <!--                  <span class="icon is-small"><i class="fa fa-share-alt"></i></span>-->
-                <!--                </a>-->
-                <!--                <a class="level-item">-->
-                <!--                  <span class="icon is-small"><i class="fa fa-thumbs-o-up"></i></span>-->
-                <!--                </a>-->
-                <!--                <a class="level-item">-->
-                <!--                  <span class="icon is-small"><i class="fa fa-thumbs-o-down"></i></span>-->
-                <!--                </a>-->
-                <!--                <a class="level-item">-->
-                <!--                  <span class="icon is-small"><i class="fa fa-bookmark-o"></i></span>-->
-                <!--                </a>-->
                 <a class="level-item"
                    (click)="onExternalLinkClick(newsItem)">
                   <span class="icon is-small"><i class="fa fa-external-link"></i></span>
