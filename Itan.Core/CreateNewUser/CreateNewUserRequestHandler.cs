@@ -23,7 +23,7 @@ namespace Itan.Core.CreateNewUser
 
         public CreateNewUserRequestHandler(ICreateUserRepository repository,
             IOptions<GraphApiSettings> graphApiSettings,
-            IEmailSender emailWrapper, 
+            IEmailSender emailWrapper,
             IReaderSettingsRepository readersSettingsRepository)
         {
             this.repository = repository;
@@ -31,6 +31,7 @@ namespace Itan.Core.CreateNewUser
             this.readersSettingsRepository = readersSettingsRepository;
             this.graphApiSettings = graphApiSettings.Value;
         }
+
         private void Validate(CreateNewUserRequest request)
         {
             if (Guid.Empty == request.UserId)
@@ -44,9 +45,9 @@ namespace Itan.Core.CreateNewUser
             this.Validate(request);
             await this.repository.CreatePersonIfNotExists(request.UserId);
             await this.readersSettingsRepository.CreateDefaultValuesAsync(request.UserId);
-            
+
             var scopes = new string[] {"https://graph.microsoft.com/.default"};
-            
+
             var confidentialClientApplication = ConfidentialClientApplicationBuilder
                 .Create(this.graphApiSettings.ClientId)
                 .WithClientSecret(this.graphApiSettings.ClientSecret)
@@ -62,9 +63,9 @@ namespace Itan.Core.CreateNewUser
                 })
             );
 
-            // var user = await graphServiceClient.Users[request.UserId.ToString()].Request().GetAsync(cancellationToken);
-            // await this.emailWrapper.SendEmailNewAccountRegisteredAsync(user.DisplayName, request.UserId);
-            
+            var user = await graphServiceClient.Users[request.UserId.ToString()].Request().GetAsync(cancellationToken);
+            await this.emailWrapper.SendEmailNewAccountRegisteredAsync(user.DisplayName, request.UserId);
+
             return await Task.FromResult(new Unit());
         }
     }
