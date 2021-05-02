@@ -10,6 +10,7 @@ import {LandingPageNewsViewModel} from '../../../server/Itan/Core/LandingPageNew
   styleUrls: ['./landing-page.component.less']
 })
 export class LandingPageComponent implements OnInit {
+  private newsCarouselTimer: number;
 
   constructor(
     private http: HttpClient) {
@@ -17,10 +18,17 @@ export class LandingPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadLandingPageNews();
-    setInterval(() => {
+  }
+
+  startNewsCarousel(){
+    this.newsCarouselTimer = setInterval(() => {
       this.topIndex = this.topIndex < this.news.topNews.length - 1 ? this.topIndex + 1 : 0;
       this.bottomPage = this.bottomPage * 3 <= this.news.bottomNews.length - 1 ? this.bottomPage + 3 : 0;
     }, 5000);
+  }
+
+  ngOnDestroy():void{
+    clearInterval(this.newsCarouselTimer);
   }
 
   news: HomePageNews;
@@ -33,6 +41,7 @@ export class LandingPageComponent implements OnInit {
       .subscribe(result => {
         this.news = new HomePageNews(result);
         this.loadContent();
+        this.startNewsCarousel();
       })
   }
 
