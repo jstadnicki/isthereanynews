@@ -14,7 +14,7 @@ export class ChannelsSubscriptionsServiceService {
   ) { }
 
   public async subscribeToChannel(channelId: string) {
-    const options = await this.msalWrapperService.getOptionsHeadersAsync();
+    const options = this.msalWrapperService.getOptionsHeadersAsync();
 
     const userId = this.msalWrapperService.getAccountId();
     const body = {
@@ -28,7 +28,7 @@ export class ChannelsSubscriptionsServiceService {
   }
 
   async unsubscribeFromChannel(channelId: string) {
-    const options = await this.msalWrapperService.getOptionsHeadersAsync();
+    const options = this.msalWrapperService.getOptionsHeadersAsync();
 
     const userId = this.msalWrapperService.getAccountId();
 

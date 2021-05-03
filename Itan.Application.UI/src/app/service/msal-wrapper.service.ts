@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {BehaviorSubject, Subject} from "rxjs";
-import {AuthenticationParameters} from "msal";
+import {AuthenticationParameters, AuthError, AuthResponse} from "msal";
 import {BroadcastService, MsalService} from "@azure/msal-angular";
 import {environment} from "../../environments/environment";
 
@@ -11,21 +11,46 @@ import {environment} from "../../environments/environment";
 export class MsalWrapperService {
   private sessionId: string;
   isLoggedIn: Subject<boolean> = new BehaviorSubject<boolean>(false);
-  private account;
+  private account: any = null;
   private sessionIdKeyName: string = "MsalWrapperService-uuid";
   private httpHeadersOptions: any;
+  private authResponse: AuthResponse;
 
   constructor(
     private broadcastService: BroadcastService,
     private authService: MsalService,
     private http: HttpClient) {
 
+    this.authService.handleRedirectCallback(c => this.onCallback(c), e => this.onError(e))
     this.broadcastService.subscribe("msal:loginSuccess", (e) => this.onMsalLoginSuccess(e));
-    this.loginSilent();
-
   }
 
-  private createUUID(): string {
+  private onCallback(response: AuthResponse) {
+    this.authResponse = response;
+    this.account = response.account;
+    if (response.accessToken == null || response.accessToken == undefined) {
+      let accessTokenRequest = this.createAccessRequest();
+      this.authService.acquireTokenRedirect(accessTokenRequest)
+    } else {
+      if (this.account.idToken.newUser === true) {
+        this.createPersonAccount();
+      }
+      this.checkAccount();
+    }
+  }
+
+  checkAccount(): void {
+    this.account = this.authService.getAccount();
+    this.sessionId = this.createUUID();
+    localStorage.setItem(this.sessionIdKeyName, this.sessionId);
+    this.isLoggedIn.next(!!this.account);
+  }
+
+  private onError(e: AuthError) {
+    console.error(e);
+  }
+
+  private createU UID(): string {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
       var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
       return v.toString(16);
@@ -36,13 +61,11 @@ export class MsalWrapperService {
     this.authService.logout();
     this.authService.clearCacheForScope(this.sessionIdKeyName)
     localStorage.removeItem(this.sessionIdKeyName);
-
   }
 
   login() {
     const accessTokenRequest = this.createLoginRequest();
-    this.authService
-      .loginPopup(accessTokenRequest);
+    this.authService.loginRedirect(accessTokenRequest);
   }
 
   loginSilent() {
@@ -56,57 +79,34 @@ export class MsalWrapperService {
     }
   }
 
+
   private async createPersonAccount() {
-    if (this.account.idToken.newUser === true) {
-      let accessTokenRequest = this.createAccessRequest();
-      const token = await this.authService.acquireTokenPopup(accessTokenRequest);
-      const options = this.getOptions(token.accessToken);
+    const options = this.getOptionsHeadersAsync();
 
-      let body = {
-        userId: this.account.accountIdentifier
-      }
-
-      this.http
-        .post(`${environment.apiUrl}/api/users`, body, options)
-        .subscribe(e => {
-          console.log(e);
-        });
+    let body = {
+      userId: this.account.accountIdentifier
     }
+
+    this.http
+      .post(`${environment.apiUrl}/api/users`, body, options)
+      .subscribe();
   }
 
-  private getOptions(token: string) {
+  private getOptions(token: string): HttpHeaders {
     let headers = new HttpHeaders();
     let setHeaders = headers
-      .append("Authorization",`Bearer ${token}`)
+      .append("Authorization", `Bearer ${token}`)
       .append("Content-Type", "application/json");
 
-    return {headers: setHeaders};
+    return setHeaders;
   }
 
-  public async getOptionsHeadersAsync() : Promise<{headers:HttpHeaders}> {
-    if(this.httpHeadersOptions==null) {
-      let accessTokenRequest = this.createAccessRequest();
-      // const token = await this.authService.acquireTokenSilent(accessTokenRequest);
-      const token = await this.authService.acquireTokenPopup(accessTokenRequest);
-      this.httpHeadersOptions = this.getOptions(token.accessToken);
-    }
-    return this.httpHeadersOptions;
-  }
-
-  checkAccount(): void {
-    this.account = this.authService.getAccount();
-    this.sessionId = this.createUUID();
-    localStorage.setItem(this.sessionIdKeyName, this.sessionId);
-    this.isLoggedIn.next(!!this.account);
+  public getOptionsHeadersAsync() {
+    return {headers: this.getOptions(this.authResponse.accessToken)};
   }
 
   getUserName(): string {
     return this.account.name;
-  }
-
-  onMsalLoginSuccess(e): void {
-    this.checkAccount();
-    this.createPersonAccount();
   }
 
   private authority: string = "https://isthereanynewscodeblast.b2clogin.com/isthereanynewscodeblast.onmicrosoft.com/B2C_1_itansignup";
@@ -121,7 +121,6 @@ export class MsalWrapperService {
       redirectUri: this.redirectUri,
     };
   }
-
 
 
   private createAccessRequest(): AuthenticationParameters {
@@ -142,4 +141,7 @@ export class MsalWrapperService {
   }
 
 
+  private onMsalLoginSuccess(e: any) {
+
+  }
 }
