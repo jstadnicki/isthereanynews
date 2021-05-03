@@ -41,6 +41,12 @@ namespace Itan.Api.Controllers
 
         public async Task<List<SubscribedReaderViewModel>> Handle(GetFollowersQuery request, CancellationToken cancellationToken)
         {
+            var followersIds = await GetFollowersIds(request);
+
+            if (!followersIds.Any())
+            {
+                return new List<SubscribedReaderViewModel>();
+            }
 
             var confidentialClientApplication = ConfidentialClientApplicationBuilder
                 .Create(this.graphApiSettings.ClientId)
@@ -59,7 +65,6 @@ namespace Itan.Api.Controllers
                 })
             );
 
-            var followersIds = await GetFollowersIds(request);
             var quotedIds = followersIds.Select(x => $"'{x}'");
             var filter = "id eq '" + followersIds.First()+"'";
             if (quotedIds.Count() > 1)
