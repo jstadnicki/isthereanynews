@@ -38,7 +38,13 @@ namespace Itan.Api
         {
             IdentityModelEventSource.ShowPII = true;
             services.AddSingleton<IConfiguration>(this.configuration);
-
+            services.AddCors(a => a.AddPolicy("itan",builder =>
+            {
+                builder
+                    .WithOrigins("http://localhost:4200", "https://www.isthereanynews.com")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+            }));
             services.AddOptions();
 
             services.AddResponseCompression(o =>
@@ -74,7 +80,7 @@ namespace Itan.Api
                             $"https://isthereanynewscodeblast.b2clogin.com/{this.configuration["AzureAdB2C:Tenant"]}/v2.0/"
                     };
                 });
-
+            
             services.AddMvc(o =>
                 {
                     o.EnableEndpointRouting = false;
@@ -82,12 +88,7 @@ namespace Itan.Api
                     o.Filters.Add(new AuthorizeFilter(policy));
                 })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-            services.AddCors(a => a.AddDefaultPolicy(builder =>
-            {
-                builder.AllowAnyOrigin()
-                    .AllowAnyHeader()
-                    .AllowAnyMethod();
-            }));
+            
 
             services.AddAuthorization();
         }
@@ -129,9 +130,13 @@ namespace Itan.Api
             app.UseMiddleware<ItanExceptionMiddleware>();
             app.UseResponseCompression();
 
-            app.UseCors();
             app.UseAuthentication();
-            app.UseHttpsRedirection();
+            if (!env.IsDevelopment())
+            {
+                app.UseHttpsRedirection();
+            }
+
+            app.UseCors("itan");
             app.UseMvc();
         }
     }
