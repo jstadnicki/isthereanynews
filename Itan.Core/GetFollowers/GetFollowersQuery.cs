@@ -92,7 +92,7 @@ namespace Itan.Api.Controllers
                 followerPersonId = request.FollowerPersonId
             };
 
-            var connection = new SqlConnection(this.readConnectionString);
+            await using var connection = new SqlConnection(this.readConnectionString);
             var queryAsyncRaw = await connection.QueryAsync<Guid>(query, queryData);
             var followersIds = queryAsyncRaw.ToList();
             return followersIds;
