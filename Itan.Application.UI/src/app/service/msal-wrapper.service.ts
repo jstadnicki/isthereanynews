@@ -13,8 +13,8 @@ export class MsalWrapperService {
   isLoggedIn: Subject<boolean> = new BehaviorSubject<boolean>(false);
   private account: any = null;
   private sessionIdKeyName: string = "MsalWrapperService-uuid";
-  private httpHeadersOptions: any;
-  private authResponse: AuthResponse;
+  private tokenKeyName: string = "MsalWrapperService-accessToken";
+  private accessToken: string;
 
   constructor(
     private broadcastService: BroadcastService,
@@ -23,10 +23,12 @@ export class MsalWrapperService {
 
     this.authService.handleRedirectCallback(c => this.onCallback(c), e => this.onError(e))
     this.broadcastService.subscribe("msal:loginSuccess", (e) => this.onMsalLoginSuccess(e));
+
+    this.restoreUser();
   }
 
   private onCallback(response: AuthResponse) {
-    this.authResponse = response;
+    this.accessToken = response.accessToken;
     this.account = response.account;
     if (response.accessToken == null || response.accessToken == undefined) {
       let accessTokenRequest = this.createAccessRequest();
@@ -34,23 +36,34 @@ export class MsalWrapperService {
     } else {
       if (this.account.idToken.newUser === true) {
         this.createPersonAccount();
-      }
-      else{
+      } else {
         this.migrateAccount();
       }
-      this.checkAccount();
+      this.completeLogin()
     }
   }
 
-  checkAccount(): void {
-    // this.account = this.authService.getAccount();
-     this.sessionId = this.createUUID();
-    // localStorage.setItem(this.sessionIdKeyName, this.sessionId);
+  private completeLogin() {
+    this.sessionId = this.createUUID();
+    sessionStorage.setItem(this.sessionIdKeyName, this.sessionId);
+    sessionStorage.setItem(this.tokenKeyName, this.accessToken);
     this.isLoggedIn.next(!!this.account);
   }
 
-  private onError(e: AuthError) {
-    console.error(e);
+  private restoreUser() {
+    let sessionId = sessionStorage.getItem(this.sessionIdKeyName);
+    let accessToken = sessionStorage.getItem(this.tokenKeyName);
+
+    if(sessionId == null || sessionId.length==0){
+      return;
+    }
+
+    if(accessToken == null || accessToken.length==0){
+      return null;
+    }
+
+    this.account = this.authService.getAccount()
+    this.isLoggedIn.next(!!this.account);
   }
 
   private createUUID(): string {
@@ -63,25 +76,13 @@ export class MsalWrapperService {
   logout() {
     this.authService.logout();
     this.authService.clearCacheForScope(this.sessionIdKeyName)
-    localStorage.removeItem(this.sessionIdKeyName);
+    sessionStorage.clear();
   }
 
   login() {
     const accessTokenRequest = this.createLoginRequest();
     this.authService.loginRedirect(accessTokenRequest);
   }
-
-  loginSilent() {
-    let sessionId = localStorage.getItem(this.sessionIdKeyName);
-    if (sessionId != null) {
-      const accessTokenRequest = this.createLoginRequest();
-      accessTokenRequest.sid = sessionId;
-      this.authService.ssoSilent(accessTokenRequest)
-        .then(() => this.checkAccount())
-        .catch(() => localStorage.removeItem(this.sessionIdKeyName));
-    }
-  }
-
 
   private async createPersonAccount() {
     const options = this.getOptionsHeaders();
@@ -97,9 +98,9 @@ export class MsalWrapperService {
 
   private migrateAccount() {
     const options = this.getOptionsHeaders();
-    var body={};
+    var body = {};
     this.http
-      .post(`${environment.apiUrl}/api/users/migrate`,  body, options)
+      .post(`${environment.apiUrl}/api/users/migrate`, body, options)
       .subscribe();
   }
 
@@ -113,7 +114,7 @@ export class MsalWrapperService {
   }
 
   public getOptionsHeaders() {
-    return {headers: this.getOptions(this.authResponse.accessToken)};
+    return {headers: this.getOptions(this.accessToken)};
   }
 
   getUserName(): string {
@@ -133,7 +134,6 @@ export class MsalWrapperService {
     };
   }
 
-
   private createAccessRequest(): AuthenticationParameters {
     return {
       scopes: [
@@ -152,9 +152,11 @@ export class MsalWrapperService {
   }
 
 
-  private onMsalLoginSuccess(e: any) {
+  private onError(e: AuthError) {
 
   }
 
+  private onMsalLoginSuccess(e: any) {
 
+  }
 }
