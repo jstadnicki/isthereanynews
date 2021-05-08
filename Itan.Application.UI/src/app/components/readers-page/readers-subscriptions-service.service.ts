@@ -14,13 +14,13 @@ export class ReadersSubscriptionsServiceService {
   ) { }
 
   async subscribeToReaderAsync(readerId: string){
-    const options = this.msalWrapperService.getOptionsHeadersAsync();
+    const options = this.msalWrapperService.getOptionsHeaders();
     let body={readerId};
     return this.http.post(`${environment.apiUrl}/api/followers/`, body, options).subscribe();
   }
 
   async unsubscribeToReaderAsync(readerId: string):Promise<any> {
-    const options = this.msalWrapperService.getOptionsHeadersAsync();
+    const options = this.msalWrapperService.getOptionsHeaders();
     return await this.http.delete(`${environment.apiUrl}/api/followers/${readerId}`, options).subscribe();
   }
 }

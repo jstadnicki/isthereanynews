@@ -75,7 +75,7 @@ export class SubscriptionsPageComponent implements OnInit {
     this.areNewsLoading = true;
     this.news = null;
     this.readerActivities=null;
-    var options = this.msalWrapperService.getOptionsHeadersAsync();
+    var options = this.msalWrapperService.getOptionsHeaders();
     this.http
       .get<NewsViewModel[]>(`${environment.apiUrl}/api/UnreadNews/${channel.viewModel.id}`, options)
       .subscribe((r) => {
@@ -105,7 +105,7 @@ export class SubscriptionsPageComponent implements OnInit {
     formData.append('file', fileSourceValue);
     this.isImporting = true;
 
-    var options = this.msalWrapperService.getOptionsHeadersAsync();
+    var options = this.msalWrapperService.getOptionsHeaders();
     this.http.post(`${environment.apiUrl}/api/subscriptions/import`, formData, options)
       .subscribe(res => {
         console.log(res);
@@ -180,7 +180,7 @@ export class SubscriptionsPageComponent implements OnInit {
 
   async loadChannels() {
     const userId = this.msalWrapperService.getAccountId();
-    var options = this.msalWrapperService.getOptionsHeadersAsync();
+    var options = this.msalWrapperService.getOptionsHeaders();
 
     this.http
       .get<ChannelViewModel[]>(`${environment.apiUrl}/api/subscriptions/${userId}`, options)

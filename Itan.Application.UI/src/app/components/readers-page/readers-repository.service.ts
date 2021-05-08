@@ -15,14 +15,14 @@ export class ReadersRepositoryService {
     private http: HttpClient) { }
 
   async GetAllAsync(onSuccess) {
-    let options = this.msalWrapperService.getOptionsHeadersAsync();
+    let options = this.msalWrapperService.getOptionsHeaders();
     let url = `${environment.apiUrl}/api/readers`;
     this.http.get<ReaderViewModel[]>(url, options)
       .subscribe(res => onSuccess(res))
   }
 
   async GetReaderDetailsAsync(id:string, onSuccess,) {
-    let options = this.msalWrapperService.getOptionsHeadersAsync();
+    let options = this.msalWrapperService.getOptionsHeaders();
     let url = `${environment.apiUrl}/api/readers/${id}`;
     this.http.get<ReaderDetailsViewModel>(url, options)
       .subscribe(res => onSuccess(res))

@@ -14,7 +14,7 @@ export class DeleteAccountService {
   ) { }
 
   async run() {
-    var options = this.msalWrapperService.getOptionsHeadersAsync();
+    var options = this.msalWrapperService.getOptionsHeaders();
     this.http
       .delete(`${environment.apiUrl}/api/delete-account`, options)
       .subscribe((r) => {

@@ -14,7 +14,7 @@ export class NewsItemReadMarkerServiceService {
   ) { }
 
   async MarkRead(channelId: string, newsId: string) {
-    const options = this.msalWrapperService.getOptionsHeadersAsync();
+    const options = this.msalWrapperService.getOptionsHeaders();
 
     const body = {
       channelId: channelId,
@@ -29,7 +29,7 @@ export class NewsItemReadMarkerServiceService {
   }
 
   async MarkUnreadAsRead(channelId: string, newsId: string[]) {
-    const options = this.msalWrapperService.getOptionsHeadersAsync();
+    const options = this.msalWrapperService.getOptionsHeaders();
 
     const body = {
       channelId: channelId,

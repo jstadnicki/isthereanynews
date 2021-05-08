@@ -20,7 +20,7 @@ export class SettingsServiceService {
   }
 
   async updateShowsUpdated(showUpdatedNews: UpdatedNews) {
-    const options = this.msalWrapperService.getOptionsHeadersAsync();
+    const options = this.msalWrapperService.getOptionsHeaders();
     const body = {
       showUpdatedNews: showUpdatedNews
     };
@@ -29,7 +29,7 @@ export class SettingsServiceService {
   }
 
   async squashNewsUpdates(squashUpdate: SquashUpdate) {
-    const options = this.msalWrapperService.getOptionsHeadersAsync();
+    const options = this.msalWrapperService.getOptionsHeaders();
 
     const body = {
       squashUpdate:squashUpdate
@@ -39,7 +39,7 @@ export class SettingsServiceService {
   }
 
   async getReaderSettings():Promise<Observable<ReaderSettings>> {
-    const options = this.msalWrapperService.getOptionsHeadersAsync();
+    const options = this.msalWrapperService.getOptionsHeaders();
     return this.http.get<ReaderSettings>(`${environment.apiUrl}/api/settings/reader`, options);
   }
 }

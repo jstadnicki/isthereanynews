@@ -17,7 +17,7 @@ export class ReaderSubscriptionServiceService {
   }
 
   async loadReadersAsync(onSuccess, onError) {
-    const options = this.msalWrapperService.getOptionsHeadersAsync();
+    const options = this.msalWrapperService.getOptionsHeaders();
     this
       .http
       .get<SubscribedReaderViewModel[]>(`${environment.apiUrl}/api/followers`, options)
@@ -26,7 +26,7 @@ export class ReaderSubscriptionServiceService {
   }
 
   async getReaderActivityAsync(personId,onSuccess, onError) {
-    const options = this.msalWrapperService.getOptionsHeadersAsync();
+    const options = this.msalWrapperService.getOptionsHeaders();
     this
       .http
       .get<SubscribedReaderViewModel[]>(`${environment.apiUrl}/api/followers/${personId}/activity`, options)

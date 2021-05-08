@@ -35,14 +35,17 @@ export class MsalWrapperService {
       if (this.account.idToken.newUser === true) {
         this.createPersonAccount();
       }
+      else{
+        this.migrateAccount();
+      }
       this.checkAccount();
     }
   }
 
   checkAccount(): void {
-    this.account = this.authService.getAccount();
-    this.sessionId = this.createUUID();
-    localStorage.setItem(this.sessionIdKeyName, this.sessionId);
+    // this.account = this.authService.getAccount();
+     this.sessionId = this.createUUID();
+    // localStorage.setItem(this.sessionIdKeyName, this.sessionId);
     this.isLoggedIn.next(!!this.account);
   }
 
@@ -81,7 +84,7 @@ export class MsalWrapperService {
 
 
   private async createPersonAccount() {
-    const options = this.getOptionsHeadersAsync();
+    const options = this.getOptionsHeaders();
 
     let body = {
       userId: this.account.accountIdentifier
@@ -89,6 +92,14 @@ export class MsalWrapperService {
 
     this.http
       .post(`${environment.apiUrl}/api/users`, body, options)
+      .subscribe();
+  }
+
+  private migrateAccount() {
+    const options = this.getOptionsHeaders();
+    var body={};
+    this.http
+      .post(`${environment.apiUrl}/api/users/migrate`,  body, options)
       .subscribe();
   }
 
@@ -101,7 +112,7 @@ export class MsalWrapperService {
     return setHeaders;
   }
 
-  public getOptionsHeadersAsync() {
+  public getOptionsHeaders() {
     return {headers: this.getOptions(this.authResponse.accessToken)};
   }
 
@@ -144,4 +155,6 @@ export class MsalWrapperService {
   private onMsalLoginSuccess(e: any) {
 
   }
+
+
 }
