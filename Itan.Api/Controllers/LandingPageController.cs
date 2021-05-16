@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Itan.Core;
-using Itan.Core.Requests;
+using Itan.Core.GetHomePageNews;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

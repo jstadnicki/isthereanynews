@@ -4,6 +4,7 @@ using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using Itan.Core.DeleteAccount;
+using Itan.Core.GetAllSubscribedChannels;
 using Itan.Core.GetUnreadNewsByChannel;
 using Itan.Wrappers;
 using MediatR;

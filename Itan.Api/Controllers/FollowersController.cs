@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Itan.Core.FollowPerson;
 using Itan.Core.GetFollowerActivity;
+using Itan.Core.GetFollowers;
+using Itan.Core.UnfollowPerson;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

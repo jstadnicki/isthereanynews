@@ -7,7 +7,7 @@ using Itan.Common;
 using MediatR;
 using Microsoft.Extensions.Options;
 
-namespace Itan.Api.Controllers
+namespace Itan.Core.FollowPerson
 {
     public class FollowPersonCommandHandler : IRequestHandler<FollowPersonCommand, Unit>
     {

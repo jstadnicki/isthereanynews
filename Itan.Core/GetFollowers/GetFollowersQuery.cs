@@ -8,13 +8,12 @@ using System.Threading.Tasks;
 using Dapper;
 using Itan.Common;
 using Itan.Core.DeleteAccount;
-using Itan.Core.GetAllReaders;
 using MediatR;
 using Microsoft.Extensions.Options;
 using Microsoft.Graph;
 using Microsoft.Identity.Client;
 
-namespace Itan.Api.Controllers
+namespace Itan.Core.GetFollowers
 {
     public class GetFollowersQuery : IRequest<List<SubscribedReaderViewModel>>
     {

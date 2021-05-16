@@ -5,11 +5,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
 using Itan.Common;
-using Itan.Core.GetUnreadNewsByChannel;
 using MediatR;
 using Microsoft.Extensions.Options;
 
-namespace Itan.Core
+namespace Itan.Core.GetAllSubscribedChannels
 {
     public class
         GetAllSubscribedChannelsViewModelsRequestHandler : IRequestHandler<GetAllSubscribedChannelsViewModelsRequest,

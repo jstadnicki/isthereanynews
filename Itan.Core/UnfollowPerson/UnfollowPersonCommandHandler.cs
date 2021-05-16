@@ -6,7 +6,7 @@ using Itan.Common;
 using MediatR;
 using Microsoft.Extensions.Options;
 
-namespace Itan.Api.Controllers
+namespace Itan.Core.UnfollowPerson
 {
     public class UnfollowPersonCommandHandler:IRequestHandler<UnfollowPersonCommand, Unit>
     {

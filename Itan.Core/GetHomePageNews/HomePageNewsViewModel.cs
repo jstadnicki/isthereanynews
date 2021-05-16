@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Itan.Core
+namespace Itan.Core.GetHomePageNews
 {
     public class HomePageNewsViewModel
     {

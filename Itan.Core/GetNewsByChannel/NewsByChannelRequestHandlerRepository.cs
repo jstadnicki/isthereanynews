@@ -9,7 +9,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 
-namespace Itan.Core.Requests
+namespace Itan.Core.GetNewsByChannel
 {
     class NewsByChannelRequestHandlerRepository : INewsByChannelRequestHandlerRepository
     {

@@ -8,7 +8,7 @@ using Itan.Common;
 using MediatR;
 using Microsoft.Extensions.Options;
 
-namespace Itan.Core
+namespace Itan.Core.GetAllChannels
 {
     public class GetAllChannelsViewModelsRequestHandler : IRequestHandler<GetAllChannelsViewModelsRequest, List<ChannelViewModel>>
     {

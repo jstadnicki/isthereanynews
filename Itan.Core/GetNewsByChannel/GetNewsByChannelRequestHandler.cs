@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 
-namespace Itan.Core.Requests
+namespace Itan.Core.GetNewsByChannel
 {
     public class GetNewsByChannelRequestHandler : IRequestHandler<GetNewsByChannelRequest, List<NewsViewModel>>
     {

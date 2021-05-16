@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Itan.Core.GetUnreadNewsByChannel;
 
-namespace Itan.Core.GetUnreadNewsByChannel
+namespace Itan.Core.GetAllSubscribedChannels
 {
     public interface IReaderSettingsRepository
     {

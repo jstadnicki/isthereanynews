@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using Itan.Common;
+using Itan.Core.GetAllSubscribedChannels;
 using Microsoft.Extensions.Options;
 
 namespace Itan.Core.GetUnreadNewsByChannel

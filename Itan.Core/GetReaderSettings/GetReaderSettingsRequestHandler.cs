@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using Itan.Core.GetAllSubscribedChannels;
 using Itan.Core.GetUnreadNewsByChannel;
 using MediatR;
 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Itan.Core
+namespace Itan.Core.GetHomePageNews
 {
     public class LandingPageNewsViewModel
     {

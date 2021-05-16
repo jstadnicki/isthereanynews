@@ -1,7 +1,7 @@
 ﻿using System;
 using MediatR;
 
-namespace Itan.Core.Requests
+namespace Itan.Core.UserUnsubscribeFromChannel
 {
     public class UserUnsubscribeFromChannelRequest : IRequest
     {

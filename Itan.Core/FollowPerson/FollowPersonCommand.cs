@@ -1,7 +1,7 @@
 ﻿using System;
 using MediatR;
 
-namespace Itan.Api.Controllers
+namespace Itan.Core.FollowPerson
 {
     public class FollowPersonCommand : IRequest<Unit>
     {

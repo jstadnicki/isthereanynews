@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using MediatR;
 
-namespace Itan.Core
+namespace Itan.Core.GetAllSubscribedChannels
 {
     public class GetAllSubscribedChannelsViewModelsRequest : IRequest<List<ChannelViewModel>>
     {

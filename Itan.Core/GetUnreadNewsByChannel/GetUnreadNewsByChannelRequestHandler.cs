@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Itan.Core.GetAllSubscribedChannels;
 using Itan.Core.UpdateSquashNewsUpdates;
 using MediatR;
 using Microsoft.Graph;

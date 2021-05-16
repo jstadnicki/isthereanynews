@@ -1,7 +1,7 @@
 ﻿using System;
 using MediatR;
 
-namespace Itan.Api.Controllers
+namespace Itan.Core.UnfollowPerson
 {
     public class UnfollowPersonCommand : IRequest<Unit>
     {

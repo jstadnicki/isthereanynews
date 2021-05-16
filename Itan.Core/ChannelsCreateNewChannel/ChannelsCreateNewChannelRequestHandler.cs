@@ -3,7 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using CodeHollow.FeedReader;
 using Itan.Core.ImportSubscriptions;
-using Itan.Core.Requests;
 using Itan.Functions.Models;
 using Itan.Wrappers;
 using MediatR;

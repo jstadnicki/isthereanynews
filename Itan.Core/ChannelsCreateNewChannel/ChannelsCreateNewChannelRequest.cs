@@ -1,5 +1,4 @@
 ﻿using System;
-using Itan.Core.Requests;
 using MediatR;
 
 namespace Itan.Core.ChannelsCreateNewChannel

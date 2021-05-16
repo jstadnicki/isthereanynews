@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 using Itan.Core;
+using Itan.Core.GetAllSubscribedChannels;
 using Itan.Core.ImportSubscriptions;
 using MediatR;
 using Microsoft.AspNetCore.Http;

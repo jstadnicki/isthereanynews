@@ -5,7 +5,7 @@ using Itan.Core.CreateNewUser;
 using Itan.Core.UserSubscribeToChannel;
 using MediatR;
 
-namespace Itan.Core.Requests
+namespace Itan.Core.UserUnsubscribeFromChannel
 {
     public class UserUnsubscribeFromChannelRequestHandler : IRequestHandler<UserUnsubscribeFromChannelRequest>
     {

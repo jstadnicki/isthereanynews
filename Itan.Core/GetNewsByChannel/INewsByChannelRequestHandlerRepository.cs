@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Itan.Core.Requests
+namespace Itan.Core.GetNewsByChannel
 {
     public interface INewsByChannelRequestHandlerRepository
     {

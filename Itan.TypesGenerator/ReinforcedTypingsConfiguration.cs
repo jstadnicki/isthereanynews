@@ -1,8 +1,9 @@
-﻿using Itan.Api.Controllers;
-using Itan.Common;
+﻿using Itan.Common;
 using Itan.Core;
 using Itan.Core.GetAllReaders;
 using Itan.Core.GetFollowerActivity;
+using Itan.Core.GetFollowers;
+using Itan.Core.GetHomePageNews;
 using Itan.Core.GetReader;
 using Itan.Core.MarkNewsRead;
 using Reinforced.Typings.Fluent;

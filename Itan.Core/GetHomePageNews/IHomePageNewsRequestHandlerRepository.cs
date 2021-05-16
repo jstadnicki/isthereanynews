@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Itan.Core.Requests
+namespace Itan.Core.GetHomePageNews
 {
     public interface IHomePageNewsRequestHandlerRepository
     {

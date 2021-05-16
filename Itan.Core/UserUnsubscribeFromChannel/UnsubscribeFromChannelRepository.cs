@@ -5,7 +5,7 @@ using Dapper;
 using Itan.Common;
 using Microsoft.Extensions.Options;
 
-namespace Itan.Core.Requests
+namespace Itan.Core.UserUnsubscribeFromChannel
 {
     internal class UnsubscribeFromChannelRepository : IUnsubscribeFromChannelRepository
     {

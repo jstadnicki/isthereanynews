@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Dapper;
 using Itan.Common;
@@ -10,7 +9,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 
-namespace Itan.Core.Requests
+namespace Itan.Core.GetHomePageNews
 {
     class HomePageNewsRequestHandlerRepository : IHomePageNewsRequestHandlerRepository
     {

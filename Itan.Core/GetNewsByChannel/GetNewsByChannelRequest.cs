@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using MediatR;
 
-namespace Itan.Core.Requests
+namespace Itan.Core.GetNewsByChannel
 {
     public class GetNewsByChannelRequest : IRequest<List<NewsViewModel>>
     {

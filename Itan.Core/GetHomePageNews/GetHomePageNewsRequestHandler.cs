@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using MediatR;
 
-namespace Itan.Core.Requests
+namespace Itan.Core.GetHomePageNews
 {
     public class GetHomePageNewsRequestHandler : IRequestHandler<GetHomePageNewsRequest, HomePageNewsViewModel>
     {
