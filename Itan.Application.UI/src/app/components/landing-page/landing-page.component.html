@@ -6,45 +6,8 @@
   <section class="hero is-primary is-medium " style="height: calc(100% - 238px); overflow-y: hidden;">
     <div class="hero-body">
       <div class="container">
-        <div class="columns">
-          <div class="column is-4 is-offset-1">
-            <figure *ngIf="hasImage(news.topNews[topIndex])">
-              <p class="image">
-                <img [src]="getImage(news.topNews[topIndex])">
-              </p>
-            </figure>
-          </div>
-          <div class="column is-6">
-              <div class="media-content">
-                <div class="content">
-                  <p>
-                    <strong>
-                      <span>
-                        {{news.topNews[topIndex].viewModel.title}}
-                      </span>
-                    </strong>
-                    <br/>
-                    <small class="is-pulled-right">
-                      <span class="fa fa-rss"></span>
-                      {{news.topNews[topIndex].viewModel.author}}
-                    </small>
-                    <br>
-                    <span [innerHTML]="display(news.topNews[topIndex])|striphtml">
-
-                    </span>
-                    <span class="icon is-small">
-                    <i
-                      (click)="onExternalLinkClick(news.topNews[topIndex])"
-                      class="fa fa-external-link"></i></span>
-                    <br/>
-                    <small class="is-pulled-right">
-                      <span class="fa fa-calendar"></span>
-                      {{news.topNews[topIndex].viewModel.published|date}}
-                    </small>
-                  </p>
-                </div>
-              </div>
-          </div>
+        <div class="columns is-big">
+          <app-landing-page-news class="is-12 column" [news]="news.topNews[topIndex]"></app-landing-page-news>
         </div>
       </div>
     </div>
@@ -53,41 +16,12 @@
     <div class="hero-body">
       <div class="container">
         <div class="tag is-info">
-          Last 24 news
+          Last 24h news
         </div>
         <div class="columns">
-          <div class="column is-4" *ngFor="let idx of [0,1,2]" style="max-width: 100%">
-            <article class="media columns">
-              <figure *ngIf="hasImage(news.bottomNews[bottomPage + idx])" class="media-left column is-4">
-                <p class="image">
-                  <img [src]="getImage(news.bottomNews[bottomPage + idx])">
-                </p>
-              </figure>
-              <div class="media-content column is-8">
-                <div class="content" style="max-width: 100%">
-                    <div class="hide-with-ellipsis" style="max-width: 100%">{{news.bottomNews[bottomPage + idx]?.viewModel.title}}</div>
-                    <small class="is-pulled-right hide-with-ellipsis" style="max-width: 100%">
-                      <span class="fa fa-rss"></span>
-                      {{news.bottomNews[bottomPage + idx]?.viewModel.author}}
-                    </small>
-                    <br>
-                    <span class="is-pulled-right hide-with-ellipsis"
-                          style="max-width: 100%"
-                          [innerHTML]="display(news.bottomNews[bottomPage + idx]) | striphtml">
-                    </span>
-                    <br>
-                    <a href class="icon is-small"><i
-                      (click)="onExternalLinkClick(news.bottomNews[bottomPage + idx])"
-                      class="fa fa-external-link alias"></i></a>
-                    <br/>
-                    <small class="is-pulled-right">
-                      <span class="fa fa-calendar"></span>
-                    {{news.bottomNews[bottomPage + idx]?.viewModel.published|date}}
-                    </small>
-                </div>
-              </div>
-            </article>
-          </div>
+            <app-landing-page-news class="is-4 column" [news]="news.bottomNews[bottomPage+0]"></app-landing-page-news>
+            <app-landing-page-news class="is-4 column" [news]="news.bottomNews[bottomPage+1]"></app-landing-page-news>
+            <app-landing-page-news class="is-4 column" [news]="news.bottomNews[bottomPage+2]"></app-landing-page-news>
         </div>
       </div>
     </div>

@@ -26,6 +26,7 @@ import {LockerComponent} from './components/locker/locker.component';
 import {environment} from "../environments/environment";
 import { DeleteAccountComponent } from './components/delete-account/delete-account.component';
 import { ReadersPageComponent } from './components/readers-page/readers-page.component';
+import { LandingPageNewsComponent } from './components/landing-page-news/landing-page-news.component';
 
 
 
@@ -52,6 +53,7 @@ const isIE =
     PrivacyPageComponent,
     DeleteAccountComponent,
     ReadersPageComponent,
+    LandingPageNewsComponent,
   ],
 
   imports: [

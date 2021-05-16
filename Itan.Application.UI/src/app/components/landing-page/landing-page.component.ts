@@ -1,8 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {HomePageNewsViewModel} from '../../../server/Itan/Core/HomePageNewsViewModel'
-import {LandingPageNewsViewModel} from '../../../server/Itan/Core/LandingPageNewsViewModel'
+import {LandingPageNews} from "./landing-page.news";
+import {HomePageNews} from "./home-page.news";
+import {NewsContent} from "./news.content";
 
 @Component({
   selector: 'app-landing-page',
@@ -108,32 +110,3 @@ export class LandingPageComponent implements OnInit {
   }
 }
 
-class HomePageNews {
-  constructor(vm: HomePageNewsViewModel) {
-    this.viewModel = vm;
-    this.bottomNews = vm.bottomNews.map(n => new LandingPageNews(n));
-    this.topNews = vm.topNews.map(n => new LandingPageNews(n));
-  }
-
-  private viewModel: HomePageNewsViewModel;
-  topNews: LandingPageNews[];
-  bottomNews: LandingPageNews[];
-}
-
-class LandingPageNews {
-  constructor(vm: LandingPageNewsViewModel) {
-    this.content = new NewsContent();
-    this.viewModel = vm;
-  }
-
-  viewModel: LandingPageNewsViewModel;
-  content: NewsContent;
-}
-
-class NewsContent {
-  Content: string;
-  Description: string;
-  Image: string;
-  Author: string;
-  Link: string;
-}
