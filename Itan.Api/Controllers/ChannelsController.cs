@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Itan.Api.Dto;
 using Itan.Core;
+using Itan.Core.ChannelsCreateNewChannel;
 using Itan.Core.Requests;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Itan.Core.Handlers
+namespace Itan.Core.ChannelsCreateNewChannel
 {
     public interface ICreateNewChannelRepository
     {

@@ -8,7 +8,7 @@ using Itan.Functions.Models;
 using Itan.Wrappers;
 using MediatR;
 
-namespace Itan.Core.Handlers
+namespace Itan.Core.ChannelsCreateNewChannel
 {
     public class
         ChannelsCreateNewChannelRequestHandler : IRequestHandler<ChannelsCreateNewChannelRequest,

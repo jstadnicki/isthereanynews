@@ -1,7 +1,8 @@
 ﻿using System;
+using Itan.Core.Requests;
 using MediatR;
 
-namespace Itan.Core.Requests
+namespace Itan.Core.ChannelsCreateNewChannel
 {
     public class ChannelsCreateNewChannelRequest : IRequest<ChannelCreateRequestResult>
     {
