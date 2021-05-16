@@ -2,7 +2,6 @@
 using System.IO;
 using System.Threading.Tasks;
 using Itan.Common;
-using Itan.Functions.Models;
 using Itan.Functions.Workers.Exceptions;
 using Itan.Wrappers;
 

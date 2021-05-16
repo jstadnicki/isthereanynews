@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AutoFixture.Xunit2;
-using Itan.Functions.Models;
+using Itan.Common;
 using Itan.Wrappers;
 using Moq;
 using Xunit;

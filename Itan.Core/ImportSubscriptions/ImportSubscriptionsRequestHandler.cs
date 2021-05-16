@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Itan.Common;
 using Itan.Core.ChannelsCreateNewChannel;
 using Itan.Core.UserSubscribeToChannel;
-using Itan.Functions.Models;
 using Itan.Wrappers;
 using MediatR;
 

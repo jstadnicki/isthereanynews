@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoFixture.Xunit2;
-using Itan.Functions.Models;
+using Itan.Common;
 using Moq;
 using Xunit;
 

@@ -2,8 +2,8 @@
 using System.Threading;
 using System.Threading.Tasks;
 using CodeHollow.FeedReader;
+using Itan.Common;
 using Itan.Core.ImportSubscriptions;
-using Itan.Functions.Models;
 using Itan.Wrappers;
 using MediatR;
 
@@ -44,7 +44,7 @@ namespace Itan.Core.ChannelsCreateNewChannel
                 return ChannelCreateRequestResult.Exists(title);
             }
             var channelId = await this.repository.SaveAsync(request.Url.ToLowerInvariant(), request.PersonId);
-            var mesg = new ChannelToDownload
+            var mesg = new ChannelToDownload()
             {
                 Id = channelId,
                 Url = request.Url

@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using Itan.Common;
-using Itan.Functions.Models;
 using Itan.Functions.Workers.Model;
 using Itan.Wrappers;
 

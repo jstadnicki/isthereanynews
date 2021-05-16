@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Itan.Core
+namespace Itan.Core.GetAllChannels
 {
     public class ChannelViewModel
     {

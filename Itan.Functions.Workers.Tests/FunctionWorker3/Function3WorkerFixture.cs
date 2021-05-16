@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using AutoFixture;
-using Itan.Functions.Models;
+using Itan.Common;
 using Itan.Functions.Workers.Exceptions;
 using Itan.Wrappers;
 using Moq;

@@ -1,5 +1,6 @@
 ﻿using Itan.Common;
 using Itan.Core;
+using Itan.Core.GetAllChannels;
 using Itan.Core.GetAllReaders;
 using Itan.Core.GetAllSubscribedChannels;
 using Itan.Core.GetFollowerActivity;

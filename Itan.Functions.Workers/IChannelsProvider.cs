@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Itan.Functions.Models;
+using Itan.Common;
 
 namespace Itan.Functions.Workers
 {

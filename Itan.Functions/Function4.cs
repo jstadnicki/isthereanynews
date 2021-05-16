@@ -3,6 +3,7 @@ using Itan.Functions.Workers;
 
 using Microsoft.Azure.WebJobs;
 using System.Threading.Tasks;
+using Itan.Common;
 
 
 namespace Itan.Functions

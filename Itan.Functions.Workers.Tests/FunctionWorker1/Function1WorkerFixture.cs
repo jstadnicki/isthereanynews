@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using AutoFixture;
-using Itan.Functions.Models;
+using Itan.Common;
 using Itan.Wrappers;
 using Moq;
 
