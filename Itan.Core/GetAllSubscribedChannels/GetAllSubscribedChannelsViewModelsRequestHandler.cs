@@ -12,7 +12,7 @@ namespace Itan.Core.GetAllSubscribedChannels
 {
     public class
         GetAllSubscribedChannelsViewModelsRequestHandler : IRequestHandler<GetAllSubscribedChannelsViewModelsRequest,
-            List<ChannelViewModel>>
+            List<SubscribedChannelViewModel>>
     {
         private readonly string connectionString;
         private readonly IReaderSettingsRepository readerSettingsRepository;
@@ -25,7 +25,7 @@ namespace Itan.Core.GetAllSubscribedChannels
             this.connectionString = options.Value.SqlReader;
         }
 
-        public async Task<List<ChannelViewModel>> Handle(
+        public async Task<List<SubscribedChannelViewModel>> Handle(
             GetAllSubscribedChannelsViewModelsRequest request,
             CancellationToken _)
         {
@@ -79,7 +79,7 @@ namespace Itan.Core.GetAllSubscribedChannels
             };
 
             using var connection = new SqlConnection(this.connectionString);
-            var result = await connection.QueryAsync<ChannelViewModel>(sqlQuery, sqlData);
+            var result = await connection.QueryAsync<SubscribedChannelViewModel>(sqlQuery, sqlData);
             return result.ToList();
         }
     }

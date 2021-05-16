@@ -28,7 +28,7 @@ namespace Itan.Api.Controllers
 
         [HttpGet]
         [Route("{userId}")]
-        public async Task<ActionResult<List<ChannelViewModel>>> Get(string userId)
+        public async Task<ActionResult<List<SubscribedChannelViewModel>>> Get(string userId)
         {
             var command = new GetAllSubscribedChannelsViewModelsRequest {PersonId = userId};
             var list = await this.mediator.Send(command);

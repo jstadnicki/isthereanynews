@@ -7,7 +7,7 @@ import {FormGroup, FormControl, Validators} from '@angular/forms';
 import {NewsItemOpenedMarkerService} from "../../service/news-item-opened-marker.service";
 import {ChannelsSubscriptionsServiceService} from "../../service/channels-subscriptions-service.service";
 
-import {ChannelViewModel} from '../../../server/Itan/Core/ChannelViewModel';
+import {SubscribedChannelViewModel} from '../../../server/Itan/Core/SubscribedChannelViewModel';
 import {NewsViewModel} from '../../../server/Itan/Core/NewsViewModel';
 import {ReaderSubscriptionServiceService} from "./reader-subscription-service.service";
 import {SubscribedReaderViewModel} from "../../../server/Itan/Api/Controllers/SubscribedReaderViewModel";
@@ -183,7 +183,7 @@ export class SubscriptionsPageComponent implements OnInit {
     var options = this.msalWrapperService.getOptionsHeaders();
 
     this.http
-      .get<ChannelViewModel[]>(`${environment.apiUrl}/api/subscriptions/${userId}`, options)
+      .get<SubscribedChannelViewModel[]>(`${environment.apiUrl}/api/subscriptions/${userId}`, options)
       .subscribe((r) => {
         this.channels = r.map(vm=>new Channel(vm));
         this.areChannelsLoaded = true;
@@ -259,10 +259,10 @@ export class SubscriptionsPageComponent implements OnInit {
 }
 
 class Channel{
-  constructor(vm:ChannelViewModel) {
+  constructor(vm:SubscribedChannelViewModel) {
     this.viewModel = vm;
   }
-  viewModel:ChannelViewModel;
+  viewModel:SubscribedChannelViewModel;
 }
 
 class News {

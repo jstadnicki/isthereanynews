@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Itan.Common;
+using Itan.Core.GetNewsByChannel;
 using Microsoft.Extensions.Options;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Itan.Core.GetNewsByChannel;
 using MediatR;
 
 namespace Itan.Core.GetUnreadNewsByChannel

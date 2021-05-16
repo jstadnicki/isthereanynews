@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Itan.Core.GetAllSubscribedChannels;
+using Itan.Core.GetNewsByChannel;
 using Itan.Core.UpdateSquashNewsUpdates;
 using MediatR;
 using Microsoft.Graph;

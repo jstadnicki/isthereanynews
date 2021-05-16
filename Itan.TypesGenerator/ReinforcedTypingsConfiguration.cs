@@ -1,9 +1,11 @@
 ﻿using Itan.Common;
 using Itan.Core;
 using Itan.Core.GetAllReaders;
+using Itan.Core.GetAllSubscribedChannels;
 using Itan.Core.GetFollowerActivity;
 using Itan.Core.GetFollowers;
 using Itan.Core.GetHomePageNews;
+using Itan.Core.GetNewsByChannel;
 using Itan.Core.GetReader;
 using Itan.Core.MarkNewsRead;
 using Reinforced.Typings.Fluent;
@@ -24,6 +26,8 @@ namespace Itan.TypesGenerator
             builder.ExportAsEnum<IMarkNewsReadRepository.NewsReadType>();
 
             builder.ExportAsClass<ChannelViewModel>()
+                .WithAllProperties();
+            builder.ExportAsClass<SubscribedChannelViewModel>()
                 .WithAllProperties();
             
             builder.ExportAsClass<NewsViewModel>()

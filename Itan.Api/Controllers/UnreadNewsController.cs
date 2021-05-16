@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Itan.Core;
+using Itan.Core.GetNewsByChannel;
 using Itan.Core.GetUnreadNewsByChannel;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Itan.Core
+namespace Itan.Core.GetNewsByChannel
 {
     public class NewsViewModel
     {
