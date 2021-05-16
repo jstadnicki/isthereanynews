@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Itan.Core.CreateNewUser;
-using Itan.Core.Handlers;
+using Itan.Core.UserSubscribeToChannel;
 using MediatR;
 
 namespace Itan.Core.Requests

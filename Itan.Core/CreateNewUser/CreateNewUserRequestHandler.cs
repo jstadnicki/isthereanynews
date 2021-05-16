@@ -5,7 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Itan.Core.DeleteAccount;
 using Itan.Core.GetUnreadNewsByChannel;
-using Itan.Core.Handlers;
 using Itan.Wrappers;
 using MediatR;
 using Microsoft.Extensions.Options;

@@ -2,10 +2,9 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Itan.Core.CreateNewUser;
-using Itan.Core.Requests;
 using MediatR;
 
-namespace Itan.Core.Handlers
+namespace Itan.Core.UserSubscribeToChannel
 {
     public class UserSubscribeToChannelHandler : AsyncRequestHandler<UserSubscribeToChannelRequest>
     {

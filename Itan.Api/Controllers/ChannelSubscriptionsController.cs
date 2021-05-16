@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Itan.Api.Dto;
 using Itan.Core.Requests;
+using Itan.Core.UserSubscribeToChannel;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

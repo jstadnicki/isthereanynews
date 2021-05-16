@@ -5,7 +5,7 @@ using Dapper;
 using Itan.Common;
 using Microsoft.Extensions.Options;
 
-namespace Itan.Core.Handlers
+namespace Itan.Core.UserSubscribeToChannel
 {
     class UserToChannelSubscriptionsRepository : IUserToChannelSubscriptionsRepository
     {
