@@ -3,8 +3,8 @@ import {MsalWrapperService} from "../../service/msal-wrapper.service";
 import {ReadersRepositoryService} from "./readers-repository.service";
 import {ReaderViewModel} from "../../../server/Itan/Core/GetAllReaders/ReaderViewModel";
 import {ReaderDetailsViewModel} from "../../../server/Itan/Core/GetReader/ReaderDetailsViewModel";
-import {ChannelsSubscriptionsServiceService} from "../../service/channels-subscriptions-service.service";
 import {ReadersSubscriptionsServiceService} from "./readers-subscriptions-service.service";
+import {ChannelsSubscriptionsServiceService} from "../channels-page/channels-subscriptions-service.service";
 
 @Component({
   selector: 'app-readers-page',

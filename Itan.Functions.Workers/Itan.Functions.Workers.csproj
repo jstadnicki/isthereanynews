@@ -24,8 +24,4 @@
     <ProjectReference Include="..\Itan.Wrappers\Itan.Wrappers.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Wrappers" />
-  </ItemGroup>
-
 </Project>

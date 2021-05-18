@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {MsalWrapperService} from "../../service/msal-wrapper.service";
-import {ChannelsSubscriptionsServiceService} from "../../service/channels-subscriptions-service.service";
+import {ChannelsSubscriptionsServiceService} from "./channels-subscriptions-service.service";
 import {environment} from '../../../environments/environment';
 import {ChannelViewModel} from '../../../server/Itan/Core/ChannelViewModel';
 import {NewsViewModel} from '../../../server/Itan/Core/NewsViewModel';

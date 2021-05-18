@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {MsalWrapperService} from "./msal-wrapper.service";
-import {environment} from "../../environments/environment";
+import {MsalWrapperService} from "../../service/msal-wrapper.service";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'

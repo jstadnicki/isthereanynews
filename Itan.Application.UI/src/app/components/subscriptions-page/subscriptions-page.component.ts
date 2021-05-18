@@ -1,17 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {MsalWrapperService} from "../../service/msal-wrapper.service";
-import {NewsItemReadMarkerServiceService} from "../../service/news-item-read-marker-service.service";
 import {environment} from "../../../environments/environment";
 import {FormGroup, FormControl, Validators} from '@angular/forms';
-import {NewsItemOpenedMarkerService} from "../../service/news-item-opened-marker.service";
-import {ChannelsSubscriptionsServiceService} from "../../service/channels-subscriptions-service.service";
 
 import {SubscribedChannelViewModel} from '../../../server/Itan/Core/SubscribedChannelViewModel';
 import {NewsViewModel} from '../../../server/Itan/Core/NewsViewModel';
 import {ReaderSubscriptionServiceService} from "./reader-subscription-service.service";
 import {SubscribedReaderViewModel} from "../../../server/Itan/Api/Controllers/SubscribedReaderViewModel";
 import {FollowerActivityViewModel} from "../../../server/Itan/Core/GetFollowerActivity/FollowerActivityViewModel";
+import {ChannelsSubscriptionsServiceService} from "../channels-page/channels-subscriptions-service.service";
+import {NewsItemReadMarkerServiceService} from "./news-item-read-marker-service.service";
+import {NewsItemOpenedMarkerService} from "./news-item-opened-marker.service";
 
 @Component({
   selector: 'app-subscriptions-page',

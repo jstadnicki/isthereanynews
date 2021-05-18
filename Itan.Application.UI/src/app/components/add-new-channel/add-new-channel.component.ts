@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
-import {AddNewChannelRepositoryService} from "../../service/add-new-channel-repository.service";
+import {AddNewChannelRepositoryService} from "./add-new-channel-repository.service";
 
 @Component({
   selector: 'app-add-new-channel',
