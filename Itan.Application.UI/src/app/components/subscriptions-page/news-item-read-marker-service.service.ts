@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {MsalWrapperService} from "./msal-wrapper.service";
-import {environment} from "../../environments/environment";
+import {MsalWrapperService} from "../../service/msal-wrapper.service";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
-export class NewsItemOpenedMarkerService {
+export class NewsItemReadMarkerServiceService {
 
   constructor(
     private http: HttpClient,
     private msalWrapperService: MsalWrapperService
   ) { }
 
-  async MarkOpen(channelId: string, newsId: string) {
+  async MarkRead(channelId: string, newsId: string) {
     const options = this.msalWrapperService.getOptionsHeaders();
 
     const body = {
@@ -22,13 +22,13 @@ export class NewsItemOpenedMarkerService {
     };
 
     this.http
-      .post(`${environment.apiUrl}/api/ChannelOpenNews`, body, options)
+      .post(`${environment.apiUrl}/api/ChannelReadNews`, body, options)
       .subscribe((r) => {
         console.log(r);
       });
   }
 
-  async MarkOpenWithClick(channelId: string, newsId: string) {
+  async MarkUnreadAsRead(channelId: string, newsId: string[]) {
     const options = this.msalWrapperService.getOptionsHeaders();
 
     const body = {
@@ -37,7 +37,7 @@ export class NewsItemOpenedMarkerService {
     };
 
     this.http
-      .post(`${environment.apiUrl}/api/ChannelReadNews/click`, body, options)
+      .post(`${environment.apiUrl}/api/ChannelReadNews/skipped`, body, options)
       .subscribe((r) => {
         console.log(r);
       });
