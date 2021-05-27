@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
-import {AddNewChannelRepositoryService} from "./add-new-channel-repository.service";
+import {catchError, tap} from "rxjs/operators";
+import {HttpClient} from "@angular/common/http";
+import {MsalWrapperService} from "../../service/msal-wrapper.service";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-add-new-channel',
@@ -10,10 +13,11 @@ import {AddNewChannelRepositoryService} from "./add-new-channel-repository.servi
 export class AddNewChannelComponent implements OnInit {
 
   showSpinner: boolean = false;
-  successMessage: string='';
+  successMessage: string = '';
 
   constructor(
-    private addNewChannelRepositoryService: AddNewChannelRepositoryService
+    private http: HttpClient,
+    private msalWrapperService: MsalWrapperService
   ) {
   }
 
@@ -26,19 +30,27 @@ export class AddNewChannelComponent implements OnInit {
 
   async onSubmit(form: NgForm) {
     this.showSpinner = true;
-    (await this.addNewChannelRepositoryService.Save(this.url))
-      .subscribe(s => {
-          this.showSuccess(s)
-        },
-        e => this.showError());
-    this.showSpinner = false;
+    const options = this.msalWrapperService.getOptionsHeaders();
+
+    const body = {
+      url: this.url
+    };
+    this
+      .http
+      .post(`${environment.apiUrl}/api/channels`, body, options)
+      .pipe(
+        tap(s => this.showSuccess(s)),
+        tap(() => this.showSpinner = false),
+        catchError(e => this.showError()),
+      )
+      .subscribe();
   }
 
   async showSuccess(s) {
-    if(s.channelCreateRequestResultType == 2){
+    if (s.channelCreateRequestResultType == 2) {
       this.successMessage = `Channel already exists, find it by ${s.channelName}`;
     }
-    if(s.channelCreateRequestResultType == 1){
+    if (s.channelCreateRequestResultType == 1) {
       this.successMessage = `Channel created, find it by ${s.channelName}. Please give ITAN some time to parse it (refresh maybe be required - sorry)`;
     }
     this.displaySuccess = true;

@@ -44,7 +44,5 @@ namespace Itan.Api.Controllers
             var channelCreateRequestResult = await this.mediator.Send(command);
             return this.Accepted(channelCreateRequestResult);
         }
-
-        
     }
 }

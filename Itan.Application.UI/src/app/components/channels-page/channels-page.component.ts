@@ -1,10 +1,13 @@
 import {Component, OnInit} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {MsalWrapperService} from "../../service/msal-wrapper.service";
-import {ChannelsSubscriptionsServiceService} from "./channels-subscriptions-service.service";
 import {environment} from '../../../environments/environment';
 import {ChannelViewModel} from '../../../server/Itan/Core/ChannelViewModel';
 import {NewsViewModel} from '../../../server/Itan/Core/NewsViewModel';
+import {catchError, tap} from "rxjs/operators";
+import {News} from "./news";
+import {NewsContent} from "./news.content";
+import {of} from "rxjs";
 
 @Component({
   selector: "app-channels-page",
@@ -15,7 +18,6 @@ export class ChannelsPageComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private msalWrapperService: MsalWrapperService,
-    private channelsSubscriptionsServiceService: ChannelsSubscriptionsServiceService
   ) {
   }
 
@@ -39,15 +41,38 @@ export class ChannelsPageComponent implements OnInit {
   }
 
   async subscribe(channel: ChannelViewModel) {
-    this.channelsSubscriptionsServiceService.subscribeToChannel(channel.id)
-      .then(() => this.showSubscribeNotification(true))
-      .catch(() => this.showSubscribeNotification(false));
+    const options = this.msalWrapperService.getOptionsHeaders();
+
+    const userId = this.msalWrapperService.getAccountId();
+    const body = {
+      channelId: channel.id
+    };
+
+    this.http
+      .post(`${environment.apiUrl}/api/users/${userId}/channels`, body, options)
+      .pipe(
+        tap(() => this.showSubscribeNotification(true)),
+        catchError(() => of(this.showSubscribeNotification(false)))
+      )
+      .subscribe();
   }
 
   async unsubscribe(channel: ChannelViewModel) {
-    this.channelsSubscriptionsServiceService.unsubscribeFromChannel(channel.id)
-      .then(() => this.showUnsubscribeNotification(true))
-      .catch(() => this.showUnsubscribeNotification(false));
+    const options = this.msalWrapperService.getOptionsHeaders();
+
+    const userId = this.msalWrapperService.getAccountId();
+    const body = {
+      channelId: channel.id
+    };
+
+    this.http
+      .post(`${environment.apiUrl}/api/users/${userId}/channels`, body, options)
+      .pipe(
+        tap(() => this.showUnsubscribeNotification(true)),
+        //catchError(e => this.showUnsubscribeNotification(false))
+      )
+      .subscribe();
+
   }
 
   showAddNewChannel() {
@@ -70,10 +95,13 @@ export class ChannelsPageComponent implements OnInit {
 
     this.http
       .get<NewsViewModel[]>(`${environment.apiUrl}/api/news/${channel.id}`)
-      .subscribe((r) => {
-        this.news = r.map(vm => new News(vm))
-        this.areNewsLoading = false;
-      });
+      .pipe(
+        tap(r => {
+            this.news = r.map(vm => new News(vm))
+            this.areNewsLoading = false;
+          }
+        )
+      ).subscribe();
   }
 
   async onNewsClick(newsItem: News) {
@@ -87,18 +115,21 @@ export class ChannelsPageComponent implements OnInit {
     let options = {headers: headers}
     this.http
       .get<NewsContent>(url, options)
-      .subscribe(response => {
-        newsItem.loading = false;
-        newsItem.content = response;
-        newsItem.contentVisible = !newsItem.contentVisible;
+      .pipe(
+        tap<NewsContent>(response => {
+            newsItem.loading = false;
+            newsItem.content = response;
+            newsItem.contentVisible = !newsItem.contentVisible;
 
-        var tempDiv = document.createElement('div');
-        tempDiv.innerHTML = this.display(response);
-        var firstImage = tempDiv.getElementsByTagName('img')[0]
-        var imgSrc = firstImage ? firstImage.src : "";
+            var tempDiv = document.createElement('div');
+            tempDiv.innerHTML = this.display(response);
+            var firstImage = tempDiv.getElementsByTagName('img')[0]
+            var imgSrc = firstImage ? firstImage.src : "";
 
-        newsItem.content.Image = imgSrc;
-      });
+            newsItem.content.Image = imgSrc;
+          }
+        ))
+      .subscribe()
   }
 
   hasImage(news: NewsContent): boolean {
@@ -120,10 +151,13 @@ export class ChannelsPageComponent implements OnInit {
   async loadChannels() {
     this.http
       .get<ChannelViewModel[]>(`${environment.apiUrl}/api/channels`)
-      .subscribe((r) => {
-        this.channels = r;
-        this.areChannelsLoaded = true;
-      });
+      .pipe(
+        tap(r => {
+          this.channels = r;
+          this.areChannelsLoaded = true;
+        })
+      )
+      .subscribe();
   }
 
   displayTitleOrDescriptionOrUrl(selectedChannel: ChannelViewModel) {
@@ -182,23 +216,3 @@ export class ChannelsPageComponent implements OnInit {
     this.notificationTimeout = null;
   }
 }
-
-class News {
-  constructor(vm: NewsViewModel) {
-    this.viewModel = vm;
-  }
-
-  viewModel: NewsViewModel;
-  content: NewsContent;
-  contentVisible: boolean;
-  loading: boolean;
-}
-
-class NewsContent {
-  Content: string;
-  Description: string;
-  Image: string;
-  Author: string;
-  Link: string;
-}
-

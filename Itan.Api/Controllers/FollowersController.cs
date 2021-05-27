@@ -22,11 +22,11 @@ namespace Itan.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<OkResult> Post(FollowPerson followPersonModel)
+        public async Task<OkResult> Post([FromBody]FollowPerson followPersonModel)
         {
             var userId = Guid.Parse(this.User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
             var command = new FollowPersonCommand(followPersonModel.ReaderId, userId);
-            this.mediator.Send(command);
+            await this.mediator.Send(command);
             return Ok();
         }
         
@@ -36,7 +36,7 @@ namespace Itan.Api.Controllers
         {
             var userId = Guid.Parse(this.User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
             var command = new UnfollowPersonCommand(unfollowPersonModel.ReaderId, userId);
-            this.mediator.Send(command);
+            await this.mediator.Send(command);
             return Ok();
         }
         

@@ -9,9 +9,10 @@ import {NewsViewModel} from '../../../server/Itan/Core/NewsViewModel';
 import {ReaderSubscriptionServiceService} from "./reader-subscription-service.service";
 import {SubscribedReaderViewModel} from "../../../server/Itan/Api/Controllers/SubscribedReaderViewModel";
 import {FollowerActivityViewModel} from "../../../server/Itan/Core/GetFollowerActivity/FollowerActivityViewModel";
-import {ChannelsSubscriptionsServiceService} from "../channels-page/channels-subscriptions-service.service";
 import {NewsItemReadMarkerServiceService} from "./news-item-read-marker-service.service";
 import {NewsItemOpenedMarkerService} from "./news-item-opened-marker.service";
+import {catchError, tap} from "rxjs/operators";
+import {of} from "rxjs";
 
 @Component({
   selector: 'app-subscriptions-page',
@@ -24,7 +25,6 @@ export class SubscriptionsPageComponent implements OnInit {
     private msalWrapperService: MsalWrapperService,
     private newsReadMarker: NewsItemReadMarkerServiceService,
     private newsOpenedMarker: NewsItemOpenedMarkerService,
-    private channelsSubscriptionsServiceService: ChannelsSubscriptionsServiceService,
     private readerSubscriptionServiceService: ReaderSubscriptionServiceService
   ) {
   }
@@ -59,9 +59,17 @@ export class SubscriptionsPageComponent implements OnInit {
   }
 
   async unsubscribe(channel: Channel) {
-     this.channelsSubscriptionsServiceService.unsubscribeFromChannel(channel.viewModel.id)
-       .then(() => this.showUnsubscribeNotification(true))
-       .catch(() => this.showUnsubscribeNotification(false));
+    const options = this.msalWrapperService.getOptionsHeaders();
+
+    const userId = this.msalWrapperService.getAccountId();
+
+    this.http
+      .delete(`${environment.apiUrl}/api/users/${userId}/channels/${channel.viewModel.id}`, options)
+      .pipe(
+        tap(()=>this.showUnsubscribeNotification(true)),
+        catchError(()=>of(this.showUnsubscribeNotification(false)))
+      )
+      .subscribe();
   }
 
   async onChannelClick(channel: Channel) {

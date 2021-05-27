@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {MsalWrapperService} from "../../service/msal-wrapper.service";
-import {ReadersRepositoryService} from "./readers-repository.service";
 import {ReaderViewModel} from "../../../server/Itan/Core/GetAllReaders/ReaderViewModel";
 import {ReaderDetailsViewModel} from "../../../server/Itan/Core/GetReader/ReaderDetailsViewModel";
-import {ReadersSubscriptionsServiceService} from "./readers-subscriptions-service.service";
-import {ChannelsSubscriptionsServiceService} from "../channels-page/channels-subscriptions-service.service";
+import {environment} from "../../../environments/environment";
+import {HttpClient} from "@angular/common/http";
+import {catchError, tap} from "rxjs/operators";
+import {of} from "rxjs";
 
 @Component({
   selector: 'app-readers-page',
@@ -18,50 +19,91 @@ export class ReadersPageComponent implements OnInit {
   selectedChannel: any;
   readersLoaded: boolean = false;
   selectedReaderDetails: ReaderDetailsViewModel;
-  notificationText: string="";
-  notificationSuccessful: boolean=false;
+  notificationText: string = "";
+  notificationSuccessful: boolean = false;
   notificationTimeout: any;
 
   constructor(
     private msalWrapperService: MsalWrapperService,
-    private readersRepository: ReadersRepositoryService,
-    private subscriptionService: ChannelsSubscriptionsServiceService,
-    private readersSubscriptionsService : ReadersSubscriptionsServiceService
+    private http: HttpClient,
   ) {
   }
 
   async ngOnInit() {
     this.msalWrapperService.isLoggedIn.subscribe(v => this.isLoggedIn = v);
 
-    await this.readersRepository.GetAllAsync(r => {
-      this.readersLoaded = true;
-      this.readers = r;
-    });
+    let options = this.msalWrapperService.getOptionsHeaders();
+    let url = `${environment.apiUrl}/api/readers`;
+    this
+      .http
+      .get<ReaderViewModel[]>(url, options)
+      .pipe(
+        tap((r)=>{
+          this.readersLoaded = true;
+          this.readers = r;
+        })
+      )
+      .subscribe()
   }
 
   async onReaderClick(reader: ReaderViewModel) {
     this.selectedReader = reader;
-    await this.readersRepository.GetReaderDetailsAsync(this.selectedReader.id, r => this.selectedReaderDetails = r);
+    let options = this.msalWrapperService.getOptionsHeaders();
+    let url = `${environment.apiUrl}/api/readers/${this.selectedReader.id}`;
+    this
+      .http
+      .get<ReaderDetailsViewModel>(url, options)
+      .pipe(
+        tap((r)=>{this.selectedReaderDetails = r})
+      )
+      .subscribe();
   }
 
   async onChannelSubscribeClick(id: any) {
-    this.subscriptionService.subscribeToChannel(id.toString())
-      .then(() => this.showNotification(true,"subscription command executed successfully"))
-      .catch(() => this.showNotification(false,"subscription command executed with error"));
+    const options = this.msalWrapperService.getOptionsHeaders();
+
+    const userId = this.msalWrapperService.getAccountId();
+    const body = {
+      channelId: id
+    };
+
+    this.http
+      .post(`${environment.apiUrl}/api/users/${userId}/channels`, body, options)
+      .pipe(
+        tap(() => this.showNotification(true, "subscription command executed successfully")),
+        catchError(x => of(this.showNotification(false, "subscription command executed with error")))
+      )
+      .subscribe();
   }
 
   async onSubscribeReader(id: string) {
-    await this.readersSubscriptionsService.subscribeToReaderAsync(id)
-      .then(() => this.showNotification(true,"subscription command executed successfully"))
-      .catch(() => this.showNotification(false,"subscription command executed with error"));
+    const options = this.msalWrapperService.getOptionsHeaders();
+    let body = {
+      readerId:id
+    };
+    this
+      .http
+      .post(`${environment.apiUrl}/api/followers/`, body, options)
+      .pipe(
+        tap(() => this.showNotification(true, "subscription command executed successfully")),
+        catchError(x => of(this.showNotification(false, "subscription command executed with error")))
+      )
+      .subscribe();
   }
 
   async onUnsubscribeReader(id: string) {
-    await this.readersSubscriptionsService.unsubscribeToReaderAsync(id)
-      .then(() => this.showNotification(true,"unsubscription command executed successfully"))
-      .catch(() => this.showNotification(false,"subscription command executed with error"));
+    const options = this.msalWrapperService.getOptionsHeaders();
+    await this
+      .http
+      .delete(`${environment.apiUrl}/api/followers/${id}`, options)
+      .pipe(
+        tap(() => this.showNotification(true, "unsubscription command executed successfully")),
+        catchError(x => of(this.showNotification(false, "unsubscription command executed with error")))
+      )
+      .subscribe();
   }
-  private showNotification(wasSuccessful: boolean, notificationText:string) {
+
+  private showNotification(wasSuccessful: boolean, notificationText: string) {
     this.notificationText = notificationText;
     this.notificationSuccessful = wasSuccessful;
     this.setNotificationClearTimer();
