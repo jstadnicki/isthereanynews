@@ -1,5 +1,6 @@
-{
-  "navigationFallback": {
-    "redirect": "/index.html",
-  }
+{ "routes": [
+    {
+      "route": "/*",
+      "redirect": "index.html"
+    }
 }
