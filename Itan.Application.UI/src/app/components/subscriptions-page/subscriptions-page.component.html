@@ -127,7 +127,7 @@
           <div class="media-content">
             <div class="content">
               <p>
-                <strong>{{getNewsTitle(newsItem)}}</strong>{{newsItem.viewModel.published|date}}<i class="fa"
+                <span [ngClass]="{'is-unread':!newsItem.read, 'is-read':newsItem.read}">{{getNewsTitle(newsItem)}}</span>{{newsItem.viewModel.published|date}}<i class="fa"
                                                                                  [ngClass]="{'fa-chevron-down':!newsItem.contentVisible,'fa-chevron-up':newsItem.contentVisible}"
                                                                                  (click)="onNewsClick(newsItem)"></i>
               </p>
@@ -135,7 +135,7 @@
               <div *ngIf="newsItem.content" [ngClass]="{'is-hidden':!newsItem.contentVisible}">
                 <progress class="progress is-info"
                           [ngClass]="{'is-hidden':!newsItem.loading}"
-                          max="100">60%
+                          max="100">
                 </progress>
                 <span [innerHTML]="display(newsItem.content) | striphtml"></span>
               </div>

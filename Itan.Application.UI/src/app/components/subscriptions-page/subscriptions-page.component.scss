@@ -1,26 +1,34 @@
-.text-ellipsis
-{
+.text-ellipsis {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 100%;
 }
 
-.button{
-  width:100%;
+.button {
+  width: 100%;
 }
 
-.column{
+.column {
   height: 100%;
   overflow-y: auto;
 }
 
-.container{
+.container {
   height: calc(100% - 56px - 2em - 64px)
 }
 
-.columns{
+.columns {
   height: 100%;
   overflow-y: auto;
-  margin-top:initial;
+  margin-top: initial;
+}
+
+span {
+  &.is-unread {
+    font-weight: 700;
+  }
+  &.is-read{
+    color: lightgray;
+  }
 }
