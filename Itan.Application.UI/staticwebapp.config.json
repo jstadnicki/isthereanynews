@@ -3,4 +3,5 @@
       "route": "/*",
       "redirect": "index.html"
     }
+    ]
 }
