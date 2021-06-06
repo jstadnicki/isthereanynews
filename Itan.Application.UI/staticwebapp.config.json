@@ -1,0 +1,5 @@
+{
+  "navigationFallback": {
+    "redirect": "/index.html",
+  }
+}
