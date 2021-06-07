@@ -1,9 +1,3 @@
 {
-   "routes":[
-      {
-         "route":"/*",
-         "redirect":"/",
-         "statusCode":301
-      }
-   ]
+   "routes":[]
 }
