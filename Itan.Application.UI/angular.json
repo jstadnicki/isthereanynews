@@ -26,7 +26,6 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              { "glob": "staticwebapp.config.json", "input": "./", "output": "./" },  
              ],
             "styles": [
               "src/styles.scss"
