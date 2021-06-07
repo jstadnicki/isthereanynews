@@ -1,7 +1,0 @@
-{ "routes": [
-    {
-      "route": "/*",
-      "redirect": "index.html"
-    }
-    ]
-}
