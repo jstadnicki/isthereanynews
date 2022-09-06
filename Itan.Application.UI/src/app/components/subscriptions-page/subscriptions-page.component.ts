@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {MsalWrapperService} from "../../service/msal-wrapper.service";
 import {environment} from "../../../environments/environment";
-import {FormGroup, FormControl, Validators} from '@angular/forms';
+import {UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 
 import {SubscribedChannelViewModel} from '../../../server/Itan/Core/SubscribedChannelViewModel';
 import {NewsViewModel} from '../../../server/Itan/Core/NewsViewModel';
@@ -44,9 +44,9 @@ export class SubscriptionsPageComponent implements OnInit {
   notificationSuccessful: boolean = false;
   notificationTimeout: any;
   importOpml: boolean = false;
-  importForm: FormGroup = new FormGroup({
-    inputFile: new FormControl(),
-    buttonUpload: new FormControl(),
+  importForm: UntypedFormGroup = new UntypedFormGroup({
+    inputFile: new UntypedFormControl(),
+    buttonUpload: new UntypedFormControl(),
   });
   isImporting: boolean = false;
 
