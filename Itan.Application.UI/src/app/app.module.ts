@@ -84,16 +84,16 @@ const isIE =
       }
     ),
     RouterModule.forRoot([
-      {path: "settings", component: SettingsPageComponent},
-      {path: "owner", component: OwnerPageComponent},
-      {path: "admin", component: AdminPageComponent},
-      {path: "subscriptions", component: SubscriptionsPageComponent, canActivate: [MsalGuard]},
-      {path: "channels", component: ChannelsPageComponent},
-      {path: "privacy", component: PrivacyPageComponent},
-      {path: "readers", component: ReadersPageComponent},
-      {path: "delete-account", component: DeleteAccountComponent},
-      {path: "**", component: HomePageComponent}
-    ]),
+    { path: "settings", component: SettingsPageComponent },
+    { path: "owner", component: OwnerPageComponent },
+    { path: "admin", component: AdminPageComponent },
+    { path: "subscriptions", component: SubscriptionsPageComponent, canActivate: [MsalGuard] },
+    { path: "channels", component: ChannelsPageComponent },
+    { path: "privacy", component: PrivacyPageComponent },
+    { path: "readers", component: ReadersPageComponent },
+    { path: "delete-account", component: DeleteAccountComponent },
+    { path: "**", component: HomePageComponent }
+], { relativeLinkResolution: 'legacy' }),
     ReactiveFormsModule,
   ],
   providers: [
