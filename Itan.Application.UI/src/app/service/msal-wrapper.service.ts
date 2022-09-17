@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { BehaviorSubject, Observable, Subject } from "rxjs";
+import { BehaviorSubject, Subject } from "rxjs";
 import { environment } from "../../environments/environment";
 import { MsalBroadcastService, MsalService } from '@azure/msal-angular';
-import { EventMessage, EventType, InteractionStatus, SilentRequest } from "@azure/msal-browser";
-import { filter, tap } from "rxjs/operators";
+import { EventMessage, EventType, InteractionStatus } from "@azure/msal-browser";
+import { filter } from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
