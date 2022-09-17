@@ -37,41 +37,41 @@ export class ChannelsPageComponent implements OnInit {
     this.areNewsLoading = false;
     await this.loadChannels();
 
-    this.msalWrapperService.isLoggedIn.subscribe(v => this.isLoggedIn = v);
+    this.msalWrapperService.isLoggedIn$.subscribe(v => this.isLoggedIn = v);
   }
 
   async subscribe(channel: ChannelViewModel) {
-    const options = this.msalWrapperService.getOptionsHeaders();
+    // const options = this.msalWrapperService.getOptionsHeaders();
 
-    const userId = this.msalWrapperService.getAccountId();
-    const body = {
-      channelId: channel.id
-    };
+    // const userId = this.msalWrapperService.getAccountId();
+    // const body = {
+    //   channelId: channel.id
+    // };
 
-    this.http
-      .post(`${environment.apiUrl}/api/users/${userId}/channels`, body, options)
-      .pipe(
-        tap(() => this.showSubscribeNotification(true)),
-        catchError(() => of(this.showSubscribeNotification(false)))
-      )
-      .subscribe();
+    // this.http
+    //   .post(`${environment.apiUrl}/api/users/${userId}/channels`, body, options)
+    //   .pipe(
+    //     tap(() => this.showSubscribeNotification(true)),
+    //     catchError(() => of(this.showSubscribeNotification(false)))
+    //   )
+    //   .subscribe();
   }
 
   async unsubscribe(channel: ChannelViewModel) {
-    const options = this.msalWrapperService.getOptionsHeaders();
+    // const options = this.msalWrapperService.getOptionsHeaders();
 
-    const userId = this.msalWrapperService.getAccountId();
-    const body = {
-      channelId: channel.id
-    };
+    // const userId = this.msalWrapperService.getAccountId();
+    // const body = {
+    //   channelId: channel.id
+    // };
 
-    this.http
-      .post(`${environment.apiUrl}/api/users/${userId}/channels`, body, options)
-      .pipe(
-        tap(() => this.showUnsubscribeNotification(true)),
-        //catchError(e => this.showUnsubscribeNotification(false))
-      )
-      .subscribe();
+    // this.http
+    //   .post(`${environment.apiUrl}/api/users/${userId}/channels`, body, options)
+    //   .pipe(
+    //     tap(() => this.showUnsubscribeNotification(true)),
+    //     //catchError(e => this.showUnsubscribeNotification(false))
+    //   )
+    //   .subscribe();
 
   }
 

@@ -1,107 +1,70 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {BehaviorSubject, Subject} from "rxjs";
-import {AuthenticationParameters, AuthError, AuthResponse} from "msal";
-import {BroadcastService, MsalService} from "@azure/msal-angular";
-import {environment} from "../../environments/environment";
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { BehaviorSubject, Observable, Subject } from "rxjs";
+import { environment } from "../../environments/environment";
+import { MsalBroadcastService, MsalService } from '@azure/msal-angular';
+import { EventMessage, EventType, InteractionStatus, SilentRequest } from "@azure/msal-browser";
+import { filter, tap } from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
 export class MsalWrapperService {
-  private sessionId: string;
-  isLoggedIn: Subject<boolean> = new BehaviorSubject<boolean>(false);
-  private account: any = null;
-  private sessionIdKeyName: string = "MsalWrapperService-uuid";
-  private tokenKeyName: string = "MsalWrapperService-accessToken";
+
+  private authority: string = "https://isthereanynewscodeblast.b2clogin.com/isthereanynewscodeblast.onmicrosoft.com/B2C_1_itansignup";
+  private redirectUri: string = environment.homeUrl;
+
+  private _isLoggedIn = new BehaviorSubject(false);
+  public isLoggedIn$ = this._isLoggedIn.asObservable();
+
+  private _account: any = null;
   private accessToken: string;
 
+  private _userName: Subject<string> = new Subject();
+  public userName$ = this._userName.asObservable();
+
+  private _accountIndentifier: Subject<string> = new Subject();
+  public accountIndentifier$ = this._accountIndentifier.asObservable();
+
   constructor(
-    private broadcastService: BroadcastService,
     private authService: MsalService,
+    private msalBroadcastService: MsalBroadcastService,
     private http: HttpClient) {
 
-    this.authService.handleRedirectCallback(c => this.onCallback(c), e => this.onError(e))
-    this.broadcastService.subscribe("msal:loginSuccess", (e) => this.onMsalLoginSuccess(e));
+    this.msalBroadcastService.msalSubject$
+      .pipe(
+        filter((msg: EventMessage) => msg.eventType === EventType.LOGIN_SUCCESS),
+      )
+      .subscribe((result: EventMessage) => {
+        this.restoreUser();
+      });
 
-    this.restoreUser();
-  }
-
-  private onCallback(response: AuthResponse) {
-    this.accessToken = response.accessToken;
-    this.account = response.account;
-    if (response.accessToken == null || response.accessToken == undefined) {
-      let accessTokenRequest = this.createAccessRequest();
-      this.authService.acquireTokenRedirect(accessTokenRequest)
-    } else {
-      if (this.account.idToken.newUser === true) {
-        this.createPersonAccount();
-      } else {
-        this.migrateAccount();
-      }
-      this.completeLogin()
-    }
-  }
-
-  private completeLogin() {
-    this.sessionId = this.createUUID();
-    sessionStorage.setItem(this.sessionIdKeyName, this.sessionId);
-    sessionStorage.setItem(this.tokenKeyName, this.accessToken);
-    this.isLoggedIn.next(!!this.account);
+    this.msalBroadcastService.inProgress$
+      .pipe(
+        filter((status: InteractionStatus) => status === InteractionStatus.None)
+      )
+      .subscribe((e) => {
+        this.restoreUser();
+      })
   }
 
   private restoreUser() {
-    let sessionId = sessionStorage.getItem(this.sessionIdKeyName);
-    let accessToken = sessionStorage.getItem(this.tokenKeyName);
+    this._account = this.authService.instance.getAllAccounts()[0];
 
-    if(sessionId == null || sessionId.length==0){
-      return;
-    }
+    this._userName.next(this._account?.name);
+    this._accountIndentifier.next(this._account?.localAccountId);
 
-    if(accessToken == null || accessToken.length==0){
-      return null;
-    }
+    this._isLoggedIn.next(this._account != null);
 
-    this.account = this.authService.getAccount()
-    this.isLoggedIn.next(!!this.account);
-  }
-
-  private createUUID(): string {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-      return v.toString(16);
-    });
   }
 
   logout() {
     this.authService.logout();
-    this.authService.clearCacheForScope(this.sessionIdKeyName)
     sessionStorage.clear();
   }
 
   login() {
-    const accessTokenRequest = this.createLoginRequest();
-    this.authService.loginRedirect(accessTokenRequest);
-  }
-
-  private async createPersonAccount() {
-    const options = this.getOptionsHeaders();
-
-    let body = {
-      userId: this.account.accountIdentifier
-    }
-
-    this.http
-      .post(`${environment.apiUrl}/api/users`, body, options)
-      .subscribe();
-  }
-
-  private migrateAccount() {
-    const options = this.getOptionsHeaders();
-    var body = {};
-    this.http
-      .post(`${environment.apiUrl}/api/users/migrate`, body, options)
-      .subscribe();
+    this.authService.loginRedirect();
   }
 
   private getOptions(token: string): HttpHeaders {
@@ -114,49 +77,8 @@ export class MsalWrapperService {
   }
 
   public getOptionsHeaders() {
-    return {headers: this.getOptions(this.accessToken)};
-  }
-
-  getUserName(): string {
-    return this.account.name;
-  }
-
-  private authority: string = "https://isthereanynewscodeblast.b2clogin.com/isthereanynewscodeblast.onmicrosoft.com/B2C_1_itansignup";
-  private redirectUri: string = environment.homeUrl;
-
-  private createLoginRequest(): AuthenticationParameters {
-    return {
-      scopes: [
-        'https://graph.microsoft.com/User.Read',
-      ],
-      authority: this.authority,
-      redirectUri: this.redirectUri,
-    };
-  }
-
-  private createAccessRequest(): AuthenticationParameters {
-    return {
-      scopes: [
-        "https://isthereanynewscodeblast.onmicrosoft.com/api/application-reader",
-        "https://isthereanynewscodeblast.onmicrosoft.com/api/application-writer",
-      ],
-      authority: this.authority,
-      redirectUri: this.redirectUri,
-      account: this.account,
-      sid: this.sessionId
-    };
-  }
-
-  getAccountId() {
-    return this.account.accountIdentifier;
+    return { headers: this.getOptions(this.accessToken) };
   }
 
 
-  private onError(e: AuthError) {
-
-  }
-
-  private onMsalLoginSuccess(e: any) {
-
-  }
 }

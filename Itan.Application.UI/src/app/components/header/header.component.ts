@@ -1,5 +1,5 @@
-import {Component, OnInit} from "@angular/core";
-import {MsalWrapperService} from "../../service/msal-wrapper.service";
+import { Component, OnInit } from "@angular/core";
+import { MsalWrapperService } from "../../service/msal-wrapper.service";
 
 @Component({
   selector: "app-header",
@@ -8,15 +8,22 @@ import {MsalWrapperService} from "../../service/msal-wrapper.service";
 })
 export class HeaderComponent implements OnInit {
   constructor(
-    private msalWrapper: MsalWrapperService
+    public msalWrapper: MsalWrapperService
   ) {
-    this.msalWrapper.isLoggedIn.subscribe(s=>this.loggedIn = s);
   }
 
   loggedIn: boolean = false;
-  isBurgerMenuActive:boolean=false;
+  isBurgerMenuActive: boolean = false;
+  public username: string;
 
   ngOnInit(): void {
+    this.msalWrapper.userName$.subscribe(s => {
+      this.username = s;
+    });
+
+    this.msalWrapper.isLoggedIn$.subscribe(s => {
+      this.loggedIn = s;
+    });
   }
 
   logout(): void {
@@ -27,11 +34,7 @@ export class HeaderComponent implements OnInit {
     this.msalWrapper.login();
   }
 
-  getUserName(): string {
-    return this.msalWrapper.getUserName();
-  }
-
   onBurgerClick() {
-    this.isBurgerMenuActive=!this.isBurgerMenuActive;
+    this.isBurgerMenuActive = !this.isBurgerMenuActive;
   }
 }

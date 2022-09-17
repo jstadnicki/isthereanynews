@@ -1,6 +1,6 @@
 import {BrowserModule} from "@angular/platform-browser";
 import {NgModule} from "@angular/core";
-import {MsalModule, MsalGuard, MsalInterceptor} from "@azure/msal-angular";
+import {MsalModule, MsalGuard, MsalInterceptor, MsalRedirectComponent} from "@azure/msal-angular";
 
 import {AppComponent} from "./app.component";
 import {HeaderComponent} from "./components/header/header.component";
@@ -17,7 +17,6 @@ import {StripHtmlPipe} from "./components/channels-page/strip-html.pipe";
 import {AddNewChannelComponent} from './components/add-new-channel/add-new-channel.component';
 import {PrivacyPageComponent } from './components/privacy-page/privacy-page.component';
 import {FormGroup, FormControl, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
-
 import {
   HTTP_INTERCEPTORS,
   HttpClientModule,
@@ -27,6 +26,7 @@ import {environment} from "../environments/environment";
 import { DeleteAccountComponent } from './components/delete-account/delete-account.component';
 import { ReadersPageComponent } from './components/readers-page/readers-page.component';
 import { LandingPageNewsComponent } from './components/landing-page-news/landing-page-news.component';
+import { InteractionType, PublicClientApplication } from "@azure/msal-browser";
 
 
 
@@ -60,29 +60,28 @@ const isIE =
     HttpClientModule,
     BrowserModule,
     FormsModule,
-    MsalModule.forRoot(
-      {
-        auth: {
-          clientId: "9181bdde-959f-42a6-a253-b10a6f05d883",
-          authority:
-            "https://isthereanynewscodeblast.b2clogin.com/isthereanynewscodeblast.onmicrosoft.com/B2C_1_itansignup",
-          validateAuthority: false,
-          redirectUri: environment.homeUrl,
-          postLogoutRedirectUri:environment.homeUrl
-        },
-        cache: {
-          cacheLocation: "localStorage",
-          storeAuthStateInCookie: true,
-        },
+    MsalModule.forRoot( new PublicClientApplication({
+      auth: {
+        clientId: '9181bdde-959f-42a6-a253-b10a6f05d883',
+        authority: "https://isthereanynewscodeblast.b2clogin.com/isthereanynewscodeblast.onmicrosoft.com/B2C_1_itansignup",
+         knownAuthorities:['isthereanynewscodeblast.b2clogin.com'],
+        redirectUri: environment.homeUrl,
       },
-      {
-        consentScopes: [],
-        unprotectedResources: [],
-        protectedResourceMap: [
-          ["https://graph.microsoft.com/me", ["User.Read"]],
-        ],
+      cache: {
+        cacheLocation: 'localStorage',
+        storeAuthStateInCookie: isIE,
       }
-    ),
+    }), {
+      interactionType: InteractionType.Redirect,
+      authRequest: {
+        scopes: ['user.read','User.Read.All', 'profile']
+      }
+    }, {
+      interactionType: InteractionType.Redirect, // MSAL Interceptor Configuration
+      protectedResourceMap: new Map([
+        ['https://graph.microsoft.com/v1.0/me', ['user.read','User.Read.All','profile ']]
+      ])
+    }),
     RouterModule.forRoot([
     { path: "settings", component: SettingsPageComponent },
     { path: "owner", component: OwnerPageComponent },
@@ -103,7 +102,7 @@ const isIE =
       multi: true,
     },
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent, MsalRedirectComponent],
 })
 export class AppModule {
 }

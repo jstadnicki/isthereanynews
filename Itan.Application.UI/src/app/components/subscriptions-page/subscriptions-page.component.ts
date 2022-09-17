@@ -59,17 +59,17 @@ export class SubscriptionsPageComponent implements OnInit {
   }
 
   async unsubscribe(channel: Channel) {
-    const options = this.msalWrapperService.getOptionsHeaders();
+    // const options = this.msalWrapperService.getOptionsHeaders();
 
-    const userId = this.msalWrapperService.getAccountId();
+    // const userId = this.msalWrapperService.getAccountId();
 
-    this.http
-      .delete(`${environment.apiUrl}/api/users/${userId}/channels/${channel.viewModel.id}`, options)
-      .pipe(
-        tap(()=>this.showUnsubscribeNotification(true)),
-        catchError(()=>of(this.showUnsubscribeNotification(false)))
-      )
-      .subscribe();
+    // this.http
+    //   .delete(`${environment.apiUrl}/api/users/${userId}/channels/${channel.viewModel.id}`, options)
+    //   .pipe(
+    //     tap(()=>this.showUnsubscribeNotification(true)),
+    //     catchError(()=>of(this.showUnsubscribeNotification(false)))
+    //   )
+    //   .subscribe();
   }
 
   async onChannelClick(channel: Channel) {
@@ -187,15 +187,15 @@ export class SubscriptionsPageComponent implements OnInit {
   }
 
   async loadChannels() {
-    const userId = this.msalWrapperService.getAccountId();
-    var options = this.msalWrapperService.getOptionsHeaders();
+    // const userId = this.msalWrapperService.getAccountId();
+    // var options = this.msalWrapperService.getOptionsHeaders();
 
-    this.http
-      .get<SubscribedChannelViewModel[]>(`${environment.apiUrl}/api/subscriptions/${userId}`, options)
-      .subscribe((r) => {
-        this.channels = r.map(vm=>new Channel(vm));
-        this.areChannelsLoaded = true;
-      });
+    // this.http
+    //   .get<SubscribedChannelViewModel[]>(`${environment.apiUrl}/api/subscriptions/${userId}`, options)
+    //   .subscribe((r) => {
+    //     this.channels = r.map(vm=>new Channel(vm));
+    //     this.areChannelsLoaded = true;
+    //   });
   }
 
   displayTitleOrDescriptionOrUrl(selectedChannel: Channel):string {

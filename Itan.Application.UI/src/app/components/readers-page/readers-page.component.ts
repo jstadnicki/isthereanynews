@@ -30,7 +30,7 @@ export class ReadersPageComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.msalWrapperService.isLoggedIn.subscribe(v => this.isLoggedIn = v);
+    this.msalWrapperService.isLoggedIn$.subscribe(v => this.isLoggedIn = v);
 
     let options = this.msalWrapperService.getOptionsHeaders();
     let url = `${environment.apiUrl}/api/readers`;
@@ -60,20 +60,20 @@ export class ReadersPageComponent implements OnInit {
   }
 
   async onChannelSubscribeClick(id: any) {
-    const options = this.msalWrapperService.getOptionsHeaders();
+    // const options = this.msalWrapperService.getOptionsHeaders();
 
-    const userId = this.msalWrapperService.getAccountId();
-    const body = {
-      channelId: id
-    };
+    // const userId = this.msalWrapperService.getAccountId();
+    // const body = {
+    //   channelId: id
+    // };
 
-    this.http
-      .post(`${environment.apiUrl}/api/users/${userId}/channels`, body, options)
-      .pipe(
-        tap(() => this.showNotification(true, "subscription command executed successfully")),
-        catchError(x => of(this.showNotification(false, "subscription command executed with error")))
-      )
-      .subscribe();
+    // this.http
+    //   .post(`${environment.apiUrl}/api/users/${userId}/channels`, body, options)
+    //   .pipe(
+    //     tap(() => this.showNotification(true, "subscription command executed successfully")),
+    //     catchError(x => of(this.showNotification(false, "subscription command executed with error")))
+    //   )
+    //   .subscribe();
   }
 
   async onSubscribeReader(id: string) {
