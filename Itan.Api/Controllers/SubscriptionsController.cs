@@ -19,19 +19,19 @@ namespace Itan.Api.Controllers
     [ApiController]
     public class SubscriptionsController : ControllerBase
     {
-        private readonly IMediator mediator;
+        private readonly IMediator _mediator;
 
         public SubscriptionsController(IMediator mediator)
         {
-            this.mediator = mediator;
+            _mediator = mediator;
         }
 
         [HttpGet]
-        [Route("{userId}")]
-        public async Task<ActionResult<List<SubscribedChannelViewModel>>> Get(string userId)
+        public async Task<ActionResult<List<SubscribedChannelViewModel>>> Get()
         {
-            var command = new GetAllSubscribedChannelsViewModelsRequest {PersonId = userId};
-            var list = await this.mediator.Send(command);
+            var userId = Guid.Parse(User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
+            var command = new GetAllSubscribedChannelsViewModelsRequest {PersonId = userId.ToString()};
+            var list = await _mediator.Send(command);
             return list;
         }
 
@@ -39,7 +39,9 @@ namespace Itan.Api.Controllers
         [Route("import")]
         public async Task<ActionResult> Post([FromForm(Name = "file")] IFormFile file)
         {
-            var userId = Guid.Parse(this.User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
+
+            var userId = Guid.Parse(User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
+
             var stream = file.OpenReadStream();
             var httpRequestStreamReader = new HttpRequestStreamReader(stream, Encoding.Default);
             var xmlTextReader = new XmlTextReader(httpRequestStreamReader);
@@ -48,8 +50,8 @@ namespace Itan.Api.Controllers
 
             var command = new ImportSubscriptionsRequest(userId, opml);
 
-            await this.mediator.Send(command);
-            return this.Ok();
+            await _mediator.Send(command);
+            return Ok();
         }
     }
 }
