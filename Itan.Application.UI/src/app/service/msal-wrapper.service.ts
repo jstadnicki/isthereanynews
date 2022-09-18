@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { BehaviorSubject, Subject } from "rxjs";
 import { environment } from "../../environments/environment";
 import { MsalBroadcastService, MsalService } from '@azure/msal-angular';
-import { EventMessage, EventType, InteractionStatus } from "@azure/msal-browser";
+import {AuthenticationResult, EventMessage, EventType, InteractionStatus} from "@azure/msal-browser";
 import { filter } from "rxjs/operators";
 
 @Injectable({
@@ -22,9 +22,7 @@ export class MsalWrapperService {
 
   private _userName: Subject<string> = new Subject();
   public userName$ = this._userName.asObservable();
-
-  private _accountIndentifier: Subject<string> = new Subject();
-  public accountIndentifier$ = this._accountIndentifier.asObservable();
+  private _authentication: AuthenticationResult;
 
   constructor(
     private authService: MsalService,
@@ -35,7 +33,7 @@ export class MsalWrapperService {
       .pipe(
         filter((msg: EventMessage) => msg.eventType === EventType.LOGIN_SUCCESS),
       )
-      .subscribe((result: EventMessage) => {
+      .subscribe((e: EventMessage) => {
         this.restoreUser();
       });
 
@@ -50,21 +48,28 @@ export class MsalWrapperService {
 
   private restoreUser() {
     this._account = this.authService.instance.getAllAccounts()[0];
-
-    this._userName.next(this._account?.name);
-    this._accountIndentifier.next(this._account?.localAccountId);
-
-    this._isLoggedIn.next(this._account != null);
-
+    if(this._account!=null){
+      this.authService.acquireTokenSilent({
+        scopes:['profile', 'https://isthereanynewscodeblast.onmicrosoft.com/api/application-reader'],
+        account:this._account
+      }).subscribe(e=> {
+        this._authentication = e;
+      })
+      this._userName.next(this._account?.name);
+      this._isLoggedIn.next(this._account != null);
+    }
   }
 
   logout() {
     this.authService.logout();
-    sessionStorage.clear();
   }
 
   login() {
-    this.authService.loginRedirect();
+    this.authService.loginRedirect(
+      {
+        scopes:['profile', 'https://isthereanynewscodeblast.onmicrosoft.com/api/application-reader']
+      }
+    );
   }
 
   private getOptions(token: string): HttpHeaders {
@@ -77,8 +82,6 @@ export class MsalWrapperService {
   }
 
   public getOptionsHeaders() {
-    return { headers: this.getOptions(this.accessToken) };
+    return { headers: this.getOptions(this._authentication.accessToken) };
   }
-
-
 }
