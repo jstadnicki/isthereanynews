@@ -3,11 +3,11 @@
     <img [src]="getImage()">
   </div>
   <div class="column has-text-right" [ngClass]="{'is-8':hasImage(),'is-12':!hasImage() }">
-    <div class="hide-with-ellipsis" style="max-width: 100%">{{news.viewModel.title}}</div>
-    <div >{{news.viewModel.author}}&nbsp;<span><i (click)="onExternalLinkClick()" class="fa fa-external-link"></i></span></div>
+    <div class="hide-with-ellipsis" style="max-width: 100%">{{news?.viewModel.title}}</div>
+    <div >{{news?.viewModel.author}}&nbsp;<span><i (click)="onExternalLinkClick()" class="fa fa-external-link"></i></span></div>
     <div [innerHTML]="display()|striphtml"></div>
 
     <br/>
-    <div>{{news.viewModel.published|date}}</div>
+    <div>{{news?.viewModel.published|date}}</div>
   </div>
 </div>

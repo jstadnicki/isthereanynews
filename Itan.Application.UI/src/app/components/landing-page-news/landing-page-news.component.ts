@@ -27,7 +27,7 @@ export class LandingPageNewsComponent implements OnInit {
   }
 
   display(): string {
-    return this.news.content?.Description ?? this.news.content?.Content;
+    return this.news?.content?.Description ?? this.news?.content?.Content;
   }
 
   onExternalLinkClick() {
