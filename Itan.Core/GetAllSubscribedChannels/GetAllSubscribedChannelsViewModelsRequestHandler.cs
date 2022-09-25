@@ -10,26 +10,24 @@ using Microsoft.Extensions.Options;
 
 namespace Itan.Core.GetAllSubscribedChannels
 {
-    public class
-        GetAllSubscribedChannelsViewModelsRequestHandler : IRequestHandler<GetAllSubscribedChannelsViewModelsRequest,
-            List<SubscribedChannelViewModel>>
+    public class GetAllSubscribedChannelsViewModelsRequestHandler : IRequestHandler<GetAllSubscribedChannelsViewModelsRequest, List<SubscribedChannelViewModel>>
     {
-        private readonly string connectionString;
-        private readonly IReaderSettingsRepository readerSettingsRepository;
+        private readonly string _connectionString;
+        private readonly IReaderSettingsRepository _readerSettingsRepository;
 
         public GetAllSubscribedChannelsViewModelsRequestHandler(
             IOptions<ConnectionOptions> options,
             IReaderSettingsRepository readerSettingsRepository)
         {
-            this.readerSettingsRepository = readerSettingsRepository;
-            this.connectionString = options.Value.SqlReader;
+            _readerSettingsRepository = readerSettingsRepository;
+            _connectionString = options.Value.SqlReader;
         }
 
         public async Task<List<SubscribedChannelViewModel>> Handle(
             GetAllSubscribedChannelsViewModelsRequest request,
             CancellationToken _)
         {
-            var readerSettings = await this.readerSettingsRepository.GetAsync(request.PersonId);
+            var readerSettings = await _readerSettingsRepository.GetAsync(request.PersonId);
             var queryNews = string.Empty;
 
             if (readerSettings.ShowUpdatedNews == UpdatedNews.Ignore)
@@ -44,11 +42,11 @@ namespace Itan.Core.GetAllSubscribedChannels
                 " on n.ChannelId = cp.ChannelId " +
                 " join Channels c " +
                 " on c.Id = cp.ChannelId " +
-                $" WHERE cp.PersonId = @personId " +
+                " WHERE cp.PersonId = @personId " +
                 " and " +
                 " n.Id not in ( " +
                 " select cnr.NewsId from ChannelNewsReads cnr " +
-                $" where cnr.PersonId = @personId" +
+                " where cnr.PersonId = @personId" +
                 " )" +
                 queryNews +
                 " GROUP BY c.Id, c.Title, c.Description, c.Url ";
@@ -78,7 +76,7 @@ namespace Itan.Core.GetAllSubscribedChannels
                 personId = request.PersonId
             };
 
-            using var connection = new SqlConnection(this.connectionString);
+            using var connection = new SqlConnection(_connectionString);
             var result = await connection.QueryAsync<SubscribedChannelViewModel>(sqlQuery, sqlData);
             return result.ToList();
         }

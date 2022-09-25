@@ -25,19 +25,19 @@ namespace Itan.Api
 {
     public class Startup
     {
-        private readonly IWebHostEnvironment environment;
-        private readonly IConfiguration configuration;
+        // private readonly IWebHostEnvironment _environment;
+        private readonly IConfiguration _configuration;
 
-        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
+        public Startup(IConfiguration configuration)
         {
-            this.environment = environment;
-            this.configuration = configuration;
+            // _environment = environment;
+            _configuration = configuration;
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
             IdentityModelEventSource.ShowPII = true;
-            services.AddSingleton<IConfiguration>(this.configuration);
+            services.AddSingleton<IConfiguration>(_configuration);
             services.AddCors(a => a.AddPolicy("itan",builder =>
             {
                 builder
@@ -57,17 +57,17 @@ namespace Itan.Api
 
             services
                 .AddAuthentication(AzureADDefaults.BearerAuthenticationScheme)
-                .AddAzureADBearer(options => { this.configuration.Bind("AzureAdB2C", options); });
+                .AddAzureADBearer(options => { _configuration.Bind("AzureAdB2C", options); });
 
             services.AddAuthentication(options => { options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme; })
                 .AddJwtBearer(jwtOptions =>
                 {
                     jwtOptions.Authority =
-                        $"https://login.microsoftonline.com/tfp/{this.configuration["AzureAdB2C:Tenant"]}/{this.configuration["AzureAdB2C:Policy"]}/v2.0/";
-                    jwtOptions.Audience = this.configuration["AzureAdB2C:ClientId"];
+                        $"https://login.microsoftonline.com/tfp/{_configuration["AzureAdB2C:Tenant"]}/{_configuration["AzureAdB2C:Policy"]}/v2.0/";
+                    jwtOptions.Audience = _configuration["AzureAdB2C:ClientId"];
                     jwtOptions.Events = new JwtBearerEvents
                     {
-                        OnAuthenticationFailed = this.AuthenticationFailed,
+                        OnAuthenticationFailed = AuthenticationFailed,
                     };
                     jwtOptions.TokenValidationParameters = new TokenValidationParameters
                     {
@@ -77,7 +77,7 @@ namespace Itan.Api
                             "67e91a82-4dbe-4d74-9c8e-68873f4a5e16"
                         },
                         ValidIssuer =
-                            $"https://isthereanynewscodeblast.b2clogin.com/{this.configuration["AzureAdB2C:Tenant"]}/v2.0/"
+                            $"https://isthereanynewscodeblast.b2clogin.com/{_configuration["AzureAdB2C:Tenant"]}/v2.0/"
                     };
                 });
             
@@ -105,14 +105,14 @@ namespace Itan.Api
         {
             builder.Register<IOptions<ConnectionOptions>>(context =>
                 {
-                    var s = this.configuration
+                    var s = _configuration
                         .GetSection("ConnectionStrings")
                         .Get<ConnectionOptions>();
                     return new OptionsWrapper<ConnectionOptions>(s);
                 })
                 .SingleInstance();
             
-            builder.RegisterModule(new ItanModuleRegistrator(this.configuration));
+            builder.RegisterModule(new ItanModuleRegistrator(_configuration));
             builder.RegisterModule<ItanApiModule>();
         }
         

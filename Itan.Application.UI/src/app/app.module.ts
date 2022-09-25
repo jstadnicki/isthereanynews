@@ -1,6 +1,6 @@
 import {BrowserModule} from "@angular/platform-browser";
 import {NgModule} from "@angular/core";
-import {MsalModule, MsalGuard, MsalInterceptor, MsalRedirectComponent} from "@azure/msal-angular";
+import {MsalModule, MsalGuard, MsalRedirectComponent} from "@azure/msal-angular";
 
 import {AppComponent} from "./app.component";
 import {HeaderComponent} from "./components/header/header.component";
@@ -15,21 +15,16 @@ import {ChannelsPageComponent} from "./components/channels-page/channels-page.co
 import {SubscriptionsPageComponent} from './components/subscriptions-page/subscriptions-page.component';
 import {StripHtmlPipe} from "./components/channels-page/strip-html.pipe";
 import {AddNewChannelComponent} from './components/add-new-channel/add-new-channel.component';
-import {PrivacyPageComponent } from './components/privacy-page/privacy-page.component';
-import {FormGroup, FormControl, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {
-  HTTP_INTERCEPTORS,
-  HttpClientModule,
-} from "@angular/common/http";
+import {PrivacyPageComponent} from './components/privacy-page/privacy-page.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HTTP_INTERCEPTORS, HttpClientModule,} from "@angular/common/http";
 import {LockerComponent} from './components/locker/locker.component';
 import {environment} from "../environments/environment";
-import { DeleteAccountComponent } from './components/delete-account/delete-account.component';
-import { ReadersPageComponent } from './components/readers-page/readers-page.component';
-import { LandingPageNewsComponent } from './components/landing-page-news/landing-page-news.component';
-import { InteractionType, PublicClientApplication } from "@azure/msal-browser";
-
-
-
+import {DeleteAccountComponent} from './components/delete-account/delete-account.component';
+import {ReadersPageComponent} from './components/readers-page/readers-page.component';
+import {LandingPageNewsComponent} from './components/landing-page-news/landing-page-news.component';
+import {InteractionType, PublicClientApplication} from "@azure/msal-browser";
+import {HttpJwtBearerInterceptor} from "./service/http-jwt-bearer.interceptor";
 
 const isIE =
   window.navigator.userAgent.indexOf("MSIE ") > -1 ||
@@ -60,11 +55,11 @@ const isIE =
     HttpClientModule,
     BrowserModule,
     FormsModule,
-    MsalModule.forRoot( new PublicClientApplication({
+    MsalModule.forRoot(new PublicClientApplication({
       auth: {
         clientId: '9181bdde-959f-42a6-a253-b10a6f05d883',
         authority: "https://isthereanynewscodeblast.b2clogin.com/isthereanynewscodeblast.onmicrosoft.com/B2C_1_itansignup",
-         knownAuthorities:['isthereanynewscodeblast.b2clogin.com'],
+        knownAuthorities: ['isthereanynewscodeblast.b2clogin.com'],
         redirectUri: environment.homeUrl,
       },
       cache: {
@@ -74,33 +69,35 @@ const isIE =
     }), {
       interactionType: InteractionType.Redirect,
       authRequest: {
-        scopes: ['user.read','User.Read.All', 'profile']
+        scopes: ['user.read', 'User.Read.All', 'profile']
       }
     }, {
-      interactionType: InteractionType.Redirect, // MSAL Interceptor Configuration
+      interactionType: InteractionType.Redirect,
       protectedResourceMap: new Map([
-        ['https://graph.microsoft.com/v1.0/me', ['user.read','User.Read.All','profile ']]
+        //['https://graph.microsoft.com/v1.0/me', ['user.read','User.Read.All','profile ']],
+        //['http://localhost:5000/api/subscription', ['profile ']]
       ])
     }),
     RouterModule.forRoot([
-    { path: "settings", component: SettingsPageComponent },
-    { path: "owner", component: OwnerPageComponent },
-    { path: "admin", component: AdminPageComponent },
-    { path: "subscriptions", component: SubscriptionsPageComponent, canActivate: [MsalGuard] },
-    { path: "channels", component: ChannelsPageComponent },
-    { path: "privacy", component: PrivacyPageComponent },
-    { path: "readers", component: ReadersPageComponent },
-    { path: "delete-account", component: DeleteAccountComponent },
-    { path: "**", component: HomePageComponent }
-], { relativeLinkResolution: 'legacy' }),
+      {path: "settings", component: SettingsPageComponent},
+      {path: "owner", component: OwnerPageComponent},
+      {path: "admin", component: AdminPageComponent},
+      {path: "subscriptions", component: SubscriptionsPageComponent, canActivate: [MsalGuard]},
+      {path: "channels", component: ChannelsPageComponent},
+      {path: "privacy", component: PrivacyPageComponent},
+      {path: "readers", component: ReadersPageComponent},
+      {path: "delete-account", component: DeleteAccountComponent},
+      {path: "**", component: HomePageComponent}
+    ], {relativeLinkResolution: 'legacy'}),
     ReactiveFormsModule,
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: MsalInterceptor,
+      useClass: HttpJwtBearerInterceptor,
       multi: true,
     },
+    MsalGuard
   ],
   bootstrap: [AppComponent, MsalRedirectComponent],
 })
