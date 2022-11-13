@@ -18,6 +18,7 @@ export class HttpJwtBearerInterceptor implements HttpInterceptor {
     let token = this.msalWrapper.getAccessToken();
     if (token != null) {
       const tokenizedReq = request.clone({headers: request.headers.set('Authorization', 'Bearer ' + token)});
+      return next.handle(tokenizedReq);
     }
     return next.handle(request);
   }
