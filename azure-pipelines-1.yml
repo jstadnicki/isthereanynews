@@ -15,6 +15,12 @@ variables:
   workingDirectory: '$(System.DefaultWorkingDirectory)/Itan.Functions'
 
 steps:
+- task: UseDotNet@2
+  displayName: Use .net Core SDK 7
+  inputs:
+   packageType: sdk
+   version: 7.x
+   installationPath: $(Agent.ToolsDirectory)/dotnet
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
