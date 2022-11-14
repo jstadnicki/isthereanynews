@@ -16,6 +16,12 @@ steps:
       KeyVaultName: 'itan-key-vault'
       SecretsFilter: '*'
       RunAsPreJob: false
+  - task: UseDotNet@2
+    displayName: Use .net Core SDK 7
+    inputs:
+      packageType: sdk
+      version: 7.x
+      installationPath: $(Agent.ToolsDirectory)/dotnet
   - task: DotNetCoreCLI@2
     displayName: dotnet restore
     inputs:
