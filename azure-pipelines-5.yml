@@ -19,7 +19,7 @@ steps:
     cd Itan.Application.UI
     npm install -g @angular/cli
     npm install
-    ng build --prod
+    ng build
   displayName: 'npm install and build'
 
 - task: CopyFiles@2
