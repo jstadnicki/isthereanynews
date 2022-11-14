@@ -22,10 +22,9 @@ namespace Itan.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<HomePageNewsViewModel>> Get()
         {
-            // var request = new GetHomePageNewsRequest();
-            // var hpn = await this.mediator.Send(request);
-            // return this.Ok(hpn);
-            return Ok(new HomePageNewsViewModel());
+            var request = new GetHomePageNewsRequest();
+            var hpn = await this.mediator.Send(request);
+            return this.Ok(hpn);
         }
     }
 }
