@@ -187,8 +187,9 @@ export class SubscriptionsPageComponent implements OnInit {
   }
 
   async loadChannels() {
+    let options = this.msalWrapperService.getOptionsHeaders();
     this.http
-      .get<SubscribedChannelViewModel[]>(`${environment.apiUrl}/api/subscriptions`)
+      .get<SubscribedChannelViewModel[]>(`${environment.apiUrl}/api/subscriptions`, options)
       .subscribe((r) => {
         this.channels = r.map(vm=>new Channel(vm));
         this.areChannelsLoaded = true;
