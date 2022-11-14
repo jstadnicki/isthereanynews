@@ -3,8 +3,12 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {BehaviorSubject, Subject} from "rxjs";
 import {environment} from "../../environments/environment";
 import {MsalBroadcastService, MsalService} from '@azure/msal-angular';
-import {AuthenticationResult, EventMessage, EventType, InteractionStatus} from "@azure/msal-browser";
+import {AccountInfo, AuthenticationResult, EventMessage, EventType, InteractionStatus} from "@azure/msal-browser";
 import {catchError, filter, tap} from "rxjs/operators";
+import {Logger, CryptoUtils} from 'msal';
+import {LoggerOptions} from "@azure/msal-common/dist/config/ClientConfiguration";
+import {LogLevel} from "@azure/msal-common/dist/logger/Logger";
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,22 +16,26 @@ import {catchError, filter, tap} from "rxjs/operators";
 export class MsalWrapperService {
 
   private authority: string = "https://isthereanynewscodeblast.b2clogin.com/isthereanynewscodeblast.onmicrosoft.com/B2C_1_itansignup";
-  private redirectUri: string = environment.homeUrl;
 
   private _isLoggedIn = new BehaviorSubject(false);
   public isLoggedIn$ = this._isLoggedIn.asObservable();
 
-  private _account: any = null;
-  private accessToken: string;
-
-  private _userName: Subject<string> = new Subject();
-  public userName$ = this._userName.asObservable();
-  private _authentication: AuthenticationResult;
+  private _account = new BehaviorSubject<AccountInfo>(null);
+  public _account$ = this._account.asObservable()
+  private _accessToken: string | undefined;
 
   constructor(
     private authService: MsalService,
     private msalBroadcastService: MsalBroadcastService,
     private http: HttpClient) {
+
+    this.authService.handleRedirectObservable().subscribe(r => {
+      if (r?.account != null) {
+        this._account.next(r?.account);
+        this._isLoggedIn.next(r.account != null);
+        this._accessToken = r?.accessToken;
+      }
+    });
 
     this.msalBroadcastService.msalSubject$
       .pipe(
@@ -47,15 +55,17 @@ export class MsalWrapperService {
   }
 
   private restoreUser() {
-    this._account = this.authService.instance.getAllAccounts()[0];
-    if (this._account != null) {
+    let account = this.authService.instance.getAllAccounts()[0];
+    if (account != null) {
       this.authService.acquireTokenSilent({
         scopes: ['profile', 'https://isthereanynewscodeblast.onmicrosoft.com/api/application-reader'],
-        account: this._account
+        account: account
       })
         .pipe(
           tap(result => {
-            this._authentication = result;
+            this._accessToken = result.accessToken;
+            this._account.next(result?.account);
+            this._isLoggedIn.next(result.account != null);
           }),
           catchError(ex => {
             return this.authService.acquireTokenRedirect({
@@ -64,23 +74,13 @@ export class MsalWrapperService {
             })
           }))
         .subscribe()
-
-      this._userName.next(this._account?.name);
-      this._isLoggedIn.next(this._account != null);
     }
   }
 
-  logout() {
-    this.authService.logout();
-  }
 
 
-  login() {
-    this.authService.loginRedirect(
-      {
-        scopes: ['profile', 'https://isthereanynewscodeblast.onmicrosoft.com/api/application-reader']
-      }
-    );
+  public getOptionsHeaders() {
+    return {headers: this.getOptions(this._accessToken)};
   }
 
   private getOptions(token: string):
@@ -93,11 +93,15 @@ export class MsalWrapperService {
     return setHeaders;
   }
 
-  public getOptionsHeaders() {
-    return {headers: this.getOptions(this._authentication.accessToken)};
+  login() {
+    this.authService.loginRedirect(
+      {
+        scopes: ['profile', 'https://isthereanynewscodeblast.onmicrosoft.com/api/application-reader']
+      }
+    );
   }
 
-  public getAccessToken(): string {
-    return this._authentication?.accessToken;
+  logout() {
+    this.authService.logout();
   }
 }

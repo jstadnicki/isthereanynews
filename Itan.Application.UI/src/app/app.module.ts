@@ -1,6 +1,6 @@
 import {BrowserModule} from "@angular/platform-browser";
 import {NgModule} from "@angular/core";
-import {MsalModule, MsalGuard, MsalRedirectComponent} from "@azure/msal-angular";
+import {MsalModule, MsalGuard, MsalRedirectComponent, MsalInterceptor} from "@azure/msal-angular";
 
 import {AppComponent} from "./app.component";
 import {HeaderComponent} from "./components/header/header.component";
@@ -74,8 +74,7 @@ const isIE =
     }, {
       interactionType: InteractionType.Redirect,
       protectedResourceMap: new Map([
-        //['https://graph.microsoft.com/v1.0/me', ['user.read','User.Read.All','profile ']],
-        //['http://localhost:5000/api/subscription', ['profile ']]
+        ['http://localhost:5000/api/subscription', ['profile', 'https://isthereanynewscodeblast.onmicrosoft.com/api/application-reader']]
       ])
     }),
     RouterModule.forRoot([
@@ -91,10 +90,18 @@ const isIE =
     ], {relativeLinkResolution: 'legacy'}),
     ReactiveFormsModule,
   ],
+  // providers: [
+  //   {
+  //     provide: HTTP_INTERCEPTORS,
+  //     useClass: HttpJwtBearerInterceptor,
+  //     multi: true,
+  //   },
+  //   MsalGuard
+  // ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: HttpJwtBearerInterceptor,
+      useClass: MsalInterceptor,
       multi: true,
     },
     MsalGuard

@@ -1,5 +1,5 @@
-import { Component, OnInit } from "@angular/core";
-import { MsalWrapperService } from "../../service/msal-wrapper.service";
+import {Component, OnInit} from "@angular/core";
+import {MsalWrapperService} from "../../service/msal-wrapper.service";
 
 @Component({
   selector: "app-header",
@@ -17,13 +17,14 @@ export class HeaderComponent implements OnInit {
   public username: string;
 
   ngOnInit(): void {
-    this.msalWrapper.userName$.subscribe(s => {
-      this.username = s;
-    });
-
     this.msalWrapper.isLoggedIn$.subscribe(s => {
       this.loggedIn = s;
     });
+
+    this.msalWrapper._account$.subscribe(s => {
+        this.username = s?.name;
+      }
+    )
   }
 
   logout(): void {
