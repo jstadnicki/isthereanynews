@@ -11,9 +11,9 @@ namespace Itan.Core.MarkNewsOpen
 
         public MarkNewsOpenCommand(Guid channelId, Guid newsId, Guid userId)
         {
-            this.ChannelId = channelId;
-            this.NewsId = newsId;
-            this.UserId = userId;
+            ChannelId = channelId;
+            NewsId = newsId;
+            UserId = userId;
         }
     }
 }

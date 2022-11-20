@@ -13,18 +13,18 @@ namespace Itan.Api.Controllers
     [AllowAnonymous]
     public class ReadersController : ControllerBase
     {
-        private readonly IMediator mediatr;
+        private readonly IMediator _mediatr;
 
         public ReadersController(IMediator mediatr)
         {
-            this.mediatr = mediatr;
+            _mediatr = mediatr;
         }
 
         [HttpGet]
         public async Task<List<ReaderViewModel>> Get()
         {
             var query = new GetAllReadersRequest();
-            var result = await this.mediatr.Send(query);
+            var result = await _mediatr.Send(query);
             return result;
         }
         
@@ -33,7 +33,7 @@ namespace Itan.Api.Controllers
         public async Task<ReaderDetailsViewModel> Get(string id)
         {
             var query = new GetReaderRequest(id);
-            var result = await this.mediatr.Send(query);
+            var result = await _mediatr.Send(query);
             return result;
         }
     }

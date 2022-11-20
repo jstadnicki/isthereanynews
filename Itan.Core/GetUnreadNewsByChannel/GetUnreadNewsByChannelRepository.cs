@@ -11,11 +11,11 @@ namespace Itan.Core.GetUnreadNewsByChannel
 {
     class GetUnreadNewsByChannelRepository : IGetUnreadNewsByChannelRepository
     {
-        private string connection;
+        private string _connection;
 
         public GetUnreadNewsByChannelRepository(IOptions<ConnectionOptions> connectionOptions)
         {
-            this.connection = connectionOptions.Value.SqlReader;
+            _connection = connectionOptions.Value.SqlReader;
         }
 
         public async Task<List<NewsHeader>> GetUnreadNewsAsync(
@@ -63,7 +63,7 @@ namespace Itan.Core.GetUnreadNewsByChannel
                 personId
             };
 
-            using (var connection = new SqlConnection(this.connection))
+            using (var connection = new SqlConnection(_connection))
             {
                 var news = await connection.QueryAsync<NewsHeader>(query, queryData);
                 return news.ToList();

@@ -14,42 +14,42 @@ namespace Itan.Api.Controllers
     [ApiController]
     public class SettingsController : ControllerBase
     {
-        private readonly IMediator mediatr;
+        private readonly IMediator _mediatr;
 
         public SettingsController(IMediator mediatr)
         {
-            this.mediatr = mediatr;
+            _mediatr = mediatr;
         }
 
         [HttpPatch]
         [Route("show-updated-news")]
         public async Task<IActionResult> PatchShowUpdatedNews(PatchShowUpdatedNewsModel model)
         {
-            var userId = Guid.Parse(this.User.Claims
+            var userId = Guid.Parse(User.Claims
                 .Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
             var command = new UpdateShowUpdatedNewsRequest(userId, model.ShowUpdatedNews);
-            await this.mediatr.Send(command);
-            return this.Accepted();
+            await _mediatr.Send(command);
+            return Accepted();
         }
 
         [HttpPatch]
         [Route("squash-news-updates")]
         public async Task<IActionResult> PatchSquashNewsUpdates(PatchSquashUpdateModel model)
         {
-            var userId = Guid.Parse(this.User.Claims
+            var userId = Guid.Parse(User.Claims
                 .Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
             var command = new UpdateSquashNewsUpdatesRequest(userId, model.SquashUpdate);
-            await this.mediatr.Send(command);
-            return this.Accepted();
+            await _mediatr.Send(command);
+            return Accepted();
         }
 
         [HttpGet]
         [Route("reader")]
         public async Task<IActionResult> Reader()
         {
-            var userId = Guid.Parse(this.User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
+            var userId = Guid.Parse(User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
             var command = new GetReaderSettingsRequest(userId);
-            var readerSettings = await this.mediatr.Send(command);
+            var readerSettings = await _mediatr.Send(command);
             return Ok(readerSettings);
         }
     }

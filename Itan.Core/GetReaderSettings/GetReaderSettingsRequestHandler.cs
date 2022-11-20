@@ -8,14 +8,14 @@ namespace Itan.Core.GetReaderSettings
 {
     public class GetReaderSettingsRequestHandler : IRequestHandler<GetReaderSettingsRequest, ReaderSettings>
     {
-        private readonly IReaderSettingsRepository repository;
+        private readonly IReaderSettingsRepository _repository;
 
         public GetReaderSettingsRequestHandler(IReaderSettingsRepository repository)
         {
-            this.repository = repository;
+            _repository = repository;
         }
 
         public async Task<ReaderSettings> Handle(GetReaderSettingsRequest request, CancellationToken cancellationToken) 
-            => await this.repository.GetAsync(request.UserId.ToString());
+            => await _repository.GetAsync(request.UserId.ToString());
     }
 }

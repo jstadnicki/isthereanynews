@@ -10,7 +10,7 @@ namespace Itan.Core.GetNewsByChannel
 
         public GetNewsByChannelRequest(Guid channelId)
         {
-            this.ChannelId = channelId;
+            ChannelId = channelId;
         }
     }
 }

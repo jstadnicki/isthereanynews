@@ -7,16 +7,16 @@ namespace Itan.Core.MarkUnreadNewsAsRead
 {
     public class MarkUnreadNewsAsReadCommandHandler:IRequestHandler<MarkUnreadNewsAsReadCommand, Unit>
     {
-        private readonly IMarkNewsReadRepository repository;
+        private readonly IMarkNewsReadRepository _repository;
 
         public MarkUnreadNewsAsReadCommandHandler(IMarkNewsReadRepository repository)
         {
-            this.repository = repository;
+            _repository = repository;
         }
 
         public async Task<Unit> Handle(MarkUnreadNewsAsReadCommand request, CancellationToken cancellationToken)
         {
-            await this.repository.MarkReadAsync(request.ChannelId, request.NewsId, request.UserId, IMarkNewsReadRepository.NewsReadType.Skip);
+            await _repository.MarkReadAsync(request.ChannelId, request.NewsId, request.UserId, IMarkNewsReadRepository.NewsReadType.Skip);
             return Unit.Value;
         }
     }

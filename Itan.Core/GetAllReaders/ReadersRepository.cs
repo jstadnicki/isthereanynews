@@ -11,18 +11,18 @@ namespace Itan.Core.GetAllReaders
 {
     public class ReadersRepository : IReadersRepository
     {
-        private string readerConnection;
+        private string _readerConnection;
 
         public ReadersRepository(IOptions<ConnectionOptions> options)
         {
-            this.readerConnection = options.Value.SqlReader;
+            _readerConnection = options.Value.SqlReader;
         }
 
         public async Task<List<ReaderDto>> GetAllIdsAsync()
         {
             var query = "SELECT * FROM persons";
             
-            using (var connection = new SqlConnection(this.readerConnection))
+            using (var connection = new SqlConnection(_readerConnection))
             {
                 var readers = await connection.QueryAsync<ReaderDto>(query);
                 return readers.ToList();

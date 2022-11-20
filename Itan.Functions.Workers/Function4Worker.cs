@@ -6,9 +6,9 @@ namespace Itan.Functions.Workers
 {
     public class Function4Worker : IFunction4Worker
     {
-        private readonly ILoger<Function4Worker> loger;
-        private readonly ISerializer serializer;
-        private readonly IChannelUpdater channelUpdater;
+        private readonly ILoger<Function4Worker> _loger;
+        private readonly ISerializer _serializer;
+        private readonly IChannelUpdater _channelUpdater;
 
         public Function4Worker(
             ILoger<Function4Worker> logger,
@@ -19,15 +19,15 @@ namespace Itan.Functions.Workers
             Ensure.NotNull(serializer, nameof(serializer));
             Ensure.NotNull(channelUpdater, nameof(channelUpdater));
 
-            this.loger = logger;
-            this.serializer = serializer;
-            this.channelUpdater = channelUpdater;
+            _loger = logger;
+            _serializer = serializer;
+            _channelUpdater = channelUpdater;
         }
 
         public async Task RunAsync(string myQueueItem)
         {
-            var message = this.serializer.Deserialize<ChannelUpdate>(myQueueItem);
-            await this.channelUpdater.Update(message);
+            var message = _serializer.Deserialize<ChannelUpdate>(myQueueItem);
+            await _channelUpdater.Update(message);
         }
     }
 }

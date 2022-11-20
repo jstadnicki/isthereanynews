@@ -11,20 +11,20 @@ namespace Itan.Api.Controllers
     [ApiController]
     public class AccountController:ControllerBase
     {
-        private readonly IMediator mediator;
+        private readonly IMediator _mediator;
 
         public AccountController(IMediator mediator)
         {
-            this.mediator = mediator;
+            _mediator = mediator;
         }
 
         [HttpDelete]
         public async Task<OkResult> Delete()
         {
-            var userId = Guid.Parse(this.User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
+            var userId = Guid.Parse(User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
             var command = new DeleteAccountCommand(userId);
-            await this.mediator.Send(command);
-            return this.Ok();
+            await _mediator.Send(command);
+            return Ok();
         }
     }
 }

@@ -11,11 +11,11 @@ namespace Itan.Api.Controllers
     [ApiController]
     public class UserChannelsSubscriptionsController : ControllerBase
     {
-        private readonly IMediator mediator;
+        private readonly IMediator _mediator;
 
         public UserChannelsSubscriptionsController(IMediator mediator)
         {
-            this.mediator = mediator;
+            _mediator = mediator;
         }
 
         [HttpPost]
@@ -23,8 +23,8 @@ namespace Itan.Api.Controllers
         public async Task<ActionResult> Post(string userId, UserChannelsSubscriptionsControllerPostDto model)
         {
             var command = new UserSubscribeToChannelRequest(userId, model.ChannelId);
-            await this.mediator.Send(command);
-            return this.Accepted();
+            await _mediator.Send(command);
+            return Accepted();
         }
 
         [HttpDelete]
@@ -32,8 +32,8 @@ namespace Itan.Api.Controllers
         public async Task<ActionResult> Delete(string userId, string channelId)
         {
             var command = new UserUnsubscribeFromChannelRequest(userId, channelId);
-            await this.mediator.Send(command);
-            return this.Accepted();
+            await _mediator.Send(command);
+            return Accepted();
         }
     }
 }

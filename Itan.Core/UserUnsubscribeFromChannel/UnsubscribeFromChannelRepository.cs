@@ -9,11 +9,11 @@ namespace Itan.Core.UserUnsubscribeFromChannel
 {
     internal class UnsubscribeFromChannelRepository : IUnsubscribeFromChannelRepository
     {
-        private readonly string connectionString;
+        private readonly string _connectionString;
 
         public UnsubscribeFromChannelRepository(IOptions<ConnectionOptions> options)
         {
-            this.connectionString = options.Value.SqlWriter;
+            _connectionString = options.Value.SqlWriter;
         }
 
         public async Task DeleteSubscriptionAsync(Guid channelId, Guid personId)
@@ -25,7 +25,7 @@ namespace Itan.Core.UserUnsubscribeFromChannel
                 personId = personId
             };
 
-            using var connection = new SqlConnection(this.connectionString);
+            using var connection = new SqlConnection(_connectionString);
             await connection.ExecuteAsync(sql, sqlData);
         }
     }

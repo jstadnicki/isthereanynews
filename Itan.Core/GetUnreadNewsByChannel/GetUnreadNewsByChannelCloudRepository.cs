@@ -11,16 +11,16 @@ namespace Itan.Core.GetUnreadNewsByChannel
 {
     internal class GetUnreadNewsByChannelCloudRepository : IGetUnreadNewsByChannelCloudRepository
     {
-        private string storage;
+        private string _storage;
 
         public GetUnreadNewsByChannelCloudRepository(IOptions<ConnectionOptions> connectionOptions)
         {
-            this.storage = connectionOptions.Value.Storage;
+            _storage = connectionOptions.Value.Storage;
         }
 
         public List<NewsViewModel> GetNewsViewModel(string requestChannelId, List<NewsHeader> newsHeaders)
         {
-            var account = CloudStorageAccount.Parse(this.storage);
+            var account = CloudStorageAccount.Parse(_storage);
             var serviceClient = account.CreateCloudBlobClient();
             var container = serviceClient.GetContainerReference("rss");
 

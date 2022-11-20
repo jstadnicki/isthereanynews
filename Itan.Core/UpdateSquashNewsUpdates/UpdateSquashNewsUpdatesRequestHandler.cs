@@ -7,16 +7,16 @@ namespace Itan.Core.UpdateSquashNewsUpdates
 {
     public class UpdateSquashNewsUpdatesRequestHandler : IRequestHandler<UpdateSquashNewsUpdatesRequest, Unit>
     {
-        private readonly ISettingsRepository settingsRepository;
+        private readonly ISettingsRepository _settingsRepository;
 
         public UpdateSquashNewsUpdatesRequestHandler(ISettingsRepository settingsRepository)
         {
-            this.settingsRepository = settingsRepository;
+            _settingsRepository = settingsRepository;
         }
 
         public async Task<Unit> Handle(UpdateSquashNewsUpdatesRequest request, CancellationToken cancellationToken)
         {
-            await this.settingsRepository.UpdateSquashNewsUpdates(request.UserId, request.SquashNewsUpdates);
+            await _settingsRepository.UpdateSquashNewsUpdates(request.UserId, request.SquashNewsUpdates);
             return Unit.Value;
         }
     }

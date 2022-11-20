@@ -9,9 +9,9 @@ namespace Itan.Functions
 {
     public class Function3
     {
-        private readonly IFunction3Worker worker;
+        private readonly IFunction3Worker _worker;
 
-        public Function3(IFunction3Worker worker) => this.worker = worker;
+        public Function3(IFunction3Worker worker) => _worker = worker;
 
         [FunctionName("Function3")]
         public async Task RunAsync(
@@ -22,7 +22,7 @@ namespace Itan.Functions
             string name
         )
         {
-            await this.worker.RunAsync(folder, name, myBlob);
+            await _worker.RunAsync(folder, name, myBlob);
         }
     }
 }

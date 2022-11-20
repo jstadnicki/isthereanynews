@@ -5,14 +5,14 @@ namespace Itan.Wrappers
 {
     public class Loger<T> : ILoger<T>
     {
-        private readonly ILogger<T> log;
+        private readonly ILogger<T> _log;
 
         public Loger(ILogger<T> log)
         {
             Ensure.NotNull(log, nameof(log));
-            this.log = log;
+            _log = log;
         }
 
-        public void LogCritical(string toString) => this.log.LogCritical(toString);
+        public void LogCritical(string toString) => _log.LogCritical(toString);
     }
 }

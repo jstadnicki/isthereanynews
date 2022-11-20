@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Itan.Functions.Workers
 {
-    public class SHA256Wrapper : IHashSum
+    public class Sha256Wrapper : IHashSum
     {
         public string GetHash(string input)
         {

@@ -6,16 +6,16 @@ namespace Itan.Core.GetReader
 {
     public class GetReaderRequestHandler : IRequestHandler<GetReaderRequest, ReaderDetailsViewModel>
     {
-        private readonly IReaderRepository readerRepository;
+        private readonly IReaderRepository _readerRepository;
 
         public GetReaderRequestHandler(IReaderRepository readerRepository)
         {
-            this.readerRepository = readerRepository;
+            _readerRepository = readerRepository;
         }
 
         public async Task<ReaderDetailsViewModel> Handle(GetReaderRequest request, CancellationToken cancellationToken)
         {
-            var subscribedChannelsAsync = await this.readerRepository.GetSubscribedChannelsAsync(request.Id);
+            var subscribedChannelsAsync = await _readerRepository.GetSubscribedChannelsAsync(request.Id);
             return new ReaderDetailsViewModel(subscribedChannelsAsync);
         }
     }

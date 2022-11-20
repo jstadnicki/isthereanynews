@@ -10,11 +10,11 @@ namespace Itan.Core.GetReader
 {
     class ReaderRepository : IReaderRepository
     {
-        private readonly string readerConnection;
+        private readonly string _readerConnection;
 
         public ReaderRepository(IOptions<ConnectionOptions> options)
         {
-            this.readerConnection = options.Value.SqlReader;
+            _readerConnection = options.Value.SqlReader;
         }
 
         public async Task<List<ReaderSubscribedChannel>> GetSubscribedChannelsAsync(string personId)
@@ -50,7 +50,7 @@ namespace Itan.Core.GetReader
                 personId
             };
             
-            using (var connection = new SqlConnection(this.readerConnection))
+            using (var connection = new SqlConnection(_readerConnection))
             {
                 var queryResult = await connection.QueryAsync<ReaderSubscribedChannel>(query,queryData);
                 return queryResult.ToList();

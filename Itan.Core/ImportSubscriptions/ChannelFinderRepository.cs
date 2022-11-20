@@ -10,11 +10,11 @@ namespace Itan.Core.ImportSubscriptions
 {
     class ChannelFinderRepository : IChannelFinderRepository
     {
-        private readonly string connectionString;
+        private readonly string _connectionString;
 
         public ChannelFinderRepository(IOptions<ConnectionOptions> options)
         {
-            this.connectionString = options.Value.SqlReader;
+            _connectionString = options.Value.SqlReader;
         }
 
         public async Task<Guid> FindChannelIdByUrlAsync(string channelUrl, IChannelFinderRepository.Match match = IChannelFinderRepository.Match.Exact )
@@ -26,7 +26,7 @@ namespace Itan.Core.ImportSubscriptions
                 url = match==IChannelFinderRepository.Match.Exact?GetValueExact(channelUrl):GetValueLike(channelUrl)
             };
 
-            using var connection = new SqlConnection(this.connectionString);
+            using var connection = new SqlConnection(_connectionString);
             var executionResult = await connection.QueryAsync<Guid>(sql, sqlData);
             return executionResult.SingleOrDefault();
         }

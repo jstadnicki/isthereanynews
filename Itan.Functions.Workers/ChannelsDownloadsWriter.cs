@@ -11,16 +11,16 @@ namespace Itan.Functions.Workers
 {
     public class ChannelsDownloadsWriter : IChannelsDownloadsWriter
     {
-        private readonly string connectionString;
-        private ILoger<ChannelsDownloadsWriter> log;
+        private readonly string _connectionString;
+        private ILoger<ChannelsDownloadsWriter> _log;
 
         public ChannelsDownloadsWriter(IOptions<ConnectionOptions> options, ILoger<ChannelsDownloadsWriter> log)
         {
             Ensure.NotNull(options, nameof(options));
             Ensure.NotNull(log, nameof(log));
         
-            this.connectionString = options.Value.SqlWriter;
-            this.log = log;
+            _connectionString = options.Value.SqlWriter;
+            _log = log;
         }
 
         public async Task InsertAsync(DownloadDto data)
@@ -29,14 +29,14 @@ namespace Itan.Functions.Workers
 
             try
             {
-                using (var sqlConnection = new SqlConnection(this.connectionString))
+                using (var sqlConnection = new SqlConnection(_connectionString))
                 {
                     await sqlConnection.ExecuteAsync(query, data);
                 }
             }
             catch (Exception e)
             {
-                this.log.LogCritical(e.ToString());
+                _log.LogCritical(e.ToString());
                 throw;
             }
         }

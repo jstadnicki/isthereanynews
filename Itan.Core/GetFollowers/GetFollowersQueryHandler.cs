@@ -17,15 +17,15 @@ namespace Itan.Core.GetFollowers
 {
     public class GetFollowersQueryHandler : IRequestHandler<GetFollowersQuery, List<SubscribedReaderViewModel>>
     {
-        private readonly GraphApiSettings graphApiSettings;
-        private readonly string readConnectionString;
+        private readonly GraphApiSettings _graphApiSettings;
+        private readonly string _readConnectionString;
 
         public GetFollowersQueryHandler(
             IOptions<ConnectionOptions> options, 
             IOptions<GraphApiSettings> graphApiSettings)
         {
-            this.graphApiSettings = graphApiSettings.Value;
-            this.readConnectionString = options.Value.SqlReader;
+            _graphApiSettings = graphApiSettings.Value;
+            _readConnectionString = options.Value.SqlReader;
         }
 
         public async Task<List<SubscribedReaderViewModel>> Handle(GetFollowersQuery request, CancellationToken cancellationToken)
@@ -38,9 +38,9 @@ namespace Itan.Core.GetFollowers
             }
 
             var confidentialClientApplication = ConfidentialClientApplicationBuilder
-                .Create(this.graphApiSettings.ClientId)
-                .WithClientSecret(this.graphApiSettings.ClientSecret)
-                .WithTenantId(this.graphApiSettings.TenantId)
+                .Create(_graphApiSettings.ClientId)
+                .WithClientSecret(_graphApiSettings.ClientSecret)
+                .WithTenantId(_graphApiSettings.TenantId)
                 .Build();
             
             var scopes = new string[] {"https://graph.microsoft.com/.default"};
@@ -81,7 +81,7 @@ namespace Itan.Core.GetFollowers
                 followerPersonId = request.FollowerPersonId
             };
 
-            await using var connection = new SqlConnection(this.readConnectionString);
+            await using var connection = new SqlConnection(_readConnectionString);
             var queryAsyncRaw = await connection.QueryAsync<Guid>(query, queryData);
             var followersIds = queryAsyncRaw.ToList();
             return followersIds;

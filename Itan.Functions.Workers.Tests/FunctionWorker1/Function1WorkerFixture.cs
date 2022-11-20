@@ -8,31 +8,31 @@ namespace Itan.Functions.Workers.Tests
 {
     public class Function1WorkerFixture : Fixture
     {
-        private readonly Mock<ILoger<Function1Worker>> mockLoger;
-        private readonly Mock<IQueue<ChannelToDownload>> mockMessages;
-        private readonly Mock<IChannelsProvider> mockChannels;
+        private readonly Mock<ILoger<Function1Worker>> _mockLoger;
+        private readonly Mock<IQueue<ChannelToDownload>> _mockMessages;
+        private readonly Mock<IChannelsProvider> _mockChannels;
 
         public Function1WorkerFixture()
         {
-            this.mockLoger = new Mock<ILoger<Function1Worker>>();
-            this.mockMessages = new Mock<IQueue<ChannelToDownload>>();
-            this.mockChannels = new Mock<IChannelsProvider>();
+            _mockLoger = new Mock<ILoger<Function1Worker>>();
+            _mockMessages = new Mock<IQueue<ChannelToDownload>>();
+            _mockChannels = new Mock<IChannelsProvider>();
         }
 
-        public Mock<IQueue<ChannelToDownload>> QueueMock => this.mockMessages;
+        public Mock<IQueue<ChannelToDownload>> QueueMock => _mockMessages;
 
         public Function1Worker GetWorker()
         {
-            var worker = new Function1Worker(mockLoger.Object, mockMessages.Object, mockChannels.Object);
+            var worker = new Function1Worker(_mockLoger.Object, _mockMessages.Object, _mockChannels.Object);
             return worker;
         }
 
         public Function1WorkerFixture CreateChannelsToDownloads(in int numberOfChannels)
         {
-            var x = this.Build<ChannelToDownload>()
+            var x = Build<ChannelToDownload>()
                 .CreateMany(numberOfChannels);
 
-            this.mockChannels
+            _mockChannels
                 .Setup(s => s.GetAllChannelsAsync())
                 .ReturnsAsync(x.ToList());
 

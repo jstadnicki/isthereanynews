@@ -9,11 +9,11 @@ namespace Itan.Core.UpdateShowUpdatedNews
 {
     class SettingsRepository : ISettingsRepository
     {
-        private readonly string connectionString;
+        private readonly string _connectionString;
 
         public SettingsRepository(IOptions<ConnectionOptions> options)
         {
-            this.connectionString = options.Value.SqlWriter;
+            _connectionString = options.Value.SqlWriter;
         }
 
         public async Task UpdateShowUpdatedNews(Guid userId, UpdatedNews showUpdatedNews)
@@ -26,7 +26,7 @@ namespace Itan.Core.UpdateShowUpdatedNews
                 userId
             };
 
-            await using var connection = new SqlConnection(this.connectionString);
+            await using var connection = new SqlConnection(_connectionString);
             await connection.ExecuteAsync(sqlQuery, sqlData);
         }
 
@@ -40,7 +40,7 @@ namespace Itan.Core.UpdateShowUpdatedNews
                 userId
             };
 
-            await using var connection = new SqlConnection(this.connectionString);
+            await using var connection = new SqlConnection(_connectionString);
             await connection.ExecuteAsync(sqlQuery, sqlData);
         }
     }

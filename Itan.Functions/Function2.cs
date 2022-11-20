@@ -8,17 +8,17 @@ namespace Itan.Functions
 {
     public class Function2
     {
-        private readonly IFunction2Worker worker;
+        private readonly IFunction2Worker _worker;
 
         public Function2(IFunction2Worker worker)
         {
-            this.worker = worker;
+             _worker = worker;
         }
 
         [FunctionName("Function2")]
         public async Task Run([QueueTrigger(QueuesName.ChannelToDownload, Connection = "Storage")]string myQueueItem)
         {
-            await this.worker.Run(myQueueItem);
+            await _worker.Run(myQueueItem);
         }
     }
 }

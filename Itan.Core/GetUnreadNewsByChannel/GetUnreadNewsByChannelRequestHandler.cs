@@ -11,25 +11,25 @@ namespace Itan.Core.GetUnreadNewsByChannel
 {
     public class GetUnreadNewsByChannelRequestHandler : IRequestHandler<GetUnreadNewsByChannelRequest, List<NewsViewModel>>
     {
-        private readonly IGetUnreadNewsByChannelRepository dataBaseRepository;
-        private readonly IGetUnreadNewsByChannelCloudRepository cloudRepository;
-        private readonly IReaderSettingsRepository readerSettingsRepository;
+        private readonly IGetUnreadNewsByChannelRepository _dataBaseRepository;
+        private readonly IGetUnreadNewsByChannelCloudRepository _cloudRepository;
+        private readonly IReaderSettingsRepository _readerSettingsRepository;
 
         public GetUnreadNewsByChannelRequestHandler(
             IGetUnreadNewsByChannelRepository dataBaseRepository, 
             IGetUnreadNewsByChannelCloudRepository cloudRepository, 
             IReaderSettingsRepository readerSettingsRepository)
         {
-            this.dataBaseRepository = dataBaseRepository;
-            this.cloudRepository = cloudRepository;
-            this.readerSettingsRepository = readerSettingsRepository;
+            _dataBaseRepository = dataBaseRepository;
+            _cloudRepository = cloudRepository;
+            _readerSettingsRepository = readerSettingsRepository;
         }
 
         public async Task<List<NewsViewModel>> Handle(GetUnreadNewsByChannelRequest request, CancellationToken cancellationToken)
         {
-            var readerSettings = await this.readerSettingsRepository.GetAsync(request.UserId);
-            var newsHeaders =  await this.dataBaseRepository.GetUnreadNewsAsync(request.ChannelId, request.UserId, readerSettings.ShowUpdatedNews, readerSettings.SquashNewsUpdates);
-            var newsViewModel = this.cloudRepository.GetNewsViewModel(request.ChannelId, newsHeaders);
+            var readerSettings = await _readerSettingsRepository.GetAsync(request.UserId);
+            var newsHeaders =  await _dataBaseRepository.GetUnreadNewsAsync(request.ChannelId, request.UserId, readerSettings.ShowUpdatedNews, readerSettings.SquashNewsUpdates);
+            var newsViewModel = _cloudRepository.GetNewsViewModel(request.ChannelId, newsHeaders);
             return newsViewModel;
         }
     }

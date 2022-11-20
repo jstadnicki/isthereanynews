@@ -10,16 +10,16 @@ namespace Itan.Functions.Workers
 {
     public class ChannelUpdater : IChannelUpdater
     {
-        private readonly string connectionString;
-        private readonly ILoger<ChannelUpdater> loger;
+        private readonly string _connectionString;
+        private readonly ILoger<ChannelUpdater> _loger;
 
         public ChannelUpdater(IOptions<ConnectionOptions> options, ILoger<ChannelUpdater> loger)
         {
             Ensure.NotNull(options, nameof(options));
             Ensure.NotNull(loger, nameof(loger));
 
-            this.loger = loger;
-            this.connectionString = options.Value.SqlWriter;
+            _loger = loger;
+            _connectionString = options.Value.SqlWriter;
         }
 
         public async Task Update(ChannelUpdate message)
@@ -36,12 +36,12 @@ namespace Itan.Functions.Workers
 
             try
             {
-                await using var sqlConnection = new SqlConnection(this.connectionString);
+                await using var sqlConnection = new SqlConnection(_connectionString);
                 await sqlConnection.ExecuteAsync(query, queryData);
             }
             catch (Exception e)
             {
-                this.loger.LogCritical(e.ToString());
+                _loger.LogCritical(e.ToString());
             }
         }
     }

@@ -10,11 +10,11 @@ namespace Itan.Core.UnfollowPerson
 {
     public class UnfollowPersonCommandHandler:IRequestHandler<UnfollowPersonCommand, Unit>
     {
-        private readonly string writeConnection;
+        private readonly string _writeConnection;
 
         public UnfollowPersonCommandHandler(IOptions<ConnectionOptions> options)
         {
-            this.writeConnection = options.Value.SqlWriter;
+            _writeConnection = options.Value.SqlWriter;
         }
 
         public async Task<Unit> Handle(UnfollowPersonCommand request, CancellationToken cancellationToken)
@@ -26,7 +26,7 @@ namespace Itan.Core.UnfollowPerson
                 followerPersonId=request.ActualPersonId
             };
 
-            await using var connection = new SqlConnection(this.writeConnection);
+            await using var connection = new SqlConnection(_writeConnection);
             await connection.ExecuteAsync(query, queryData);
 
             return Unit.Value;

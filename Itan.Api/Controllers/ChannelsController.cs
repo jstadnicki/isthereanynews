@@ -17,18 +17,18 @@ namespace Itan.Api.Controllers
     [AllowAnonymous]
     public class ChannelsController : ControllerBase
     {
-        private readonly IMediator mediator;
+        private readonly IMediator _mediator;
 
         public ChannelsController(IMediator mediator)
         {
-            this.mediator = mediator;
+            _mediator = mediator;
         }
 
         [HttpGet]
         public async Task<ActionResult<List<ChannelViewModel>>> Get()
         {
             var command = new GetAllChannelsViewModelsRequest();
-            var list = await this.mediator.Send(command);
+            var list = await _mediator.Send(command);
             return list;
         }
 
@@ -36,13 +36,13 @@ namespace Itan.Api.Controllers
         [Authorize]
         public async Task<IActionResult> Post([FromBody] ChannelsPostDto model)
         {
-            var userId = this.User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
+            var userId = User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
             var command = new ChannelsCreateNewChannelRequest
             {
                 Url = model.Url, PersonId = Guid.Parse(userId)
             };
-            var channelCreateRequestResult = await this.mediator.Send(command);
-            return this.Accepted(channelCreateRequestResult);
+            var channelCreateRequestResult = await _mediator.Send(command);
+            return Accepted(channelCreateRequestResult);
         }
     }
 }

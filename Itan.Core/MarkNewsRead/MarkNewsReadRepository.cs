@@ -11,11 +11,11 @@ namespace Itan.Core.MarkNewsRead
 {
     internal class MarkNewsReadRepository : IMarkNewsReadRepository
     {
-        private readonly string connectionString;
+        private readonly string _connectionString;
  
         public MarkNewsReadRepository(IOptions<ConnectionOptions> options)
         {
-            this.connectionString = options.Value.SqlWriter;
+            _connectionString = options.Value.SqlWriter;
         }
 
         public Task MarkReadAsync(Guid channelId, Guid newsId, Guid personId, IMarkNewsReadRepository.NewsReadType readType = IMarkNewsReadRepository.NewsReadType.Read )
@@ -38,7 +38,7 @@ namespace Itan.Core.MarkNewsRead
                 readType = readType.ToString()
             }).ToList();
 
-            await using var connection = new SqlConnection(this.connectionString);
+            await using var connection = new SqlConnection(_connectionString);
             await connection.ExecuteAsync(sql, sqlData);
         }
     }

@@ -11,8 +11,8 @@ namespace Itan.Core.GetUnreadNewsByChannel
 
         public GetUnreadNewsByChannelRequest(string channelId, string userId)
         {
-            this.ChannelId = channelId;
-            this.UserId = userId;
+            ChannelId = channelId;
+            UserId = userId;
         }
     }
 }

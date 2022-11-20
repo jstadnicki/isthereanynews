@@ -9,22 +9,22 @@ namespace Itan.Wrappers
 {
     public class EmailSender : IEmailSender
     {
-        private readonly EmailSenderSettings emailSenderSettings;
+        private readonly EmailSenderSettings _emailSenderSettings;
 
         public EmailSender(IOptions<EmailSenderSettings> emailSenderOptions)
         {
-            this.emailSenderSettings = emailSenderOptions.Value;
+            _emailSenderSettings = emailSenderOptions.Value;
         }
 
         public async Task SendEmailNewAccountRegisteredAsync(string userDisplayName, Guid userId)
         {
             var plainTextContent = $"New registration! {userDisplayName} has just registered, find him by this id: {userId}";
-            var client = new MailjetClient(emailSenderSettings.ApiKey, emailSenderSettings.ApiSecret);
+            var client = new MailjetClient(_emailSenderSettings.ApiKey, _emailSenderSettings.ApiSecret);
             var request = new MailjetRequest
                 {
                     Resource = Send.Resource,
                 }
-                .Property(Send.FromEmail, emailSenderSettings.From)
+                .Property(Send.FromEmail, _emailSenderSettings.From)
                 .Property(Send.FromName, "ITAN contact")
                 .Property(Send.Subject, "New registration!")
                 .Property(Send.TextPart, plainTextContent)
@@ -32,7 +32,7 @@ namespace Itan.Wrappers
                 {
                     new JObject
                     {
-                        {"Email", emailSenderSettings.To}
+                        {"Email", _emailSenderSettings.To}
                     }
                 });
             await client.PostAsync(request);

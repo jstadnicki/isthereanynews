@@ -11,11 +11,11 @@ namespace Itan.Core.FollowPerson
 {
     public class FollowPersonCommandHandler : IRequestHandler<FollowPersonCommand, Unit>
     {
-        private readonly string writerConnection;
+        private readonly string _writerConnection;
 
         public FollowPersonCommandHandler(IOptions<ConnectionOptions> options)
         {
-            this.writerConnection = options.Value.SqlWriter;
+            _writerConnection = options.Value.SqlWriter;
         }
         public async Task<Unit> Handle(FollowPersonCommand request, CancellationToken cancellationToken)
         {
@@ -34,7 +34,7 @@ namespace Itan.Core.FollowPerson
                 CreatedOn = DateTime.UtcNow
             };
 
-            await using var connection = new SqlConnection(this.writerConnection);
+            await using var connection = new SqlConnection(_writerConnection);
             await connection.ExecuteAsync(query, queryData);
 
             return Unit.Value;

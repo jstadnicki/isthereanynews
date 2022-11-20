@@ -16,20 +16,20 @@ namespace Itan.Api.Controllers
     [Authorize]
     public class ChannelReadNewsController : ControllerBase
     {
-        private readonly IMediator mediator;
+        private readonly IMediator _mediator;
 
         public ChannelReadNewsController(IMediator mediator)
         {
-            this.mediator = mediator;
+            _mediator = mediator;
         }
 
         [HttpPost]
         public async Task<ActionResult> Post([FromBody]MarkNewsAsReadRequest request)
         {
-            var userId = Guid.Parse(this.User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
+            var userId = Guid.Parse(User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
             var command = new MarkNewsReadCommand(request.ChannelId, request.NewsId, userId);
-            await this.mediator.Send(command);
-            return this.Ok();
+            await _mediator.Send(command);
+            return Ok();
         }
         
 
@@ -39,10 +39,10 @@ namespace Itan.Api.Controllers
         [Route("skipped")]
         public async Task<ActionResult> Post([FromBody]MarkUnreadNewsAsReadRequest request)
         {
-            var userId = Guid.Parse(this.User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
+            var userId = Guid.Parse(User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
             var command = new MarkUnreadNewsAsReadCommand(request.ChannelId, request.NewsId, userId);
-            await this.mediator.Send(command);
-            return this.Ok();
+            await _mediator.Send(command);
+            return Ok();
         }
 
         [HttpPost]
@@ -50,10 +50,10 @@ namespace Itan.Api.Controllers
         [Route("click")]
         public async Task<ActionResult> Post([FromBody]MarkNewsAsReadWithClickRequest request)
         {
-            var userId = Guid.Parse(this.User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
+            var userId = Guid.Parse(User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
             var command = new MarkNewsAsReadWithClickCommand(request.ChannelId, request.NewsId, userId);
-            await this.mediator.Send(command);
-            return this.Ok();
+            await _mediator.Send(command);
+            return Ok();
         }
 
         public class MarkNewsAsReadRequest

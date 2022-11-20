@@ -8,12 +8,12 @@ namespace Itan.Wrappers
 {
     public class HttpDownloader : IHttpDownloader
     {
-        private readonly ILoger<HttpDownloader> log;
+        private readonly ILoger<HttpDownloader> _log;
 
         public HttpDownloader(ILoger<HttpDownloader> log)
         {
             Ensure.NotNull(log, nameof(log));
-            this.log = log;
+            _log = log;
         }
 
         public async Task<string> GetStringAsync(string url)
@@ -27,7 +27,7 @@ namespace Itan.Wrappers
             }
             catch (Exception e)
             {
-                this.log.LogCritical(e.Message);
+                _log.LogCritical(e.Message);
                 return string.Empty;
                 //throw new ItanFailedToDownloadChannel($"Failed to download feed from channel: {url}", e);
             }

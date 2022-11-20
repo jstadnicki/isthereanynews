@@ -14,19 +14,19 @@ namespace Itan.Api.Controllers
     [ApiController]
     public class FollowersController : ControllerBase
     {
-        private IMediator mediator;
+        private IMediator _mediator;
 
         public FollowersController(IMediator mediator)
         {
-            this.mediator = mediator;
+            _mediator = mediator;
         }
 
         [HttpPost]
         public async Task<OkResult> Post([FromBody]FollowPerson followPersonModel)
         {
-            var userId = Guid.Parse(this.User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
+            var userId = Guid.Parse(User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
             var command = new FollowPersonCommand(followPersonModel.ReaderId, userId);
-            await this.mediator.Send(command);
+            await _mediator.Send(command);
             return Ok();
         }
         
@@ -34,18 +34,18 @@ namespace Itan.Api.Controllers
         [Route("{readerId}")]
         public async Task<OkResult> Delete([FromRoute]UnfollowPerson unfollowPersonModel)
         {
-            var userId = Guid.Parse(this.User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
+            var userId = Guid.Parse(User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
             var command = new UnfollowPersonCommand(unfollowPersonModel.ReaderId, userId);
-            await this.mediator.Send(command);
+            await _mediator.Send(command);
             return Ok();
         }
         
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var userId = Guid.Parse(this.User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
+            var userId = Guid.Parse(User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
             var command = new GetFollowersQuery(userId);
-            var followers = await this.mediator.Send(command);
+            var followers = await _mediator.Send(command);
             return Ok(followers);
         }
         
@@ -53,9 +53,9 @@ namespace Itan.Api.Controllers
         [Route("{personId}/activity")]
         public async Task<IActionResult> Get([FromRoute]PersonActivity model)
         {
-            var userId = Guid.Parse(this.User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
+            var userId = Guid.Parse(User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
             var command = new GetFollowerActivityQuery(model.PersonId);
-            var followers = await this.mediator.Send(command);
+            var followers = await _mediator.Send(command);
             return Ok(followers);
         }
     }

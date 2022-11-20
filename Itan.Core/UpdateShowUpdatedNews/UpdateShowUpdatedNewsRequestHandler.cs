@@ -6,16 +6,16 @@ namespace Itan.Core.UpdateShowUpdatedNews
 {
     internal class UpdateShowUpdatedNewsRequestHandler : IRequestHandler<UpdateShowUpdatedNewsRequest, Unit>
     {
-        private readonly ISettingsRepository settingsRepository;
+        private readonly ISettingsRepository _settingsRepository;
 
         public UpdateShowUpdatedNewsRequestHandler(ISettingsRepository settingsRepository)
         {
-            this.settingsRepository = settingsRepository;
+            _settingsRepository = settingsRepository;
         }
 
         public async Task<Unit> Handle(UpdateShowUpdatedNewsRequest request, CancellationToken cancellationToken)
         {
-            await this.settingsRepository.UpdateShowUpdatedNews(request.UserId, request.ShowUpdatedNews);
+            await _settingsRepository.UpdateShowUpdatedNews(request.UserId, request.ShowUpdatedNews);
             return Unit.Value;
         }
     }

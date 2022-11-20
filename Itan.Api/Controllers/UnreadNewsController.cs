@@ -13,21 +13,21 @@ namespace Itan.Api.Controllers
     [ApiController]
     public class UnreadNewsController : ControllerBase
     {
-        private IMediator mediator;
+        private IMediator _mediator;
 
         public UnreadNewsController(IMediator mediator)
         {
-            this.mediator = mediator;
+            _mediator = mediator;
         }
 
         [HttpGet]
         [Route("{channelId}")]
         public async Task<ActionResult<List<NewsViewModel>>> Get(string channelId)
         {
-            var userId = this.User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
+            var userId = User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
             var request = new GetUnreadNewsByChannelRequest(channelId, userId);
-            var result = await this.mediator.Send(request);
-            return this.Ok(result);
+            var result = await _mediator.Send(request);
+            return Ok(result);
         }
     }
 }

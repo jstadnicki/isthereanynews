@@ -11,11 +11,11 @@ namespace Itan.Api.Controllers
     [AllowAnonymous]
     public class LandingPageController : ControllerBase
     {
-        private readonly IMediator mediator;
+        private readonly IMediator _mediator;
 
         public LandingPageController(IMediator mediator)
         {
-            this.mediator = mediator;
+            _mediator = mediator;
         }
         
         [Route("news")]
@@ -23,8 +23,8 @@ namespace Itan.Api.Controllers
         public async Task<ActionResult<HomePageNewsViewModel>> Get()
         {
             var request = new GetHomePageNewsRequest();
-            var hpn = await this.mediator.Send(request);
-            return this.Ok(hpn);
+            var hpn = await _mediator.Send(request);
+            return Ok(hpn);
         }
     }
 }

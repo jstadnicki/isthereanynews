@@ -8,6 +8,6 @@ namespace Itan.Functions.Workers.Model
         public Guid ChannelId { get; set; }
         public string Path { get; set; }
         public DateTime CreatedOn { get; set; } = DateTime.Now;
-        public string SHA { get; set; }
+        public string Sha { get; set; }
     }
 }

@@ -9,11 +9,11 @@ namespace Itan.Core.MarkNewsOpen
 {
     class MarkNewsOpenRepository : IMarkNewsOpenRepository
     {
-        private readonly string connectionString;
+        private readonly string _connectionString;
 
         public MarkNewsOpenRepository(IOptions<ConnectionOptions> options)
         {
-            this.connectionString = options.Value.SqlWriter;
+            _connectionString = options.Value.SqlWriter;
         }
 
         public async Task MarkNewsOpenAsync(Guid channelId, Guid newsId, Guid personId)
@@ -34,7 +34,7 @@ namespace Itan.Core.MarkNewsOpen
                 createdOn = DateTime.UtcNow
             };
 
-            await using var connection = new SqlConnection(this.connectionString);
+            await using var connection = new SqlConnection(_connectionString);
             await connection.ExecuteAsync(sql, sqlData);
         }
     }

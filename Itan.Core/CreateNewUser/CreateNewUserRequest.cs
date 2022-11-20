@@ -7,7 +7,7 @@ namespace Itan.Core.CreateNewUser
     {
         public CreateNewUserRequest(string userId)
         {
-            this.UserId = Guid.Parse(userId);
+            UserId = Guid.Parse(userId);
         }
 
         public Guid UserId { get; }

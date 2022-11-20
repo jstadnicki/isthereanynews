@@ -11,10 +11,10 @@ namespace Itan.Core.ImportSubscriptions
 {
     public class ImportSubscriptionsRequestHandler : IRequestHandler<ImportSubscriptionsRequest, Unit>
     {
-        private readonly ICreateNewChannelRepository createNewChannelRepository;
-        private readonly IUserToChannelSubscriptionsRepository subscriptionsRepository;
-        private readonly IChannelFinderRepository channelFinderRepository;
-        private readonly IQueue<ChannelToDownload> messagesCollector;
+        private readonly ICreateNewChannelRepository _createNewChannelRepository;
+        private readonly IUserToChannelSubscriptionsRepository _subscriptionsRepository;
+        private readonly IChannelFinderRepository _channelFinderRepository;
+        private readonly IQueue<ChannelToDownload> _messagesCollector;
 
 
         public ImportSubscriptionsRequestHandler(
@@ -23,10 +23,10 @@ namespace Itan.Core.ImportSubscriptions
             IChannelFinderRepository channelFinderRepository,
             IQueue<ChannelToDownload> messagesCollector)
         {
-            this.createNewChannelRepository = createNewChannelRepository;
-            this.subscriptionsRepository = subscriptionsRepository;
-            this.channelFinderRepository = channelFinderRepository;
-            this.messagesCollector = messagesCollector;
+            _createNewChannelRepository = createNewChannelRepository;
+            _subscriptionsRepository = subscriptionsRepository;
+            _channelFinderRepository = channelFinderRepository;
+            _messagesCollector = messagesCollector;
         }
 
         public async Task<Unit> Handle(ImportSubscriptionsRequest request, CancellationToken cancellationToken)
@@ -40,18 +40,18 @@ namespace Itan.Core.ImportSubscriptions
                 var uri = new Uri(outline.XmlUrl.ToLowerInvariant());
                 var channelToSearch = uri.Authority + uri.AbsolutePath;
 
-                var channelId = await this.channelFinderRepository.FindChannelIdByUrlAsync(channelToSearch, IChannelFinderRepository.Match.Like);
+                var channelId = await _channelFinderRepository.FindChannelIdByUrlAsync(channelToSearch, IChannelFinderRepository.Match.Like);
                 if (channelId == default(Guid))
                 {
-                    channelId = await this.createNewChannelRepository.SaveAsync(outline.XmlUrl.ToLowerInvariant(), request.UserId);
+                    channelId = await _createNewChannelRepository.SaveAsync(outline.XmlUrl.ToLowerInvariant(), request.UserId);
                 }
                 var message = new ChannelToDownload
                 {
                     Id = channelId,
                     Url = outline.XmlUrl.ToLowerInvariant()
                 };
-                await this.messagesCollector.AddAsync(message,QueuesName.ChannelToDownload);
-                await this.subscriptionsRepository.CreateSubscriptionAsync(channelId, request.UserId);
+                await _messagesCollector.AddAsync(message,QueuesName.ChannelToDownload);
+                await _subscriptionsRepository.CreateSubscriptionAsync(channelId, request.UserId);
             }
 
             return Unit.Value;

@@ -14,19 +14,19 @@ namespace Itan.Api.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly IMediator mediator;
+        private readonly IMediator _mediator;
 
         public UsersController(IMediator mediator)
         {
-            this.mediator = mediator;
+            _mediator = mediator;
         }
 
         [HttpPost]
         public async Task<ActionResult> Post(UsersControllerPostDto dto)
         {
             var command = new CreateNewUserRequest(dto.UserId);
-            await this.mediator.Send(command);
-            return this.Accepted();
+            await _mediator.Send(command);
+            return Accepted();
         }
         
         [HttpPost]
@@ -34,10 +34,10 @@ namespace Itan.Api.Controllers
         [Authorize]
         public async Task<ActionResult> Post()
         {
-            var userId = Guid.Parse(this.User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
+            var userId = Guid.Parse(User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
             var command = new MigrateUserRequest(userId);
-            await this.mediator.Send(command);
-            return this.Ok();
+            await _mediator.Send(command);
+            return Ok();
         }
     }
 }

@@ -9,10 +9,10 @@ namespace Itan.Wrappers
 {
     public class AzureQueueWrapper<T> : IQueue<T>
     {
-        private readonly ISerializer serializer;
-        private readonly CloudStorageAccount storageAccount;
-        private readonly CloudQueueClient queueClient;
-        private CloudQueue queue;
+        private readonly ISerializer _serializer;
+        private readonly CloudStorageAccount _storageAccount;
+        private readonly CloudQueueClient _queueClient;
+        private CloudQueue _queue;
 
         public AzureQueueWrapper(IOptions<ConnectionOptions> connectionOptions, ISerializer serializer)
         {
@@ -24,31 +24,31 @@ namespace Itan.Wrappers
 
             Ensure.NotNull(serializer, nameof(serializer));
 
-            this.serializer = serializer;
-            this.storageAccount = CloudStorageAccount.Parse(connectionOptions.Value.Storage);
-            this.queueClient = this.storageAccount.CreateCloudQueueClient();
+            _serializer = serializer;
+            _storageAccount = CloudStorageAccount.Parse(connectionOptions.Value.Storage);
+            _queueClient = _storageAccount.CreateCloudQueueClient();
             
         }
 
         public async Task AddRangeAsync(IEnumerable<T> elementsToAdd, string queueName)
         {
-            this.queue = this.queueClient.GetQueueReference(queueName);
-            await this.queue.CreateIfNotExistsAsync();
+            _queue = _queueClient.GetQueueReference(queueName);
+            await _queue.CreateIfNotExistsAsync();
 
             foreach (var element in elementsToAdd)
             {
-                var serializedElement = this.serializer.Serialize(element);
-                await this.queue.AddMessageAsync(new CloudQueueMessage(serializedElement));
+                var serializedElement = _serializer.Serialize(element);
+                await _queue.AddMessageAsync(new CloudQueueMessage(serializedElement));
             }
         }
 
         public async Task AddAsync(T element, string queueName)
         {
-            this.queue = this.queueClient.GetQueueReference(queueName);
-            await this.queue.CreateIfNotExistsAsync();
+            _queue = _queueClient.GetQueueReference(queueName);
+            await _queue.CreateIfNotExistsAsync();
 
-            var serializedElement = this.serializer.Serialize(element);
-            await this.queue.AddMessageAsync(new CloudQueueMessage(serializedElement));
+            var serializedElement = _serializer.Serialize(element);
+            await _queue.AddMessageAsync(new CloudQueueMessage(serializedElement));
         }
     }
 }

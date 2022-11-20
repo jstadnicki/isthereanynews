@@ -9,15 +9,15 @@ namespace Itan.Functions.Workers
 {
     public class Function3Worker : IFunction3Worker
     {
-        private readonly ILoger<Function3Worker> logger;
-        private readonly IStreamBlobReader reader;
-        private readonly IFeedReader feedReader;
-        private readonly IQueue<ChannelUpdate> queue;
-        private readonly IBlobPathGenerator pathGenerator;
-        private readonly IBlobContainer blobContainer;
-        private readonly ISerializer serializer;
-        private readonly INewsWriter newsWriter;
-        private readonly IHashSum hasher;
+        private readonly ILoger<Function3Worker> _logger;
+        private readonly IStreamBlobReader _reader;
+        private readonly IFeedReader _feedReader;
+        private readonly IQueue<ChannelUpdate> _queue;
+        private readonly IBlobPathGenerator _pathGenerator;
+        private readonly IBlobContainer _blobContainer;
+        private readonly ISerializer _serializer;
+        private readonly INewsWriter _newsWriter;
+        private readonly IHashSum _hasher;
 
         public Function3Worker(
             ILoger<Function3Worker> logger,
@@ -39,25 +39,25 @@ namespace Itan.Functions.Workers
             Ensure.NotNull(serializer, nameof(serializer));
             Ensure.NotNull(newsWriter, nameof(newsWriter));
 
-            this.logger = logger;
-            this.reader = reader;
-            this.feedReader = feedReader;
-            this.queue = queue;
-            this.pathGenerator = pathGenerator;
-            this.blobContainer = blobContainer;
-            this.serializer = serializer;
-            this.newsWriter = newsWriter;
-            this.hasher = hasher;
+            _logger = logger;
+            _reader = reader;
+            _feedReader = feedReader;
+            _queue = queue;
+            _pathGenerator = pathGenerator;
+            _blobContainer = blobContainer;
+            _serializer = serializer;
+            _newsWriter = newsWriter;
+            _hasher = hasher;
         }
 
         public async Task RunAsync(Guid channelId, string blobName, Stream myBlob)
         {
             try
             {
-                var feedPath = this.pathGenerator.GetChannelDownloadPath(channelId, blobName);
-                var feedString = await this.blobContainer.ReadBlobAsStringAsync("rss", feedPath, IBlobContainer.UploadStringCompression.GZip);
+                var feedPath = _pathGenerator.GetChannelDownloadPath(channelId, blobName);
+                var feedString = await _blobContainer.ReadBlobAsStringAsync("rss", feedPath, IBlobContainer.UploadStringCompression.GZip);
                 //var feedString = await this.reader.ReadAllAsTextAsync(myBlob);
-                var feed = this.feedReader.GetFeed(feedString);
+                var feed = _feedReader.GetFeed(feedString);
                 var feedItems = feed.Items;
                 var channelUpdate = new ChannelUpdate
                 {
@@ -66,15 +66,15 @@ namespace Itan.Functions.Workers
                     Id = channelId
                 };
 
-                await this.queue.AddAsync(channelUpdate, QueuesName.ChannelUpdate);
+                await _queue.AddAsync(channelUpdate, QueuesName.ChannelUpdate);
 
                 foreach (var item in feedItems)
                 {
-                    var itemJson = this.serializer.Serialize(item);
-                    var itemUploadPath = this.pathGenerator.GetPathUpload(channelId, item.Id);
-                    await this.blobContainer.UploadStringAsync("rss", itemUploadPath, itemJson, IBlobContainer.UploadStringCompression.GZip);
+                    var itemJson = _serializer.Serialize(item);
+                    var itemUploadPath = _pathGenerator.GetPathUpload(channelId, item.Id);
+                    await _blobContainer.UploadStringAsync("rss", itemUploadPath, itemJson, IBlobContainer.UploadStringCompression.GZip);
 
-                    var hash = this.hasher.GetHash(
+                    var hash = _hasher.GetHash(
                         item.Content?.Trim()
                         + item.Description?.Trim()
                         + item.Title?.Trim()
@@ -90,19 +90,19 @@ namespace Itan.Functions.Workers
 
                     try
                     {
-                        await this.newsWriter.InsertNewsLinkAsync(channelId, item.Title, item.Id, item.PublishingDate, item.Link, hash);
+                        await _newsWriter.InsertNewsLinkAsync(channelId, item.Title, item.Id, item.PublishingDate, item.Link, hash);
                     }
                     catch (NewsWriterInsertNewsLinkException e)
                     {
-                        this.logger.LogCritical(e.ToString());
-                        await this.blobContainer.DeleteAsync("rss", itemUploadPath);
+                        _logger.LogCritical(e.ToString());
+                        await _blobContainer.DeleteAsync("rss", itemUploadPath);
                     }
                 }
             }
             catch (FeedReaderWrapperParseStringException e)
             {
-                this.logger.LogCritical($"Xml rss/raw/{channelId.ToString()}/{blobName} is broken.Finishing and returning");
-                this.logger.LogCritical(e.ToString());
+                _logger.LogCritical($"Xml rss/raw/{channelId.ToString()}/{blobName} is broken.Finishing and returning");
+                _logger.LogCritical(e.ToString());
             }
         }
     }

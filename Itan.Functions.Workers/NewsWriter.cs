@@ -10,11 +10,11 @@ namespace Itan.Functions.Workers
 {
     public class NewsWriter : INewsWriter
     {
-        private string sqlConnectionString;
+        private string _sqlConnectionString;
 
         public NewsWriter(IOptions<ConnectionOptions> options)
         {
-            this.sqlConnectionString = options.Value.SqlWriter;
+            _sqlConnectionString = options.Value.SqlWriter;
         }
 
         public async Task InsertNewsLinkAsync(Guid channelId, string title, Guid id, DateTime publishingDate, string link, string hash)
@@ -33,7 +33,7 @@ namespace Itan.Functions.Workers
                 hash = hash
             };
 
-            using var sqlConnection = new SqlConnection(this.sqlConnectionString);
+            using var sqlConnection = new SqlConnection(_sqlConnectionString);
             try
             {
                 await sqlConnection.ExecuteAsync(query, data);

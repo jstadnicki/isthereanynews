@@ -9,11 +9,11 @@ namespace Itan.Core.UserSubscribeToChannel
 {
     class UserToChannelSubscriptionsRepository : IUserToChannelSubscriptionsRepository
     {
-        private readonly string connectionString;
+        private readonly string _connectionString;
 
         public UserToChannelSubscriptionsRepository(IOptions<ConnectionOptions> options)
         {
-            this.connectionString = options.Value.SqlWriter;
+            _connectionString = options.Value.SqlWriter;
         }
 
         public async Task<int> CreateSubscriptionAsync(Guid requestChannelId, Guid requestUserId)
@@ -33,7 +33,7 @@ namespace Itan.Core.UserSubscribeToChannel
                 createdOn = DateTime.UtcNow
             };
             
-            using var connection = new SqlConnection(this.connectionString);
+            using var connection = new SqlConnection(_connectionString);
             return await connection.ExecuteAsync(sql, sqlData);
         }
     }

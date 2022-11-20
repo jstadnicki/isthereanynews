@@ -15,11 +15,11 @@ namespace Itan.Api.Controllers
     [AllowAnonymous]
     public class NewsController : ControllerBase
     {
-        private IMediator mediator;
+        private IMediator _mediator;
 
         public NewsController(IMediator mediator)
         {
-            this.mediator = mediator;
+            _mediator = mediator;
         }
 
         [HttpGet]
@@ -27,8 +27,8 @@ namespace Itan.Api.Controllers
         public async Task<ActionResult<List<NewsViewModel>>> Get(Guid channelId)
         {
             var request = new GetNewsByChannelRequest(channelId);
-            var result = await this.mediator.Send(request);
-            return this.Ok(result);
+            var result = await _mediator.Send(request);
+            return Ok(result);
         }
     }
 }

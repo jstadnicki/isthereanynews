@@ -7,8 +7,8 @@ namespace Itan.Core.UserSubscribeToChannel
     {
         public UserSubscribeToChannelRequest(string userId, string channelId)
         {
-            this.UserId = Guid.Parse(userId);
-            this.ChannelId = Guid.Parse(channelId);
+            UserId = Guid.Parse(userId);
+            ChannelId = Guid.Parse(channelId);
         }
 
         public Guid UserId { get; }

@@ -7,14 +7,14 @@ namespace Itan.Functions.Workers
 {
     public class Function2Worker : IFunction2Worker
     {
-        private readonly ILoger<Function2Worker> log;
-        private readonly IChannelsDownloadsReader downloadsReader;
-        private readonly IBlobContainer blobContainer;
-        private readonly IBlobPathGenerator blobPathGenerator;
-        private readonly IHttpDownloader httpDownloader;
-        private readonly IChannelsDownloadsWriter downloadsWriter;
-        private readonly ISerializer serializer;
-        private readonly IHashSum hasher;
+        private readonly ILoger<Function2Worker> _log;
+        private readonly IChannelsDownloadsReader _downloadsReader;
+        private readonly IBlobContainer _blobContainer;
+        private readonly IBlobPathGenerator _blobPathGenerator;
+        private readonly IHttpDownloader _httpDownloader;
+        private readonly IChannelsDownloadsWriter _downloadsWriter;
+        private readonly ISerializer _serializer;
+        private readonly IHashSum _hasher;
 
         public Function2Worker(
             ILoger<Function2Worker> log,
@@ -35,44 +35,44 @@ namespace Itan.Functions.Workers
             Ensure.NotNull(serializer, nameof(serializer));
             Ensure.NotNull(hasher, nameof(hasher));
 
-            this.log = log;
-            this.downloadsReader = downloadsReader;
-            this.blobPathGenerator = blobPathGenerator;
-            this.httpDownloader = httpDownloader;
-            this.blobContainer = blobContainer;
-            this.downloadsWriter = downloadsWriter;
-            this.serializer = serializer;
-            this.hasher = hasher;
+            _log = log;
+            _downloadsReader = downloadsReader;
+            _blobPathGenerator = blobPathGenerator;
+            _httpDownloader = httpDownloader;
+            _blobContainer = blobContainer;
+            _downloadsWriter = downloadsWriter;
+            _serializer = serializer;
+            _hasher = hasher;
         }
 
         public async Task Run(string queueItem)
         {
-            var channelToDownload = this.serializer.Deserialize<ChannelToDownload>(queueItem);
+            var channelToDownload = _serializer.Deserialize<ChannelToDownload>(queueItem);
 
-            var channelString = await this.httpDownloader.GetStringAsync(channelToDownload.Url);
+            var channelString = await _httpDownloader.GetStringAsync(channelToDownload.Url);
             if (string.IsNullOrWhiteSpace(channelString))
             {
                 return;
             }
 
-            var sha = this.hasher.GetHash(channelString);
+            var sha = _hasher.GetHash(channelString);
 
-            if (await this.downloadsReader.Exists(channelToDownload.Id, sha))
+            if (await _downloadsReader.Exists(channelToDownload.Id, sha))
             {
                 return;
             }
 
-            var channelDownloadPath = this.blobPathGenerator.CreateChannelDownloadPath(channelToDownload.Id);
-            await this.blobContainer.UploadStringAsync("rss", channelDownloadPath, channelString, IBlobContainer.UploadStringCompression.GZip);
+            var channelDownloadPath = _blobPathGenerator.CreateChannelDownloadPath(channelToDownload.Id);
+            await _blobContainer.UploadStringAsync("rss", channelDownloadPath, channelString, IBlobContainer.UploadStringCompression.GZip);
 
             var data = new DownloadDto
             {
                 ChannelId = channelToDownload.Id,
                 Path = channelDownloadPath,
-                SHA = sha
+                Sha = sha
             };
 
-            await this.downloadsWriter.InsertAsync(data);
+            await _downloadsWriter.InsertAsync(data);
         }
     }
 }

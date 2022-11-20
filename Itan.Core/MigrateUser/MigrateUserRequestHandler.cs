@@ -11,11 +11,11 @@ namespace Itan.Core.MigrateUser
 {
     public class MigrateUserRequestHandler : IRequestHandler<MigrateUserRequest, Unit>
     {
-        private readonly string writeConnection;
+        private readonly string _writeConnection;
 
         public MigrateUserRequestHandler(IOptions<ConnectionOptions> options)
         {
-            this.writeConnection = options.Value.SqlWriter;
+            _writeConnection = options.Value.SqlWriter;
         }
 
         public async Task<Unit> Handle(MigrateUserRequest request, CancellationToken cancellationToken)
@@ -41,7 +41,7 @@ namespace Itan.Core.MigrateUser
                 squashNewsUpdates = SquashUpdate.Show.ToString()
             };
 
-            await using var connection = new SqlConnection(this.writeConnection);
+            await using var connection = new SqlConnection(_writeConnection);
             await connection.ExecuteAsync(query, queryData);
         }
 
@@ -57,7 +57,7 @@ namespace Itan.Core.MigrateUser
                 date = DateTime.UtcNow
             };
 
-            await using var connection = new SqlConnection(this.writeConnection);
+            await using var connection = new SqlConnection(_writeConnection);
             await connection.ExecuteAsync(query, queryData);
         }
     }

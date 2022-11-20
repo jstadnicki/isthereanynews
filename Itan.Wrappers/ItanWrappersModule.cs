@@ -6,11 +6,11 @@ namespace Itan.Wrappers
 {
     public class ItanWrappersModule : Autofac.Module
     {
-        private readonly IConfiguration configuration;
+        private readonly IConfiguration _configuration;
 
         public ItanWrappersModule(IConfiguration configuration)
         {
-            this.configuration = configuration;
+            _configuration = configuration;
         }
 
         protected override void Load(ContainerBuilder builder)
@@ -20,7 +20,7 @@ namespace Itan.Wrappers
             
             builder.Register<IOptions<EmailSenderSettings>>(context =>
                 {
-                    var s = this.configuration
+                    var s = _configuration
                         .GetSection("EmailSenderSettings")
                         .Get<EmailSenderSettings>();
                     return new OptionsWrapper<EmailSenderSettings>(s);

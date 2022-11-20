@@ -9,16 +9,16 @@ namespace Itan.Functions
 {
     public class Function4
     {
-        private readonly IFunction4Worker worker;
+        private readonly IFunction4Worker _worker;
 
         public Function4(IFunction4Worker worker)
         {
-            this.worker = worker;
+            _worker = worker;
         }
         [FunctionName("Function4")]
         public async Task Run([QueueTrigger(QueuesName.ChannelUpdate, Connection = "Storage")]string myQueueItem)
         {
-            await this.worker.RunAsync(myQueueItem);
+            await _worker.RunAsync(myQueueItem);
         }
     }
 }

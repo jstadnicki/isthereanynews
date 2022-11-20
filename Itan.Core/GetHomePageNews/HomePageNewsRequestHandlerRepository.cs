@@ -13,13 +13,13 @@ namespace Itan.Core.GetHomePageNews
 {
     class HomePageNewsRequestHandlerRepository : IHomePageNewsRequestHandlerRepository
     {
-        private string connectionString;
-        private string storage;
+        private string _connectionString;
+        private string _storage;
 
         public HomePageNewsRequestHandlerRepository(IOptions<ConnectionOptions> options)
         {
-            this.connectionString = options.Value.SqlReader;
-            this.storage = options.Value.Storage;
+            _connectionString = options.Value.SqlReader;
+            _storage = options.Value.Storage;
         }
 
         public async Task<HomePageNewsViewModel> GetHomePageNews()
@@ -50,7 +50,7 @@ namespace Itan.Core.GetHomePageNews
             List<LandingPageNewsViewModel> queryResult = new List<LandingPageNewsViewModel>();
             HomePageNewsViewModel result = new HomePageNewsViewModel();
 
-            using (var connection = new SqlConnection(this.connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
                 var reader = await connection.QueryMultipleAsync(query, queryData);
                 List<LandingPageNewsViewModel> news;
@@ -85,7 +85,7 @@ namespace Itan.Core.GetHomePageNews
                 }
             }
 
-            var account = CloudStorageAccount.Parse(this.storage);
+            var account = CloudStorageAccount.Parse(_storage);
             var serviceClient = account.CreateCloudBlobClient();
             var container = serviceClient.GetContainerReference("rss");
 

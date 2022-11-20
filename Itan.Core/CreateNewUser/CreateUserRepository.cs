@@ -10,11 +10,11 @@ namespace Itan.Core.CreateNewUser
 {
     class CreateUserRepository : ICreateUserRepository
     {
-        private readonly string connectionString;
+        private readonly string _connectionString;
 
         public CreateUserRepository(IOptions<ConnectionOptions> options)
         {
-            this.connectionString = options.Value.SqlWriter;
+            _connectionString = options.Value.SqlWriter;
         }
 
         public async Task CreatePersonIfNotExists(Guid requestUserId)
@@ -23,7 +23,7 @@ namespace Itan.Core.CreateNewUser
                       "BEGIN\n" +
                       $"INSERT INTO Persons (Id, CreatedOn) VALUES ('{requestUserId.ToString()}','{DateTime.UtcNow.ToString(CultureInfo.InvariantCulture)}')\n" +
                       "END";
-            using var connection = new SqlConnection(this.connectionString);
+            using var connection = new SqlConnection(_connectionString);
             await connection.ExecuteAsync(sql);
         }
     }

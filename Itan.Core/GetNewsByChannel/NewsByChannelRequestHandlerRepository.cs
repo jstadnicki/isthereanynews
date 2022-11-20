@@ -13,19 +13,19 @@ namespace Itan.Core.GetNewsByChannel
 {
     class NewsByChannelRequestHandlerRepository : INewsByChannelRequestHandlerRepository
     {
-        private string connectionString;
-        private string emulator;
+        private string _connectionString;
+        private string _emulator;
 
         public NewsByChannelRequestHandlerRepository(IOptions<ConnectionOptions> options)
         {
-            this.connectionString = options.Value.SqlReader;
-            this.emulator = options.Value.Storage;
+            _connectionString = options.Value.SqlReader;
+            _emulator = options.Value.Storage;
         }
         
         public async Task<List<NewsViewModel>> GetAllByChannel(Guid channelId)
         {
             var newsHeaderList = new List<NewsHeader>();
-            using (var connection = new SqlConnection(this.connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
                 var query = "select n.id,n.Title, n.Published, n.Link from News n where n.ChannelId = @channelId AND n.OriginalPostId IS NULL order by n.Published desc";
                 var queryData = new
@@ -38,7 +38,7 @@ namespace Itan.Core.GetNewsByChannel
             }
 
 
-            var account = CloudStorageAccount.Parse(this.emulator);
+            var account = CloudStorageAccount.Parse(_emulator);
             var serviceClient = account.CreateCloudBlobClient();
             var container = serviceClient.GetContainerReference("rss");
 

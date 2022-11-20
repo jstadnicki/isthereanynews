@@ -8,8 +8,8 @@ namespace Itan.Core.UpdateShowUpdatedNews
     {
         public UpdateShowUpdatedNewsRequest(Guid userId, UpdatedNews showUpdatedNews)
         {
-            this.UserId = userId;
-            this.ShowUpdatedNews = showUpdatedNews;
+            UserId = userId;
+            ShowUpdatedNews = showUpdatedNews;
         }
 
         public UpdatedNews ShowUpdatedNews { get; }

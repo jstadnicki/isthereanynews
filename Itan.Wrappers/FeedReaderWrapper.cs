@@ -14,7 +14,7 @@ namespace Itan.Wrappers
             {
                 Description = feed.Description,
                 Title = feed.Title,
-                Items = this.GetItems(feed.Items)
+                Items = GetItems(feed.Items)
             };
 
             return itanFeed;
@@ -37,8 +37,8 @@ namespace Itan.Wrappers
             var ordered = feedItems.Where(fi => fi.PublishingDate != null);
             var withoutPublicationDate = feedItems.Except(ordered).Reverse();
             List<ItanFeedItem> list = new List<ItanFeedItem>();
-            list.AddRange(ordered.Select(this.ConvertIntoItanFeedItem));
-            list.AddRange(withoutPublicationDate.Select(this.ConvertIntoItanFeedItem));
+            list.AddRange(ordered.Select(ConvertIntoItanFeedItem));
+            list.AddRange(withoutPublicationDate.Select(ConvertIntoItanFeedItem));
             return list;
         }
 

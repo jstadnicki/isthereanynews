@@ -6,16 +6,16 @@ namespace Itan.Core.MarkNewsOpen
 {
     public class MarkNewsOpenCommandHandler : AsyncRequestHandler<MarkNewsOpenCommand>
     {
-        private readonly IMarkNewsOpenRepository repository;
+        private readonly IMarkNewsOpenRepository _repository;
 
         public MarkNewsOpenCommandHandler(IMarkNewsOpenRepository repository)
         {
-            this.repository = repository;
+            _repository = repository;
         }
 
         protected override async Task Handle(MarkNewsOpenCommand request, CancellationToken cancellationToken)
         {
-            await this.repository.MarkNewsOpenAsync(request.ChannelId, request.NewsId, request.UserId);
+            await _repository.MarkNewsOpenAsync(request.ChannelId, request.NewsId, request.UserId);
         }
     }
 }

@@ -12,21 +12,21 @@ namespace Itan.Api.Controllers
     [ApiController]
     public class ChannelOpenNewsController : ControllerBase
     {
-        private readonly IMediator mediator;
+        private readonly IMediator _mediator;
 
         public ChannelOpenNewsController(IMediator mediator)
         {
-            this.mediator = mediator;
+            _mediator = mediator;
         }
 
         [HttpPost]
         [Authorize]
         public async Task<ActionResult> Post([FromBody]MarkNewsAsOpenRequest request)
         {
-            var userId = Guid.Parse(this.User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
+            var userId = Guid.Parse(User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
             var command = new MarkNewsOpenCommand(request.ChannelId, request.NewsId, userId);
-            await this.mediator.Send(command);
-            return this.Ok();
+            await _mediator.Send(command);
+            return Ok();
         }
 
         public class MarkNewsAsOpenRequest

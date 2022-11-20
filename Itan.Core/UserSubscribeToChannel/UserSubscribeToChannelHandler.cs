@@ -8,17 +8,17 @@ namespace Itan.Core.UserSubscribeToChannel
 {
     public class UserSubscribeToChannelHandler : AsyncRequestHandler<UserSubscribeToChannelRequest>
     {
-        private IUserToChannelSubscriptionsRepository repository;
+        private IUserToChannelSubscriptionsRepository _repository;
 
         public UserSubscribeToChannelHandler(IUserToChannelSubscriptionsRepository repository)
         {
-            this.repository = repository;
+            _repository = repository;
         }
 
         protected override Task Handle(UserSubscribeToChannelRequest request, CancellationToken cancellationToken)
         {
-            this.Validate(request);
-            return this.repository.CreateSubscriptionAsync(request.ChannelId, request.UserId);
+            Validate(request);
+            return _repository.CreateSubscriptionAsync(request.ChannelId, request.UserId);
         }
 
         private void Validate(UserSubscribeToChannelRequest request)

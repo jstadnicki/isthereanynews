@@ -9,11 +9,11 @@ namespace Itan.Core.ChannelsCreateNewChannel
 {
     public class CreateNewChannelRepository : ICreateNewChannelRepository
     {
-        private readonly string connectionString;
+        private readonly string _connectionString;
 
         public CreateNewChannelRepository(IOptions<ConnectionOptions> options)
         {
-            this.connectionString = options.Value.SqlWriter;
+            _connectionString = options.Value.SqlWriter;
         }
         public async Task<Guid> SaveAsync(string url, Guid submitterId)
         {
@@ -33,7 +33,7 @@ namespace Itan.Core.ChannelsCreateNewChannel
                 date = DateTime.UtcNow,
             };
 
-            await using var connection = new SqlConnection(this.connectionString);
+            await using var connection = new SqlConnection(_connectionString);
             await connection.ExecuteAsync(sql, sqlData);
             return sqlData.channelId;
         }

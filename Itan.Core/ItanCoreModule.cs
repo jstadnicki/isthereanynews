@@ -11,11 +11,11 @@ namespace Itan.Core
 {
     public class ItanCoreModule : Module
     {
-        private readonly IConfiguration configuration;
+        private readonly IConfiguration _configuration;
 
         public ItanCoreModule(IConfiguration configuration)
         {
-            this.configuration = configuration;
+            _configuration = configuration;
         }
 
         protected override void Load(ContainerBuilder builder)
@@ -30,7 +30,7 @@ namespace Itan.Core
 
             builder.Register<IOptions<GraphApiSettings>>(context =>
                 {
-                    var s = this.configuration
+                    var s = _configuration
                         .GetSection("GraphApi")
                         .Get<GraphApiSettings>();
                     return new OptionsWrapper<GraphApiSettings>(s);

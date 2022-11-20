@@ -12,12 +12,12 @@ namespace Itan.Wrappers
 {
     public class BlobContainer : IBlobContainer
     {
-        private readonly string storage;
+        private readonly string _storage;
 
         public BlobContainer(IOptions<ConnectionOptions> connectionOptions)
         {
             Ensure.NotNull(connectionOptions, nameof(connectionOptions));
-            this.storage = connectionOptions.Value.Storage;
+            _storage = connectionOptions.Value.Storage;
         }
 
         public async Task UploadStringAsync(
@@ -26,14 +26,14 @@ namespace Itan.Wrappers
             string stringToUpload,
             IBlobContainer.UploadStringCompression compression = IBlobContainer.UploadStringCompression.None)
         {
-            var account = CloudStorageAccount.Parse(this.storage);
+            var account = CloudStorageAccount.Parse(_storage);
             var serviceClient = account.CreateCloudBlobClient();
             var container = serviceClient.GetContainerReference(containerName);
             await container.CreateIfNotExistsAsync();
             var blob = container.GetBlockBlobReference(path);
             if (compression == IBlobContainer.UploadStringCompression.GZip)
             {
-                await this.CompressAndUpload(stringToUpload, blob);
+                await CompressAndUpload(stringToUpload, blob);
             }
             else
             {
@@ -43,7 +43,7 @@ namespace Itan.Wrappers
 
         private async Task CompressAndUpload(string stringToUpload, CloudBlockBlob blob)
         {
-            var bytes = this.Compress(stringToUpload);
+            var bytes = Compress(stringToUpload);
             blob.Properties.ContentEncoding = "gzip";
             blob.Properties.ContentType = "application/json";
             await blob.UploadFromByteArrayAsync(bytes, 0, bytes.Length);
@@ -65,7 +65,7 @@ namespace Itan.Wrappers
 
         public Task DeleteAsync(string containerName, string path)
         {
-            var account = CloudStorageAccount.Parse(this.storage);
+            var account = CloudStorageAccount.Parse(_storage);
             var serviceClient = account.CreateCloudBlobClient();
             var container = serviceClient.GetContainerReference(containerName);
             var blob = container.GetBlockBlobReference(path);
@@ -74,7 +74,7 @@ namespace Itan.Wrappers
 
         public async Task<string> ReadBlobAsStringAsync(string containerName, string path, IBlobContainer.UploadStringCompression compression)
         {
-            var account = CloudStorageAccount.Parse(this.storage);
+            var account = CloudStorageAccount.Parse(_storage);
             var serviceClient = account.CreateCloudBlobClient();
             var container = serviceClient.GetContainerReference(containerName);
             var blob = container.GetBlockBlobReference(path);

@@ -12,18 +12,18 @@ namespace Itan.Core.GetAllChannels
 {
     public class GetAllChannelsViewModelsRequestHandler : IRequestHandler<GetAllChannelsViewModelsRequest, List<ChannelViewModel>>
     {
-        private string connectionString;
+        private string _connectionString;
 
         public GetAllChannelsViewModelsRequestHandler(IOptions<ConnectionOptions> options)
         {
-            this.connectionString = options.Value.SqlReader;
+            _connectionString = options.Value.SqlReader;
         }
 
         public async Task<List<ChannelViewModel>> Handle(
             GetAllChannelsViewModelsRequest _,
             CancellationToken __)
         {
-            using (var connection = new SqlConnection(this.connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
                 var sqlQuery = 
                     "SELECT c.id, c.title, c.description, c.Url, count(n.Id) as NewsCount"+

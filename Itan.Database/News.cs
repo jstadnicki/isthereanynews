@@ -26,7 +26,7 @@ namespace Itan.Database
         [MaxLength(64)]
         [MinLength(64)]
         [Required]
-        public string SHA256 { get; set; }
+        public string Sha256 { get; set; }
 
         public virtual IEnumerable<ChannelNewsRead> ChannelNewsRead { get; set; }
         public virtual IEnumerable<ChannelNewsOpened> ChannelNewsOpened { get; set; }

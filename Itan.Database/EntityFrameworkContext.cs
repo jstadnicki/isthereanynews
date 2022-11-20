@@ -130,7 +130,7 @@ namespace Itan.Database
         private void ConfigureChannelDownload(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ChannelDownload>()
-                .HasIndex(x => new {x.ChannelId, x.SHA256})
+                .HasIndex(x => new {x.ChannelId, SHA256 = x.SHA256})
                 .IsUnique(true);
         }
 
@@ -158,7 +158,7 @@ namespace Itan.Database
         private void ConfigureNews(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<News>()
-                .HasIndex(x => new {x.ChannelId, x.SHA256})
+                .HasIndex(x => new {x.ChannelId, SHA256 = x.Sha256})
                 .IsUnique(true);
 
             modelBuilder.Entity<News>()

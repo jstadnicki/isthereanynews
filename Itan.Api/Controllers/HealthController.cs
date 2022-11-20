@@ -15,21 +15,21 @@ namespace Itan.Api.Controllers
     [Route("[controller]")]
     public class HealthController : ControllerBase
     {
-        private readonly IOptions<ConnectionOptions> options;
+        private readonly IOptions<ConnectionOptions> _options;
 
         public HealthController(IOptions<ConnectionOptions> options)
         {
-            this.options = options;
+            _options = options;
         }
         
         [Route("ping")]
         public ActionResult<string> Ping()
         {
-            return this.Ok("Pong");
+            return Ok("Pong");
         }
         
         [Route("akv")]
-        public async Task<ActionResult<string>> AKV()
+        public async Task<ActionResult<string>> Akv()
         {
             SecretClientOptions options = new SecretClientOptions()
             {

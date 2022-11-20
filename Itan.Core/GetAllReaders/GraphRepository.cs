@@ -11,11 +11,11 @@ namespace Itan.Core.GetAllReaders
 {
     class GraphRepository : IGraphRepository
     {
-        private readonly GraphApiSettings graphApiSettings;
+        private readonly GraphApiSettings _graphApiSettings;
 
         public GraphRepository(IOptions<GraphApiSettings> graphApiSettings)
         {
-            this.graphApiSettings = graphApiSettings.Value;
+            _graphApiSettings = graphApiSettings.Value;
         }
         
         public async Task<List<GraphUserDisplayName>> GetUsersDisplayNameAsync(List<string> _)
@@ -23,9 +23,9 @@ namespace Itan.Core.GetAllReaders
             var scopes = new string[] {"https://graph.microsoft.com/.default"};
             
             var confidentialClientApplication = ConfidentialClientApplicationBuilder
-                .Create(this.graphApiSettings.ClientId)
-                .WithClientSecret(this.graphApiSettings.ClientSecret)
-                .WithTenantId(this.graphApiSettings.TenantId)
+                .Create(_graphApiSettings.ClientId)
+                .WithClientSecret(_graphApiSettings.ClientSecret)
+                .WithTenantId(_graphApiSettings.TenantId)
                 .Build();
             
             var graphServiceClient = new GraphServiceClient(new DelegateAuthenticationProvider(

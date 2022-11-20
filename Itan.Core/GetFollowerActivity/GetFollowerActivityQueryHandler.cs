@@ -13,11 +13,11 @@ namespace Itan.Core.GetFollowerActivity
 {
     public class GetFollowerActivityQueryHandler : IRequestHandler<GetFollowerActivityQuery, List<FollowerActivityViewModel>>
     {
-        private readonly string readerConnection;
+        private readonly string _readerConnection;
 
         public GetFollowerActivityQueryHandler(IOptions<ConnectionOptions> options)
         {
-            this.readerConnection = options.Value.SqlReader;
+            _readerConnection = options.Value.SqlReader;
         }
 
         public async Task<List<FollowerActivityViewModel>> Handle(GetFollowerActivityQuery request, CancellationToken cancellationToken)
@@ -40,7 +40,7 @@ namespace Itan.Core.GetFollowerActivity
                 personId = request.PersonId
             };
 
-            using (var connection = new SqlConnection(this.readerConnection))
+            using (var connection = new SqlConnection(_readerConnection))
             {
                 var readerAsync = await connection.QueryAsync<FollowerActivityViewModel>(query, queryData);
                 var list = readerAsync.ToList();

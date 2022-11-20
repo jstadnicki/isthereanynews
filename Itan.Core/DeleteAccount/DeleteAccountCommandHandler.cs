@@ -10,20 +10,20 @@ namespace Itan.Core.DeleteAccount
 {
     public class DeleteAccountCommandHandler : IRequestHandler<DeleteAccountCommand, Unit>
     {
-        private readonly GraphApiSettings graphApiSettings;
+        private readonly GraphApiSettings _graphApiSettings;
 
         public DeleteAccountCommandHandler(IOptions<GraphApiSettings> graphApiSettings)
         {
-            this.graphApiSettings = graphApiSettings.Value;
+            _graphApiSettings = graphApiSettings.Value;
         }
         public async Task<Unit> Handle(DeleteAccountCommand request, CancellationToken cancellationToken)
         {
             var scopes = new string[] {"https://graph.microsoft.com/.default"};
             
             var confidentialClientApplication = ConfidentialClientApplicationBuilder
-                .Create(this.graphApiSettings.ClientId)
-                .WithClientSecret(this.graphApiSettings.ClientSecret)
-                .WithTenantId(this.graphApiSettings.TenantId)
+                .Create(_graphApiSettings.ClientId)
+                .WithClientSecret(_graphApiSettings.ClientSecret)
+                .WithTenantId(_graphApiSettings.TenantId)
                 .Build();
 
             var graphServiceClient = new GraphServiceClient(new DelegateAuthenticationProvider(

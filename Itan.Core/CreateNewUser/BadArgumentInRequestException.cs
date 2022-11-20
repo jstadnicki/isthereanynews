@@ -4,15 +4,15 @@ namespace Itan.Core.CreateNewUser
 {
     internal class BadArgumentInRequestException : Exception
     {
-        private readonly string createUserHandlerName;
-        private readonly string requestUserIdName;
+        private readonly string _createUserHandlerName;
+        private readonly string _requestUserIdName;
 
         public BadArgumentInRequestException(string createUserHandlerName, string requestUserIdName)
         {
-            this.createUserHandlerName = createUserHandlerName;
-            this.requestUserIdName = requestUserIdName;
+            _createUserHandlerName = createUserHandlerName;
+            _requestUserIdName = requestUserIdName;
         }
 
-        public override string Message => $"Exception when handling {this.createUserHandlerName}, problem with {this.requestUserIdName}";
+        public override string Message => $"Exception when handling {_createUserHandlerName}, problem with {_requestUserIdName}";
     }
 }

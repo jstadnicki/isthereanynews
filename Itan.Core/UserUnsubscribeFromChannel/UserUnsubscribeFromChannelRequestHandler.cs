@@ -9,17 +9,17 @@ namespace Itan.Core.UserUnsubscribeFromChannel
 {
     public class UserUnsubscribeFromChannelRequestHandler : IRequestHandler<UserUnsubscribeFromChannelRequest>
     {
-        private IUnsubscribeFromChannelRepository repository;
+        private IUnsubscribeFromChannelRepository _repository;
 
         public UserUnsubscribeFromChannelRequestHandler(IUnsubscribeFromChannelRepository repository)
         {
-            this.repository = repository;
+            _repository = repository;
         }
 
         public Task<Unit> Handle(UserUnsubscribeFromChannelRequest request, CancellationToken cancellationToken)
         {
-            this.Validate(request);
-            this.repository.DeleteSubscriptionAsync(request.ChannelId, request.UserId);
+            Validate(request);
+            _repository.DeleteSubscriptionAsync(request.ChannelId, request.UserId);
             return Unit.Task;
         }
 
