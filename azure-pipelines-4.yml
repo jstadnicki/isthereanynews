@@ -42,7 +42,7 @@ steps:
 
   - task: AzureCLI@2
     inputs:
-      azureSubscription: 'PAYG (itan) service connection'
+      azureSubscription: 'payg_itan_service_connection'
       scriptType: 'pscore'
       scriptLocation: 'inlineScript'
       inlineScript: 'dotnet ef migrations script -i -o migration.sql'
@@ -50,13 +50,13 @@ steps:
 
   - task: AzureCLI@2
     inputs:
-      azureSubscription:  'PAYG (itan) service connection'
+      azureSubscription: 'payg_itan_service_connection'
       scriptType: 'pscore'
       scriptLocation: 'inlineScript'
       inlineScript: 'dotnet ef migrations list --project $(project) --startup-project $(project) --msbuildprojectextensionspath Itan.Database/obj/local'
   - task: AzureCLI@2
     inputs:
-      azureSubscription:  'PAYG (itan) service connection'
+      azureSubscription: 'payg_itan_service_connection'
       scriptType: 'pscore'
       scriptLocation: 'inlineScript'
       inlineScript: 'dotnet ef migrations script -i -o $(Build.ArtifactStagingDirectory)/migration.sql --project $(project) --startup-project $(project) --msbuildprojectextensionspath obj/local'
