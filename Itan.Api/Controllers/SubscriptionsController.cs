@@ -8,6 +8,8 @@ using System.Xml.Serialization;
 using Itan.Core;
 using Itan.Core.GetAllSubscribedChannels;
 using Itan.Core.ImportSubscriptions;
+using Itan.Core.UserSubscribeToChannel;
+using Itan.Core.UserUnsubscribeFromChannel;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -36,22 +38,28 @@ namespace Itan.Api.Controllers
         }
 
         [HttpPost]
-        [Route("import")]
-        public async Task<ActionResult> Post([FromForm(Name = "file")] IFormFile file)
+        [Route("channels")]
+        public async Task<ActionResult> Post(SubscribeModel model)
         {
-
-            var userId = Guid.Parse(User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value);
-
-            var stream = file.OpenReadStream();
-            var httpRequestStreamReader = new HttpRequestStreamReader(stream, Encoding.Default);
-            var xmlTextReader = new XmlTextReader(httpRequestStreamReader);
-            var xs = new XmlSerializer(typeof(Opml));
-            var opml = (Opml) xs.Deserialize(xmlTextReader);
-
-            var command = new ImportSubscriptionsRequest(userId, opml);
-
+            var userId = User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
+            var command = new UserSubscribeToChannelRequest(userId, model.ChannelId);
             await _mediator.Send(command);
-            return Ok();
+            return Accepted();
+        }
+
+        [HttpDelete]
+        [Route("channels/{channelId}")]
+        public async Task<ActionResult> Delete(SubscribeModel model)
+        {
+            var userId = User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
+            var command = new UserUnsubscribeFromChannelRequest(userId, model.ChannelId);
+            await _mediator.Send(command);
+            return Accepted();
+        }
+
+        public class SubscribeModel
+        {
+            public string ChannelId { get; set; }
         }
     }
 }
