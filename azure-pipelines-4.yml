@@ -12,7 +12,7 @@ steps:
   - task: AzureKeyVault@1
     displayName: Fetch AKV
     inputs:
-      azureSubscription: 'PAYG (itan) service connection'
+      azureSubscription: 'payg_itan_service_connection'
       KeyVaultName: 'itan-key-vault'
       SecretsFilter: '*'
       RunAsPreJob: false
