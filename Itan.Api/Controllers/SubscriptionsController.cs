@@ -49,10 +49,10 @@ namespace Itan.Api.Controllers
 
         [HttpDelete]
         [Route("channels/{channelId}")]
-        public async Task<ActionResult> Delete(SubscribeModel model)
+        public async Task<ActionResult> Delete(string channelId)
         {
             var userId = User.Claims.Single(x => x.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
-            var command = new UserUnsubscribeFromChannelRequest(userId, model.ChannelId);
+            var command = new UserUnsubscribeFromChannelRequest(userId, channelId);
             await _mediator.Send(command);
             return Accepted();
         }

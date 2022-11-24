@@ -64,7 +64,7 @@ export class ChannelsPageComponent implements OnInit {
     };
 
     this.http
-      .post(`${environment.apiUrl}/api/Subscriptions/channels`, body, options)
+      .delete(`${environment.apiUrl}/api/Subscriptions/channels/${channel.id}`, options)
       .pipe(
         tap(() => this.showUnsubscribeNotification(true)),
         //catchError(e => this.showUnsubscribeNotification(false))
