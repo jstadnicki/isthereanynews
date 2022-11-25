@@ -1,10 +1,10 @@
-﻿using Autofac.Extensions.DependencyInjection;
+﻿using System;
+using Autofac.Extensions.DependencyInjection;
+using Azure.Identity;
+
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Azure.KeyVault;
-using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.AzureKeyVault;
 
 namespace Itan.Api
 {
@@ -18,18 +18,13 @@ namespace Itan.Api
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
-            var astp = new AzureServiceTokenProvider();
-            var kvc = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(astp.KeyVaultTokenCallback));
-
             return WebHost
                 .CreateDefaultBuilder(args)
                 .ConfigureServices(x => x.AddAutofac())
                 .ConfigureAppConfiguration((x, config) =>
                 {
                     config.AddJsonFile("appsettings.json");
-                    config.AddAzureKeyVault("https://itan-key-vault.vault.azure.net", 
-                        kvc,
-                        new DefaultKeyVaultSecretManager());
+                    config.AddAzureKeyVault(new Uri("https://itan-key-vault.vault.azure.net"), new DefaultAzureCredential());
                 })
                 .UseStartup<Startup>();
         }

@@ -1,13 +1,13 @@
-﻿using Itan.Common;
+﻿using System;
+using Azure.Identity;
+
+using Itan.Common;
 using Itan.Functions.Workers;
 using Itan.Wrappers;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
-using Microsoft.Azure.KeyVault;
-using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.Azure.WebJobs.Host.Bindings;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration.AzureKeyVault;
 using Microsoft.Extensions.Options;
 
 [assembly: FunctionsStartup(typeof(Itan.Functions.Startup))]
@@ -18,13 +18,8 @@ namespace Itan.Functions
     {
         public override void Configure(IFunctionsHostBuilder builder)
         {
-            var astp = new AzureServiceTokenProvider();
-            var kvc = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(astp.KeyVaultTokenCallback));
-
             var configurationBuilder = new ConfigurationBuilder();
-            configurationBuilder.AddAzureKeyVault("https://itan-key-vault.vault.azure.net",
-                kvc,
-                new DefaultKeyVaultSecretManager());
+            configurationBuilder.AddAzureKeyVault(new Uri("https://itan-key-vault.vault.azure.net"),new DefaultAzureCredential());
 
             var executionContextOptions = builder.Services.BuildServiceProvider()
                 .GetService<IOptions<ExecutionContextOptions>>().Value;
