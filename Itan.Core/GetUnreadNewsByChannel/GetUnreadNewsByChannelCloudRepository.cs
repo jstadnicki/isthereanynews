@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Azure.Identity;
+using Azure.Storage;
+using Azure.Storage.Blobs;
+using Azure.Storage.Sas;
 using Itan.Common;
 using Itan.Core.GetNewsByChannel;
 using Microsoft.Extensions.Options;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace Itan.Core.GetUnreadNewsByChannel
 {
@@ -20,28 +22,33 @@ namespace Itan.Core.GetUnreadNewsByChannel
 
         public List<NewsViewModel> GetNewsViewModel(string requestChannelId, List<NewsHeader> newsHeaders)
         {
-            var account = CloudStorageAccount.Parse(_storage);
-            var serviceClient = account.CreateCloudBlobClient();
-            var container = serviceClient.GetContainerReference("rss");
+            var accountUri = new Uri(_storage);
+            var blobClient = new BlobServiceClient(accountUri, new DefaultAzureCredential());
+            var container = blobClient.GetBlobContainerClient("rss");
 
-            var sharedAccessBlobPolicy = new SharedAccessBlobPolicy
-            {
-                Permissions = SharedAccessBlobPermissions.Read,
-                SharedAccessStartTime = DateTime.UtcNow,
-                SharedAccessExpiryTime = DateTimeOffset.UtcNow.AddHours(1)
-            };
-
+            
             var itemsToDownload = newsHeaders.Select(x =>
             {
                 var itemBlobUrl = $"items/{requestChannelId}/{x.Id.ToString()}.json";
-                var blob = container.GetBlobReference(itemBlobUrl);
-                var sas = blob.GetSharedAccessSignature(sharedAccessBlobPolicy);
+                var blob = container.GetBlobClient(itemBlobUrl);
+                
+                var blobSasBuilder = new BlobSasBuilder()
+                {
+                    StartsOn = DateTime.UtcNow,
+                    ExpiresOn = DateTimeOffset.UtcNow.AddHours(1),
+                    BlobContainerName = "rss",
+                    BlobName = itemBlobUrl
+                };
+                
+                var sas= blobSasBuilder.ToSasQueryParameters(new StorageSharedKeyCredential("",""));
+
+                
                 var newsViewModel = new NewsViewModel
                 {
                     Id = x.Id,
                     Title = x.Title,
                     Published = x.Published,
-                    ContentUrl = blob.Uri + sas,
+                    ContentUrl = blob.Uri.ToString() + sas,
                     Link = x.Link,
                     OriginalPostId = x.OriginalPostId
                 };

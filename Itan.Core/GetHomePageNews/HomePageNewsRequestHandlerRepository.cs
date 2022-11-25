@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using Azure.Identity;
+using Azure.Storage;
+using Azure.Storage.Blobs;
+using Azure.Storage.Sas;
 using Dapper;
 using Itan.Common;
 using Microsoft.Extensions.Options;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace Itan.Core.GetHomePageNews
 {
@@ -85,24 +87,28 @@ namespace Itan.Core.GetHomePageNews
                 }
             }
 
-            var account = CloudStorageAccount.Parse(_storage);
-            var serviceClient = account.CreateCloudBlobClient();
-            var container = serviceClient.GetContainerReference("rss");
+            var accountUri = new Uri(_storage);
+            var blobClient = new BlobServiceClient(accountUri, new DefaultAzureCredential());
+            var container = blobClient.GetBlobContainerClient("rss");
 
-            var sharedAccessBlobPolicy = new SharedAccessBlobPolicy
-            {
-                Permissions = SharedAccessBlobPermissions.Read,
-                SharedAccessStartTime = DateTime.UtcNow,
-                SharedAccessExpiryTime = DateTimeOffset.UtcNow.AddHours(1)
-            };
+            
 
 
             queryResult.ForEach(x =>
             {
                 var itemBlobUrl = $"items/{x.ChannelId}/{x.Id.ToString()}.json";
-                var blob = container.GetBlobReference(itemBlobUrl);
-                var sas = blob.GetSharedAccessSignature(sharedAccessBlobPolicy);
-                x.ContentLink = blob.Uri + sas;
+                var blobSasBuilder = new BlobSasBuilder()
+                {
+                    StartsOn = DateTime.UtcNow,
+                    ExpiresOn = DateTimeOffset.UtcNow.AddHours(1),
+                    BlobContainerName = "rss",
+                    BlobName = itemBlobUrl
+                };
+                
+                var blob = container.GetBlobClient(itemBlobUrl);
+                var sas= blobSasBuilder.ToSasQueryParameters(new StorageSharedKeyCredential("",""));
+                
+                x.ContentLink = blob.Uri.ToString() + sas;
             });
 
             return result;

@@ -20,7 +20,6 @@
     <PackageReference Include="Microsoft.Owin" Version="4.2.2" />
     <PackageReference Include="Microsoft.Owin.Security.OAuth" Version="4.2.2" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
-    <PackageReference Include="WindowsAzure.Storage" Version="9.3.3" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="7.0.0" />
   </ItemGroup>
 

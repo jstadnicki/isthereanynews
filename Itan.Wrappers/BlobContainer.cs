@@ -3,21 +3,30 @@ using System.IO;
 using System.IO.Compression;
 using System.Text;
 using System.Threading.Tasks;
+
+using Azure.Identity;
+using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
+using Azure.Storage.Queues;
+
 using Itan.Common;
+
 using Microsoft.Extensions.Options;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace Itan.Wrappers
 {
     public class BlobContainer : IBlobContainer
     {
         private readonly string _storage;
+        private readonly BlobServiceClient _blobClient;
 
         public BlobContainer(IOptions<ConnectionOptions> connectionOptions)
         {
             Ensure.NotNull(connectionOptions, nameof(connectionOptions));
             _storage = connectionOptions.Value.Storage;
+
+            Uri accountUri = new Uri(_storage);
+            _blobClient = new BlobServiceClient(accountUri, new DefaultAzureCredential());
         }
 
         public async Task UploadStringAsync(
@@ -26,58 +35,57 @@ namespace Itan.Wrappers
             string stringToUpload,
             IBlobContainer.UploadStringCompression compression = IBlobContainer.UploadStringCompression.None)
         {
-            var account = CloudStorageAccount.Parse(_storage);
-            var serviceClient = account.CreateCloudBlobClient();
-            var container = serviceClient.GetContainerReference(containerName);
+            var container = _blobClient.GetBlobContainerClient(containerName);
             await container.CreateIfNotExistsAsync();
-            var blob = container.GetBlockBlobReference(path);
+            var blob = container.GetBlobClient(path);
+
             if (compression == IBlobContainer.UploadStringCompression.GZip)
             {
                 await CompressAndUpload(stringToUpload, blob);
             }
             else
             {
-                await blob.UploadTextAsync(stringToUpload);
+                var content = Encoding.UTF8.GetBytes(stringToUpload);
+                using var ms = new MemoryStream(content);
+                await blob.UploadAsync(ms);
             }
         }
 
-        private async Task CompressAndUpload(string stringToUpload, CloudBlockBlob blob)
+        private async Task CompressAndUpload(string stringToUpload, BlobClient blob)
         {
             var bytes = Compress(stringToUpload);
-            blob.Properties.ContentEncoding = "gzip";
-            blob.Properties.ContentType = "application/json";
-            await blob.UploadFromByteArrayAsync(bytes, 0, bytes.Length);
+            BlobHttpHeaders headers = new BlobHttpHeaders
+            {
+                ContentEncoding = "gzip",
+                ContentType = "application/json"
+            };
+
+                using var ms = new MemoryStream(bytes);
+                await blob.UploadAsync(ms);
+                await blob.SetHttpHeadersAsync(headers);
         }
 
         private byte[] Compress(string text)
         {
             var bytes = Encoding.UTF8.GetBytes(text);
-            using (var mso = new MemoryStream())
-            {
-                using (var gs = new GZipStream(mso, CompressionMode.Compress))
-                {
-                    gs.Write(bytes, 0, bytes.Length);
-                }
+            using var mso = new MemoryStream();
+            using var gs = new GZipStream(mso, CompressionMode.Compress);
+            gs.Write(bytes, 0, bytes.Length);
 
-                return mso.ToArray();
-            }
+            return mso.ToArray();
         }
 
         public Task DeleteAsync(string containerName, string path)
         {
-            var account = CloudStorageAccount.Parse(_storage);
-            var serviceClient = account.CreateCloudBlobClient();
-            var container = serviceClient.GetContainerReference(containerName);
-            var blob = container.GetBlockBlobReference(path);
+            var container = _blobClient.GetBlobContainerClient(containerName);
+            var blob = container.GetBlobClient(path);
             return blob.DeleteIfExistsAsync();
         }
 
         public async Task<string> ReadBlobAsStringAsync(string containerName, string path, IBlobContainer.UploadStringCompression compression)
         {
-            var account = CloudStorageAccount.Parse(_storage);
-            var serviceClient = account.CreateCloudBlobClient();
-            var container = serviceClient.GetContainerReference(containerName);
-            var blob = container.GetBlockBlobReference(path);
+            var container = _blobClient.GetBlobContainerClient(containerName);
+            var blob = container.GetBlobClient(path);
 
             var readStream = await blob.OpenReadAsync();
 
