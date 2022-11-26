@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1, 
+  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
     "ItanApplicationUI": {
@@ -25,6 +25,7 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
+	            "src/routes.json"
              ],
             "styles": [
               "src/styles.scss"
