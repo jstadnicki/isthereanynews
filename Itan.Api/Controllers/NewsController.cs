@@ -6,7 +6,6 @@ using Itan.Core.GetNewsByChannel;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 
 namespace Itan.Api.Controllers
 {
