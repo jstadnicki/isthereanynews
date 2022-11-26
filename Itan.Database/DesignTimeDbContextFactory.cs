@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
 using Azure.Identity;
-
-using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
