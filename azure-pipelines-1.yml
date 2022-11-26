@@ -11,7 +11,8 @@ variables:
   project: Itan.Functions/Itan.Functions.csproj
   buildConfiguration: 'Release'
   functionAppName: 'itan-app-service-function'
-  vmImageName: 'vs2017-win2016'
+  #vmImageName: 'vs2017-win2016'
+  vmImage: 'ubuntu-latest'
   workingDirectory: '$(System.DefaultWorkingDirectory)/Itan.Functions'
 
 steps:
