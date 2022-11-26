@@ -44,8 +44,7 @@ namespace Itan.Core.GetNewsByChannel
             }
 
 
-            var accountUri = new Uri(_storage);
-            var blobClient = new BlobServiceClient(accountUri, new DefaultAzureCredential());
+            var blobClient = new BlobServiceClient(_storage);
             var container = blobClient.GetBlobContainerClient("rss");
 
             var itemsToDownload = newsHeaderList.Select(x =>
@@ -60,7 +59,7 @@ namespace Itan.Core.GetNewsByChannel
                     BlobName = itemBlobUrl
                 };
                 blobSasBuilder.SetPermissions(BlobAccountSasPermissions.Read);
-                var sas= blobSasBuilder.ToSasQueryParameters(new StorageSharedKeyCredential("",""));
+                // var sas= blobSasBuilder.ToSasQueryParameters(new StorageSharedKeyCredential("",""));
                 
 
                 var newsViewModel = new NewsViewModel
@@ -68,7 +67,7 @@ namespace Itan.Core.GetNewsByChannel
                     Id = x.Id,
                     Title = x.Title,
                     Published = x.Published,
-                    ContentUrl = blob.Uri.ToString() + sas,
+                    ContentUrl = blob.GenerateSasUri(blobSasBuilder).ToString(),
                     Link = x.Link
                 };
                 return newsViewModel;

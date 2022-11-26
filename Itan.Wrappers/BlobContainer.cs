@@ -25,8 +25,7 @@ namespace Itan.Wrappers
             Ensure.NotNull(connectionOptions, nameof(connectionOptions));
             _storage = connectionOptions.Value.Storage;
 
-            Uri accountUri = new Uri(_storage);
-            _blobClient = new BlobServiceClient(accountUri, new DefaultAzureCredential());
+            _blobClient = new BlobServiceClient(_storage);
         }
 
         public async Task UploadStringAsync(

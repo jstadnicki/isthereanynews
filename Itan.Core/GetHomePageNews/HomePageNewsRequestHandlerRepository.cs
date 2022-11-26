@@ -87,12 +87,8 @@ namespace Itan.Core.GetHomePageNews
                 }
             }
 
-            var accountUri = new Uri(_storage);
-            var blobClient = new BlobServiceClient(accountUri, new DefaultAzureCredential());
+            var blobClient = new BlobServiceClient(_storage);
             var container = blobClient.GetBlobContainerClient("rss");
-
-            
-
 
             queryResult.ForEach(x =>
             {
@@ -102,13 +98,12 @@ namespace Itan.Core.GetHomePageNews
                     StartsOn = DateTime.UtcNow,
                     ExpiresOn = DateTimeOffset.UtcNow.AddHours(1),
                     BlobContainerName = "rss",
-                    BlobName = itemBlobUrl
+                    BlobName = itemBlobUrl,
                 };
+                blobSasBuilder.SetPermissions(BlobSasPermissions.Read);
                 
                 var blob = container.GetBlobClient(itemBlobUrl);
-                var sas= blobSasBuilder.ToSasQueryParameters(new StorageSharedKeyCredential("",""));
-                
-                x.ContentLink = blob.Uri.ToString() + sas;
+                x.ContentLink = blob.GenerateSasUri(blobSasBuilder).ToString();
             });
 
             return result;
