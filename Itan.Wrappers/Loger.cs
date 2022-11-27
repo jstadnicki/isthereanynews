@@ -14,5 +14,6 @@ namespace Itan.Wrappers
         }
 
         public void LogCritical(string toString) => _log.LogCritical(toString);
+        public void LogInformation(string toString) => _log.LogInformation(toString);
     }
 }

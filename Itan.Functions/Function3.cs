@@ -10,8 +10,13 @@ namespace Itan.Functions
     public class Function3
     {
         private readonly IFunction3Worker _worker;
+        private readonly ILogger<Function3> _logger;
 
-        public Function3(IFunction3Worker worker) => _worker = worker;
+        public Function3(IFunction3Worker worker, ILogger<Function3> logger)
+        {
+            _worker = worker;
+            _logger = logger;
+        }
 
         [FunctionName("Function3")]
         public async Task RunAsync(
@@ -22,7 +27,9 @@ namespace Itan.Functions
             string name
         )
         {
+            _logger.LogInformation($"Starting nameof{typeof(Function3)}");
             await _worker.RunAsync(folder, name, myBlob);
+            _logger.LogInformation($"Finished nameof{typeof(Function3)}");
         }
     }
 }

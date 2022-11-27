@@ -13,7 +13,9 @@ namespace Itan.Wrappers
         private readonly ISerializer _serializer;
         private readonly QueueServiceClient _queueClient;
 
-        public AzureQueueWrapper(IOptions<ConnectionOptions> connectionOptions, ISerializer serializer)
+        public AzureQueueWrapper(
+            IOptions<ConnectionOptions> connectionOptions, 
+            ISerializer serializer)
         {
             Ensure.NotNull(connectionOptions, nameof(connectionOptions));
             Ensure.NotNull(connectionOptions.Value, nameof(connectionOptions.Value));
@@ -24,9 +26,7 @@ namespace Itan.Wrappers
             Ensure.NotNull(serializer, nameof(serializer));
 
             _serializer = serializer;
-            Uri accountUri = new Uri(connectionOptions.Value.Storage);
-            _queueClient = new QueueServiceClient(accountUri, new DefaultAzureCredential());
-            
+            _queueClient = new QueueServiceClient(connectionOptions.Value.Storage);
         }
 
         public async Task AddRangeAsync(IEnumerable<T> elementsToAdd, string queueName)

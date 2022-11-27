@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Itan.Wrappers", "Itan.Wrapp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Itan.ModuleRegistrator", "Itan.ModuleRegistrator\Itan.ModuleRegistrator.csproj", "{62678962-CAEB-46EF-BAC6-3263FE46C1D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Itan.TypesGenerator", "Itan.TypesGenerator\Itan.TypesGenerator.csproj", "{E7E4BD98-F9F2-489B-9CC4-9E3FB121E070}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Itan.TypesGenerator", "Itan.TypesGenerator\Itan.TypesGenerator.csproj", "{E7E4BD98-F9F2-489B-9CC4-9E3FB121E070}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

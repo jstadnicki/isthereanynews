@@ -24,7 +24,8 @@ namespace Itan.Functions.Workers
             IBlobContainer blobContainer,
             IChannelsDownloadsWriter downloadsWriter,
             ISerializer serializer,
-            IHashSum hasher)
+            IHashSum hasher
+            )
         {
             Ensure.NotNull(log, nameof(log));
             Ensure.NotNull(downloadsReader, nameof(downloadsReader));
