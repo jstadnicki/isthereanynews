@@ -37,7 +37,9 @@ namespace Itan.Wrappers
             foreach (var element in elementsToAdd)
             {
                 var serializedElement = _serializer.Serialize(element);
-                await queue.SendMessageAsync(serializedElement);
+                var bts = System.Text.Encoding.UTF8.GetBytes(serializedElement);
+                var b64 = System.Convert.ToBase64String(bts);
+                await queue.SendMessageAsync(b64);
             }
         }
 
@@ -47,7 +49,9 @@ namespace Itan.Wrappers
             await queue.CreateIfNotExistsAsync();
 
             var serializedElement = _serializer.Serialize(element);
-            await queue.SendMessageAsync(serializedElement);
+            var bts = System.Text.Encoding.UTF8.GetBytes(serializedElement);
+            var b64 = System.Convert.ToBase64String(bts);
+            await queue.SendMessageAsync(b64);
         }
     }
 }
