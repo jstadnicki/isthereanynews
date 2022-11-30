@@ -8,7 +8,7 @@ namespace Itan.Wrappers;
 
 public class StringCompressor : IStringCompressor
 {
-    public async Task<byte[]> CompressAsync(string text)
+    public async Task<byte[]> CompressAsync2(string text)
     {
         var uncompressedBytes = Encoding.UTF8.GetBytes(text);
         using var inputMemoryStream = new MemoryStream(uncompressedBytes);
@@ -21,7 +21,7 @@ public class StringCompressor : IStringCompressor
         return outputMemoryStream.ToArray();
     }
 
-    public async Task<byte[]> CompressAsync2(string text)
+    public async Task<byte[]> CompressAsync(string text)
     {
         var buffer = Encoding.UTF8.GetBytes(text);
         using var memoryStream = new MemoryStream();
