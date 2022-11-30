@@ -50,6 +50,9 @@ namespace Itan.Functions
             builder.Services.AddScoped<IHttpDownloader, HttpDownloader>();
             builder.Services.AddScoped<IBlobContainer, BlobContainer>();
             builder.Services.AddScoped<IHashSum, Sha256Wrapper>();
+            
+            builder.Services.AddScoped<IStringCompressor, StringCompressor>();
+            builder.Services.AddScoped<IStringDecompressor, StringDecompressor>();
 
             builder.Services.AddScoped(typeof(IQueue<>), typeof(AzureQueueWrapper<>));
 

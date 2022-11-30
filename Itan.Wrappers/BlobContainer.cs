@@ -3,26 +3,33 @@ using System.IO;
 using System.IO.Compression;
 using System.Text;
 using System.Threading.Tasks;
-
 using Azure.Identity;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using Azure.Storage.Queues;
-
 using Itan.Common;
-
 using Microsoft.Extensions.Options;
 
 namespace Itan.Wrappers
 {
     public class BlobContainer : IBlobContainer
     {
+        private readonly IStringCompressor _stringCompressor;
+        private readonly IStringDecompressor _stringDecompressor;
         private readonly string _storage;
         private readonly BlobServiceClient _blobClient;
 
-        public BlobContainer(IOptions<ConnectionOptions> connectionOptions)
+        public BlobContainer(
+            IOptions<ConnectionOptions> connectionOptions,
+            IStringCompressor stringCompressor,
+            IStringDecompressor stringDecompressor)
         {
             Ensure.NotNull(connectionOptions, nameof(connectionOptions));
+            Ensure.NotNull(stringCompressor, nameof(stringCompressor));
+            Ensure.NotNull(stringDecompressor, nameof(stringDecompressor));
+
+            _stringCompressor = stringCompressor;
+            _stringDecompressor = stringDecompressor;
             _storage = connectionOptions.Value.Storage;
 
             _blobClient = new BlobServiceClient(_storage);
@@ -35,7 +42,7 @@ namespace Itan.Wrappers
             IBlobContainer.UploadStringCompression compression = IBlobContainer.UploadStringCompression.None)
         {
             var container = _blobClient.GetBlobContainerClient(containerName);
-            await container.CreateIfNotExistsAsync();
+            //var response = await container.CreateIfNotExistsAsync();
             var blob = container.GetBlobClient(path);
 
             if (compression == IBlobContainer.UploadStringCompression.GZip)
@@ -52,27 +59,18 @@ namespace Itan.Wrappers
 
         private async Task CompressAndUpload(string stringToUpload, BlobClient blob)
         {
-            var bytes = Compress(stringToUpload);
-            BlobHttpHeaders headers = new BlobHttpHeaders
+            var bytes = await _stringCompressor.CompressAsync(stringToUpload);
+            var headers = new BlobHttpHeaders
             {
                 ContentEncoding = "gzip",
                 ContentType = "application/json"
             };
 
-                using var ms = new MemoryStream(bytes);
-                await blob.UploadAsync(ms);
-                await blob.SetHttpHeadersAsync(headers);
+            using var ms = new MemoryStream(bytes);
+            await blob.UploadAsync(ms);
+            await blob.SetHttpHeadersAsync(headers);
         }
 
-        private byte[] Compress(string text)
-        {
-            var bytes = Encoding.UTF8.GetBytes(text);
-            using var mso = new MemoryStream();
-            using var gs = new GZipStream(mso, CompressionMode.Compress);
-            gs.Write(bytes, 0, bytes.Length);
-
-            return mso.ToArray();
-        }
 
         public Task DeleteAsync(string containerName, string path)
         {
@@ -81,7 +79,8 @@ namespace Itan.Wrappers
             return blob.DeleteIfExistsAsync();
         }
 
-        public async Task<string> ReadBlobAsStringAsync(string containerName, string path, IBlobContainer.UploadStringCompression compression)
+        public async Task<string> ReadBlobAsStringAsync(string containerName, string path,
+            IBlobContainer.UploadStringCompression compression)
         {
             var container = _blobClient.GetBlobContainerClient(containerName);
             var blob = container.GetBlobClient(path);
@@ -98,27 +97,9 @@ namespace Itan.Wrappers
             var outputBytes = new byte[readStream.Length];
             await readStream.ReadAsync(outputBytes);
 
-            var decompressedString = Decompress(outputBytes);
+            var decompressedString = await _stringDecompressor.DecompressAsync(outputBytes);
+
             return decompressedString;
-        }
-
-        private string Decompress(byte[] data)
-        {
-            // Read the last 4 bytes to get the length
-            byte[] lengthBuffer = new byte[4];
-            Array.Copy(data, data.Length - 4, lengthBuffer, 0, 4);
-            int uncompressedSize = BitConverter.ToInt32(lengthBuffer, 0);
-
-            var buffer = new byte[uncompressedSize];
-            using (var ms = new MemoryStream(data))
-            {
-                using (var gzip = new GZipStream(ms, CompressionMode.Decompress))
-                {
-                    gzip.Read(buffer, 0, uncompressedSize);
-                }
-            }
-
-            return Encoding.UTF8.GetString(buffer);
         }
     }
 }
