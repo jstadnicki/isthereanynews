@@ -59,7 +59,7 @@ namespace Itan.Wrappers
 
         private async Task CompressAndUpload(string stringToUpload, BlobClient blob)
         {
-            var bytes = await _stringCompressor.CompressAsync(stringToUpload);
+            var bytes = _stringCompressor.CompressAsync(stringToUpload);
             var headers = new BlobHttpHeaders
             {
                 ContentEncoding = "gzip",
@@ -97,7 +97,7 @@ namespace Itan.Wrappers
             var outputBytes = new byte[readStream.Length];
             await readStream.ReadAsync(outputBytes);
 
-            var decompressedString = await _stringDecompressor.DecompressAsync(outputBytes);
+            var decompressedString = _stringDecompressor.Decompress(outputBytes);
 
             return decompressedString;
         }

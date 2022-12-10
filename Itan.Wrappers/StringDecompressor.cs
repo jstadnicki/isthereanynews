@@ -5,17 +5,15 @@ using Itan.Wrappers;
 
 public class StringDecompressor : IStringDecompressor
 {
-    public async Task<string> DecompressAsync(byte[] bytes)
+    public string Decompress(byte[] bytes)
     {
-        var outputStream = new MemoryStream();
         var inputStream = new MemoryStream(bytes);
-        var gzipStream = new GZipStream(inputStream, CompressionMode.Decompress);
+        using var decompressor = new GZipStream(inputStream, CompressionMode.Decompress);
 
-        await gzipStream.CopyToAsync(outputStream);
-
-        outputStream.Position = 0;
+        var outputStream = new MemoryStream();
+        decompressor.CopyTo(outputStream);
         var streamReader = new StreamReader(outputStream);
-        var decompressedString = await streamReader.ReadToEndAsync();
+        var decompressedString = streamReader.ReadToEnd();
         return decompressedString;
     }
 }

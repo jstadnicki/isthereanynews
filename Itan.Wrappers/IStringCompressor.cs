@@ -1,8 +1,6 @@
-﻿using System.Threading.Tasks;
-
-namespace Itan.Wrappers;
+﻿namespace Itan.Wrappers;
 
 public interface IStringCompressor
 {
-    Task<byte[]> CompressAsync(string text);
+    byte[] CompressAsync(string text);
 }
