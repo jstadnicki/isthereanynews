@@ -1,19 +1,23 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.IO.Compression;
+using System.Text;
 using System.Threading.Tasks;
 using Itan.Wrappers;
 
 public class StringDecompressor : IStringDecompressor
 {
-    public string Decompress(byte[] bytes)
+    public async Task<string> Decompress(byte[] bytes)
     {
         var inputStream = new MemoryStream(bytes);
-        using var decompressor = new GZipStream(inputStream, CompressionMode.Decompress);
+        using var decompress = new GZipStream(inputStream, CompressionMode.Decompress);
 
-        var outputStream = new MemoryStream();
-        decompressor.CopyTo(outputStream);
-        var streamReader = new StreamReader(outputStream);
-        var decompressedString = streamReader.ReadToEnd();
-        return decompressedString;
+        using var outputStream = new MemoryStream();
+        await decompress.CopyToAsync(outputStream);
+
+        outputStream.Position = 0;
+        var ob = outputStream.ToArray();
+        var str = Encoding.UTF8.GetString(ob);
+        return str;
     }
 }

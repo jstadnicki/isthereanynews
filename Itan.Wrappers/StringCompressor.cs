@@ -8,13 +8,17 @@ namespace Itan.Wrappers;
 
 public class StringCompressor : IStringCompressor
 {
-    public byte[] CompressAsync(string text)
+    public async Task<byte[]> CompressAsync(string text)
     {
         var bytes = Encoding.UTF8.GetBytes(text);
-        var ms = new MemoryStream(bytes);
-        var outms = new MemoryStream();
-        using var compressor = new GZipStream(outms, CompressionMode.Compress);
-        ms.CopyTo(compressor);
+        using var ms = new MemoryStream(bytes);
+        using var outms = new MemoryStream();
+        using var compressor = new GZipStream(outms, CompressionMode.Compress, true);
+
+        await ms.CopyToAsync(compressor);
+
+        await compressor.FlushAsync();
+
         return outms.ToArray();
     }
 }

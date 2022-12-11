@@ -4,5 +4,5 @@ namespace Itan.Wrappers;
 
 public interface IStringDecompressor
 {
-    string Decompress(byte[] bytes);
+    Task<string> Decompress(byte[] bytes);
 }
