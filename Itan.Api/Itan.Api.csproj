@@ -30,9 +30,4 @@
     <ProjectReference Include="..\Itan.ModuleRegistrator\Itan.ModuleRegistrator.csproj" />
     <ProjectReference Include="..\Itan.Wrappers\Itan.Wrappers.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="local.settings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
 </Project>
