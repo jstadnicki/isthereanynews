@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using Itan.Common;
+﻿using Itan.Common;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Itan.Database
 {
@@ -17,6 +15,8 @@ namespace Itan.Database
         public DbSet<Person> Persons { get; set; }
         public DbSet<ChannelsPersons> ChannelsPersons { get; set; }
         public DbSet<PersonPerson> PersonsPersons { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<NewsTag> NewsTags { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -31,6 +31,37 @@ namespace Itan.Database
             ConfigureChannelNewsOpened(modelBuilder);
             ConfigurePersonSettings(modelBuilder);
             ConfigurePersonsPersons(modelBuilder);
+            ConfigureTags(modelBuilder);
+            ConfigureNewsTags(modelBuilder);
+        }
+
+        private void ConfigureNewsTags(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<NewsTag>()
+                .HasKey(x => new { x.TagId, x.NewsId });
+
+            modelBuilder.Entity<NewsTag>()
+                .HasOne(x => x.News)
+                .WithMany(x => x.NewsTags)
+                .HasForeignKey(x => x.NewsId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<NewsTag>()
+                .HasOne(x => x.Tag)
+                .WithMany(x => x.NewsTags)
+                .HasForeignKey(x => x.TagId)
+                .OnDelete(DeleteBehavior.Restrict);
+        }
+
+        private void ConfigureTags(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Tag>()
+                .HasIndex(x => x.Text)
+                .IsUnique();
+
+            modelBuilder.Entity<Tag>()
+                .Property(x => x.Text)
+                .IsRequired();
         }
 
         private void ConfigurePersonsPersons(ModelBuilder modelBuilder)
@@ -46,7 +77,7 @@ namespace Itan.Database
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<PersonPerson>()
-                .HasIndex(x => new {x.Id, x.FollowerPersonId, x.TargetPersonId})
+                .HasIndex(x => new { x.Id, x.FollowerPersonId, x.TargetPersonId })
                 .IsUnique();
         }
 
@@ -87,7 +118,7 @@ namespace Itan.Database
         private void ConfigureChannelNewsRead(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ChannelNewsRead>()
-                .HasIndex(x => new {x.ChannelId, x.NewsId, x.PersonId})
+                .HasIndex(x => new { x.ChannelId, x.NewsId, x.PersonId })
                 .IsUnique();
 
             modelBuilder.Entity<ChannelNewsRead>()
@@ -130,7 +161,7 @@ namespace Itan.Database
         private void ConfigureChannelDownload(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ChannelDownload>()
-                .HasIndex(x => new {x.ChannelId, SHA256 = x.SHA256})
+                .HasIndex(x => new { x.ChannelId, SHA256 = x.SHA256 })
                 .IsUnique(true);
         }
 
@@ -158,7 +189,7 @@ namespace Itan.Database
         private void ConfigureNews(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<News>()
-                .HasIndex(x => new {x.ChannelId, SHA256 = x.Sha256})
+                .HasIndex(x => new { x.ChannelId, SHA256 = x.Sha256 })
                 .IsUnique(true);
 
             modelBuilder.Entity<News>()

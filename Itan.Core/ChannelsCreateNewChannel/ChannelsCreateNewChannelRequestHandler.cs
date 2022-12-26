@@ -14,12 +14,12 @@ namespace Itan.Core.ChannelsCreateNewChannel
             ChannelCreateRequestResult>
     {
         private readonly ICreateNewChannelRepository _repository;
-        private readonly IQueue<ChannelToDownload> _messagesCollector;
+        private readonly IQueue _messagesCollector;
         private readonly IChannelFinderRepository _channelFinderRepository;
 
         public ChannelsCreateNewChannelRequestHandler(
             ICreateNewChannelRepository repository,
-            IQueue<ChannelToDownload> messagesCollector,
+            IQueue messagesCollector,
             IChannelFinderRepository channelFinderRepository)
         {
             _repository = repository;

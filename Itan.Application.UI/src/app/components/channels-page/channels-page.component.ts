@@ -3,11 +3,11 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {MsalWrapperService} from "../../service/msal-wrapper.service";
 import {environment} from '../../../environments/environment';
 import {ChannelViewModel} from '../../../server/Itan/Core/ChannelViewModel';
-import {NewsViewModel} from '../../../server/Itan/Core/NewsViewModel';
 import {catchError, tap} from "rxjs/operators";
 import {News} from "./news";
 import {NewsContent} from "./news.content";
 import {of} from "rxjs";
+import {NewsViewModel} from "../../../server/Itan/Core/GetNewsByChannel/NewsViewModel";
 
 @Component({
   selector: "app-channels-page",

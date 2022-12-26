@@ -14,7 +14,7 @@ namespace Itan.Wrappers
             {
                 Description = feed.Description,
                 Title = feed.Title,
-                Items = GetItems(feed.Items)
+                News = GetItems(feed.Items)
             };
 
             return itanFeed;

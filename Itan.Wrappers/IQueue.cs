@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 
 namespace Itan.Wrappers
 {
-    public interface IQueue<T>
+    public interface IQueue
     {
-        Task AddRangeAsync(IEnumerable<T> elementsToAdd, string channelName);
-        Task AddAsync(T channelUpdate, string channelName);
+        Task AddRangeAsync<T>(IEnumerable<T> elementsToAdd, string channelName);
+        Task AddAsync<T>(T channelUpdate, string channelName);
     }
 }

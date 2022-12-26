@@ -25,9 +25,10 @@ namespace Itan.Functions
                 .GetService<IOptions<ExecutionContextOptions>>().Value;
 
             var currentDirectory = executionContextOptions.AppDirectory;
-            
+
             configurationBuilder
                 .SetBasePath(currentDirectory)
+                .AddJsonFile("appsettings.json", true)
                 .AddJsonFile("local.settings.json", true);
             var configuration = configurationBuilder.Build();
             
@@ -54,12 +55,15 @@ namespace Itan.Functions
             builder.Services.AddScoped<IStringCompressor, StringCompressor>();
             builder.Services.AddScoped<IStringDecompressor, StringDecompressor>();
 
-            builder.Services.AddScoped(typeof(IQueue<>), typeof(AzureQueueWrapper<>));
+            builder.Services.AddScoped(typeof(IQueue), typeof(AzureQueueWrapper));
 
             builder.Services.AddScoped<IFunction1Worker, Function1Worker>();
             builder.Services.AddScoped<IFunction2Worker, Function2Worker>();
             builder.Services.AddScoped<IFunction3Worker, Function3Worker>();
             builder.Services.AddScoped<IFunction4Worker, Function4Worker>();
+            builder.Services.AddScoped<IFunction5Worker, Function5Worker>();
+            builder.Services.AddScoped<ICategoriesProvider, CategoriesProvider>();
+            builder.Services.AddScoped<INewsCategoriesRepository, NewsCategoriesRepository>();
         }
     }
 }

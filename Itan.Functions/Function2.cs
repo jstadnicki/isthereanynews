@@ -25,5 +25,7 @@ namespace Itan.Functions
             await _worker.Run(myQueueItem);
             _logger.LogInformation($"Finished nameof{typeof(Function2)}");
         }
+        
+        
     }
 }

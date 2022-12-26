@@ -14,7 +14,7 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker3
         private readonly Mock<ILoger<Function3Worker>> _mockLoger;
         private readonly Mock<IStreamBlobReader> _mockReader;
         private readonly Mock<IFeedReader> _mockFeedReader;
-        private readonly Mock<IQueue<ChannelUpdate>> _mockQueue;
+        private readonly Mock<IQueue> _mockQueue;
         private readonly Mock<IBlobPathGenerator> _mockBlobPathGenerator;
         private readonly Mock<IBlobContainer> _mockBlobContainer;
         private readonly Mock<ISerializer> _mockSerializer;
@@ -26,7 +26,7 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker3
             _mockLoger = new Mock<ILoger<Function3Worker>>();
             _mockReader = new Mock<IStreamBlobReader>();
             _mockFeedReader = new Mock<IFeedReader>();
-            _mockQueue = new Mock<IQueue<ChannelUpdate>>();
+            _mockQueue = new Mock<IQueue>();
             _mockBlobPathGenerator = new Mock<IBlobPathGenerator>();
             _mockBlobContainer = new Mock<IBlobContainer>();
             _mockSerializer = new Mock<ISerializer>();
@@ -49,7 +49,7 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker3
         }
 
         public Mock<ILoger<Function3Worker>> MockLoger => _mockLoger;
-        public Mock<IQueue<ChannelUpdate>> MockQueue => _mockQueue;
+        public Mock<IQueue> MockQueue => _mockQueue;
         public Mock<IBlobContainer> MockBlobContainer => _mockBlobContainer;
         public Mock<INewsWriter> MockNewsWriter => _mockNewsWriter;
         public Mock<ISerializer> MockSerializer => _mockSerializer;
@@ -69,7 +69,7 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker3
             var feed = Build<ItanFeed>()
                 .With(x => x.Description, description)
                 .With(x => x.Title, title)
-                .With(x => x.Items, new List<ItanFeedItem>())
+                .With(x => x.News, new List<ItanFeedItem>())
                 .Create();
 
             _mockFeedReader
@@ -92,7 +92,7 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker3
             var feed = Build<ItanFeed>()
                 .With(x => x.Description, description)
                 .With(x => x.Title, title)
-                .With(x => x.Items, this.CreateMany<ItanFeedItem>(itemsCount))
+                .With(x => x.News, this.CreateMany<ItanFeedItem>(itemsCount))
                 .Create();
 
             _mockFeedReader

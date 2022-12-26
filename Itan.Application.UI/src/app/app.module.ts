@@ -24,8 +24,6 @@ import {DeleteAccountComponent} from './components/delete-account/delete-account
 import {ReadersPageComponent} from './components/readers-page/readers-page.component';
 import {LandingPageNewsComponent} from './components/landing-page-news/landing-page-news.component';
 import {InteractionType, PublicClientApplication} from "@azure/msal-browser";
-import {HttpJwtBearerInterceptor} from "./service/http-jwt-bearer.interceptor";
-
 const isIE =
   window.navigator.userAgent.indexOf("MSIE ") > -1 ||
   window.navigator.userAgent.indexOf("Trident/") > -1;

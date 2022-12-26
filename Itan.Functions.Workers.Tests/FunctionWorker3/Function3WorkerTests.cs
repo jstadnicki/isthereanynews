@@ -34,14 +34,14 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker3
                 Mock.Of<ILoger<Function3Worker>>(),
                 Mock.Of<IStreamBlobReader>(),
                 Mock.Of<IFeedReader>(),
-                Mock.Of<IQueue<ChannelUpdate>>(),
+                Mock.Of<IQueue>(),
                 null, null, null, null, null));
 
             Assert.Throws<ArgumentNullException>(() => new Function3Worker(
                 Mock.Of<ILoger<Function3Worker>>(),
                 Mock.Of<IStreamBlobReader>(),
                 Mock.Of<IFeedReader>(),
-                Mock.Of<IQueue<ChannelUpdate>>(),
+                Mock.Of<IQueue>(),
                 Mock.Of<IBlobPathGenerator>(),
                 null, null, null, null));
 
@@ -49,7 +49,7 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker3
                 Mock.Of<ILoger<Function3Worker>>(),
                 Mock.Of<IStreamBlobReader>(),
                 Mock.Of<IFeedReader>(),
-                Mock.Of<IQueue<ChannelUpdate>>(),
+                Mock.Of<IQueue>(),
                 Mock.Of<IBlobPathGenerator>(),
                 Mock.Of<IBlobContainer>(),
                 null, null, null));
@@ -58,7 +58,7 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker3
                 Mock.Of<ILoger<Function3Worker>>(),
                 Mock.Of<IStreamBlobReader>(),
                 Mock.Of<IFeedReader>(),
-                Mock.Of<IQueue<ChannelUpdate>>(),
+                Mock.Of<IQueue>(),
                 Mock.Of<IBlobPathGenerator>(),
                 Mock.Of<IBlobContainer>(),
                 Mock.Of<ISerializer>(),
@@ -68,7 +68,7 @@ namespace Itan.Functions.Workers.Tests.FunctionWorker3
                 Mock.Of<ILoger<Function3Worker>>(),
                 Mock.Of<IStreamBlobReader>(),
                 Mock.Of<IFeedReader>(),
-                Mock.Of<IQueue<ChannelUpdate>>(),
+                Mock.Of<IQueue>(),
                 Mock.Of<IBlobPathGenerator>(),
                 Mock.Of<IBlobContainer>(),
                 Mock.Of<ISerializer>(),

@@ -4,6 +4,7 @@ using Itan.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Itan.Database.Migrations
 {
     [DbContext(typeof(EntityFrameworkContext))]
-    partial class EntityFrameworkContextModelSnapshot : ModelSnapshot
+    [Migration("20221218134635_newstags")]
+    partial class newstags
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,8 +69,8 @@ namespace Itan.Database.Migrations
 
                     b.Property<string>("SHA256")
                         .IsRequired()
-                        .HasColumnType("nvarchar(64)")
-                        .HasMaxLength(64);
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
 
                     b.HasKey("Id");
 
@@ -299,14 +301,14 @@ namespace Itan.Database.Migrations
 
                     b.Property<string>("ShowUpdatedNews")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(25)")
                         .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)")
                         .HasDefaultValue("Show");
 
                     b.Property<string>("SquashNewsUpdates")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(25)")
                         .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)")
                         .HasDefaultValue("Show");
 
                     b.HasKey("Id");

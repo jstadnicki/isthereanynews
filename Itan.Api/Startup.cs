@@ -25,12 +25,10 @@ namespace Itan.Api
 {
     public class Startup
     {
-        // private readonly IWebHostEnvironment _environment;
         private readonly IConfiguration _configuration;
 
         public Startup(IConfiguration configuration)
         {
-            // _environment = environment;
             _configuration = configuration;
         }
 

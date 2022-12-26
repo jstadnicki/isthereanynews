@@ -1,5 +1,5 @@
-﻿import {NewsViewModel} from "../../../server/Itan/Core/NewsViewModel";
-import {NewsContent} from "../landing-page/news.content";
+﻿import {NewsContent} from "../landing-page/news.content";
+import {NewsViewModel} from "../../../server/Itan/Core/GetNewsByChannel/NewsViewModel";
 
 export class News {
     constructor(vm: NewsViewModel) {

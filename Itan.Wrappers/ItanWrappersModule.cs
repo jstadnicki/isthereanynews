@@ -16,7 +16,7 @@ namespace Itan.Wrappers
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterAssemblyTypes(typeof(ISerializer).GetTypeInfo().Assembly).AsImplementedInterfaces(); //itan.wrappers
-            builder.RegisterGeneric(typeof(AzureQueueWrapper<>)).As(typeof(IQueue<>));
+            builder.RegisterType<AzureQueueWrapper>().As<IQueue>();
             
             builder.Register<IOptions<EmailSenderSettings>>(context =>
                 {

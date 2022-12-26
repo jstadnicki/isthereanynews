@@ -8,7 +8,7 @@ using Microsoft.Extensions.Options;
 
 namespace Itan.Wrappers
 {
-    public class AzureQueueWrapper<T> : IQueue<T>
+    public class AzureQueueWrapper : IQueue
     {
         private readonly ISerializer _serializer;
         private readonly QueueServiceClient _queueClient;
@@ -29,7 +29,7 @@ namespace Itan.Wrappers
             _queueClient = new QueueServiceClient(connectionOptions.Value.Storage);
         }
 
-        public async Task AddRangeAsync(IEnumerable<T> elementsToAdd, string queueName)
+        public async Task AddRangeAsync<T>(IEnumerable<T> elementsToAdd, string queueName)
         {
             var queue = _queueClient.GetQueueClient(queueName);
             await queue.CreateIfNotExistsAsync();
@@ -43,7 +43,7 @@ namespace Itan.Wrappers
             }
         }
 
-        public async Task AddAsync(T element, string queueName)
+        public async Task AddAsync<T>(T element, string queueName)
         {
             var queue = _queueClient.GetQueueClient(queueName);
             await queue.CreateIfNotExistsAsync();

@@ -40,12 +40,14 @@
             <nav class="level is-mobile">
               <div class="level-left">
                 <a class="level-item">
-                  <button role="button" class="button is-small" (click)="subscribe(selectedChannel)" [disabled]="!this.isLoggedIn">
+                  <button role="button" class="button is-small" (click)="subscribe(selectedChannel)"
+                          [disabled]="!this.isLoggedIn">
                     <i *ngIf="this.isLoggedIn" class="fa fa-link" alt="subscribe">&nbsp;</i>
                     <app-locker *ngIf="!isLoggedIn"></app-locker>
                     &nbsp;subscribe
                   </button>
-                  <button role="button" class="button is-small" (click)="unsubscribe(selectedChannel)"[disabled]="!this.isLoggedIn">
+                  <button role="button" class="button is-small" (click)="unsubscribe(selectedChannel)"
+                          [disabled]="!this.isLoggedIn">
                     <i *ngIf="this.isLoggedIn" class="fa fa-unlink" alt="subscribe">&nbsp;</i>
                     <app-locker *ngIf="!isLoggedIn"></app-locker>
                     &nbsp;unsubscribe
@@ -73,13 +75,21 @@
 
           <div class="media-content">
             <div class="content">
-              <p>
+              <div>
                 <strong [innerHTML]="getNewsTitle(newsItem)"></strong>
-                <span class="is-pulled-right"><i class="fa fa-calendar"></i> {{newsItem.viewModel.published|date}}</span>
+                <span class="is-pulled-right"><i
+                  class="fa fa-calendar"></i> {{newsItem.viewModel.published|date}}</span>
+                <span class="read-more" (click)="onNewsClick(newsItem)">read more
                 <i class="fa"
-                   [ngClass]="{'fa-chevron-down':!newsItem.contentVisible,'fa-chevron-up':newsItem.contentVisible}"
-                   (click)="onNewsClick(newsItem)"></i>
-              </p>
+                   [ngClass]="{'fa-chevron-down':!newsItem.contentVisible,'fa-chevron-up':newsItem.contentVisible}">
+                   </i>
+                </span>
+              <div class="tags">
+                <span class="tag-news" *ngFor="let tag of newsItem.viewModel.tags">#{{tag.text}}</span>
+              </div>
+
+
+              </div>
 
               <div *ngIf="newsItem.content" [ngClass]="{'is-hidden':!newsItem.contentVisible}">
                 <progress class="progress is-info"

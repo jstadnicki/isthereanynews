@@ -2,7 +2,7 @@
 
 namespace Itan.Common
 {
-    public class ChannelToDownload
+    public record ChannelToDownload
     {
         public Guid Id { get; set; }
         public string Url { get; set; }

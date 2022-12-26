@@ -6,6 +6,6 @@ namespace Itan.Wrappers
     {
         public string Title { get; set; }
         public string Description { get; set; }
-        public IEnumerable<ItanFeedItem> Items { get; set; }
+        public IEnumerable<ItanFeedItem> News { get; set; }
     }
 }

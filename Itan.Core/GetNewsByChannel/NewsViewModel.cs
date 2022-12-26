@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Itan.Core.GetNewsByChannel
 {
@@ -11,5 +12,13 @@ namespace Itan.Core.GetNewsByChannel
         public string Link { get; set; }
         public bool Read { get; set; } = false;
         public Guid? OriginalPostId { get; set; }
+        public List<NewsHeaderTagViewModel> Tags { get; set; }
+    }
+
+    public class NewsHeaderTagViewModel
+    {
+        public Guid TagId { get; set; }
+        public Guid NewsId { get; set; }
+        public string Text { get; set; }
     }
 }

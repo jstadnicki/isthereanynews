@@ -3,16 +3,12 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
-
 using Azure.Identity;
 using Azure.Storage;
 using Azure.Storage.Blobs;
 using Azure.Storage.Sas;
-
 using Dapper;
-
 using Itan.Common;
-
 using Microsoft.Extensions.Options;
 
 namespace Itan.Core.GetNewsByChannel
@@ -30,18 +26,28 @@ namespace Itan.Core.GetNewsByChannel
 
         public async Task<List<NewsViewModel>> GetAllByChannel(Guid channelId)
         {
-            var newsHeaderList = new List<NewsHeader>();
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                var query = "select n.id,n.Title, n.Published, n.Link from News n where n.ChannelId = @channelId AND n.OriginalPostId IS NULL order by n.Published desc";
-                var queryData = new
-                {
-                    channelId = channelId
-                };
+            using var connection = new SqlConnection(_connectionString);
+            var query1 = "\n select n.id,n.Title, n.Published, n.Link " +
+                         "\n from News n " +
+                         "\n where n.ChannelId = @channelId " +
+                         "\n AND n.OriginalPostId IS NULL " +
+                         "\n order by n.Published desc;\n";
 
-                var queryResult = await connection.QueryAsync<NewsHeader>(query, queryData);
-                newsHeaderList.AddRange(queryResult);
-            }
+            var query2 = "\n select t.Id TagId, t.Text, n.Id NewsId from Tags t" +
+                         "\n join NewsTags nt" +
+                         "\n     on t.Id = nt.TagId" +
+                         "\n join News n" +
+                         "\n     on nt.NewsId = n.Id" +
+                         "\n where n.ChannelId = @channelId";
+
+            var queryData = new
+            {
+                channelId
+            };
+
+            var queryResult = await connection.QueryMultipleAsync(query1 + query2, queryData);
+            var newsHeaderList = queryResult.Read<NewsHeader>().ToList();
+            var newsHeaderTags = queryResult.Read<NewsHeaderTagViewModel>().ToList();
 
 
             var blobClient = new BlobServiceClient(_storage);
@@ -59,8 +65,6 @@ namespace Itan.Core.GetNewsByChannel
                     BlobName = itemBlobUrl
                 };
                 blobSasBuilder.SetPermissions(BlobAccountSasPermissions.Read);
-                // var sas= blobSasBuilder.ToSasQueryParameters(new StorageSharedKeyCredential("",""));
-                
 
                 var newsViewModel = new NewsViewModel
                 {
@@ -68,7 +72,8 @@ namespace Itan.Core.GetNewsByChannel
                     Title = x.Title,
                     Published = x.Published,
                     ContentUrl = blob.GenerateSasUri(blobSasBuilder).ToString(),
-                    Link = x.Link
+                    Link = x.Link,
+                    Tags = newsHeaderTags.Where(nht => nht.NewsId == x.Id).ToList()
                 };
                 return newsViewModel;
             });

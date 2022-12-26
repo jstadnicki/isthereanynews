@@ -1,3 +1,5 @@
+import { NewsHeaderTagViewModel } from './NewsHeaderTagViewModel';
+
 export class NewsViewModel
 {
 	public id: any;
@@ -7,4 +9,5 @@ export class NewsViewModel
 	public link: string;
 	public read: boolean;
 	public originalPostId: any;
+	public tags: NewsHeaderTagViewModel[];
 }

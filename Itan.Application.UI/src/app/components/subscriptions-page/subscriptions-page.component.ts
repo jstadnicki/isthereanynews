@@ -5,7 +5,6 @@ import {environment} from "../../../environments/environment";
 import {UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 
 import {SubscribedChannelViewModel} from '../../../server/Itan/Core/SubscribedChannelViewModel';
-import {NewsViewModel} from '../../../server/Itan/Core/NewsViewModel';
 import {ReaderSubscriptionServiceService} from "./reader-subscription-service.service";
 import {SubscribedReaderViewModel} from "../../../server/Itan/Api/Controllers/SubscribedReaderViewModel";
 import {FollowerActivityViewModel} from "../../../server/Itan/Core/GetFollowerActivity/FollowerActivityViewModel";
@@ -13,6 +12,7 @@ import {NewsItemReadMarkerServiceService} from "./news-item-read-marker-service.
 import {NewsItemOpenedMarkerService} from "./news-item-opened-marker.service";
 import {catchError, tap} from "rxjs/operators";
 import {of} from "rxjs";
+import {NewsViewModel} from "../../../server/Itan/Core/GetNewsByChannel/NewsViewModel";
 
 @Component({
   selector: 'app-subscriptions-page',

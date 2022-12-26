@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Itan.Common;
 using Itan.Wrappers;
 
@@ -6,13 +7,13 @@ namespace Itan.Functions.Workers
 {
     public class Function1Worker : IFunction1Worker
     {
-        private readonly IQueue<ChannelToDownload> _queue;
+        private readonly IQueue _queue;
         private readonly IChannelsProvider _channelsProvider;
         private readonly ILoger<Function1Worker> _loger;
 
         public Function1Worker(
             ILoger<Function1Worker> loger,
-            IQueue<ChannelToDownload> queue,
+            IQueue queue,
             IChannelsProvider channelsProvider
             )
         {

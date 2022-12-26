@@ -14,14 +14,14 @@ namespace Itan.Core.ImportSubscriptions
         private readonly ICreateNewChannelRepository _createNewChannelRepository;
         private readonly IUserToChannelSubscriptionsRepository _subscriptionsRepository;
         private readonly IChannelFinderRepository _channelFinderRepository;
-        private readonly IQueue<ChannelToDownload> _messagesCollector;
+        private readonly IQueue _messagesCollector;
 
 
         public ImportSubscriptionsRequestHandler(
             ICreateNewChannelRepository createNewChannelRepository,
             IUserToChannelSubscriptionsRepository subscriptionsRepository,
             IChannelFinderRepository channelFinderRepository,
-            IQueue<ChannelToDownload> messagesCollector)
+            IQueue messagesCollector)
         {
             _createNewChannelRepository = createNewChannelRepository;
             _subscriptionsRepository = subscriptionsRepository;

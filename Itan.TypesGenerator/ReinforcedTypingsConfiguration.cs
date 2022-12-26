@@ -28,8 +28,11 @@ namespace Itan.TypesGenerator
 
             builder.ExportAsClass<ChannelViewModel>()
                 .WithAllProperties();
+            
             builder.ExportAsClass<SubscribedChannelViewModel>()
                 .WithAllProperties();
+
+            builder.ExportAsClass<NewsHeaderTagViewModel>().WithAllProperties();
             
             builder.ExportAsClass<NewsViewModel>()
                 .WithAllProperties();
