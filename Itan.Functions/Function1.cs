@@ -19,6 +19,7 @@ namespace Itan.Functions
         }
 
         [FunctionName("Function1")]
+        [Singleton]
         public async Task RunAsync(
             [TimerTrigger("0 0 */6 * * *")] TimerInfo myTimer
             //[HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequest r

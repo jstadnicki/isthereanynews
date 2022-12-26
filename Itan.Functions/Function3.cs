@@ -19,6 +19,7 @@ namespace Itan.Functions
         }
 
         [FunctionName("Function3")]
+        [Singleton]
         public async Task RunAsync(
             ILogger log,
             [BlobTrigger("rss/raw/{folder}/{name}", Connection = "Storage")]

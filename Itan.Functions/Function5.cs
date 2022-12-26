@@ -18,6 +18,7 @@ public class Function5
     }
 
     [FunctionName("Function5")]
+    [Singleton]
     public async Task Run([QueueTrigger(QueuesName.NewsCategories, Connection = "Storage")]string myQueueItem)
     {
         _logger.LogInformation($"Starting nameof{typeof(Function5)}");

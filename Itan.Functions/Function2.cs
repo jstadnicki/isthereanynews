@@ -19,6 +19,7 @@ namespace Itan.Functions
         }
 
         [FunctionName("Function2")]
+        [Singleton]
         public async Task Run([QueueTrigger(QueuesName.ChannelToDownload, Connection = "Storage")]string myQueueItem)
         {
             _logger.LogInformation($"Starting nameof{typeof(Function2)}");
