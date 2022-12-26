@@ -35,12 +35,14 @@ steps:
       projects: '$(project)'
 
   - task: DotNetCoreCLI@2
+    displayName: 'install --global dotnet-ef'
     inputs:
         command: 'custom'
         custom: 'tool'
         arguments: 'install --global dotnet-ef'
 
   - task: AzureCLI@2
+    displayName: 'dotnet ef migrations script -i -o migration.sql'
     inputs:
       azureSubscription: 'payg_itan_service_connection'
       scriptType: 'pscore'
@@ -49,12 +51,14 @@ steps:
       workingDirectory: 'Itan.Database'
 
   - task: AzureCLI@2
+    displayName: 'dotnet ef migrations list'
     inputs:
       azureSubscription: 'payg_itan_service_connection'
       scriptType: 'pscore'
       scriptLocation: 'inlineScript'
       inlineScript: 'dotnet ef migrations list --project $(project) --startup-project $(project) --msbuildprojectextensionspath Itan.Database/obj/local'
   - task: AzureCLI@2
+    displayName: 'dotnet ef migrations script'
     inputs:
       azureSubscription: 'payg_itan_service_connection'
       scriptType: 'pscore'
@@ -62,6 +66,7 @@ steps:
       inlineScript: 'dotnet ef migrations script -i -o $(Build.ArtifactStagingDirectory)/migration.sql --project $(project) --startup-project $(project) --msbuildprojectextensionspath obj/local'
  
   - task: PublishBuildArtifacts@1
+    displayName: 'publish artifacts'
     inputs:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)'
       ArtifactName: 'migration-sql-file'
