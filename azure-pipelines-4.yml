@@ -17,11 +17,10 @@ steps:
       SecretsFilter: '*'
       RunAsPreJob: false
   - task: UseDotNet@2
-    displayName: Use .net Core SDK 7
+    displayName: Use .net Core SDK 6
     inputs:
-      packageType: sdk
-      version: 7.x
-      installationPath: $(Agent.ToolsDirectory)/dotnet
+      packageType: 'sdk'
+      version: '6.x'
   - task: DotNetCoreCLI@2
     displayName: dotnet restore
     inputs:
