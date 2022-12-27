@@ -22,7 +22,7 @@ public class NewsCategoriesRepository : INewsCategoriesRepository
     {
         Ensure.NotNull(connectionOptions, nameof(connectionOptions));
 
-        _connectionString = connectionOptions.Value.SqlReader;
+        _connectionString = connectionOptions.Value.SqlWriter;
     }
 
     public async Task SaveCategoriesToNewsAsync(Guid newsId, List<Category> newsCategories)

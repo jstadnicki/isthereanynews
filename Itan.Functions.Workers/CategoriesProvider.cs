@@ -16,7 +16,7 @@ public class CategoriesProvider : ICategoriesProvider
     {
         Ensure.NotNull(connectionOptions, nameof(connectionOptions));
 
-        _connectionString = connectionOptions.Value.SqlReader;
+        _connectionString = connectionOptions.Value.SqlWriter;
     }
 
     public async Task<List<Category>> GetOrCreateByNamesAsync(List<string> normalizedCategories)
