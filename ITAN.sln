@@ -15,8 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Itan.Core", "Itan.Core\Itan
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Itan.Functions", "Itan.Functions\Itan.Functions.csproj", "{AC1F62D7-6089-4F86-912C-E80C666B0B39}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Itan.Functions.Workers.Tests", "Itan.Functions.Workers.Tests\Itan.Functions.Workers.Tests.csproj", "{D82DF557-31AE-46FC-97D4-906DC61EDAD2}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Itan.Common", "Itan.Common\Itan.Common.csproj", "{1DF2BB79-61CB-4BF9-926E-67F78A0039A5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Itan.Wrappers", "Itan.Wrappers\Itan.Wrappers.csproj", "{5A8EACEC-B4EA-478A-9D41-C02073EB4279}"
