@@ -20,7 +20,8 @@ namespace Itan.Core.GetUnreadNewsByChannel
             _storage = connectionOptions.Value.Storage;
         }
 
-        public List<NewsViewModel> GetNewsViewModel(string requestChannelId, List<NewsHeader> newsHeaders)
+        public List<NewsViewModel> GetNewsViewModel(string requestChannelId, List<NewsHeader> newsHeaders,
+            List<NewsHeaderTagViewModel> newsHeaderTagViewModels)
         {
             var blobClient = new BlobServiceClient(_storage);
             var container = blobClient.GetBlobContainerClient("rss");
@@ -48,7 +49,8 @@ namespace Itan.Core.GetUnreadNewsByChannel
                     Published = x.Published,
                     ContentUrl = blob.GenerateSasUri(blobSasBuilder).ToString(),
                     Link = x.Link,
-                    OriginalPostId = x.OriginalPostId
+                    OriginalPostId = x.OriginalPostId,
+                    Tags = newsHeaderTagViewModels.Where(nht => nht.NewsId == x.Id).ToList()
                 };
                 return newsViewModel;
             });

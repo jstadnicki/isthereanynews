@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Itan.Core.GetAllSubscribedChannels;
@@ -29,7 +30,10 @@ namespace Itan.Core.GetUnreadNewsByChannel
         {
             var readerSettings = await _readerSettingsRepository.GetAsync(request.UserId);
             var newsHeaders =  await _dataBaseRepository.GetUnreadNewsAsync(request.ChannelId, request.UserId, readerSettings.ShowUpdatedNews, readerSettings.SquashNewsUpdates);
-            var newsViewModel = _cloudRepository.GetNewsViewModel(request.ChannelId, newsHeaders);
+            var newsId = newsHeaders.Select(x => x.Id).ToList();
+            var tags = await _dataBaseRepository.GetTagsForNewsAsync(newsId);
+            
+            var newsViewModel = _cloudRepository.GetNewsViewModel(request.ChannelId, newsHeaders, tags);
             return newsViewModel;
         }
     }

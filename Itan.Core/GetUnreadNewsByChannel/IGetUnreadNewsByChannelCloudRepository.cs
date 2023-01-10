@@ -5,6 +5,7 @@ namespace Itan.Core.GetUnreadNewsByChannel
 {
     public interface IGetUnreadNewsByChannelCloudRepository
     {
-        List<NewsViewModel> GetNewsViewModel(string requestChannelId, List<NewsHeader> newsHeaders);
+        List<NewsViewModel> GetNewsViewModel(string requestChannelId, List<NewsHeader> newsHeaders,
+            List<NewsHeaderTagViewModel> newsHeaderTagViewModels);
     }
 }

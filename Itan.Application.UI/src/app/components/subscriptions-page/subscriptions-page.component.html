@@ -127,10 +127,15 @@
           <div class="media-content">
             <div class="content">
               <p>
-                <span [ngClass]="{'is-unread':!newsItem.read, 'is-read':newsItem.read}">{{getNewsTitle(newsItem)}}</span>{{newsItem.viewModel.published|date}}<i class="fa"
-                                                                                 [ngClass]="{'fa-chevron-down':!newsItem.contentVisible,'fa-chevron-up':newsItem.contentVisible}"
-                                                                                 (click)="onNewsClick(newsItem)"></i>
+                <span [ngClass]="{'is-unread':!newsItem.read, 'is-read':newsItem.read}">{{getNewsTitle(newsItem)}}</span>
+                {{newsItem.viewModel.published|date}}
+                <span class="read-more" (click)="onNewsClick(newsItem)">read more
+                  <i class="fa"[ngClass]="{'fa-chevron-down':!newsItem.contentVisible,'fa-chevron-up':newsItem.contentVisible}"></i>
+                </span>
               </p>
+              <div class="tags">
+                <span class="tag-news" *ngFor="let tag of newsItem.viewModel.tags">#{{tag.text}}</span>
+              </div>
 
               <div *ngIf="newsItem.content" [ngClass]="{'is-hidden':!newsItem.contentVisible}">
                 <progress class="progress is-info"

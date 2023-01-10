@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using Itan.Common;
+using Itan.Core.GetNewsByChannel;
 using Itan.Core.UpdateSquashNewsUpdates;
 using Microsoft.Extensions.Options;
 
@@ -39,7 +41,7 @@ namespace Itan.Core.GetUnreadNewsByChannel
                         (updatedNews == UpdatedNews.Ignore ? hideUpdatesQuery : empty) +
                         " order by n.Published desc";
 
-            if (updatedNews == UpdatedNews.Show &&  squashUpdate == SquashUpdate.Squash)
+            if (updatedNews == UpdatedNews.Show && squashUpdate == SquashUpdate.Squash)
             {
                 query = " select t.Id, t.Title, t.Published, t.Link, t.OriginalPostId, rn" +
                         " into #ns" +
@@ -63,11 +65,25 @@ namespace Itan.Core.GetUnreadNewsByChannel
                 personId
             };
 
-            using (var connection = new SqlConnection(_connection))
+            using var connection = new SqlConnection(_connection);
+            var news = await connection.QueryAsync<NewsHeader>(query, queryData);
+            return news.ToList();
+        }
+
+        public async Task<List<NewsHeaderTagViewModel>> GetTagsForNewsAsync(List<Guid> newsId)
+        {
+            var queryText = "\n select * from Tags t" +
+                            "\n join NewsTags nt" +
+                            "\n     on t.Id = nt.TagId" +
+                            "\n where nt.NewsId in  @newsId";
+            var queryData = new
             {
-                var news = await connection.QueryAsync<NewsHeader>(query, queryData);
-                return news.ToList();
-            }
+                newsId
+            };
+            
+            using var connection = new SqlConnection(_connection);
+            var news = await connection.QueryAsync<NewsHeaderTagViewModel>(queryText, queryData);
+            return news.ToList();
         }
     }
 }

@@ -15,7 +15,22 @@
 }
 
 .container {
-  height: calc(100% - 56px - 2em - 64px)
+  height: calc(100% - 56px - 2em - 64px);
+
+  .tag-news{
+    border: 1px solid lightgray;
+    background: #F0F0F0;
+    border-radius: 15px;
+    font-size: 10px;
+    margin: 0 2px;
+    padding: 0 1px;
+  }
+
+  .read-more{
+    cursor: pointer;
+    margin: 0 2px;
+    padding: 0 1px;
+  }
 }
 
 .columns {
